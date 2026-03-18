@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protótipo — InfoPrice</title>
+
+  <!-- Design System tokens -->
+  <link rel="stylesheet" href="tokens.css" />
+
+  <!-- Open Sans via Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+  />
+
+  <style>
+    /* ──────────────────────────────────────────────────────────
+       RESET
+    ────────────────────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+      background-color: var(--color-gray-100);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img, svg, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--color-blue-500);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--color-blue-600);
+    }
+
+    button {
+      font-family: var(--font-family-base);
+      cursor: pointer;
+    }
+
+    input, select, textarea {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       LAYOUT BASE
+    ────────────────────────────────────────────────────────── */
+    .page {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       HEADER
+    ────────────────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      height: 56px;
+      padding: 0 24px;
+      background-color: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-300);
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .header__logo {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-brand-primary);
+    }
+
+    .header__nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       MAIN
+    ────────────────────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      padding: 24px;
+    }
+
+    /* ──────────────────────────────────────────────────────────
+       FOOTER
+    ────────────────────────────────────────────────────────── */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 24px;
+      background-color: var(--color-white);
+      border-top: 1px solid var(--color-gray-300);
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-600);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ────────────────────────────────────────────────────
+         HEADER
+         Substitua o logo e a navegação conforme o protótipo.
+    ──────────────────────────────────────────────────────── -->
+    <header class="header">
+      <span class="header__logo">InfoPrice</span>
+      <nav class="header__nav" aria-label="Navegação principal">
+        <!-- itens de nav aqui -->
+      </nav>
+    </header>
+
+    <!-- ────────────────────────────────────────────────────
+         MAIN — CONTEÚDO DO PROTÓTIPO
+         ↓↓↓ Cole o conteúdo do protótipo aqui ↓↓↓
+    ──────────────────────────────────────────────────────── -->
+    <main class="main" id="main-content" aria-label="Conteúdo principal">
+
+      <!-- PROTÓTIPO: início -->
+
+      <!-- PROTÓTIPO: fim -->
+
+    </main>
+
+    <!-- ────────────────────────────────────────────────────
+         FOOTER
+    ──────────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <span>InfoPrice &copy; <span id="footer-year"></span></span>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
