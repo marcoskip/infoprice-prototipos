@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,8 +15,18 @@
 
   <style>
     /* ── RESET ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: var(--font-size-md); }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: var(--font-size-md);
+    }
+
     body {
       font-family: var(--font-family-base);
       background: var(--color-gray-200);
@@ -25,381 +36,962 @@
     }
 
     /* ── LAYOUT SHELL ── */
-    .app { display: flex; flex-direction: column; min-height: 100vh; }
-    .app-body { display: flex; flex: 1; }
-    .main { flex: 1; overflow-x: auto; padding: 4px 16px 16px; }
+    .app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .app-body {
+      display: flex;
+      flex: 1;
+    }
+
+    .main {
+      flex: 1;
+      overflow-x: auto;
+      padding: 4px 16px 16px;
+    }
 
     /* ── MENU BAR ── */
     .menubar {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 52px; padding: 0 16px;
-      background: var(--color-blue-500); color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      padding: 0 16px;
+      background: var(--color-blue-500);
+      color: var(--color-white);
     }
-    .menubar-left { display: flex; align-items: center; gap: 8px; }
-    .menubar-left .material-icons { font-size: 24px; cursor: pointer; }
+
+    .menubar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menubar-left .material-icons {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
     .menubar-logo {
-      font-size: var(--font-size-md); font-weight: var(--font-weight-semibold);
-      letter-spacing: .5px; margin-left: 4px;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: .5px;
+      margin-left: 4px;
     }
+
     .menubar-status {
-      font-size: var(--font-size-md); font-weight: var(--font-weight-semibold);
-      display: flex; align-items: center; gap: 6px;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+
     .menubar-status .badge-lite {
-      display: inline-flex; align-items: center; gap: 2px;
-      background: rgba(255,255,255,.15); border-radius: 4px;
-      padding: 0 6px; font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
-      color: var(--color-blue-light-45); height: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(255, 255, 255, .15);
+      border-radius: 4px;
+      padding: 0 6px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-light-45);
+      height: 18px;
     }
-    .menubar-right { display: flex; align-items: center; gap: 12px; }
-    .menubar-right .material-icons { font-size: 20px; cursor: pointer; }
+
+    .menubar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menubar-right .material-icons {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
     .btn-clube {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--color-orange-400); color: var(--color-white);
-      border: none; border-radius: 4px; padding: 4px 12px; cursor: pointer;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--color-orange-400);
+      color: var(--color-white);
+      border: none;
+      border-radius: 4px;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
       text-transform: lowercase;
     }
+
     .menubar-user {
-      font-size: var(--font-size-md); font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
     }
 
     /* ── SIDEBAR ── */
     .sidebar {
-      width: 48px; background: var(--color-white);
+      width: 48px;
+      background: var(--color-white);
       border-right: 1px solid var(--color-gray-300);
-      display: flex; flex-direction: column; align-items: center;
-      padding-top: 8px; gap: 4px; flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 8px;
+      gap: 4px;
+      flex-shrink: 0;
     }
+
     .sidebar-item {
-      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
-      border-radius: 6px; cursor: pointer; color: var(--color-gray-700);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--color-gray-700);
       transition: background .15s;
     }
-    .sidebar-item:hover { background: var(--color-gray-100); }
-    .sidebar-item.active { color: var(--color-blue-400); }
-    .sidebar-item .material-icons { font-size: 20px; }
-    .sidebar-spacer { flex: 1; }
-    .sidebar-bottom { margin-bottom: 12px; color: var(--color-gray-500); }
+
+    .sidebar-item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .sidebar-item.active {
+      color: var(--color-blue-400);
+    }
+
+    .sidebar-item .material-icons {
+      font-size: 20px;
+    }
+
+    .sidebar-spacer {
+      flex: 1;
+    }
+
+    .sidebar-bottom {
+      margin-bottom: 12px;
+      color: var(--color-gray-500);
+    }
 
     /* ── SECTION TOP ── */
     .section-top {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      flex-wrap: wrap; gap: 8px; margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
     }
-    .section-top-left { display: flex; flex-direction: column; gap: 2px; }
+
+    .section-top-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     .page-title {
-      display: flex; align-items: center; gap: 8px;
-      font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
       color: var(--color-gray-900);
     }
+
     .tag-green {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--color-green-400); color: var(--color-white);
-      border-radius: 4px; padding: 0 8px;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--color-green-400);
+      color: var(--color-white);
+      border-radius: 12px;
+      padding: 0 12px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
       height: 18px;
     }
+
     .page-subtitle {
-      display: flex; align-items: center; gap: 8px;
-      font-size: var(--font-size-sm); color: var(--color-gray-600);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
     }
-    .link { color: var(--color-blue-400); text-decoration: none; font-size: var(--font-size-sm); cursor: pointer; }
-    .link:hover { text-decoration: underline; }
-    .section-top-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    .link {
+      color: var(--color-blue-400);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .section-top-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
     /* ── CHIPS ── */
     .chip {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
       font-family: var(--font-family-base);
-      font-size: var(--font-size-sm); font-weight: var(--font-weight-regular);
-      white-space: nowrap; height: 28px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      white-space: nowrap;
+      height: 28px;
     }
-    .chip .material-icons { font-size: 14px; }
-    .chip-label { font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); text-transform: uppercase; }
-    .chip-default { background: var(--color-gray-300); color: var(--color-gray-800); }
-    .chip-active { background: var(--color-blue-light-5); color: var(--color-blue-500); }
-    .chip-active .chip-label { color: var(--color-blue-500); }
-    .chip-active .material-icons { color: var(--color-blue-500); }
+
+    .chip .material-icons {
+      font-size: 14px;
+    }
+
+    .chip-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .chip-default {
+      background: var(--color-gray-300);
+      color: var(--color-gray-800);
+    }
+
+    .chip-active {
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-500);
+    }
+
+    .chip-active .chip-label {
+      color: var(--color-blue-500);
+    }
+
+    .chip-active .material-icons {
+      color: var(--color-blue-500);
+    }
+
     .chip-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--color-blue-400); color: var(--color-white);
-      border-radius: 8px; font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
-      min-width: 18px; height: 16px; padding: 0 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-blue-400);
+      color: var(--color-white);
+      border-radius: 8px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      min-width: 18px;
+      height: 16px;
+      padding: 0 4px;
     }
-    .chip-close { cursor: pointer; opacity: .7; }
-    .chip-close:hover { opacity: 1; }
+
+    .chip-close {
+      cursor: pointer;
+      opacity: .7;
+    }
+
+    .chip-close:hover {
+      opacity: 1;
+    }
 
     .btn-secondary {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 10px; border-radius: 4px;
-      background: var(--color-blue-light-5); color: var(--color-blue-700);
-      border: none; cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-700);
+      border: none;
+      cursor: pointer;
       font-family: var(--font-family-base);
-      font-size: var(--font-size-sm); height: 30px;
+      font-size: var(--font-size-sm);
+      height: 30px;
     }
-    .btn-secondary .material-icons { font-size: 18px; color: var(--color-blue-400); }
-    .btn-secondary:hover { background: var(--color-blue-light-10); }
+
+    .btn-secondary .material-icons {
+      font-size: 18px;
+      color: var(--color-blue-400);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-blue-light-10);
+    }
 
     /* ── BIG NUMBERS ── */
     .big-numbers {
-      display: flex; gap: 0; padding: 12px;
-      background: var(--color-white); border-radius: 6px;
-      margin-bottom: 8px; overflow-x: auto;
+      display: flex;
+      gap: 0;
+      padding: 12px;
+      background: var(--color-white);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      overflow-x: auto;
     }
+
     .big-card {
-      flex: 0 0 auto; padding: 8px 12px;
-      border-radius: 4px; min-width: 130px;
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 4px;
+      min-width: 130px;
     }
-    .big-card + .big-card { margin-left: 8px; }
-    .big-card-orange { background: var(--color-orange-light-10); }
-    .big-card-blue { background: var(--color-blue-light-5); }
-    .big-card-green { background: var(--color-green-light-5); }
-    .big-card-gray { background: var(--color-gray-100); }
+
+    .big-card+.big-card {
+      margin-left: 8px;
+    }
+
+    .big-card-orange {
+      background: var(--color-orange-light-10);
+    }
+
+    .big-card-blue {
+      background: var(--color-blue-light-5);
+    }
+
+    .big-card-green {
+      background: var(--color-green-light-5);
+    }
+
+    .big-card-gray {
+      background: var(--color-gray-100);
+    }
+
     .big-value {
-      display: flex; align-items: center; gap: 6px;
-      font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
       color: var(--color-gray-900);
     }
-    .big-link { font-size: var(--font-size-xs); color: var(--color-blue-400); cursor: pointer; }
-    .big-link:hover { text-decoration: underline; }
+
+    .big-link {
+      font-size: var(--font-size-xs);
+      color: var(--color-blue-400);
+      cursor: pointer;
+    }
+
+    .big-link:hover {
+      text-decoration: underline;
+    }
+
     .big-btn {
-      display: inline-flex; align-items: center; gap: 2px;
-      background: var(--color-orange-400); color: var(--color-white);
-      border: none; border-radius: 4px; padding: 2px 8px; cursor: pointer;
-      font-size: var(--font-size-xs); height: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--color-orange-400);
+      color: var(--color-white);
+      border: none;
+      border-radius: 4px;
+      padding: 2px 8px;
+      cursor: pointer;
+      font-size: var(--font-size-xs);
+      height: 24px;
     }
+
     .big-desc {
-      font-size: var(--font-size-sm); color: var(--color-gray-600);
-      margin-top: 2px; line-height: var(--line-height-sm);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+      margin-top: 2px;
+      line-height: var(--line-height-sm);
     }
+
     .variation {
-      display: inline-flex; align-items: center; gap: 2px;
-      font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold);
-      border-radius: 4px; padding: 1px 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border-radius: 4px;
+      padding: 1px 6px;
     }
-    .variation-red { color: var(--color-red-600); background: var(--color-red-light-5); }
-    .variation-green { color: var(--color-green-500); background: var(--color-green-light-5); }
-    .variation .material-icons { font-size: 14px; }
+
+    .variation-red {
+      color: var(--color-red-600);
+      background: var(--color-red-light-5);
+    }
+
+    .variation-green {
+      color: var(--color-green-500);
+      background: var(--color-green-light-5);
+    }
+
+    .variation .material-icons {
+      font-size: 14px;
+    }
 
     /* ── FILTERS ── */
     .filters-section {
-      background: var(--color-white); border-radius: 6px;
-      padding: 12px; margin-bottom: 8px;
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 8px;
     }
-    .filters-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-    .filters-row:last-child { margin-bottom: 0; }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .filters-row:last-child {
+      margin-bottom: 0;
+    }
+
     .filter-chip {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--color-gray-100); border: none; border-radius: 4px;
-      padding: 6px 10px; cursor: pointer;
-      font-family: var(--font-family-base); font-size: var(--font-size-md);
-      color: var(--color-gray-800); height: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--color-gray-100);
+      border: none;
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      color: var(--color-gray-800);
+      height: 36px;
     }
-    .filter-chip .material-icons { font-size: 16px; color: var(--color-gray-800); }
+
+    .filter-chip .material-icons {
+      font-size: 16px;
+      color: var(--color-gray-800);
+    }
+
     .filter-chip .filter-label {
-      font-size: var(--font-size-sm); font-weight: var(--font-weight-bold);
-      color: var(--color-gray-600); text-transform: uppercase; margin-right: 2px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-600);
+      text-transform: uppercase;
+      margin-right: 2px;
     }
-    .filter-actions { display: flex; gap: 8px; align-items: flex-start; }
+
+    .filter-actions {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
 
     /* ── TABLE HEADER AREA ── */
     .table-header-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--color-white); border-radius: 6px;
-      padding: 8px 12px; margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 0;
       border-bottom: 1px solid var(--color-gray-300);
     }
+
     .table-info {
-      display: flex; align-items: center; gap: 8px;
-      font-size: var(--font-size-md); color: var(--color-gray-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: var(--font-size-md);
+      color: var(--color-gray-900);
     }
-    .table-info .material-icons { font-size: 16px; color: var(--color-blue-400); }
-    .table-actions { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+
+    .table-info .material-icons {
+      font-size: 16px;
+      color: var(--color-blue-400);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .btn-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 4px;
-      border: none; cursor: pointer;
-      background: var(--color-gray-300); color: var(--color-gray-600);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: var(--color-gray-300);
+      color: var(--color-gray-600);
     }
-    .btn-icon:hover { background: var(--color-gray-400); }
-    .btn-icon .material-icons { font-size: 20px; }
-    .btn-icon-blue { background: var(--color-blue-light-5); color: var(--color-blue-400); }
-    .btn-icon-blue:hover { background: var(--color-blue-light-10); }
-    .btn-icon-red { background: var(--color-red-light-5); color: var(--color-red-600); }
+
+    .btn-icon:hover {
+      background: var(--color-gray-400);
+    }
+
+    .btn-icon .material-icons {
+      font-size: 20px;
+    }
+
+    .btn-icon-blue {
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-400);
+    }
+
+    .btn-icon-blue:hover {
+      background: var(--color-blue-light-10);
+    }
+
+    .btn-icon-red {
+      background: var(--color-red-light-5);
+      color: var(--color-red-600);
+    }
 
     .btn-primary {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--color-blue-400); color: var(--color-white);
-      border: none; border-radius: 4px; padding: 8px 16px; cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-blue-400);
+      color: var(--color-white);
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      cursor: pointer;
       font-family: var(--font-family-base);
-      font-size: var(--font-size-md); font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
       height: 36px;
     }
-    .btn-primary .material-icons { font-size: 20px; }
-    .btn-primary:hover { background: var(--color-blue-600); }
+
+    .btn-primary .material-icons {
+      font-size: 20px;
+    }
+
+    .btn-primary:hover {
+      background: var(--color-blue-600);
+    }
 
     .divider-v {
-      width: 1px; height: 24px; background: var(--color-gray-300);
+      width: 1px;
+      height: 24px;
+      background: var(--color-gray-300);
       margin: 0 4px;
     }
 
     /* ── DATA TABLE ── */
-    .data-table-wrapper { overflow-x: auto; background: var(--color-white); border-radius: 0 0 6px 6px; }
+    .data-table-wrapper {
+      overflow-x: auto;
+      background: var(--color-white);
+      border-radius: 0 0 6px 6px;
+    }
+
     .data-table {
-      width: 100%; border-collapse: collapse;
+      width: 100%;
+      border-collapse: collapse;
       font-size: var(--font-size-sm);
     }
+
     .data-table th {
       background: var(--color-white);
       color: var(--color-gray-700);
       font-weight: var(--font-weight-regular);
       font-size: var(--font-size-sm);
       padding: 8px 6px;
-      text-align: left; white-space: nowrap;
+      text-align: left;
+      white-space: nowrap;
       border-bottom: 2px solid var(--color-gray-300);
-      position: sticky; top: 0; z-index: 2;
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
+
     .data-table th .th-inner {
-      display: flex; align-items: center; gap: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .data-table th .material-icons { font-size: 12px; color: var(--color-gray-500); cursor: pointer; }
+
+    .data-table th .material-icons {
+      font-size: 12px;
+      color: var(--color-gray-500);
+      cursor: pointer;
+    }
+
     .data-table td {
-      padding: 6px 6px; border-bottom: 1px solid var(--color-gray-300);
-      vertical-align: top; white-space: nowrap;
+      padding: 6px 6px;
+      border-bottom: 1px solid var(--color-gray-300);
+      vertical-align: top;
+      white-space: nowrap;
     }
-    .data-table tr:hover td { background: var(--color-blue-light-5); }
-    .data-table .cb-cell { width: 32px; text-align: center; }
+
+    .data-table tr:hover td {
+      background: var(--color-blue-light-5);
+    }
+
+    .data-table .cb-cell {
+      width: 32px;
+      text-align: center;
+    }
+
     .data-table input[type="checkbox"] {
-      width: 16px; height: 16px; accent-color: var(--color-blue-400); cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--color-blue-400);
+      cursor: pointer;
     }
 
     /* Cell: Produto */
-    .cell-produto { min-width: 220px; }
+    .cell-produto {
+      min-width: 220px;
+    }
+
     .produto-code {
-      font-size: var(--font-size-md); font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
       color: var(--color-gray-900);
     }
-    .produto-badges { display: flex; gap: 4px; align-items: center; margin-top: 1px; flex-wrap: wrap; }
+
+    .produto-badges {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      margin-top: 1px;
+      flex-wrap: wrap;
+    }
+
     .badge-sm {
-      display: inline-flex; align-items: center; gap: 2px;
-      padding: 0 4px; border-radius: 3px;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0 4px;
+      border-radius: 3px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
       height: 16px;
     }
-    .badge-blue { background: var(--color-blue-light-5); color: var(--color-blue-400); }
-    .badge-blue-solid { background: var(--color-blue-400); color: var(--color-white); }
-    .badge-gray { background: var(--color-gray-100); color: var(--color-gray-600); }
-    .badge-sm .material-icons { font-size: 10px; }
+
+    .badge-blue {
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-400);
+    }
+
+    .badge-blue-solid {
+      background: var(--color-blue-400);
+      color: var(--color-white);
+    }
+
+    .badge-gray {
+      background: var(--color-gray-100);
+      color: var(--color-gray-600);
+    }
+
+    .badge-sm .material-icons {
+      font-size: 10px;
+    }
+
     .produto-name {
-      font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold);
-      color: var(--color-gray-700); margin-top: 2px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+      margin-top: 2px;
     }
-    .produto-tags { display: flex; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
+
+    .produto-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
     .produto-tag {
-      display: inline-block; padding: 0 4px; border-radius: 3px;
-      font-size: var(--font-size-xs); color: var(--color-gray-600);
-      background: var(--color-gray-100); height: 16px; line-height: 16px;
+      display: inline-block;
+      padding: 0 4px;
+      border-radius: 3px;
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-600);
+      background: var(--color-gray-100);
+      height: 16px;
+      line-height: 16px;
     }
+
     .pharma-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 14px; height: 14px; background: var(--color-blue-light-5);
-      border-radius: 2px; font-size: 10px; color: var(--color-blue-500);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      background: var(--color-blue-light-5);
+      border-radius: 2px;
+      font-size: 10px;
+      color: var(--color-blue-500);
     }
 
     /* Cell: Loja */
-    .cell-loja { min-width: 90px; }
-    .loja-code { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
-    .loja-regional {
-      display: inline-block; padding: 0 4px; border-radius: 3px;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
-      background: var(--color-blue-light-5); color: var(--color-blue-400);
-      height: 16px; line-height: 16px; margin-top: 2px;
+    .cell-loja {
+      min-width: 90px;
     }
-    .loja-type { font-size: var(--font-size-xs); color: var(--color-gray-700); margin-top: 1px; }
+
+    .loja-code {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .loja-regional {
+      display: inline-block;
+      padding: 0 4px;
+      border-radius: 3px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-400);
+      height: 16px;
+      line-height: 16px;
+      margin-top: 2px;
+    }
+
+    .loja-type {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-700);
+      margin-top: 1px;
+    }
 
     /* Cell: Estoque / Venda */
-    .cell-estoque { min-width: 100px; }
-    .estoque-main { display: flex; align-items: center; gap: 4px; }
-    .estoque-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
+    .cell-estoque {
+      min-width: 100px;
+    }
+
+    .estoque-main {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .estoque-val {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
     .estoque-detail {
-      font-size: 11px; color: var(--color-gray-700);
-      display: flex; align-items: center; gap: 4px; margin-top: 2px;
+      font-size: 11px;
+      color: var(--color-gray-700);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
     }
-    .estoque-detail .material-icons { font-size: 10px; color: var(--color-gray-600); }
+
+    .estoque-detail .material-icons {
+      font-size: 10px;
+      color: var(--color-gray-600);
+    }
+
     .variation-sm {
-      display: inline-flex; align-items: center; gap: 2px;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
-      padding: 0 4px; border-radius: 3px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      padding: 0 4px;
+      border-radius: 3px;
+      height: 16px;
     }
-    .var-green { background: var(--color-green-light-5); color: var(--color-green-400); }
-    .var-red { background: var(--color-red-light-5); color: var(--color-red-400); }
+
+    .var-green {
+      background: var(--color-green-light-5);
+      color: var(--color-green-400);
+    }
+
+    .var-red {
+      background: var(--color-red-light-5);
+      color: var(--color-red-400);
+    }
 
     /* Cell: PMZ e custo */
-    .cell-pmz { min-width: 80px; }
-    .pmz-main { display: flex; align-items: center; gap: 4px; }
-    .pmz-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
-    .pmz-custo { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--color-gray-700); }
-    .pmz-detail { font-size: 11px; color: var(--color-gray-700); margin-top: 2px; display: flex; gap: 8px; align-items: center; }
-    .pmz-margin { background: var(--color-gray-100); padding: 0 4px; border-radius: 3px; font-weight: var(--font-weight-semibold); }
+    .cell-pmz {
+      min-width: 80px;
+    }
+
+    .pmz-main {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pmz-val {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .pmz-custo {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+    }
+
+    .pmz-detail {
+      font-size: 11px;
+      color: var(--color-gray-700);
+      margin-top: 2px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pmz-margin {
+      background: var(--color-gray-100);
+      padding: 0 4px;
+      border-radius: 3px;
+      font-weight: var(--font-weight-semibold);
+    }
 
     /* Cell: Margem obj. */
-    .cell-margem { min-width: 70px; }
-    .margem-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
-    .margem-flag { font-size: 11px; color: var(--color-gray-600); }
+    .cell-margem {
+      min-width: 70px;
+    }
+
+    .margem-val {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .margem-flag {
+      font-size: 11px;
+      color: var(--color-gray-600);
+    }
 
     /* Cell: Emb */
-    .cell-emb { min-width: 50px; }
-    .emb-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
-    .emb-unit { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--color-gray-700); }
+    .cell-emb {
+      min-width: 50px;
+    }
+
+    .emb-val {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .emb-unit {
+      font-size: 11px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+    }
 
     /* Cell: PMC */
-    .cell-pmc { min-width: 80px; }
+    .cell-pmc {
+      min-width: 80px;
+    }
 
     /* Cell: Preço vigente */
-    .cell-vigente { min-width: 100px; }
+    .cell-vigente {
+      min-width: 100px;
+    }
 
     /* Cell: Preço concorrência */
-    .cell-concor { min-width: 100px; }
+    .cell-concor {
+      min-width: 100px;
+    }
 
     /* Cell: Preço sugerido + Preço oferta (combined) */
-    .cell-sugerido { min-width: 220px; }
-    .preco-row { display: flex; align-items: center; gap: 6px; }
+    .cell-sugerido {
+      min-width: 220px;
+    }
+
+    .preco-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .preco-label {
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
-      text-transform: uppercase; color: var(--color-gray-600);
-      width: 52px; flex-shrink: 0;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-600);
+      width: 52px;
+      flex-shrink: 0;
     }
-    .preco-label-oferta { color: var(--color-orange-500); }
+
+    .preco-label-oferta {
+      color: var(--color-orange-500);
+    }
+
     .preco-input {
-      width: 72px; height: 28px; border: 1px solid var(--color-gray-400);
-      border-radius: 4px; padding: 0 6px; text-align: right;
+      width: 72px;
+      height: 28px;
+      border: 1px solid var(--color-gray-400);
+      border-radius: 4px;
+      padding: 0 6px;
+      text-align: right;
       font-family: var(--font-family-base);
-      font-size: var(--font-size-md); font-weight: var(--font-weight-semibold);
-      color: var(--color-gray-900); background: var(--color-white);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      background: var(--color-white);
     }
-    .preco-input:focus { outline: none; border-color: var(--color-blue-400); box-shadow: var(--shadow-focus); }
-    .preco-input-oferta { border-color: var(--color-orange-400); background: var(--color-orange-light-5); }
+
+    .preco-input:focus {
+      outline: none;
+      border-color: var(--color-blue-400);
+      box-shadow: var(--shadow-focus);
+    }
+
+    .preco-input-oferta {
+      border-color: var(--color-orange-400);
+      background: var(--color-orange-light-5);
+    }
+
     .preco-diff {
-      font-size: 11px; color: var(--color-gray-700);
+      font-size: 11px;
+      color: var(--color-gray-700);
     }
 
     /* Cell: Margem / CPI */
-    .cell-margin { min-width: 70px; }
-    .cell-cpi { min-width: 70px; }
+    .cell-margin {
+      min-width: 70px;
+    }
+
+    .cell-cpi {
+      min-width: 70px;
+    }
 
     /* Cell: Previsão demanda */
-    .cell-demanda { min-width: 100px; }
+    .cell-demanda {
+      min-width: 100px;
+    }
 
     /* Cell: Insight */
-    .cell-insight { min-width: 80px; }
+    .cell-insight {
+      min-width: 80px;
+    }
+
     .insight-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
       background: var(--color-blue-light-10);
     }
-    .insight-icon .material-icons { font-size: 16px; color: var(--color-blue-400); }
+
+    .insight-icon .material-icons {
+      font-size: 16px;
+      color: var(--color-blue-400);
+    }
 
     /* Group rows */
     .group-row td {
@@ -408,674 +1000,733 @@
       font-size: var(--font-size-md);
       padding: 10px 6px;
     }
-    .group-name { display: flex; align-items: center; gap: 6px; }
-    .group-name .material-icons { font-size: 20px; color: var(--color-gray-700); }
+
+    .group-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .group-name .material-icons {
+      font-size: 20px;
+      color: var(--color-gray-700);
+    }
 
     /* Highlight oferta row */
-    .row-oferta td { background: var(--color-orange-light-5); }
+    .row-oferta td {
+      background: var(--color-orange-light-5);
+    }
 
     /* Responsive scroll hint */
     @media (max-width: 1400px) {
-      .data-table-wrapper { border-right: 3px solid var(--color-blue-light-20); }
+      .data-table-wrapper {
+        border-right: 3px solid var(--color-blue-light-20);
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="app">
-  <!-- ═══ MENU BAR ═══ -->
-  <header class="menubar">
-    <div class="menubar-left">
-      <span class="material-icons">apps</span>
-      <span class="menubar-logo">InfoPrice</span>
-      <span class="menubar-status">
-        IPA | Software de Precificacao
-        <span class="badge-lite">lite</span>
-      </span>
-    </div>
-    <div class="menubar-right">
-      <button class="btn-clube"><span class="material-icons" style="font-size:12px">local_offer</span> clube de descontos</button>
-      <span class="menubar-user">Ola, Marcus</span>
-      <span class="material-icons">help_outline</span>
-      <span class="material-icons">person_add</span>
-    </div>
-  </header>
-
-  <div class="app-body">
-    <!-- ═══ SIDEBAR ═══ -->
-    <nav class="sidebar">
-      <div class="sidebar-item"><span class="material-icons">home</span></div>
-      <div class="sidebar-item active"><span class="material-icons">offline_pin</span></div>
-      <div class="sidebar-item"><span class="material-icons">price_change</span></div>
-      <div class="sidebar-item"><span class="material-icons">auto_fix_high</span></div>
-      <div class="sidebar-item"><span class="material-icons">account_tree</span></div>
-      <div class="sidebar-item"><span class="material-icons">local_offer</span></div>
-      <div class="sidebar-item"><span class="material-icons">handshake</span></div>
-      <div class="sidebar-item"><span class="material-icons">auto_graph</span></div>
-      <div class="sidebar-item"><span class="material-icons">store</span></div>
-      <div class="sidebar-item"><span class="material-icons">file_download</span></div>
-      <div class="sidebar-spacer"></div>
-      <div class="sidebar-item sidebar-bottom"><span class="material-icons">settings</span></div>
-    </nav>
-
-    <!-- ═══ MAIN CONTENT ═══ -->
-    <div class="main">
-
-      <!-- Section: Topo -->
-      <section class="section-top" style="margin-top:4px;">
-        <div class="section-top-left">
-          <div class="page-title">
-            Gerenciador de precos
-            <span class="tag-green">atualizado em 01/07/2023, 13:42</span>
-          </div>
-          <div class="page-subtitle">
-            Revisar todos os produtos
-            <a class="link"><span class="material-icons" style="font-size:12px;vertical-align:middle">open_in_new</span> Editar configuracoes</a>
-          </div>
-        </div>
-        <div class="section-top-right">
-          <button class="btn-secondary"><span class="material-icons">change_circle</span> Modo Aprovacao</button>
-          <div class="chip chip-active"><span class="chip-label">agrupar por</span> Loja <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
-          <div class="chip chip-active"><span class="chip-label">precificar por</span> Produto <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
-          <div class="chip chip-default"><span class="material-icons">push_pin</span> <span class="chip-label">agrupar por</span> Fixar</div>
-          <div class="chip chip-default"><span class="chip-label">2</span> Atacado</div>
-          <div class="chip chip-default"><span class="chip-label">3</span> Oferta</div>
-          <div class="chip chip-default"><span class="chip-label">precificar por</span> Comprador</div>
-          <div class="chip chip-default"><span class="chip-label">tipo preco</span> Varejo</div>
-          <div class="chip chip-default"><span class="chip-label">tipo preco</span> Concorrencia</div>
-          <div class="chip chip-default"><span class="chip-label">precificar por</span> Mostrar</div>
-        </div>
-      </section>
-
-      <!-- Section: Big Numbers -->
-      <section class="big-numbers">
-        <div class="big-card big-card-orange">
-          <div class="big-value">23 <button class="big-btn"><span class="material-icons" style="font-size:14px">check</span> Revisar</button></div>
-          <div class="big-desc">Precos precisam de aprovacao</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">3.645 <span class="big-link">Selecionar</span></div>
-          <div class="big-desc">de 3.645 do total de precos</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">236 <span class="big-link">Filtrar</span></div>
-          <div class="big-desc">de 236 de novos custos</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">1.269 <span class="big-link">Selecionar tudo</span></div>
-          <div class="big-desc">de 1.269 precos sugeridos</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">364 <span class="big-link">Selecionar tudo</span></div>
-          <div class="big-desc">de 364 precos aplicados</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">101,3%
-            <span class="variation variation-red"><span class="material-icons">trending_down</span> 0,4 %</span>
-          </div>
-          <div class="big-desc">Competitividade projetada,<br>era 102,3 %</div>
-        </div>
-        <div class="big-card big-card-blue">
-          <div class="big-value">26,3%
-            <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1 %</span>
-          </div>
-          <div class="big-desc">Margem projetada,<br>era 26,2 %</div>
-        </div>
-        <div class="big-card big-card-green">
-          <div class="big-value">+ R$ 392mil
-            <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1 %</span>
-          </div>
-          <div class="big-desc">Estimativa de diferenca no lucro</div>
-        </div>
-        <div class="big-card big-card-gray">
-          <div class="big-desc">Calculos desatualizados</div>
-          <a class="link" style="margin-top:4px;display:inline-flex;align-items:center;gap:4px"><span class="material-icons" style="font-size:12px">refresh</span> Atualizar</a>
-        </div>
-      </section>
-
-      <!-- Section: Filtros -->
-      <section class="filters-section">
-        <div class="filters-row">
-          <div class="filter-chip"><span class="material-icons">add</span> Produto</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Familia</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Loja</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Cluster</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Tipo loja</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Segmentacao</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Tipo de preco</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Fornecedor</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Marca</div>
-          <div class="filter-chip"><span class="material-icons">add</span> Filtro</div>
-        </div>
-        <div class="filters-row">
-          <div class="filter-chip"><span class="filter-label">01</span> Setor</div>
-          <div class="filter-chip"><span class="filter-label">02</span> Secao</div>
-          <div class="filter-chip"><span class="filter-label">03</span> Categoria</div>
-          <div class="filter-chip"><span class="filter-label">04</span> Departamento</div>
-          <div class="filter-chip"><span class="filter-label">05</span> Sub-categoria</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-        </div>
-        <div class="filters-row">
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div class="filter-chip">Filtro</div>
-          <div style="margin-left:auto;display:flex;gap:8px;">
-            <div class="filter-chip"><span class="material-icons">add</span> + Filtros</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Limpar filtros</div>
-          </div>
-        </div>
-        <div class="filters-row" style="justify-content:flex-end;">
-          <div class="filter-chip"><span class="material-icons">add</span> Filtros salvos</div>
-          <div class="filter-chip" style="padding:6px 8px;"><span class="material-icons">save</span></div>
-        </div>
-      </section>
-
-      <!-- Section: Cabecalho tabela + actions -->
-      <div class="table-header-bar">
-        <div class="table-info">
-          <span class="material-icons">auto_awesome</span>
-          Foram encontrados 20 resultados no total
-          <span class="material-icons" style="font-size:16px;color:var(--color-blue-400)">info</span>
-          <a class="link">Limpar</a>
-          <a class="link">Selecionar tudo</a>
-        </div>
-        <div class="table-actions">
-          <button class="btn-icon btn-icon-blue" title="Filtrar"><span class="material-icons">filter_list</span></button>
-          <button class="btn-icon" title="Configurar colunas"><span class="material-icons">display_settings</span></button>
-          <div class="divider-v"></div>
-          <button class="btn-icon" title="Loja"><span class="material-icons">store</span></button>
-          <button class="btn-icon" title="Precos"><span class="material-icons">price_change</span></button>
-          <button class="btn-icon" title="Concorrencia"><span class="material-icons">emoji_events</span></button>
-          <button class="btn-icon" title="Dinheiro"><span class="material-icons">attach_money</span></button>
-          <button class="btn-icon btn-icon-red" title="> 5%"><span class="material-icons">swap_vert</span></button>
-          <div class="divider-v"></div>
-          <button class="btn-icon" title="Resetar"><span class="material-icons">restart_alt</span></button>
-          <button class="btn-icon" title="Favoritos"><span class="material-icons">stars</span></button>
-          <button class="btn-icon" title="Check"><span class="material-icons">check</span></button>
-          <button class="btn-icon" title="Download"><span class="material-icons">file_download</span></button>
-          <button class="btn-icon" title="IA"><span class="material-icons">auto_awesome</span></button>
-          <div class="divider-v"></div>
-          <button class="btn-icon" title="Report"><span class="material-icons">report</span></button>
-          <button class="btn-icon" title="Request"><span class="material-icons">request_page</span></button>
-          <button class="btn-icon" title="Arvore"><span class="material-icons">account_tree</span></button>
-          <div class="divider-v"></div>
-          <button class="btn-icon" title="Agrupar"><span class="material-icons">group_work</span></button>
-          <button class="btn-primary"><span class="material-icons">check</span> aplicar preco</button>
-          <button class="btn-primary" style="padding:8px;"><span class="material-icons">file_download</span></button>
-        </div>
+  <div class="app">
+    <!-- ═══ MENU BAR ═══ -->
+    <header class="menubar">
+      <div class="menubar-left">
+        <span class="material-icons">apps</span>
+        <span class="menubar-logo">InfoPrice</span>
+        <span class="menubar-status">
+          IPA | Software de Precificacao
+          <span class="badge-lite">lite</span>
+        </span>
       </div>
-
-      <!-- ═══ DATA TABLE ═══ -->
-      <div class="data-table-wrapper">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th class="cb-cell"><input type="checkbox" /></th>
-              <th><div class="th-inner">Produto <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Loja <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">PMZ e custo <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Estoque e<br>Venda diaria <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Margem<br>objetiva <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Emb... <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">PMC <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Preco<br>vigente <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Preco<br>concorre... <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Preco sugerido <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Margem <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">CPI <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Previsao de<br>demanda <span class="material-icons">unfold_more</span></div></th>
-              <th><div class="th-inner">Insight <span class="material-icons">unfold_more</span></div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Group: Supermercado -->
-            <tr class="group-row">
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td colspan="14">
-                <div class="group-name">
-                  <span class="material-icons">expand_more</span>
-                  Supermercado
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 1 — Regular + Oferta na mesma linha -->
-            <tr>
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td class="cell-produto">
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span class="produto-code">10007</span>
-                  <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
-                  <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
-                  <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
-                  <span class="badge-sm badge-gray">569</span>
-                </div>
-                <div class="produto-name">CLOR DE HIDROXIZINA 25MG C/30 CPR(NOV)</div>
-                <div class="produto-tags">
-                  <span class="produto-tag">super sensivel</span>
-                  <span class="produto-tag">GLOBAL A</span>
-                  <span class="produto-tag">LOCAL B</span>
-                  <span class="produto-tag">RELEVANCIA</span>
-                </div>
-              </td>
-              <td class="cell-loja">
-                <div class="loja-code">01</div>
-                <div class="loja-regional">REGIONAL 02</div>
-                <div class="loja-type">SUPERMERCADO</div>
-              </td>
-              <td class="cell-pmz">
-                <div class="pmz-main">
-                  <span class="pmz-val">R$ 2,04</span>
-                  <span class="material-icons" style="font-size:12px;color:var(--color-orange-400)">swap_vertical_circle</span>
-                </div>
-                <div class="pmz-custo">R$ 1,63</div>
-                <div class="pmz-detail">
-                  <span class="pmz-margin">12,5%</span>
-                  <span>10/03/23</span>
-                </div>
-              </td>
-              <td class="cell-estoque">
-                <div class="estoque-main">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
-                  <span class="estoque-val">46.845un</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="variation-sm var-green">15,1d</span>
-                  <span>10/02/2025</span>
-                  <span class="material-icons">shopping_cart</span>
-                  <span>2.361un/d</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="material-icons" style="font-size:10px">inventory_2</span>
-                  46.845un &nbsp;|&nbsp; <strong>15,10d</strong>
-                </div>
-              </td>
-              <td class="cell-margem">
-                <div class="margem-val">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%
-                </div>
-              </td>
-              <td class="cell-emb">
-                <div class="emb-val">1</div>
-                <div class="emb-unit">un</div>
-              </td>
-              <td class="cell-pmc">
-                <div class="pmz-val">R$ 4,89</div>
-              </td>
-              <td class="cell-vigente">
-                <div class="pmz-val">R$ 3,99</div>
-                <div class="pmz-detail"><span>01/03/23</span></div>
-              </td>
-              <td class="cell-concor">
-                <div class="pmz-val">R$ 3,79</div>
-                <div class="pmz-detail"><span>Atacadao</span></div>
-              </td>
-              <td class="cell-sugerido">
-                <!-- Regular price -->
-                <div class="preco-row" style="margin-bottom:4px;">
-                  <span class="preco-label">Regular</span>
-                  <input type="text" class="preco-input" value="3,89" />
-                  <span class="preco-diff">-2,5%</span>
-                </div>
-                <!-- Oferta price — same line layout -->
-                <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
-                  <span class="preco-label preco-label-oferta">Oferta</span>
-                  <input type="text" class="preco-input preco-input-oferta" value="2,99" />
-                  <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
-                </div>
-              </td>
-              <td class="cell-margin">
-                <div class="margem-val">26,1%</div>
-                <div class="variation-sm var-green" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_upward</span> +1,1pp</div>
-              </td>
-              <td class="cell-cpi">
-                <div class="margem-val">102,6%</div>
-              </td>
-              <td class="cell-demanda">
-                <div class="estoque-val">2.450</div>
-                <div class="estoque-detail">un/semana</div>
-              </td>
-              <td class="cell-insight">
-                <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
-              </td>
-            </tr>
-
-            <!-- Row 2 -->
-            <tr>
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td class="cell-produto">
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span class="produto-code">10045</span>
-                  <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
-                  <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 892</span>
-                  <span class="badge-sm badge-gray">234</span>
-                </div>
-                <div class="produto-name">OMEPRAZOL 20MG C/28 CAP(EMS)</div>
-                <div class="produto-tags">
-                  <span class="produto-tag">sensivel</span>
-                  <span class="produto-tag">GLOBAL B</span>
-                  <span class="produto-tag">LOCAL A</span>
-                </div>
-              </td>
-              <td class="cell-loja">
-                <div class="loja-code">03</div>
-                <div class="loja-regional">REGIONAL 01</div>
-                <div class="loja-type">SUPERMERCADO</div>
-              </td>
-              <td class="cell-pmz">
-                <div class="pmz-main"><span class="pmz-val">R$ 8,12</span></div>
-                <div class="pmz-custo">R$ 6,50</div>
-                <div class="pmz-detail"><span class="pmz-margin">15,2%</span> <span>15/02/23</span></div>
-              </td>
-              <td class="cell-estoque">
-                <div class="estoque-main">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
-                  <span class="estoque-val">12.320un</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="variation-sm var-green">22,3d</span>
-                  <span>08/02/2025</span>
-                  <span class="material-icons">shopping_cart</span>
-                  <span>552un/d</span>
-                </div>
-              </td>
-              <td class="cell-margem">
-                <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 20,0%</div>
-              </td>
-              <td class="cell-emb">
-                <div class="emb-val">1</div>
-                <div class="emb-unit">un</div>
-              </td>
-              <td class="cell-pmc"><div class="pmz-val">R$ 12,45</div></td>
-              <td class="cell-vigente">
-                <div class="pmz-val">R$ 10,99</div>
-                <div class="pmz-detail"><span>20/02/23</span></div>
-              </td>
-              <td class="cell-concor">
-                <div class="pmz-val">R$ 10,49</div>
-                <div class="pmz-detail"><span>Drogasil</span></div>
-              </td>
-              <td class="cell-sugerido">
-                <div class="preco-row" style="margin-bottom:4px;">
-                  <span class="preco-label">Regular</span>
-                  <input type="text" class="preco-input" value="10,79" />
-                  <span class="preco-diff">-1,8%</span>
-                </div>
-                <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
-                  <span class="preco-label preco-label-oferta">Oferta</span>
-                  <input type="text" class="preco-input preco-input-oferta" value="8,99" />
-                  <span class="preco-diff" style="color:var(--color-orange-500)">-18,2%</span>
-                </div>
-              </td>
-              <td class="cell-margin">
-                <div class="margem-val">19,9%</div>
-                <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,1pp</div>
-              </td>
-              <td class="cell-cpi"><div class="margem-val">104,5%</div></td>
-              <td class="cell-demanda">
-                <div class="estoque-val">580</div>
-                <div class="estoque-detail">un/semana</div>
-              </td>
-              <td class="cell-insight">
-                <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
-              </td>
-            </tr>
-
-            <!-- Row 3 -->
-            <tr>
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td class="cell-produto">
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span class="produto-code">10123</span>
-                  <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
-                  <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 456</span>
-                </div>
-                <div class="produto-name">DIPIRONA 500MG C/30 CPR(GEN)</div>
-                <div class="produto-tags">
-                  <span class="produto-tag">normal</span>
-                  <span class="produto-tag">GLOBAL C</span>
-                </div>
-              </td>
-              <td class="cell-loja">
-                <div class="loja-code">01</div>
-                <div class="loja-regional">REGIONAL 02</div>
-                <div class="loja-type">SUPERMERCADO</div>
-              </td>
-              <td class="cell-pmz">
-                <div class="pmz-main"><span class="pmz-val">R$ 1,25</span></div>
-                <div class="pmz-custo">R$ 0,98</div>
-                <div class="pmz-detail"><span class="pmz-margin">18,0%</span> <span>05/03/23</span></div>
-              </td>
-              <td class="cell-estoque">
-                <div class="estoque-main">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
-                  <span class="estoque-val">89.100un</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="variation-sm var-green">30,5d</span>
-                  <span>12/02/2025</span>
-                  <span class="material-icons">shopping_cart</span>
-                  <span>2.920un/d</span>
-                </div>
-              </td>
-              <td class="cell-margem">
-                <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 22,0%</div>
-              </td>
-              <td class="cell-emb">
-                <div class="emb-val">1</div>
-                <div class="emb-unit">un</div>
-              </td>
-              <td class="cell-pmc"><div class="pmz-val">R$ 2,89</div></td>
-              <td class="cell-vigente">
-                <div class="pmz-val">R$ 2,49</div>
-                <div class="pmz-detail"><span>28/02/23</span></div>
-              </td>
-              <td class="cell-concor">
-                <div class="pmz-val">R$ 2,29</div>
-                <div class="pmz-detail"><span>Pague Menos</span></div>
-              </td>
-              <td class="cell-sugerido">
-                <div class="preco-row" style="margin-bottom:4px;">
-                  <span class="preco-label">Regular</span>
-                  <input type="text" class="preco-input" value="2,39" />
-                  <span class="preco-diff">-4,0%</span>
-                </div>
-                <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
-                  <span class="preco-label preco-label-oferta">Oferta</span>
-                  <input type="text" class="preco-input preco-input-oferta" value="1,79" />
-                  <span class="preco-diff" style="color:var(--color-orange-500)">-28,1%</span>
-                </div>
-              </td>
-              <td class="cell-margin">
-                <div class="margem-val">21,6%</div>
-                <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,4pp</div>
-              </td>
-              <td class="cell-cpi"><div class="margem-val">95,7%</div></td>
-              <td class="cell-demanda">
-                <div class="estoque-val">3.100</div>
-                <div class="estoque-detail">un/semana</div>
-              </td>
-              <td class="cell-insight">
-                <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
-              </td>
-            </tr>
-
-            <!-- Row 4 -->
-            <tr>
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td class="cell-produto">
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span class="produto-code">10298</span>
-                  <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
-                  <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 780</span>
-                  <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
-                </div>
-                <div class="produto-name">LOSARTANA 50MG C/30 CPR(NEO)</div>
-                <div class="produto-tags">
-                  <span class="produto-tag">super sensivel</span>
-                  <span class="produto-tag">GLOBAL A</span>
-                  <span class="produto-tag">LOCAL A</span>
-                </div>
-              </td>
-              <td class="cell-loja">
-                <div class="loja-code">05</div>
-                <div class="loja-regional">REGIONAL 03</div>
-                <div class="loja-type">SUPERMERCADO</div>
-              </td>
-              <td class="cell-pmz">
-                <div class="pmz-main"><span class="pmz-val">R$ 5,67</span></div>
-                <div class="pmz-custo">R$ 4,53</div>
-                <div class="pmz-detail"><span class="pmz-margin">10,8%</span> <span>22/02/23</span></div>
-              </td>
-              <td class="cell-estoque">
-                <div class="estoque-main">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
-                  <span class="estoque-val">25.600un</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="variation-sm var-red">8,2d</span>
-                  <span>05/02/2025</span>
-                  <span class="material-icons">shopping_cart</span>
-                  <span>3.121un/d</span>
-                </div>
-              </td>
-              <td class="cell-margem">
-                <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 18,0%</div>
-              </td>
-              <td class="cell-emb">
-                <div class="emb-val">1</div>
-                <div class="emb-unit">un</div>
-              </td>
-              <td class="cell-pmc"><div class="pmz-val">R$ 9,80</div></td>
-              <td class="cell-vigente">
-                <div class="pmz-val">R$ 7,99</div>
-                <div class="pmz-detail"><span>18/02/23</span></div>
-              </td>
-              <td class="cell-concor">
-                <div class="pmz-val">R$ 7,49</div>
-                <div class="pmz-detail"><span>Raia</span></div>
-              </td>
-              <td class="cell-sugerido">
-                <div class="preco-row" style="margin-bottom:4px;">
-                  <span class="preco-label">Regular</span>
-                  <input type="text" class="preco-input" value="7,69" />
-                  <span class="preco-diff">-3,8%</span>
-                </div>
-                <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
-                  <span class="preco-label preco-label-oferta">Oferta</span>
-                  <input type="text" class="preco-input preco-input-oferta" value="5,99" />
-                  <span class="preco-diff" style="color:var(--color-orange-500)">-25,0%</span>
-                </div>
-              </td>
-              <td class="cell-margin">
-                <div class="margem-val">17,3%</div>
-                <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,7pp</div>
-              </td>
-              <td class="cell-cpi"><div class="margem-val">97,3%</div></td>
-              <td class="cell-demanda">
-                <div class="estoque-val">3.250</div>
-                <div class="estoque-detail">un/semana</div>
-              </td>
-              <td class="cell-insight">
-                <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
-              </td>
-            </tr>
-
-            <!-- Row 5 -->
-            <tr>
-              <td class="cb-cell"><input type="checkbox" /></td>
-              <td class="cell-produto">
-                <div style="display:flex;align-items:center;gap:4px;">
-                  <span class="produto-code">10512</span>
-                  <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
-                  <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 332</span>
-                </div>
-                <div class="produto-name">PARACETAMOL 750MG C/20 CPR(MED)</div>
-                <div class="produto-tags">
-                  <span class="produto-tag">normal</span>
-                  <span class="produto-tag">GLOBAL B</span>
-                </div>
-              </td>
-              <td class="cell-loja">
-                <div class="loja-code">01</div>
-                <div class="loja-regional">REGIONAL 02</div>
-                <div class="loja-type">SUPERMERCADO</div>
-              </td>
-              <td class="cell-pmz">
-                <div class="pmz-main"><span class="pmz-val">R$ 0,95</span></div>
-                <div class="pmz-custo">R$ 0,72</div>
-                <div class="pmz-detail"><span class="pmz-margin">20,1%</span> <span>10/03/23</span></div>
-              </td>
-              <td class="cell-estoque">
-                <div class="estoque-main">
-                  <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
-                  <span class="estoque-val">120.500un</span>
-                </div>
-                <div class="estoque-detail">
-                  <span class="variation-sm var-green">45,2d</span>
-                  <span>14/02/2025</span>
-                  <span class="material-icons">shopping_cart</span>
-                  <span>2.665un/d</span>
-                </div>
-              </td>
-              <td class="cell-margem">
-                <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%</div>
-              </td>
-              <td class="cell-emb">
-                <div class="emb-val">1</div>
-                <div class="emb-unit">un</div>
-              </td>
-              <td class="cell-pmc"><div class="pmz-val">R$ 1,89</div></td>
-              <td class="cell-vigente">
-                <div class="pmz-val">R$ 1,49</div>
-                <div class="pmz-detail"><span>01/03/23</span></div>
-              </td>
-              <td class="cell-concor">
-                <div class="pmz-val">R$ 1,39</div>
-                <div class="pmz-detail"><span>Panvel</span></div>
-              </td>
-              <td class="cell-sugerido">
-                <div class="preco-row" style="margin-bottom:4px;">
-                  <span class="preco-label">Regular</span>
-                  <input type="text" class="preco-input" value="1,45" />
-                  <span class="preco-diff">-2,7%</span>
-                </div>
-                <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
-                  <span class="preco-label preco-label-oferta">Oferta</span>
-                  <input type="text" class="preco-input preco-input-oferta" value="0,99" />
-                  <span class="preco-diff" style="color:var(--color-orange-500)">-33,6%</span>
-                </div>
-              </td>
-              <td class="cell-margin">
-                <div class="margem-val">24,2%</div>
-                <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,8pp</div>
-              </td>
-              <td class="cell-cpi"><div class="margem-val">95,9%</div></td>
-              <td class="cell-demanda">
-                <div class="estoque-val">2.800</div>
-                <div class="estoque-detail">un/semana</div>
-              </td>
-              <td class="cell-insight">
-                <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
+      <div class="menubar-right">
+        <button class="btn-clube"><span class="material-icons" style="font-size:12px">local_offer</span> clube de descontos</button>
+        <span class="menubar-user">Ola, Marcus</span>
+        <span class="material-icons">help_outline</span>
+        <span class="material-icons">person_add</span>
       </div>
+    </header>
 
-    </div><!-- /main -->
-  </div><!-- /app-body -->
-</div><!-- /app -->
+    <div class="app-body">
+      <!-- ═══ SIDEBAR ═══ -->
+      <nav class="sidebar">
+        <div class="sidebar-item"><span class="material-icons">home</span></div>
+        <div class="sidebar-item active"><span class="material-icons">offline_pin</span></div>
+        <div class="sidebar-item"><span class="material-icons">price_change</span></div>
+        <div class="sidebar-item"><span class="material-icons">auto_fix_high</span></div>
+        <div class="sidebar-item"><span class="material-icons">account_tree</span></div>
+        <div class="sidebar-item"><span class="material-icons">local_offer</span></div>
+        <div class="sidebar-item"><span class="material-icons">handshake</span></div>
+        <div class="sidebar-item"><span class="material-icons">auto_graph</span></div>
+        <div class="sidebar-item"><span class="material-icons">store</span></div>
+        <div class="sidebar-item"><span class="material-icons">file_download</span></div>
+        <div class="sidebar-spacer"></div>
+        <div class="sidebar-item sidebar-bottom"><span class="material-icons">settings</span></div>
+      </nav>
+
+      <!-- ═══ MAIN CONTENT ═══ -->
+      <div class="main">
+
+        <!-- Section: Topo -->
+        <section class="section-top" style="margin-top:4px;">
+          <div class="section-top-left">
+            <div class="page-title">
+              Gerenciador de precos
+              <span class="tag-green">atualizado em 01/07/2023, 13:42</span>
+            </div>
+            <div class="page-subtitle">
+              Revisar todos os produtos
+              <a class="link"><span class="material-icons" style="font-size:12px;vertical-align:middle">open_in_new</span> Editar configuracoes</a>
+            </div>
+          </div>
+          <div class="section-top-right">
+            <button class="btn-secondary"><span class="material-icons">change_circle</span> Modo Aprovacao</button>
+            <div class="chip chip-active"><span class="chip-label">agrupar por</span> Loja <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
+            <div class="chip chip-active"><span class="chip-label">precificar por</span> Produto <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
+            <div class="chip chip-default"><span class="material-icons">push_pin</span> <span class="chip-label">agrupar por</span> Fixar</div>
+            <div class="chip chip-default"><span class="chip-label">2</span> Atacado</div>
+            <div class="chip chip-default"><span class="chip-label">3</span> Oferta</div>
+            <div class="chip chip-default"><span class="chip-label">precificar por</span> Comprador</div>
+            <div class="chip chip-default"><span class="chip-label">tipo preco</span> Varejo</div>
+            <div class="chip chip-default"><span class="chip-label">tipo preco</span> Concorrencia</div>
+            <div class="chip chip-default"><span class="chip-label">precificar por</span> Mostrar</div>
+          </div>
+        </section>
+
+        <!-- Section: Big Numbers -->
+        <section class="big-numbers">
+          <div class="big-card big-card-orange">
+            <div class="big-value">23 <button class="big-btn"><span class="material-icons" style="font-size:14px">check</span> Revisar</button></div>
+            <div class="big-desc">Precos precisam de aprovacao</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">3.645 <span class="big-link">Selecionar</span></div>
+            <div class="big-desc">de 3.645 do total de precos</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">236 <span class="big-link">Filtrar</span></div>
+            <div class="big-desc">de 236 de novos custos</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">1.269 <span class="big-link">Selecionar tudo</span></div>
+            <div class="big-desc">de 1.269 precos sugeridos</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">364 <span class="big-link">Selecionar tudo</span></div>
+            <div class="big-desc">de 364 precos aplicados</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">101,3%
+              <span class="variation variation-red"><span class="material-icons">trending_down</span> 0,4 %</span>
+            </div>
+            <div class="big-desc">Competitividade projetada,<br>era 102,3 %</div>
+          </div>
+          <div class="big-card big-card-blue">
+            <div class="big-value">26,3%
+              <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1 %</span>
+            </div>
+            <div class="big-desc">Margem projetada,<br>era 26,2 %</div>
+          </div>
+          <div class="big-card big-card-green">
+            <div class="big-value">+ R$ 392mil
+              <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1 %</span>
+            </div>
+            <div class="big-desc">Estimativa de diferenca no lucro</div>
+          </div>
+          <div class="big-card big-card-gray">
+            <div class="big-desc">Calculos desatualizados</div>
+            <a class="link" style="margin-top:4px;display:inline-flex;align-items:center;gap:4px"><span class="material-icons" style="font-size:12px">refresh</span> Atualizar</a>
+          </div>
+        </section>
+
+        <!-- Section: Filtros -->
+        <section class="filters-section">
+          <div class="filters-row">
+            <div class="filter-chip"><span class="material-icons">add</span> Produto</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Familia</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Loja</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Cluster</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Tipo loja</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Segmentacao</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Tipo de preco</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Fornecedor</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Marca</div>
+            <div class="filter-chip"><span class="material-icons">add</span> Filtro</div>
+          </div>
+          <div class="filters-row">
+            <div class="filter-chip"><span class="filter-label">01</span> Setor</div>
+            <div class="filter-chip"><span class="filter-label">02</span> Secao</div>
+            <div class="filter-chip"><span class="filter-label">03</span> Categoria</div>
+            <div class="filter-chip"><span class="filter-label">04</span> Departamento</div>
+            <div class="filter-chip"><span class="filter-label">05</span> Sub-categoria</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+          </div>
+          <div class="filters-row">
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip">Filtro</div>
+            <div style="margin-left:auto;display:flex;gap:8px;">
+              <div class="filter-chip"><span class="material-icons">add</span> + Filtros</div>
+              <div class="filter-chip"><span class="material-icons">add</span> Limpar filtros</div>
+            </div>
+          </div>
+          <div class="filters-row" style="justify-content:flex-end;">
+            <div class="filter-chip"><span class="material-icons">add</span> Filtros salvos</div>
+            <div class="filter-chip" style="padding:6px 8px;"><span class="material-icons">save</span></div>
+          </div>
+        </section>
+
+        <!-- Section: Cabecalho tabela + actions -->
+        <div class="table-header-bar">
+          <div class="table-info">
+            <span class="material-icons">auto_awesome</span>
+            Foram encontrados 20 resultados no total
+            <span class="material-icons" style="font-size:16px;color:var(--color-blue-400)">info</span>
+            <a class="link">Limpar</a>
+            <a class="link">Selecionar tudo</a>
+          </div>
+          <div class="table-actions">
+            <button class="btn-icon btn-icon-blue" title="Filtrar"><span class="material-icons">filter_list</span></button>
+            <button class="btn-icon" title="Configurar colunas"><span class="material-icons">display_settings</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon" title="Loja"><span class="material-icons">store</span></button>
+            <button class="btn-icon" title="Precos"><span class="material-icons">price_change</span></button>
+            <button class="btn-icon" title="Concorrencia"><span class="material-icons">emoji_events</span></button>
+            <button class="btn-icon" title="Dinheiro"><span class="material-icons">attach_money</span></button>
+            <button class="btn-icon btn-icon-red" title="> 5%"><span class="material-icons">swap_vert</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon" title="Resetar"><span class="material-icons">restart_alt</span></button>
+            <button class="btn-icon" title="Favoritos"><span class="material-icons">stars</span></button>
+            <button class="btn-icon" title="Check"><span class="material-icons">check</span></button>
+            <button class="btn-icon" title="Download"><span class="material-icons">file_download</span></button>
+            <button class="btn-icon" title="IA"><span class="material-icons">auto_awesome</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon" title="Report"><span class="material-icons">report</span></button>
+            <button class="btn-icon" title="Request"><span class="material-icons">request_page</span></button>
+            <button class="btn-icon" title="Arvore"><span class="material-icons">account_tree</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon" title="Agrupar"><span class="material-icons">group_work</span></button>
+            <button class="btn-primary"><span class="material-icons">check</span> aplicar preco</button>
+            <button class="btn-primary" style="padding:8px;"><span class="material-icons">file_download</span></button>
+          </div>
+        </div>
+
+        <!-- ═══ DATA TABLE ═══ -->
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="cb-cell"><input type="checkbox" /></th>
+                <th>
+                  <div class="th-inner">Produto <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Loja <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">PMZ e custo <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Estoque e<br>Venda diaria <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Margem<br>objetiva <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Emb... <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">PMC <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Preco<br>vigente <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Preco<br>concorre... <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Preco sugerido <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Margem <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">CPI <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Previsao de<br>demanda <span class="material-icons">unfold_more</span></div>
+                </th>
+                <th>
+                  <div class="th-inner">Insight <span class="material-icons">unfold_more</span></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Group: Supermercado -->
+              <tr class="group-row">
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td colspan="14">
+                  <div class="group-name">
+                    <span class="material-icons">expand_more</span>
+                    Supermercado
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 1 — Regular + Oferta na mesma linha -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cell-produto">
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10007</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
+                    <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+                    <span class="badge-sm badge-gray">569</span>
+                  </div>
+                  <div class="produto-name">CLOR DE HIDROXIZINA 25MG C/30 CPR(NOV)</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">super sensivel</span>
+                    <span class="produto-tag">GLOBAL A</span>
+                    <span class="produto-tag">LOCAL B</span>
+                    <span class="produto-tag">RELEVANCIA</span>
+                  </div>
+                </td>
+                <td class="cell-loja">
+                  <div class="loja-code">01</div>
+                  <div class="loja-regional">REGIONAL 02</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td class="cell-pmz">
+                  <div class="pmz-main">
+                    <span class="pmz-val">R$ 2,04</span>
+                    <span class="material-icons" style="font-size:12px;color:var(--color-orange-400)">swap_vertical_circle</span>
+                  </div>
+                  <div class="pmz-custo">R$ 1,63</div>
+                  <div class="pmz-detail">
+                    <span class="pmz-margin">12,5%</span>
+                    <span>10/03/23</span>
+                  </div>
+                </td>
+                <td class="cell-estoque">
+                  <div class="estoque-main">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                    <span class="estoque-val">46.845un</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="variation-sm var-green">15,1d</span>
+                    <span>10/02/2025</span>
+                    <span class="material-icons">shopping_cart</span>
+                    <span>2.361un/d</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="material-icons" style="font-size:10px">inventory_2</span>
+                    46.845un &nbsp;|&nbsp; <strong>15,10d</strong>
+                  </div>
+                </td>
+                <td class="cell-margem">
+                  <div class="margem-val">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%
+                  </div>
+                </td>
+                <td class="cell-emb">
+                  <div class="emb-val">1</div>
+                  <div class="emb-unit">un</div>
+                </td>
+                <td class="cell-pmc">
+                  <div class="pmz-val">R$ 4,89</div>
+                </td>
+                <td class="cell-vigente">
+                  <div class="pmz-val">R$ 3,99</div>
+                  <div class="pmz-detail"><span>01/03/23</span></div>
+                </td>
+                <td class="cell-concor">
+                  <div class="pmz-val">R$ 3,79</div>
+                  <div class="pmz-detail"><span>Atacadao</span></div>
+                </td>
+                <td class="cell-sugerido">
+                  <!-- Regular price -->
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="3,89" />
+                    <span class="preco-diff">-2,5%</span>
+                  </div>
+                  <!-- Oferta price — same line layout -->
+                  <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="2,99" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
+                  </div>
+                </td>
+                <td class="cell-margin">
+                  <div class="margem-val">26,1%</div>
+                  <div class="variation-sm var-green" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_upward</span> +1,1pp</div>
+                </td>
+                <td class="cell-cpi">
+                  <div class="margem-val">102,6%</div>
+                </td>
+                <td class="cell-demanda">
+                  <div class="estoque-val">2.450</div>
+                  <div class="estoque-detail">un/semana</div>
+                </td>
+                <td class="cell-insight">
+                  <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cell-produto">
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10045</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 892</span>
+                    <span class="badge-sm badge-gray">234</span>
+                  </div>
+                  <div class="produto-name">OMEPRAZOL 20MG C/28 CAP(EMS)</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">sensivel</span>
+                    <span class="produto-tag">GLOBAL B</span>
+                    <span class="produto-tag">LOCAL A</span>
+                  </div>
+                </td>
+                <td class="cell-loja">
+                  <div class="loja-code">03</div>
+                  <div class="loja-regional">REGIONAL 01</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td class="cell-pmz">
+                  <div class="pmz-main"><span class="pmz-val">R$ 8,12</span></div>
+                  <div class="pmz-custo">R$ 6,50</div>
+                  <div class="pmz-detail"><span class="pmz-margin">15,2%</span> <span>15/02/23</span></div>
+                </td>
+                <td class="cell-estoque">
+                  <div class="estoque-main">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                    <span class="estoque-val">12.320un</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="variation-sm var-green">22,3d</span>
+                    <span>08/02/2025</span>
+                    <span class="material-icons">shopping_cart</span>
+                    <span>552un/d</span>
+                  </div>
+                </td>
+                <td class="cell-margem">
+                  <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 20,0%</div>
+                </td>
+                <td class="cell-emb">
+                  <div class="emb-val">1</div>
+                  <div class="emb-unit">un</div>
+                </td>
+                <td class="cell-pmc">
+                  <div class="pmz-val">R$ 12,45</div>
+                </td>
+                <td class="cell-vigente">
+                  <div class="pmz-val">R$ 10,99</div>
+                  <div class="pmz-detail"><span>20/02/23</span></div>
+                </td>
+                <td class="cell-concor">
+                  <div class="pmz-val">R$ 10,49</div>
+                  <div class="pmz-detail"><span>Drogasil</span></div>
+                </td>
+                <td class="cell-sugerido">
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="10,79" />
+                    <span class="preco-diff">-1,8%</span>
+                  </div>
+                  <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="8,99" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-18,2%</span>
+                  </div>
+                </td>
+                <td class="cell-margin">
+                  <div class="margem-val">19,9%</div>
+                  <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,1pp</div>
+                </td>
+                <td class="cell-cpi">
+                  <div class="margem-val">104,5%</div>
+                </td>
+                <td class="cell-demanda">
+                  <div class="estoque-val">580</div>
+                  <div class="estoque-detail">un/semana</div>
+                </td>
+                <td class="cell-insight">
+                  <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+              </tr>
+
+              <!-- Row 3 -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cell-produto">
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10123</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 456</span>
+                  </div>
+                  <div class="produto-name">DIPIRONA 500MG C/30 CPR(GEN)</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">normal</span>
+                    <span class="produto-tag">GLOBAL C</span>
+                  </div>
+                </td>
+                <td class="cell-loja">
+                  <div class="loja-code">01</div>
+                  <div class="loja-regional">REGIONAL 02</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td class="cell-pmz">
+                  <div class="pmz-main"><span class="pmz-val">R$ 1,25</span></div>
+                  <div class="pmz-custo">R$ 0,98</div>
+                  <div class="pmz-detail"><span class="pmz-margin">18,0%</span> <span>05/03/23</span></div>
+                </td>
+                <td class="cell-estoque">
+                  <div class="estoque-main">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                    <span class="estoque-val">89.100un</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="variation-sm var-green">30,5d</span>
+                    <span>12/02/2025</span>
+                    <span class="material-icons">shopping_cart</span>
+                    <span>2.920un/d</span>
+                  </div>
+                </td>
+                <td class="cell-margem">
+                  <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 22,0%</div>
+                </td>
+                <td class="cell-emb">
+                  <div class="emb-val">1</div>
+                  <div class="emb-unit">un</div>
+                </td>
+                <td class="cell-pmc">
+                  <div class="pmz-val">R$ 2,89</div>
+                </td>
+                <td class="cell-vigente">
+                  <div class="pmz-val">R$ 2,49</div>
+                  <div class="pmz-detail"><span>28/02/23</span></div>
+                </td>
+                <td class="cell-concor">
+                  <div class="pmz-val">R$ 2,29</div>
+                  <div class="pmz-detail"><span>Pague Menos</span></div>
+                </td>
+                <td class="cell-sugerido">
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="2,39" />
+                    <span class="preco-diff">-4,0%</span>
+                  </div>
+                  <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="1,79" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-28,1%</span>
+                  </div>
+                </td>
+                <td class="cell-margin">
+                  <div class="margem-val">21,6%</div>
+                  <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,4pp</div>
+                </td>
+                <td class="cell-cpi">
+                  <div class="margem-val">95,7%</div>
+                </td>
+                <td class="cell-demanda">
+                  <div class="estoque-val">3.100</div>
+                  <div class="estoque-detail">un/semana</div>
+                </td>
+                <td class="cell-insight">
+                  <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cell-produto">
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10298</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 780</span>
+                    <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+                  </div>
+                  <div class="produto-name">LOSARTANA 50MG C/30 CPR(NEO)</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">super sensivel</span>
+                    <span class="produto-tag">GLOBAL A</span>
+                    <span class="produto-tag">LOCAL A</span>
+                  </div>
+                </td>
+                <td class="cell-loja">
+                  <div class="loja-code">05</div>
+                  <div class="loja-regional">REGIONAL 03</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td class="cell-pmz">
+                  <div class="pmz-main"><span class="pmz-val">R$ 5,67</span></div>
+                  <div class="pmz-custo">R$ 4,53</div>
+                  <div class="pmz-detail"><span class="pmz-margin">10,8%</span> <span>22/02/23</span></div>
+                </td>
+                <td class="cell-estoque">
+                  <div class="estoque-main">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                    <span class="estoque-val">25.600un</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="variation-sm var-red">8,2d</span>
+                    <span>05/02/2025</span>
+                    <span class="material-icons">shopping_cart</span>
+                    <span>3.121un/d</span>
+                  </div>
+                </td>
+                <td class="cell-margem">
+                  <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 18,0%</div>
+                </td>
+                <td class="cell-emb">
+                  <div class="emb-val">1</div>
+                  <div class="emb-unit">un</div>
+                </td>
+                <td class="cell-pmc">
+                  <div class="pmz-val">R$ 9,80</div>
+                </td>
+                <td class="cell-vigente">
+                  <div class="pmz-val">R$ 7,99</div>
+                  <div class="pmz-detail"><span>18/02/23</span></div>
+                </td>
+                <td class="cell-concor">
+                  <div class="pmz-val">R$ 7,49</div>
+                  <div class="pmz-detail"><span>Raia</span></div>
+                </td>
+                <td class="cell-sugerido">
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="7,69" />
+                    <span class="preco-diff">-3,8%</span>
+                  </div>
+                  <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="5,99" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-25,0%</span>
+                  </div>
+                </td>
+                <td class="cell-margin">
+                  <div class="margem-val">17,3%</div>
+                  <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,7pp</div>
+                </td>
+                <td class="cell-cpi">
+                  <div class="margem-val">97,3%</div>
+                </td>
+                <td class="cell-demanda">
+                  <div class="estoque-val">3.250</div>
+                  <div class="estoque-detail">un/semana</div>
+                </td>
+                <td class="cell-insight">
+                  <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+              </tr>
+
+              <!-- Row 5 -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cell-produto">
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10512</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 332</span>
+                  </div>
+                  <div class="produto-name">PARACETAMOL 750MG C/20 CPR(MED)</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">normal</span>
+                    <span class="produto-tag">GLOBAL B</span>
+                  </div>
+                </td>
+                <td class="cell-loja">
+                  <div class="loja-code">01</div>
+                  <div class="loja-regional">REGIONAL 02</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td class="cell-pmz">
+                  <div class="pmz-main"><span class="pmz-val">R$ 0,95</span></div>
+                  <div class="pmz-custo">R$ 0,72</div>
+                  <div class="pmz-detail"><span class="pmz-margin">20,1%</span> <span>10/03/23</span></div>
+                </td>
+                <td class="cell-estoque">
+                  <div class="estoque-main">
+                    <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                    <span class="estoque-val">120.500un</span>
+                  </div>
+                  <div class="estoque-detail">
+                    <span class="variation-sm var-green">45,2d</span>
+                    <span>14/02/2025</span>
+                    <span class="material-icons">shopping_cart</span>
+                    <span>2.665un/d</span>
+                  </div>
+                </td>
+                <td class="cell-margem">
+                  <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%</div>
+                </td>
+                <td class="cell-emb">
+                  <div class="emb-val">1</div>
+                  <div class="emb-unit">un</div>
+                </td>
+                <td class="cell-pmc">
+                  <div class="pmz-val">R$ 1,89</div>
+                </td>
+                <td class="cell-vigente">
+                  <div class="pmz-val">R$ 1,49</div>
+                  <div class="pmz-detail"><span>01/03/23</span></div>
+                </td>
+                <td class="cell-concor">
+                  <div class="pmz-val">R$ 1,39</div>
+                  <div class="pmz-detail"><span>Panvel</span></div>
+                </td>
+                <td class="cell-sugerido">
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="1,45" />
+                    <span class="preco-diff">-2,7%</span>
+                  </div>
+                  <div class="preco-row" style="padding:4px 0;background:var(--color-orange-light-5);border-radius:4px;padding-left:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="0,99" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-33,6%</span>
+                  </div>
+                </td>
+                <td class="cell-margin">
+                  <div class="margem-val">24,2%</div>
+                  <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,8pp</div>
+                </td>
+                <td class="cell-cpi">
+                  <div class="margem-val">95,9%</div>
+                </td>
+                <td class="cell-demanda">
+                  <div class="estoque-val">2.800</div>
+                  <div class="estoque-detail">un/semana</div>
+                </td>
+                <td class="cell-insight">
+                  <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /main -->
+    </div><!-- /app-body -->
+  </div><!-- /app -->
 </body>
+
 </html>
