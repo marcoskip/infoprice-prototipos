@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Design Tokens</title>
+
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 14px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-100);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-lg);
+    }
+
+    /* ════════════════════════════════════════
+       SHELL
+       ════════════════════════════════════════ */
+    .tk-layout { display: flex; min-height: 100vh; }
+
+    /* ── NAV ── */
+    .tk-nav {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--color-white);
+      border-right: 1px solid var(--color-gray-300);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 0 0 32px;
+    }
+
+    .tk-nav-search-wrap {
+      padding: 12px 12px 8px;
+      border-bottom: 1px solid var(--color-gray-200);
+      position: sticky;
+      top: 0;
+      background: var(--color-white);
+      z-index: 1;
+    }
+
+    .tk-nav-title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .8px;
+      padding: 12px 16px 4px;
+    }
+
+    .tk-nav-group { margin-bottom: 2px; }
+
+    .tk-nav-group-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-400);
+      letter-spacing: .6px;
+      padding: 10px 16px 3px;
+    }
+
+    .tk-nav a {
+      display: block;
+      padding: 4px 16px;
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-700);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all .12s;
+    }
+
+    .tk-nav a:hover,
+    .tk-nav a.active {
+      background: var(--color-gray-100);
+      color: var(--color-blue-500);
+      border-left-color: var(--color-blue-400);
+    }
+
+    .tk-nav a.tk-nav-hidden { display: none; }
+
+    /* ── SEARCH ── */
+    .tk-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-gray-100);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 0 8px;
+      height: 32px;
+      transition: border-color .15s;
+    }
+
+    .tk-search:focus-within {
+      border-color: var(--color-blue-400);
+      background: var(--color-white);
+      box-shadow: var(--shadow-focus);
+    }
+
+    .tk-search .material-icons { font-size: 16px; color: var(--color-gray-500); }
+
+    .tk-search input {
+      flex: 1; border: none; background: transparent;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-900);
+      outline: none; min-width: 0;
+    }
+
+    .tk-search input::placeholder { color: var(--color-gray-500); }
+
+    .tk-search-clear {
+      font-size: 14px !important;
+      cursor: pointer;
+      color: var(--color-gray-400) !important;
+      display: none !important;
+    }
+
+    .tk-search-clear:hover { color: var(--color-gray-700) !important; }
+    .tk-search-clear.visible { display: inline !important; }
+
+    /* ── MAIN ── */
+    .tk-main {
+      flex: 1;
+      padding: 32px 40px 80px;
+      max-width: 1100px;
+    }
+
+    /* ── HEADER ── */
+    .tk-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--color-gray-300);
+    }
+
+    .tk-header h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .tk-header p {
+      font-size: var(--font-size-md);
+      color: var(--color-gray-600);
+      margin-top: 4px;
+    }
+
+    /* ── SECTION ── */
+    .tk-section { margin-bottom: 56px; }
+
+    .tk-section-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tk-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-gray-300);
+    }
+
+    .tk-section-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+      margin-bottom: 20px;
+    }
+
+    .tk-group { margin-bottom: 28px; }
+
+    .tk-group-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .6px;
+      margin-bottom: 10px;
+    }
+
+    /* ── NO RESULTS ── */
+    .tk-no-results {
+      display: none;
+      padding: 40px 0;
+      text-align: center;
+      color: var(--color-gray-500);
+      font-size: var(--font-size-sm);
+    }
+
+    .tk-no-results.visible { display: block; }
+
+    mark.tk-highlight {
+      background: var(--color-orange-light-20);
+      color: var(--color-orange-700);
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    /* ════════════════════════════════════════
+       TOKEN CARD — base
+       ════════════════════════════════════════ */
+    .tk-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .tk-grid-colors    { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+    .tk-grid-type      { grid-template-columns: 1fr; gap: 0; }
+    .tk-grid-shadow    { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .tk-grid-weight    { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+    .tk-grid-lineheight { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+
+    /* ── Tooltip de cópia ── */
+    .tk-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: transform .1s, box-shadow .1s;
+    }
+
+    .tk-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-elevation); }
+
+    .tk-copy-tip {
+      display: none;
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-gray-900);
+      color: var(--color-white);
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .tk-card:hover .tk-copy-tip { display: block; }
+
+    .tk-card.copied .tk-copy-tip {
+      display: block;
+      background: var(--color-green-500);
+      content: 'Copiado!';
+    }
+
+    /* ════════════════════════════════════════
+       CORES
+       ════════════════════════════════════════ */
+    .tk-color-card {
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .tk-color-swatch {
+      height: 56px;
+      width: 100%;
+    }
+
+    .tk-color-info {
+      background: var(--color-white);
+      padding: 6px 8px;
+    }
+
+    .tk-color-name {
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+      line-height: 1.3;
+    }
+
+    .tk-color-token {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      margin-top: 1px;
+      word-break: break-all;
+    }
+
+    .tk-color-hex {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-gray-400);
+    }
+
+    /* ════════════════════════════════════════
+       TIPOGRAFIA
+       ════════════════════════════════════════ */
+    .tk-type-row {
+      display: grid;
+      grid-template-columns: 200px 80px 80px 80px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-200);
+      border-radius: 0;
+    }
+
+    .tk-type-row:first-child { border-radius: 6px 6px 0 0; }
+    .tk-type-row:last-child  { border-bottom: none; border-radius: 0 0 6px 6px; }
+
+    .tk-type-row:hover { background: var(--color-blue-light-5); }
+
+    .tk-type-meta-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      cursor: pointer;
+    }
+
+    .tk-type-meta-token:hover { text-decoration: underline; }
+
+    .tk-type-val {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      text-align: right;
+    }
+
+    .tk-type-sample {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--color-gray-900);
+    }
+
+    .tk-type-header {
+      display: grid;
+      grid-template-columns: 200px 80px 80px 80px 1fr;
+      gap: 12px;
+      padding: 6px 12px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .5px;
+    }
+
+    /* ════════════════════════════════════════
+       SOMBRAS
+       ════════════════════════════════════════ */
+    .tk-shadow-card {
+      background: var(--color-white);
+      border-radius: 8px;
+      padding: 20px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tk-shadow-preview {
+      height: 64px;
+      border-radius: 6px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-200);
+    }
+
+    .tk-shadow-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+    }
+
+    .tk-shadow-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      cursor: pointer;
+    }
+
+    .tk-shadow-value {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      line-height: 1.5;
+      word-break: break-all;
+    }
+
+    .tk-shadow-use {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-500);
+      padding: 4px 8px;
+      background: var(--color-gray-100);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    /* ════════════════════════════════════════
+       PESOS
+       ════════════════════════════════════════ */
+    .tk-weight-card {
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 16px;
+      border: 1px solid var(--color-gray-300);
+    }
+
+    .tk-weight-sample {
+      font-size: var(--font-size-2xl);
+      color: var(--color-gray-900);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .tk-weight-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      cursor: pointer;
+    }
+
+    .tk-weight-val {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════════════
+       LINE HEIGHT
+       ════════════════════════════════════════ */
+    .tk-lh-card {
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 12px;
+      border: 1px solid var(--color-gray-300);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tk-lh-bar-wrap {
+      width: 32px;
+      background: var(--color-gray-100);
+      border-radius: 4px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tk-lh-bar {
+      width: 100%;
+      background: var(--color-blue-light-20);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-blue-600);
+      font-weight: 700;
+    }
+
+    .tk-lh-token {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* ════════════════════════════════════════
+       PALETA DE GRÁFICOS — strip
+       ════════════════════════════════════════ */
+    .tk-chart-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
+    }
+
+    .tk-chart-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tk-chart-swatch {
+      width: 100%;
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    .tk-chart-label {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      text-align: center;
+    }
+
+    /* ════════════════════════════════════════
+       BORDER RADIUS
+       ════════════════════════════════════════ */
+    .tk-grid-radius { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+
+    .tk-radius-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tk-radius-preview {
+      width: 72px;
+      height: 72px;
+      background: var(--color-blue-light-10);
+      border: 2px solid var(--color-blue-400);
+    }
+
+    .tk-radius-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .tk-radius-val {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    /* ════════════════════════════════════════
+       ESPAÇAMENTO
+       ════════════════════════════════════════ */
+    .tk-space-table {
+      background: var(--color-white);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--color-gray-300);
+    }
+
+    .tk-space-header {
+      display: grid;
+      grid-template-columns: 160px 56px 1fr 200px;
+      gap: 12px;
+      padding: 6px 16px;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .5px;
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .tk-space-row {
+      display: grid;
+      grid-template-columns: 160px 56px 1fr 200px;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--color-gray-200);
+      transition: background .1s;
+    }
+
+    .tk-space-row:last-child { border-bottom: none; }
+    .tk-space-row:hover { background: var(--color-blue-light-5); }
+
+    .tk-space-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-blue-500);
+      cursor: pointer;
+    }
+
+    .tk-space-val {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+    }
+
+    .tk-space-bar-wrap {
+      display: flex;
+      align-items: center;
+      height: 20px;
+    }
+
+    .tk-space-bar {
+      height: 14px;
+      background: var(--color-blue-light-45);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    /* linha guia atrás da barra */
+    .tk-space-bar-wrap::after {
+      content: '';
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background: var(--color-gray-200);
+      z-index: 0;
+    }
+
+    .tk-space-use {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-500);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tk-layout">
+
+    <!-- ═══ NAV ═══ -->
+    <nav class="tk-nav">
+
+      <div class="tk-nav-search-wrap">
+        <div class="tk-search">
+          <span class="material-icons">search</span>
+          <input type="text" id="tkSearchInput" placeholder="Buscar token..." autocomplete="off" spellcheck="false" />
+          <span class="material-icons tk-search-clear" id="tkSearchClear">close</span>
+        </div>
+      </div>
+
+      <div class="tk-nav-title">Design Tokens</div>
+
+      <div class="tk-nav-group">
+        <div class="tk-nav-group-label">Cores</div>
+        <a href="#brand">Marca</a>
+        <a href="#gray">Cinza</a>
+        <a href="#blue">Azul</a>
+        <a href="#green">Verde</a>
+        <a href="#red">Vermelho</a>
+        <a href="#orange">Laranja</a>
+        <a href="#purple">Roxo</a>
+        <a href="#pink">Rosa</a>
+        <a href="#charts">Gráficos</a>
+      </div>
+
+      <div class="tk-nav-group">
+        <div class="tk-nav-group-label">Tipografia</div>
+        <a href="#font-family">Família</a>
+        <a href="#font-size">Tamanhos</a>
+        <a href="#font-weight">Pesos</a>
+        <a href="#line-height">Line Height</a>
+        <a href="#headings">Headings</a>
+        <a href="#buttons-type">Botões</a>
+      </div>
+
+      <div class="tk-nav-group">
+        <div class="tk-nav-group-label">Geometria</div>
+        <a href="#border-radius">Border Radius</a>
+        <a href="#spacing">Espaçamento</a>
+      </div>
+
+      <div class="tk-nav-group">
+        <div class="tk-nav-group-label">Ícones</div>
+        <a href="#icon-colors">Cores de Ícone</a>
+        <a href="#icon-sizes">Tamanhos de Ícone</a>
+      </div>
+
+      <div class="tk-nav-group">
+        <div class="tk-nav-group-label">Efeitos</div>
+        <a href="#shadows">Sombras</a>
+      </div>
+
+    </nav>
+
+    <!-- ═══ MAIN ═══ -->
+    <main class="tk-main">
+
+      <div id="tkNoResults" class="tk-no-results">
+        <span class="material-icons" style="font-size:32px;display:block;margin-bottom:8px;color:var(--color-gray-400)">search_off</span>
+        Nenhum token encontrado para "<span id="tkNoResultsQuery"></span>"
+      </div>
+
+      <div class="tk-header">
+        <h1>Design Tokens</h1>
+        <p>Fonte: <code>tokens.css</code> · Clique em qualquer token para copiar o nome da variável CSS.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           MARCA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="brand">
+        <h2 class="tk-section-title">Marca</h2>
+        <p class="tk-section-desc">Cores primárias da identidade InfoPrice.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-brand-primary">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-color-swatch" style="background:var(--color-brand-primary)"></div>
+            <div class="tk-color-info">
+              <div class="tk-color-name">Brand Primary</div>
+              <div class="tk-color-token">--color-brand-primary</div>
+              <div class="tk-color-hex">#0e9ce3</div>
+            </div>
+          </div>
+          <div class="tk-card tk-color-card" data-token="--color-brand-tertiary">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-color-swatch" style="background:var(--color-brand-tertiary)"></div>
+            <div class="tk-color-info">
+              <div class="tk-color-name">Brand Tertiary</div>
+              <div class="tk-color-token">--color-brand-tertiary</div>
+              <div class="tk-color-hex">#cce9fa</div>
+            </div>
+          </div>
+          <div class="tk-card tk-color-card" data-token="--color-white">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-color-swatch" style="background:var(--color-white);border-bottom:1px solid var(--color-gray-300)"></div>
+            <div class="tk-color-info">
+              <div class="tk-color-name">White</div>
+              <div class="tk-color-token">--color-white</div>
+              <div class="tk-color-hex">#ffffff</div>
+            </div>
+          </div>
+          <div class="tk-card tk-color-card" data-token="--color-black">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-color-swatch" style="background:var(--color-black)"></div>
+            <div class="tk-color-info">
+              <div class="tk-color-name">Black</div>
+              <div class="tk-color-token">--color-black</div>
+              <div class="tk-color-hex">#000000</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           CINZA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="gray">
+        <h2 class="tk-section-title">Cinza</h2>
+        <p class="tk-section-desc">Escala neutra — fundos, bordas, textos secundários.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-gray-50"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-50);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 50</div><div class="tk-color-token">--color-gray-50</div><div class="tk-color-hex">#fafafa</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-100"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-100)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 100</div><div class="tk-color-token">--color-gray-100</div><div class="tk-color-hex">#f5f5f5</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-200"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-200)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 200</div><div class="tk-color-token">--color-gray-200</div><div class="tk-color-hex">#f4f4f4</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-300"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 300</div><div class="tk-color-token">--color-gray-300</div><div class="tk-color-hex">#eaeaea</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-400)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 400</div><div class="tk-color-token">--color-gray-400</div><div class="tk-color-hex">#d3d3d3</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-500)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 500</div><div class="tk-color-token">--color-gray-500</div><div class="tk-color-hex">#bcbcbc</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-600)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 600</div><div class="tk-color-token">--color-gray-600</div><div class="tk-color-hex">#959595</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-700)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 700</div><div class="tk-color-token">--color-gray-700</div><div class="tk-color-hex">#747474</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-800"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-800)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 800</div><div class="tk-color-token">--color-gray-800</div><div class="tk-color-hex">#505050</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-gray-900"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-gray-900)"></div><div class="tk-color-info"><div class="tk-color-name">Gray 900</div><div class="tk-color-token">--color-gray-900</div><div class="tk-color-hex">#323232</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           AZUL
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="blue">
+        <h2 class="tk-section-title">Azul</h2>
+        <p class="tk-section-desc">Cor principal de ação e destaque da interface.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-5);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 5</div><div class="tk-color-token">--color-blue-light-5</div><div class="tk-color-hex">#f5f9fe</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-10)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 10</div><div class="tk-color-token">--color-blue-light-10</div><div class="tk-color-hex">#ebf4fe</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-15"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-15)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 15</div><div class="tk-color-token">--color-blue-light-15</div><div class="tk-color-hex">#e1eefd</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-20"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-20)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 20</div><div class="tk-color-token">--color-blue-light-20</div><div class="tk-color-hex">#d7e8fc</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-45"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-45)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 45</div><div class="tk-color-token">--color-blue-light-45</div><div class="tk-color-hex">#a5ccf8</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-65"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-65)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 65</div><div class="tk-color-token">--color-blue-light-65</div><div class="tk-color-hex">#7db6f5</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-light-85"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-light-85)"></div><div class="tk-color-info"><div class="tk-color-name">Blue Light 85</div><div class="tk-color-token">--color-blue-light-85</div><div class="tk-color-hex">#559ff2</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-400)"></div><div class="tk-color-info"><div class="tk-color-name">Blue 400</div><div class="tk-color-token">--color-blue-400</div><div class="tk-color-hex">#378ef0</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-500)"></div><div class="tk-color-info"><div class="tk-color-name">Blue 500</div><div class="tk-color-token">--color-blue-500</div><div class="tk-color-hex">#2680eb</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-600)"></div><div class="tk-color-info"><div class="tk-color-name">Blue 600</div><div class="tk-color-token">--color-blue-600</div><div class="tk-color-hex">#1473e6</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-blue-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-blue-700)"></div><div class="tk-color-info"><div class="tk-color-name">Blue 700</div><div class="tk-color-token">--color-blue-700</div><div class="tk-color-hex">#0d66d0</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           VERDE
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="green">
+        <h2 class="tk-section-title">Verde</h2>
+        <p class="tk-section-desc">Sucesso, variação positiva, indicadores de saúde.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-green-light-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-5);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 5</div><div class="tk-color-token">--color-green-light-5</div><div class="tk-color-hex">#f5fbf9</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-10)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 10</div><div class="tk-color-token">--color-green-light-10</div><div class="tk-color-hex">#ebf7f3</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-15"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-15)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 15</div><div class="tk-color-token">--color-green-light-15</div><div class="tk-color-hex">#e0f2ed</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-20"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-20)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 20</div><div class="tk-color-token">--color-green-light-20</div><div class="tk-color-hex">#d6eee6</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-45"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-45)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 45</div><div class="tk-color-token">--color-green-light-45</div><div class="tk-color-hex">#a3d9c8</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-65"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-65)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 65</div><div class="tk-color-token">--color-green-light-65</div><div class="tk-color-hex">#7ac8af</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-light-85"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-light-85)"></div><div class="tk-color-info"><div class="tk-color-name">Green Light 85</div><div class="tk-color-token">--color-green-light-85</div><div class="tk-color-hex">#5cbc9d</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-400)"></div><div class="tk-color-info"><div class="tk-color-name">Green 400</div><div class="tk-color-token">--color-green-400</div><div class="tk-color-hex">#33ab84</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-500)"></div><div class="tk-color-info"><div class="tk-color-name">Green 500</div><div class="tk-color-token">--color-green-500</div><div class="tk-color-hex">#2d9d78</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-600)"></div><div class="tk-color-info"><div class="tk-color-name">Green 600</div><div class="tk-color-token">--color-green-600</div><div class="tk-color-hex">#268e6c</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-green-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-green-700)"></div><div class="tk-color-info"><div class="tk-color-name">Green 700</div><div class="tk-color-token">--color-green-700</div><div class="tk-color-hex">#12805c</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           VERMELHO
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="red">
+        <h2 class="tk-section-title">Vermelho</h2>
+        <p class="tk-section-desc">Erro, alerta crítico, variação negativa.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-red-light-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-5);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 5</div><div class="tk-color-token">--color-red-light-5</div><div class="tk-color-hex">#fef7f7</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-10)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 10</div><div class="tk-color-token">--color-red-light-10</div><div class="tk-color-hex">#fdefef</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-15"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-15)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 15</div><div class="tk-color-token">--color-red-light-15</div><div class="tk-color-hex">#fce6e7</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-20"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-20)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 20</div><div class="tk-color-token">--color-red-light-20</div><div class="tk-color-hex">#fbdee0</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-45"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-45)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 45</div><div class="tk-color-token">--color-red-light-45</div><div class="tk-color-hex">#f6b5b8</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-65"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-65)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 65</div><div class="tk-color-token">--color-red-light-65</div><div class="tk-color-hex">#f39499</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-light-85"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-light-85)"></div><div class="tk-color-info"><div class="tk-color-name">Red Light 85</div><div class="tk-color-token">--color-red-light-85</div><div class="tk-color-hex">#ef747a</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-400)"></div><div class="tk-color-info"><div class="tk-color-name">Red 400</div><div class="tk-color-token">--color-red-400</div><div class="tk-color-hex">#ec5b62</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-500)"></div><div class="tk-color-info"><div class="tk-color-name">Red 500</div><div class="tk-color-token">--color-red-500</div><div class="tk-color-hex">#e34850</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-600)"></div><div class="tk-color-info"><div class="tk-color-name">Red 600</div><div class="tk-color-token">--color-red-600</div><div class="tk-color-hex">#d7373f</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-red-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-red-700)"></div><div class="tk-color-info"><div class="tk-color-name">Red 700</div><div class="tk-color-token">--color-red-700</div><div class="tk-color-hex">#c9252d</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           LARANJA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="orange">
+        <h2 class="tk-section-title">Laranja</h2>
+        <p class="tk-section-desc">Oferta, atenção, ações secundárias de destaque.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-5);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 5</div><div class="tk-color-token">--color-orange-light-5</div><div class="tk-color-hex">#fef9f4</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-10)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 10</div><div class="tk-color-token">--color-orange-light-10</div><div class="tk-color-hex">#fef5e9</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-15"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-15)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 15</div><div class="tk-color-token">--color-orange-light-15</div><div class="tk-color-hex">#fdefde</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-20"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-20)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 20</div><div class="tk-color-token">--color-orange-light-20</div><div class="tk-color-hex">#fcead3</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-45"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-45)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 45</div><div class="tk-color-token">--color-orange-light-45</div><div class="tk-color-hex">#f9cf9c</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-65"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-65)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 65</div><div class="tk-color-token">--color-orange-light-65</div><div class="tk-color-hex">#f7b970</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-light-85"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-light-85)"></div><div class="tk-color-info"><div class="tk-color-name">Orange Light 85</div><div class="tk-color-token">--color-orange-light-85</div><div class="tk-color-hex">#f4a444</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-400)"></div><div class="tk-color-info"><div class="tk-color-name">Orange 400</div><div class="tk-color-token">--color-orange-400</div><div class="tk-color-hex">#f29423</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-500)"></div><div class="tk-color-info"><div class="tk-color-name">Orange 500</div><div class="tk-color-token">--color-orange-500</div><div class="tk-color-hex">#e68619</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-600)"></div><div class="tk-color-info"><div class="tk-color-name">Orange 600</div><div class="tk-color-token">--color-orange-600</div><div class="tk-color-hex">#da7b11</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-orange-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-orange-700)"></div><div class="tk-color-info"><div class="tk-color-name">Orange 700</div><div class="tk-color-token">--color-orange-700</div><div class="tk-color-hex">#cb6f10</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           ROXO
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="purple">
+        <h2 class="tk-section-title">Roxo</h2>
+        <p class="tk-section-desc">Uso em gráficos e elementos de destaque secundário.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-purple-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-purple-400)"></div><div class="tk-color-info"><div class="tk-color-name">Purple 400</div><div class="tk-color-token">--color-purple-400</div><div class="tk-color-hex">#9256d9</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-purple-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-purple-500)"></div><div class="tk-color-info"><div class="tk-color-name">Purple 500</div><div class="tk-color-token">--color-purple-500</div><div class="tk-color-hex">#864ccc</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-purple-600"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-purple-600)"></div><div class="tk-color-info"><div class="tk-color-name">Purple 600</div><div class="tk-color-token">--color-purple-600</div><div class="tk-color-hex">#7a42bf</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-purple-700"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-purple-700)"></div><div class="tk-color-info"><div class="tk-color-name">Purple 700</div><div class="tk-color-token">--color-purple-700</div><div class="tk-color-hex">#6f38b1</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           ROSA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="pink">
+        <h2 class="tk-section-title">Rosa</h2>
+        <p class="tk-section-desc">Uso em gráficos e badges especiais.</p>
+        <div class="tk-grid tk-grid-colors">
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-5);border-bottom:1px solid var(--color-gray-300)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 5</div><div class="tk-color-token">--color-pink-light-5</div><div class="tk-color-hex">#fef8fd</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-10)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 10</div><div class="tk-color-token">--color-pink-light-10</div><div class="tk-color-hex">#fef1fb</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-15"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-15)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 15</div><div class="tk-color-token">--color-pink-light-15</div><div class="tk-color-hex">#fdeaf9</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-20"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-20)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 20</div><div class="tk-color-token">--color-pink-light-20</div><div class="tk-color-hex">#fde3f7</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-45"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-45)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 45</div><div class="tk-color-token">--color-pink-light-45</div><div class="tk-color-hex">#fac0ed</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-65"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-65)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 65</div><div class="tk-color-token">--color-pink-light-65</div><div class="tk-color-hex">#f8a4e5</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-light-85"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-light-85)"></div><div class="tk-color-info"><div class="tk-color-name">Pink Light 85</div><div class="tk-color-token">--color-pink-light-85</div><div class="tk-color-hex">#f688dc</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-400"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-400)"></div><div class="tk-color-info"><div class="tk-color-name">Pink 400</div><div class="tk-color-token">--color-pink-400</div><div class="tk-color-hex">#f473d6</div></div></div>
+          <div class="tk-card tk-color-card" data-token="--color-pink-500"><div class="tk-copy-tip">Copiar token</div><div class="tk-color-swatch" style="background:var(--color-pink-500)"></div><div class="tk-color-info"><div class="tk-color-name">Pink 500</div><div class="tk-color-token">--color-pink-500</div><div class="tk-color-hex">#e663c9</div></div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           GRÁFICOS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="charts">
+        <h2 class="tk-section-title">Gráficos</h2>
+        <p class="tk-section-desc">Sequência semântica para séries de dados. Use sempre na ordem — chart-1, chart-2…</p>
+        <div class="tk-chart-grid">
+          <div class="tk-chart-item tk-card" data-token="--color-chart-1"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-1)"></div><div class="tk-chart-label">chart-1<br>#0d66d0</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-2"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-2)"></div><div class="tk-chart-label">chart-2<br>#825dcb</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-3"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-3)"></div><div class="tk-chart-label">chart-3<br>#e663c9</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-4"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-4)"></div><div class="tk-chart-label">chart-4<br>#f25c96</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-5"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-5)"></div><div class="tk-chart-label">chart-5<br>#ff756b</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-6"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-6)"></div><div class="tk-chart-label">chart-6<br>#ffa164</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-7"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-7)"></div><div class="tk-chart-label">chart-7<br>#d9ce54</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-8"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-8)"></div><div class="tk-chart-label">chart-8<br>#96c74c</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-9"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-9)"></div><div class="tk-chart-label">chart-9<br>#5ae47a</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-10"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-10)"></div><div class="tk-chart-label">chart-10<br>#bf9a00</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-11"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-11)"></div><div class="tk-chart-label">chart-11<br>#d46d14</div></div>
+          <div class="tk-chart-item tk-card" data-token="--color-chart-12"><div class="tk-copy-tip">Copiar token</div><div class="tk-chart-swatch" style="background:var(--color-chart-12)"></div><div class="tk-chart-label">chart-12<br>#d53b3b</div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           FAMÍLIA TIPOGRÁFICA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="font-family">
+        <h2 class="tk-section-title">Família Tipográfica</h2>
+        <div class="tk-grid" style="grid-template-columns:1fr;">
+          <div class="tk-card" data-token="--font-family-base" style="background:var(--color-white);border:1px solid var(--color-gray-300);border-radius:6px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div>
+              <div style="font-size:var(--font-size-3xl);font-weight:300;line-height:1.2;color:var(--color-gray-900);">Open Sans</div>
+              <div style="font-size:var(--font-size-sm);color:var(--color-gray-500);margin-top:4px;">Light · Regular · Semibold · Bold</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;font-family:monospace;color:var(--color-blue-500);">--font-family-base</div>
+              <div style="font-size:10px;font-family:monospace;color:var(--color-gray-500);margin-top:2px;">'Open Sans', sans-serif</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           TAMANHOS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="font-size">
+        <h2 class="tk-section-title">Tamanhos de Fonte</h2>
+        <p class="tk-section-desc">8 steps — de 8px (2xs) a 24px (3xl). Base do corpo: <strong>14px (md)</strong>.</p>
+
+        <div class="tk-type-header">
+          <span>Token</span><span style="text-align:right">px</span><span style="text-align:right">weight</span><span style="text-align:right">line-h</span><span>Amostra</span>
+        </div>
+        <div class="tk-grid tk-grid-type">
+          <div class="tk-card tk-type-row" data-token="--font-size-2xs"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-2xs</span><span class="tk-type-val">8px</span><span class="tk-type-val">400</span><span class="tk-type-val">10px</span><span class="tk-type-sample" style="font-size:var(--font-size-2xs);font-weight:400;line-height:var(--line-height-2xs)">The quick brown fox jumps over the lazy dog · 2xs regular</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-xs"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-xs</span><span class="tk-type-val">10px</span><span class="tk-type-val">400</span><span class="tk-type-val">12px</span><span class="tk-type-sample" style="font-size:var(--font-size-xs);font-weight:400;line-height:var(--line-height-xs)">The quick brown fox jumps over the lazy dog · xs regular</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-xs-bold"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-xs + bold</span><span class="tk-type-val">10px</span><span class="tk-type-val">700</span><span class="tk-type-val">12px</span><span class="tk-type-sample" style="font-size:var(--font-size-xs);font-weight:700;line-height:var(--line-height-xs);text-transform:uppercase;letter-spacing:.6px">CHIP LABEL · FILTER LABEL · xs bold uppercase</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-sm"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-sm</span><span class="tk-type-val">12px</span><span class="tk-type-val">400</span><span class="tk-type-val">18px</span><span class="tk-type-sample" style="font-size:var(--font-size-sm);font-weight:400;line-height:var(--line-height-md)">The quick brown fox jumps over the lazy dog · sm regular</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-sm-semibold"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-sm + semibold</span><span class="tk-type-val">12px</span><span class="tk-type-val">600</span><span class="tk-type-val">18px</span><span class="tk-type-sample" style="font-size:var(--font-size-sm);font-weight:600;line-height:var(--line-height-md)">The quick brown fox jumps over the lazy dog · sm semibold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-md" style="background:var(--color-blue-light-5);"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token" style="color:var(--color-blue-600)">--font-size-md ★ base</span><span class="tk-type-val">14px</span><span class="tk-type-val">400</span><span class="tk-type-val">20px</span><span class="tk-type-sample" style="font-size:var(--font-size-md);font-weight:400;line-height:var(--line-height-lg)">The quick brown fox jumps over the lazy dog · md regular</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-md-semibold"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-md + semibold</span><span class="tk-type-val">14px</span><span class="tk-type-val">600</span><span class="tk-type-val">20px</span><span class="tk-type-sample" style="font-size:var(--font-size-md);font-weight:600;line-height:var(--line-height-lg)">The quick brown fox jumps over the lazy dog · md semibold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-md-bold"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-md + bold</span><span class="tk-type-val">14px</span><span class="tk-type-val">700</span><span class="tk-type-val">20px</span><span class="tk-type-sample" style="font-size:var(--font-size-md);font-weight:700;line-height:var(--line-height-lg)">The quick brown fox jumps over the lazy dog · md bold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-lg"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-lg</span><span class="tk-type-val">16px</span><span class="tk-type-val">600</span><span class="tk-type-val">20px</span><span class="tk-type-sample" style="font-size:var(--font-size-lg);font-weight:600;line-height:var(--line-height-lg)">The quick brown fox · lg semibold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-xl"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-xl</span><span class="tk-type-val">18px</span><span class="tk-type-val">600</span><span class="tk-type-val">22px</span><span class="tk-type-sample" style="font-size:var(--font-size-xl);font-weight:600;line-height:var(--line-height-xl)">The quick brown fox · xl semibold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-2xl"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-2xl</span><span class="tk-type-val">20px</span><span class="tk-type-val">600</span><span class="tk-type-val">26px</span><span class="tk-type-sample" style="font-size:var(--font-size-2xl);font-weight:600;line-height:var(--line-height-2xl)">Big numbers · 2xl semibold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-3xl"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-3xl</span><span class="tk-type-val">24px</span><span class="tk-type-val">300</span><span class="tk-type-val">32px</span><span class="tk-type-sample" style="font-size:var(--font-size-3xl);font-weight:300;line-height:var(--line-height-3xl)">Display title · 3xl light</span></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           PESOS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="font-weight">
+        <h2 class="tk-section-title">Pesos de Fonte</h2>
+        <div class="tk-grid tk-grid-weight">
+          <div class="tk-card tk-weight-card" data-token="--font-weight-light"><div class="tk-copy-tip">Copiar token</div><div class="tk-weight-sample" style="font-weight:var(--font-weight-light)">Light</div><div class="tk-weight-token">--font-weight-light</div><div class="tk-weight-val">300</div></div>
+          <div class="tk-card tk-weight-card" data-token="--font-weight-regular"><div class="tk-copy-tip">Copiar token</div><div class="tk-weight-sample" style="font-weight:var(--font-weight-regular)">Regular</div><div class="tk-weight-token">--font-weight-regular</div><div class="tk-weight-val">400</div></div>
+          <div class="tk-card tk-weight-card" data-token="--font-weight-semibold"><div class="tk-copy-tip">Copiar token</div><div class="tk-weight-sample" style="font-weight:var(--font-weight-semibold)">Semibold</div><div class="tk-weight-token">--font-weight-semibold</div><div class="tk-weight-val">600</div></div>
+          <div class="tk-card tk-weight-card" data-token="--font-weight-bold"><div class="tk-copy-tip">Copiar token</div><div class="tk-weight-sample" style="font-weight:var(--font-weight-bold)">Bold</div><div class="tk-weight-token">--font-weight-bold</div><div class="tk-weight-val">700</div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           LINE HEIGHT
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="line-height">
+        <h2 class="tk-section-title">Line Height</h2>
+        <p class="tk-section-desc">Alturas de linha correspondentes a cada step da escala tipográfica.</p>
+        <div class="tk-grid tk-grid-lineheight">
+          <div class="tk-lh-card tk-card" data-token="--line-height-2xs"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:10px;">10</div></div><div class="tk-lh-token">--line-height-2xs</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-xs"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:12px;">12</div></div><div class="tk-lh-token">--line-height-xs</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-sm"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:14px;">14</div></div><div class="tk-lh-token">--line-height-sm</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-md"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:18px;">18</div></div><div class="tk-lh-token">--line-height-md</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-lg"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:20px;">20</div></div><div class="tk-lh-token">--line-height-lg</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-xl"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:22px;">22</div></div><div class="tk-lh-token">--line-height-xl</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-2xl"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:26px;">26</div></div><div class="tk-lh-token">--line-height-2xl</div></div>
+          <div class="tk-lh-card tk-card" data-token="--line-height-3xl"><div class="tk-copy-tip">Copiar token</div><div class="tk-lh-bar-wrap" style="height:40px;"><div class="tk-lh-bar" style="height:32px;">32</div></div><div class="tk-lh-token">--line-height-3xl</div></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           HEADINGS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="headings">
+        <h2 class="tk-section-title">Headings</h2>
+        <p class="tk-section-desc">Escala de display para títulos de página e dashboards.</p>
+        <div class="tk-grid tk-grid-type" style="background:var(--color-white);border-radius:6px;overflow:hidden;border:1px solid var(--color-gray-300);">
+          <div class="tk-card tk-type-row" data-token="--font-size-h1"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-h1</span><span class="tk-type-val">56px</span><span class="tk-type-val">400</span><span class="tk-type-val">72.8</span><span class="tk-type-sample" style="font-size:clamp(20px,3vw,56px);font-weight:400;line-height:1.3">H1 Heading</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-h2"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-h2</span><span class="tk-type-val">48px</span><span class="tk-type-val">400</span><span class="tk-type-val">62.4</span><span class="tk-type-sample" style="font-size:clamp(18px,2.5vw,48px);font-weight:400;line-height:1.3">H2 Heading</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-h3"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-h3</span><span class="tk-type-val">40px</span><span class="tk-type-val">400</span><span class="tk-type-val">52</span><span class="tk-type-sample" style="font-size:clamp(16px,2vw,40px);font-weight:400;line-height:1.3">H3 Heading</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-h6"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-h6</span><span class="tk-type-val">20px</span><span class="tk-type-val">600</span><span class="tk-type-val">26</span><span class="tk-type-sample" style="font-size:var(--font-size-2xl);font-weight:600;line-height:var(--line-height-2xl)">H6 Título de seção</span></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           BOTÕES — TIPOGRAFIA
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="buttons-type">
+        <h2 class="tk-section-title">Tipografia de Botões</h2>
+        <p class="tk-section-desc">Cada tamanho tem variante bold (ação primária) e regular (ação secundária).</p>
+        <div class="tk-grid tk-grid-type" style="background:var(--color-white);border-radius:6px;overflow:hidden;border:1px solid var(--color-gray-300);">
+          <div class="tk-card tk-type-row" data-token="--font-size-btn-xs"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-btn-xs</span><span class="tk-type-val">10px</span><span class="tk-type-val">700</span><span class="tk-type-val">16px</span><span class="tk-type-sample" style="font-size:var(--font-size-btn-xs);font-weight:700;line-height:var(--line-height-btn-xs)">BOTÃO XS BOLD · clube de descontos</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-btn-xs-reg"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">btn-xs regular</span><span class="tk-type-val">10px</span><span class="tk-type-val">400</span><span class="tk-type-val">16px</span><span class="tk-type-sample" style="font-size:var(--font-size-btn-xs);font-weight:400;line-height:var(--line-height-btn-xs)">Botão xs regular</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-btn-sm"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-btn-sm</span><span class="tk-type-val">12px</span><span class="tk-type-val">700</span><span class="tk-type-val">18px</span><span class="tk-type-sample" style="font-size:var(--font-size-btn-sm);font-weight:700;line-height:var(--line-height-btn-sm)">Botão SM Bold</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-btn-md"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-btn-md</span><span class="tk-type-val">14px</span><span class="tk-type-val">700</span><span class="tk-type-val">20px</span><span class="tk-type-sample" style="font-size:var(--font-size-btn-md);font-weight:700;line-height:var(--line-height-btn-md)">Botão MD Bold · Aplicar Preço</span></div>
+          <div class="tk-card tk-type-row" data-token="--font-size-btn-lg"><div class="tk-copy-tip">Copiar token</div><span class="tk-type-meta-token">--font-size-btn-lg</span><span class="tk-type-val">16px</span><span class="tk-type-val">700</span><span class="tk-type-val">22px</span><span class="tk-type-sample" style="font-size:var(--font-size-btn-lg);font-weight:700;line-height:var(--line-height-btn-lg)">Botão LG Bold</span></div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           BORDER RADIUS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="border-radius">
+        <h2 class="tk-section-title">Border Radius</h2>
+        <p class="tk-section-desc">4 níveis de arredondamento — de cantos retos a pílula. Use <code>--radius-sm</code> na maioria dos componentes.</p>
+        <div class="tk-grid tk-grid-radius">
+
+          <div class="tk-card tk-radius-card" data-token="--radius-none">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-radius-preview" style="border-radius:var(--radius-none)"></div>
+            <div>
+              <div class="tk-radius-token">--radius-none</div>
+              <div class="tk-radius-val">0px · cantos retos</div>
+              <div class="tk-radius-val" style="margin-top:6px;color:var(--color-gray-400)">tabelas · divisórias</div>
+            </div>
+          </div>
+
+          <div class="tk-card tk-radius-card" data-token="--radius-sm">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-radius-preview" style="border-radius:var(--radius-sm)"></div>
+            <div>
+              <div class="tk-radius-token">--radius-sm</div>
+              <div class="tk-radius-val">4px · sutil</div>
+              <div class="tk-radius-val" style="margin-top:6px;color:var(--color-gray-400)">botões · inputs · chips</div>
+            </div>
+          </div>
+
+          <div class="tk-card tk-radius-card" data-token="--radius-md">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-radius-preview" style="border-radius:var(--radius-md)"></div>
+            <div>
+              <div class="tk-radius-token">--radius-md</div>
+              <div class="tk-radius-val">8px · médio</div>
+              <div class="tk-radius-val" style="margin-top:6px;color:var(--color-gray-400)">cards · modais · dropdowns</div>
+            </div>
+          </div>
+
+          <div class="tk-card tk-radius-card" data-token="--radius-pill">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-radius-preview" style="border-radius:var(--radius-pill);width:100px;height:40px;"></div>
+            <div>
+              <div class="tk-radius-token">--radius-pill</div>
+              <div class="tk-radius-val">999px · pílula</div>
+              <div class="tk-radius-val" style="margin-top:6px;color:var(--color-gray-400)">badges · tags · toggles</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           ESPAÇAMENTO
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="spacing">
+        <h2 class="tk-section-title">Espaçamento</h2>
+        <p class="tk-section-desc">Escala base em múltiplos de 4px. Use para <code>padding</code>, <code>gap</code>, <code>margin</code> e posicionamentos internos.</p>
+
+        <div class="tk-space-table">
+          <div class="tk-space-header">
+            <span>Token</span>
+            <span>Valor</span>
+            <span>Visual</span>
+            <span>Uso comum</span>
+          </div>
+
+          <div class="tk-card tk-space-row" data-token="--space-1">
+            <div class="tk-copy-tip">Copiar token</div>
+            <span class="tk-space-token">--space-1</span>
+            <span class="tk-space-val">4px</span>
+            <div class="tk-space-bar-wrap">
+              <div class="tk-space-bar" style="width: calc(var(--space-1) * 4)"></div>
+            </div>
+            <span class="tk-space-use">gap entre ícone e label · offset de badge</span>
+          </div>
+
+          <div class="tk-card tk-space-row" data-token="--space-2">
+            <div class="tk-copy-tip">Copiar token</div>
+            <span class="tk-space-token">--space-2</span>
+            <span class="tk-space-val">8px</span>
+            <div class="tk-space-bar-wrap">
+              <div class="tk-space-bar" style="width: calc(var(--space-2) * 4)"></div>
+            </div>
+            <span class="tk-space-use">padding interno de chip · gap de botões</span>
+          </div>
+
+          <div class="tk-card tk-space-row" data-token="--space-3">
+            <div class="tk-copy-tip">Copiar token</div>
+            <span class="tk-space-token">--space-3</span>
+            <span class="tk-space-val">12px</span>
+            <div class="tk-space-bar-wrap">
+              <div class="tk-space-bar" style="width: calc(var(--space-3) * 4)"></div>
+            </div>
+            <span class="tk-space-use">padding horizontal de input · célula de tabela</span>
+          </div>
+
+          <div class="tk-card tk-space-row" data-token="--space-4">
+            <div class="tk-copy-tip">Copiar token</div>
+            <span class="tk-space-token">--space-4</span>
+            <span class="tk-space-val">16px</span>
+            <div class="tk-space-bar-wrap">
+              <div class="tk-space-bar" style="width: calc(var(--space-4) * 4)"></div>
+            </div>
+            <span class="tk-space-use">padding de card · gap entre seções</span>
+          </div>
+
+          <div class="tk-card tk-space-row" data-token="--space-6">
+            <div class="tk-copy-tip">Copiar token</div>
+            <span class="tk-space-token">--space-6</span>
+            <span class="tk-space-val">24px</span>
+            <div class="tk-space-bar-wrap">
+              <div class="tk-space-bar" style="width: calc(var(--space-6) * 4)"></div>
+            </div>
+            <span class="tk-space-use">padding de painel · espaço entre grupos</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           ÍCONES — CORES SEMÂNTICAS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="icon-colors">
+        <h2 class="tk-section-title">Cores de Ícone</h2>
+        <p class="tk-section-desc">
+          Tokens semânticos derivados do Figma (fill padrão #505050 = gray-800).
+          Clique para copiar o nome do token.
+        </p>
+        <div class="tk-grid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+
+          <div class="tk-card" data-token="--color-icon-default" title="Clique para copiar">
+            <div style="width:100%;height:48px;background:var(--color-white);border:1px solid var(--color-gray-200);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">settings</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">search</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">more_vert</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--color-icon-default</div>
+              <div class="tk-token-value">#505050 · gray-800</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--color-icon-muted" title="Clique para copiar">
+            <div style="width:100%;height:48px;background:var(--color-white);border:1px solid var(--color-gray-200);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-muted)">settings</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-muted)">search</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-muted)">more_vert</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--color-icon-muted</div>
+              <div class="tk-token-value">#959595 · gray-600</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--color-icon-disabled" title="Clique para copiar">
+            <div style="width:100%;height:48px;background:var(--color-white);border:1px solid var(--color-gray-200);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-disabled)">settings</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-disabled)">search</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-disabled)">lock</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--color-icon-disabled</div>
+              <div class="tk-token-value">#d3d3d3 · gray-400</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--color-icon-oncolor" title="Clique para copiar">
+            <div style="width:100%;height:48px;background:var(--color-brand-primary);border-radius:4px;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-oncolor)">settings</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-oncolor)">check</span>
+              <span class="material-icons" style="font-size:24px;color:var(--color-icon-oncolor)">file_download</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--color-icon-oncolor</div>
+              <div class="tk-token-value">#ffffff · sobre cor</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           ÍCONES — TAMANHOS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="icon-sizes">
+        <h2 class="tk-section-title">Tamanhos de Ícone</h2>
+        <p class="tk-section-desc">
+          Escala de 5 tamanhos. Fonte: Figma › Buttons (link button icon sizes) + container padrão de componente (24px).
+        </p>
+        <div class="tk-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
+
+          <div class="tk-card" data-token="--icon-size-xs" title="Clique para copiar">
+            <div style="width:100%;height:56px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:var(--icon-size-xs);color:var(--color-icon-default)">settings</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--icon-size-xs</div>
+              <div class="tk-token-value">10px · xsmall</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--icon-size-sm" title="Clique para copiar">
+            <div style="width:100%;height:56px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:var(--icon-size-sm);color:var(--color-icon-default)">settings</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--icon-size-sm</div>
+              <div class="tk-token-value">12px · small</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--icon-size-md" title="Clique para copiar">
+            <div style="width:100%;height:56px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:var(--icon-size-md);color:var(--color-icon-default)">settings</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--icon-size-md</div>
+              <div class="tk-token-value">16px · medium</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--icon-size-lg" title="Clique para copiar">
+            <div style="width:100%;height:56px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:var(--icon-size-lg);color:var(--color-icon-default)">settings</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--icon-size-lg</div>
+              <div class="tk-token-value">20px · large</div>
+            </div>
+          </div>
+
+          <div class="tk-card" data-token="--icon-size-xl" title="Clique para copiar">
+            <div style="width:100%;height:56px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:var(--icon-size-xl);color:var(--color-icon-default)">settings</span>
+            </div>
+            <div class="tk-card-body">
+              <div class="tk-token-name">--icon-size-xl</div>
+              <div class="tk-token-value">24px · container</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════
+           SOMBRAS
+           ════════════════════════════════════════ -->
+      <section class="tk-section" id="shadows">
+        <h2 class="tk-section-title">Sombras / Elevação</h2>
+        <p class="tk-section-desc">Três níveis de elevação para criar hierarquia visual.</p>
+        <div class="tk-grid tk-grid-shadow">
+
+          <div class="tk-card tk-shadow-card" data-token="--shadow-elevation" style="border:1px solid var(--color-gray-200)">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-shadow-preview" style="box-shadow:var(--shadow-elevation)"></div>
+            <div>
+              <div class="tk-shadow-name">Elevation</div>
+              <div class="tk-shadow-token">--shadow-elevation</div>
+            </div>
+            <div class="tk-shadow-value">0 3px 6px -4px rgba(0,0,0,.12),<br>0 6px 16px 0 rgba(0,0,0,.08),<br>0 9px 28px 8px rgba(0,0,0,.05)</div>
+            <span class="tk-shadow-use">cards · dropdowns · modais</span>
+          </div>
+
+          <div class="tk-card tk-shadow-card" data-token="--shadow-focus" style="border:1px solid var(--color-gray-200)">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-shadow-preview" style="box-shadow:var(--shadow-focus);border:1px solid var(--color-blue-400)"></div>
+            <div>
+              <div class="tk-shadow-name">Focus</div>
+              <div class="tk-shadow-token">--shadow-focus</div>
+            </div>
+            <div class="tk-shadow-value">0 0 4px 0 rgba(24,144,255,.50)</div>
+            <span class="tk-shadow-use">inputs focados · botões ativos</span>
+          </div>
+
+          <div class="tk-card tk-shadow-card" data-token="--shadow-hover" style="border:1px solid var(--color-gray-200)">
+            <div class="tk-copy-tip">Copiar token</div>
+            <div class="tk-shadow-preview" style="box-shadow:var(--shadow-hover)"></div>
+            <div>
+              <div class="tk-shadow-name">Hover</div>
+              <div class="tk-shadow-token">--shadow-hover</div>
+            </div>
+            <div class="tk-shadow-value">0 0 4px 8px rgba(85,159,242,.40)</div>
+            <span class="tk-shadow-use">anel de destaque ao hover</span>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── COPIAR TOKEN AO CLICAR ── */
+      var cards = document.querySelectorAll('.tk-card[data-token]');
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          var token = card.getAttribute('data-token');
+          if (!token) return;
+          navigator.clipboard.writeText('var(' + token + ')').then(function () {
+            var tip = card.querySelector('.tk-copy-tip');
+            if (tip) {
+              tip.textContent = 'Copiado!';
+              card.classList.add('copied');
+              setTimeout(function () {
+                tip.textContent = 'Copiar token';
+                card.classList.remove('copied');
+              }, 1500);
+            }
+          }).catch(function () {
+            /* fallback silencioso */
+          });
+        });
+      });
+
+      /* ── BUSCA ── */
+      var input      = document.getElementById('tkSearchInput');
+      var clearBtn   = document.getElementById('tkSearchClear');
+      var noResults  = document.getElementById('tkNoResults');
+      var noResultsQ = document.getElementById('tkNoResultsQuery');
+      var sections   = Array.from(document.querySelectorAll('.tk-section'));
+      var navLinks   = Array.from(document.querySelectorAll('.tk-nav a[href^="#"]'));
+
+      function runSearch(q) {
+        q = q.trim().toLowerCase();
+        var visible = 0;
+
+        sections.forEach(function (sec) {
+          var text = sec.textContent.toLowerCase();
+          var match = !q || text.indexOf(q) !== -1;
+          sec.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+
+        navLinks.forEach(function (link) {
+          var id = link.getAttribute('href').slice(1);
+          var sec = document.getElementById(id);
+          link.classList.toggle('tk-nav-hidden', !!q && sec && sec.style.display === 'none');
+        });
+
+        if (q && visible === 0) {
+          noResultsQ.textContent = q;
+          noResults.classList.add('visible');
+        } else {
+          noResults.classList.remove('visible');
+        }
+
+        clearBtn.classList.toggle('visible', q.length > 0);
+      }
+
+      input.addEventListener('input', function () { runSearch(input.value); });
+
+      clearBtn.addEventListener('click', function () {
+        input.value = '';
+        runSearch('');
+        input.focus();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '/' && document.activeElement !== input) {
+          e.preventDefault();
+          input.focus();
+          input.select();
+        }
+        if (e.key === 'Escape' && document.activeElement === input) {
+          input.value = '';
+          runSearch('');
+          input.blur();
+        }
+      });
+
+    }());
+  </script>
+</body>
+</html>

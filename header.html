@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Header — IPA Gerenciador AcelerAI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
+  <link rel="stylesheet" href="tokens.css" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-50);
+      display: flex;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    /* ── Header ──────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 52px;
+      background: var(--color-gray-300);
+      position: relative;
+    }
+
+    /* ── Lado esquerdo ───────────────────────────────── */
+    .header__left {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* Botão menu (quadrado azul) */
+    .header__menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: var(--color-blue-400);
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 101;
+    }
+
+    .header__menu-btn .material-icons-outlined {
+      font-size: var(--icon-size-lg);
+      color: var(--color-white);
+    }
+
+    /* Logo + nome do produto */
+    .header__brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px 12px;
+      flex-shrink: 0;
+    }
+
+    .header__logo {
+      height: 17px;
+      width: auto;
+      display: block;
+    }
+
+    .header__divider {
+      width: 1px;
+      height: 24px;
+      background: var(--color-gray-500);
+      flex-shrink: 0;
+    }
+
+    .header__product-name {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-800);
+      white-space: nowrap;
+    }
+
+    /* ── Lado direito ────────────────────────────────── */
+    .header__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: 16px var(--space-2);
+      height: 52px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 101;
+    }
+
+    .header__help-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .header__help-btn .material-icons-outlined {
+      font-size: var(--icon-size-lg);
+      color: var(--color-gray-800);
+    }
+
+    .header__help-btn:hover .material-icons-outlined {
+      color: var(--color-brand-primary);
+    }
+
+    .header__user {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      padding: 2px 4px;
+    }
+
+    .header__user-name {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-800);
+      white-space: nowrap;
+    }
+
+    .header__user .material-icons-outlined {
+      font-size: var(--icon-size-md);
+      color: var(--color-gray-700);
+      transition: transform 140ms ease;
+    }
+
+    .header__user[aria-expanded="true"] .material-icons-outlined {
+      transform: rotate(180deg);
+    }
+
+    /* ── Dropdowns (base compartilhada) ─────────────── */
+    .dropdown {
+      position: absolute;
+      top: 52px;
+      width: 280px;
+      background: var(--color-white);
+      border-radius: 0 0 6px 6px;
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .dropdown.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dropdown__divider {
+      height: 1px;
+      background: var(--color-gray-300);
+    }
+
+    /* ── Dropdown de produtos ────────────────────────── */
+    .product-dropdown {
+      left: 0;
+    }
+
+    .product-dropdown__header {
+      padding: var(--space-3);
+    }
+
+    .product-dropdown__title {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+    }
+
+    .product-dropdown__list {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: var(--space-2);
+    }
+
+    .product-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      cursor: pointer;
+      transition: background 100ms ease;
+    }
+
+    .product-dropdown__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .product-dropdown__item--disabled {
+      cursor: default;
+    }
+
+    .product-dropdown__item--disabled:hover {
+      background: none;
+    }
+
+    .product-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-lg);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .product-tag--isa-active {
+      background: var(--color-blue-light-15);
+      color: var(--color-blue-700);
+    }
+
+    .product-tag--ipa-active {
+      background: #ebdaff;
+      color: var(--color-purple-700);
+    }
+
+    .product-tag--disabled {
+      background: var(--color-gray-300);
+      color: var(--color-gray-700);
+    }
+
+    .product-dropdown__item-name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .product-dropdown__item--disabled .product-dropdown__item-name {
+      color: var(--color-gray-700);
+    }
+
+    .product-dropdown__item-name .material-icons-outlined {
+      font-size: var(--icon-size-md);
+      color: var(--color-gray-600);
+    }
+
+    /* ── Dropdown de usuário ─────────────────────────── */
+    .user-dropdown {
+      right: 0;
+    }
+
+    /* Cabeçalho: nome + email */
+    .user-dropdown__identity {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: var(--space-2) var(--space-4) var(--space-3); /* 8px 16px 12px */
+    }
+
+    .user-dropdown__name {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .user-dropdown__email {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-500);
+      white-space: nowrap;
+    }
+
+    /* Grupos de links */
+    .user-dropdown__group {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-2) 0;
+    }
+
+    .user-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      cursor: pointer;
+      transition: background 100ms ease;
+    }
+
+    .user-dropdown__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .user-dropdown__item .material-icons-outlined {
+      font-size: var(--icon-size-md);
+      color: var(--color-brand-primary);
+      flex-shrink: 0;
+    }
+
+    .user-dropdown__item-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    /* Badge "CONVIDAR" */
+    .user-dropdown__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-pill);
+      background: var(--color-green-400);
+      font-size: var(--font-size-xs);       /* 10px */
+      font-weight: var(--font-weight-bold);
+      line-height: 12px;
+      color: var(--color-white);
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    /* Item sem ícone (Termos, Sair) */
+    .user-dropdown__item--text-only {
+      padding-left: var(--space-3);
+    }
+
+    /* ── Sidebar ─────────────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 52px;
+      width: 52px;
+      height: calc(100vh - 52px);
+      background: var(--color-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 50;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .sidebar__top,
+    .sidebar__bottom {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 48px;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 100ms ease;
+    }
+
+    .sidebar__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .sidebar__item .material-icons-outlined {
+      font-size: var(--icon-size-lg);   /* 20px */
+      color: var(--color-gray-700);     /* #747474 */
+    }
+
+    .sidebar__icon {
+      width: 20px;
+      height: 20px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Overlay para fechar ao clicar fora */
+    .dropdown-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+    }
+
+    .dropdown-overlay.is-open {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+  <header class="header">
+
+    <!-- Esquerda: botão menu + dropdown de produtos + logo -->
+    <div class="header__left">
+
+      <button
+        class="header__menu-btn"
+        id="menuBtn"
+        aria-label="Abrir menu de produtos"
+        aria-expanded="false"
+        aria-controls="productDropdown"
+      >
+        <span class="material-icons-outlined">apps</span>
+      </button>
+
+      <!-- Dropdown de produtos -->
+      <div class="dropdown product-dropdown" id="productDropdown" role="menu">
+
+        <div class="product-dropdown__header">
+          <span class="product-dropdown__title">Produtos</span>
+        </div>
+
+        <div class="product-dropdown__list">
+
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--isa-active">ISA</span>
+            <span class="product-dropdown__item-name">InfoPanel</span>
+          </div>
+
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--ipa-active">IPA</span>
+            <span class="product-dropdown__item-name">Software de precificação</span>
+          </div>
+
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">IPA</span>
+            <span class="product-dropdown__item-name">
+              Simulador de demanda
+              <span class="material-icons-outlined">lock</span>
+            </span>
+          </div>
+
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">ISA</span>
+            <span class="product-dropdown__item-name">
+              Monitoramento PDV
+              <span class="material-icons-outlined">lock</span>
+            </span>
+          </div>
+
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+      </div>
+
+      <div class="header__brand">
+        <img
+          class="header__logo"
+          src="assets/logo-principal.svg"
+          alt="InfoPrice"
+        />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificação</span>
+      </div>
+
+    </div>
+
+    <!-- Direita: ajuda + usuário + dropdown de usuário -->
+    <div class="header__right">
+
+      <button class="header__help-btn" aria-label="Ajuda">
+        <span class="material-icons-outlined">help_outline</span>
+      </button>
+
+      <div
+        class="header__user"
+        id="userBtn"
+        role="button"
+        tabindex="0"
+        aria-label="Menu do usuário"
+        aria-expanded="false"
+        aria-controls="userDropdown"
+      >
+        <span class="header__user-name">Olá, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+
+      <!-- Dropdown de usuário -->
+      <div class="dropdown user-dropdown" id="userDropdown" role="menu">
+
+        <!-- Identidade -->
+        <div class="user-dropdown__identity">
+          <span class="user-dropdown__name">Marcus Roggero</span>
+          <span class="user-dropdown__email">marcus@infoprice.co</span>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Links principais -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">settings</span>
+            <span class="user-dropdown__item-label">Configurações</span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">person_add</span>
+            <span class="user-dropdown__item-label">
+              Pessoas
+              <span class="user-dropdown__badge">Convidar</span>
+            </span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">help</span>
+            <span class="user-dropdown__item-label">Base de conhecimento</span>
+          </div>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Termos -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Termos de uso e serviços</span>
+          </div>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Sair -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Sair</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- Sidebar fixa -->
+  <aside class="sidebar">
+
+    <div class="sidebar__top">
+
+      <div class="sidebar__item sidebar__item--active" title="Gerenciador">
+        <img src="assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+      </div>
+
+      <div class="sidebar__item" title="Estratégia">
+        <img src="assets/estrategia-symbol.svg" alt="Estratégia" class="sidebar__icon" />
+      </div>
+
+      <div class="sidebar__item" title="Negociações">
+        <img src="assets/negociacoes-symbol.svg" alt="Negociações" class="sidebar__icon" />
+      </div>
+
+      <div class="sidebar__item" title="Extração">
+        <img src="assets/extracao-symbol.svg" alt="Extração" class="sidebar__icon" />
+      </div>
+
+      <div class="sidebar__item" title="IA">
+        <img src="assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+      </div>
+
+    </div>
+
+    <div class="sidebar__bottom">
+      <div class="sidebar__item" title="Expandir">
+        <span class="material-icons-outlined">keyboard_arrow_right</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <script>
+    const overlay     = document.getElementById('dropdownOverlay');
+
+    // ── Dropdown de produtos ──────────────────────────
+    const menuBtn         = document.getElementById('menuBtn');
+    const productDropdown = document.getElementById('productDropdown');
+
+    // ── Dropdown de usuário ───────────────────────────
+    const userBtn         = document.getElementById('userBtn');
+    const userDropdown    = document.getElementById('userDropdown');
+
+    function closeAll() {
+      [productDropdown, userDropdown].forEach(d => d.classList.remove('is-open'));
+      menuBtn.setAttribute('aria-expanded', 'false');
+      userBtn.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('is-open');
+    }
+
+    function toggle(dropdown, trigger) {
+      const isOpen = dropdown.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        dropdown.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        overlay.classList.add('is-open');
+      }
+    }
+
+    menuBtn.addEventListener('click', () => toggle(productDropdown, menuBtn));
+    userBtn.addEventListener('click',  () => toggle(userDropdown,    userBtn));
+
+    userBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle(userDropdown, userBtn);
+      }
+    });
+
+    overlay.addEventListener('click', closeAll);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAll();
+    });
+  </script>
+
+</body>
+</html>
