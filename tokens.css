@@ -269,6 +269,51 @@
 
 
   /* ────────────────────────────────────────────────────────────
+     BORDER RADIUS
+     ────────────────────────────────────────────────────────── */
+
+  --radius-none: 0px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-pill: 999px;
+
+
+  /* ────────────────────────────────────────────────────────────
+     ESPAÇAMENTO
+     ────────────────────────────────────────────────────────── */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+
+  /* ────────────────────────────────────────────────────────────
+     ÍCONES — CORES SEMÂNTICAS
+     Fonte: Figma › Design System › Icons (fill padrão #505050 = gray-800)
+     ────────────────────────────────────────────────────────── */
+
+  --color-icon-default:  var(--color-gray-800);  /* #505050 — ícones sobre fundo branco */
+  --color-icon-muted:    var(--color-gray-600);  /* #959595 — ícones secundários / desabilitado leve */
+  --color-icon-disabled: var(--color-gray-400);  /* #d3d3d3 — ícones desabilitados */
+  --color-icon-oncolor:  var(--color-white);     /* #ffffff — ícones sobre fundo colorido */
+
+
+  /* ────────────────────────────────────────────────────────────
+     ÍCONES — ESCALA DE TAMANHOS
+     Fonte: Figma › Design System › Buttons (link button icon sizes)
+     xsmall=10px  small=12px  medium=16px  large=20px  xl=24px (container padrão)
+     ────────────────────────────────────────────────────────── */
+
+  --icon-size-xs: 10px;
+  --icon-size-sm: 12px;
+  --icon-size-md: 16px;
+  --icon-size-lg: 20px;
+  --icon-size-xl: 24px;  /* container padrão de todos os componentes Figma */
+
+
+  /* ────────────────────────────────────────────────────────────
      SOMBRAS / ELEVAÇÃO
      ────────────────────────────────────────────────────────── */
 

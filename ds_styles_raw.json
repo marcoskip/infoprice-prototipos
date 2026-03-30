@@ -1,0 +1,2226 @@
+{
+  "FILL": [
+    {
+      "key": "cececfd537340c7c4b4a67c04d4511791f582979",
+      "name": "@B200",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#e5e5ea"
+    },
+    {
+      "key": "67a5848832709ad3a5143bfe57c6ac5340e6973a",
+      "name": "@B600-secondary text",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#8e8e93"
+    },
+    {
+      "key": "b0f10920fc0c2def605645f26fdf8ac376d30d89",
+      "name": "Black",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#000000"
+    },
+    {
+      "key": "85ba416e30a54bc53f598094441aedb3f6133e7d",
+      "name": "Blue-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#378ef0"
+    },
+    {
+      "key": "85ba416e30a54bc53f598094441aedb3f6133e7d",
+      "name": "Blue-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#378ef0"
+    },
+    {
+      "key": "85ba416e30a54bc53f598094441aedb3f6133e7d",
+      "name": "Blue-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#378ef0"
+    },
+    {
+      "key": "85ba416e30a54bc53f598094441aedb3f6133e7d",
+      "name": "Blue-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#378ef0"
+    },
+    {
+      "key": "05cba55dcee78312ebf846c760101ee4a10f8456",
+      "name": "Blue-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#2680eb"
+    },
+    {
+      "key": "ba135d28acefcafe2ae809ffa03fb3b38564ac43",
+      "name": "Blue-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#1473e6"
+    },
+    {
+      "key": "ba135d28acefcafe2ae809ffa03fb3b38564ac43",
+      "name": "Blue-600",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#1473e6"
+    },
+    {
+      "key": "426a59457c0a40a58cb1cb827a72c4ea9c8b8cb5",
+      "name": "Blue-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#0d66d0"
+    },
+    {
+      "key": "426a59457c0a40a58cb1cb827a72c4ea9c8b8cb5",
+      "name": "Blue-700",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#0d66d0"
+    },
+    {
+      "key": "c43dd05b3cf0e404d511d7440f3a870295e6afb7",
+      "name": "Chart Palette/Color-1",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#0d66d0"
+    },
+    {
+      "key": "9806e8150ec020765ac6af7ff8ed7affcea52579",
+      "name": "Chart Palette/Color-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#bf9a00"
+    },
+    {
+      "key": "8814f4c443c15fe13cccb5567c0f5172334e0493",
+      "name": "Chart Palette/Color-11",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d46d14"
+    },
+    {
+      "key": "97e3774602a711d6afcbefb17650804920b6a588",
+      "name": "Chart Palette/Color-12",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d53b3b"
+    },
+    {
+      "key": "70f623198fdcc3fbfb54f17803b149e4d7048f0d",
+      "name": "Chart Palette/Color-2",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#825dcb"
+    },
+    {
+      "key": "e70fb5ac4aed1453a46ec336da622fb1a953fdf0",
+      "name": "Chart Palette/Color-3",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e663c9"
+    },
+    {
+      "key": "e70fb5ac4aed1453a46ec336da622fb1a953fdf0",
+      "name": "Chart Palette/Color-3",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#e663c9"
+    },
+    {
+      "key": "5408d3edc1ae662cc532f31a390ec1a8022938fb",
+      "name": "Chart Palette/Color-4",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f25c96"
+    },
+    {
+      "key": "a086797cc3ab2f431070030eaceb4c1558d788c2",
+      "name": "Chart Palette/Color-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ff756b"
+    },
+    {
+      "key": "0bc968165f06e049bec0dd580e6e1550b7f376df",
+      "name": "Chart Palette/Color-6",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ffa164"
+    },
+    {
+      "key": "1ad05d795878ffe0aac8eea753c6116aea78fe4f",
+      "name": "Chart Palette/Color-7",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d9ce54"
+    },
+    {
+      "key": "663295f80ea865d11dabc5c4adf6a176725cb762",
+      "name": "Chart Palette/Color-8",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#96c74c"
+    },
+    {
+      "key": "ff05f1764aa5bc6dd4480c6c3263502ec9be38c5",
+      "name": "Chart Palette/Color-9",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#5ae47a"
+    },
+    {
+      "key": "7ed912f89e4ad509c283cf8966fb602ed71fb6f7",
+      "name": "Daybreak Blue / blue-6",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#1890ff"
+    },
+    {
+      "key": "3f86b6c9c37a1229c60700e54a1b3c895815b846",
+      "name": "Daybreak Blue / blue-6",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#1890ff"
+    },
+    {
+      "key": "096586c59f39535c6a1a1277112682d8fc928197",
+      "name": "Gray / gray-1",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#ffffff"
+    },
+    {
+      "key": "e29e0383a78732812d0c572059277f4f325e90fd",
+      "name": "Gray / gray-6",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "Disable",
+      "value": "#bfbfbf"
+    },
+    {
+      "key": "ccf33ca926e850ca250f196ed297dfb2689a15df",
+      "name": "Gray / gray-7",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "Secondary Text\nCaption\n",
+      "value": "#8c8c8c"
+    },
+    {
+      "key": "059bad8ffb1cc5352904be5303af11a1ebc96656",
+      "name": "Gray / gray-9",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "Title",
+      "value": "#262626"
+    },
+    {
+      "key": "152b153999c70c2a5a49bc38b6fefd2e45b550a2",
+      "name": "Gray-100",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f5f5f5"
+    },
+    {
+      "key": "152b153999c70c2a5a49bc38b6fefd2e45b550a2",
+      "name": "Gray-100",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#f5f5f5"
+    },
+    {
+      "key": "35f5da93eac991609e5f002cc8081c0824e35cd8",
+      "name": "Gray-200",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f4f4f4"
+    },
+    {
+      "key": "35f5da93eac991609e5f002cc8081c0824e35cd8",
+      "name": "Gray-200",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#f4f4f4"
+    },
+    {
+      "key": "fc5408d2c947de6d3415f8a8a7e483ac6a554659",
+      "name": "Gray-300",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#eaeaea"
+    },
+    {
+      "key": "fc5408d2c947de6d3415f8a8a7e483ac6a554659",
+      "name": "Gray-300",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#eaeaea"
+    },
+    {
+      "key": "611011d6b9f7b33dd24d33be4cfceae6d6200eca",
+      "name": "Gray-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d3d3d3"
+    },
+    {
+      "key": "611011d6b9f7b33dd24d33be4cfceae6d6200eca",
+      "name": "Gray-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#d3d3d3"
+    },
+    {
+      "key": "e7c9ae326d95131933bf5437344b0414b496d6be",
+      "name": "Gray-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#bcbcbc"
+    },
+    {
+      "key": "e7c9ae326d95131933bf5437344b0414b496d6be",
+      "name": "Gray-500",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#bcbcbc"
+    },
+    {
+      "key": "d56d46c547a4de0a45e88df648251bb60ac1352c",
+      "name": "Gray-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#959595"
+    },
+    {
+      "key": "d56d46c547a4de0a45e88df648251bb60ac1352c",
+      "name": "Gray-600",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#959595"
+    },
+    {
+      "key": "9ff2be7ef804eb8ebbc851684c34751584425bd0",
+      "name": "Gray-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#747474"
+    },
+    {
+      "key": "9ff2be7ef804eb8ebbc851684c34751584425bd0",
+      "name": "Gray-700",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#747474"
+    },
+    {
+      "key": "b87590c7a7f110dcc062dbb6548b725886bcec93",
+      "name": "Gray-800",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#505050"
+    },
+    {
+      "key": "b87590c7a7f110dcc062dbb6548b725886bcec93",
+      "name": "Gray-800",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#505050"
+    },
+    {
+      "key": "040bac9489d20ca757abec836bb40fd3afb105fb",
+      "name": "Gray-900",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#323232"
+    },
+    {
+      "key": "040bac9489d20ca757abec836bb40fd3afb105fb",
+      "name": "Gray-900",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#323232"
+    },
+    {
+      "key": "040bac9489d20ca757abec836bb40fd3afb105fb",
+      "name": "Gray-900",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#323232"
+    },
+    {
+      "key": "ec6ca580c2337039d9d798d74510dbabcbab0d58",
+      "name": "Green-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#33ab84"
+    },
+    {
+      "key": "ec6ca580c2337039d9d798d74510dbabcbab0d58",
+      "name": "Green-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#33ab84"
+    },
+    {
+      "key": "ec6ca580c2337039d9d798d74510dbabcbab0d58",
+      "name": "Green-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#33ab84"
+    },
+    {
+      "key": "ce2fa4a7e39136132db3a0640ec2a3a67505e67b",
+      "name": "Green-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#2d9d78"
+    },
+    {
+      "key": "ce2fa4a7e39136132db3a0640ec2a3a67505e67b",
+      "name": "Green-500",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#2d9d78"
+    },
+    {
+      "key": "613c7a1cca7ad3ea848141d7e1c891efdd4c35f8",
+      "name": "Green-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#268e6c"
+    },
+    {
+      "key": "459b96dfdd11b8e81297d35c09c728a061c0787e",
+      "name": "Green-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#12805c"
+    },
+    {
+      "key": "2a33984881919a62d32a29772642c5a65e755ad2",
+      "name": "Grey-50",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fafafa"
+    },
+    {
+      "key": "99e1a485288cf497e74f0b08dd78fb802f4d5630",
+      "name": "InfoPrice Marca/Blue_Primary",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#0e9ce3"
+    },
+    {
+      "key": "c9d57dd6e912805223bc6e47c3c1d1335c861921",
+      "name": "InfoPrice Marca/Blue_Secondary",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    {
+      "key": "878b6ad97127f7acab63ea3cb1c54ce83dc0935f",
+      "name": "InfoPrice Marca/Blue_Tertiary",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#cce9fa"
+    },
+    {
+      "key": "4f3b3519883d3c12b49f96f935afb4d59dd3b9d3",
+      "name": "InfoPrice Marca/Gradiente Azul",
+      "styleType": "FILL",
+      "remote": false,
+      "description": ""
+    },
+    {
+      "key": "a7a67d48158a0e545c5537a7c7840bc397a71fbc",
+      "name": "Light/Blue-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ebf4fe"
+    },
+    {
+      "key": "6ab06b71a1774d4f14558509832820de68805a58",
+      "name": "Light/Blue-15",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e1eefd"
+    },
+    {
+      "key": "9e755618a63e7ec4e38a4d87b9f304a34ac7c29e",
+      "name": "Light/Blue-20",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d7e8fc"
+    },
+    {
+      "key": "9e755618a63e7ec4e38a4d87b9f304a34ac7c29e",
+      "name": "Light/Blue-20",
+      "styleType": "FILL",
+      "remote": true,
+      "description": ""
+    },
+    {
+      "key": "f673edb03713dde4a910720f5e114211c53e5e6c",
+      "name": "Light/Blue-45",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#a5ccf8"
+    },
+    {
+      "key": "f673edb03713dde4a910720f5e114211c53e5e6c",
+      "name": "Light/Blue-45",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#a5ccf8"
+    },
+    {
+      "key": "849969bd129e886a9c6966d1202c3f720d1b9e58",
+      "name": "Light/Blue-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f5f9fe"
+    },
+    {
+      "key": "849969bd129e886a9c6966d1202c3f720d1b9e58",
+      "name": "Light/Blue-5",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#f5f9fe"
+    },
+    {
+      "key": "1186072804b611650e8fd15ae3d481623c001765",
+      "name": "Light/Blue-65",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#7db6f5"
+    },
+    {
+      "key": "ae8081f4f2d301219feaa5a1b2d9147e725e01ed",
+      "name": "Light/Blue-85",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#559ff2"
+    },
+    {
+      "key": "6aa92441f49b30c95b2b9958526cddc735c2aa91",
+      "name": "Light/Green-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ebf7f3"
+    },
+    {
+      "key": "091d496a1fd328b4caaaad043fe009bb06075270",
+      "name": "Light/Green-15",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e0f2ed"
+    },
+    {
+      "key": "f4f4529522bb6299549dae38417139b5e236aff4",
+      "name": "Light/Green-20",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d6eee6"
+    },
+    {
+      "key": "b9c69578fc628c8ea7f67768409fcbe8a687bfd3",
+      "name": "Light/Green-45",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#a3d9c8"
+    },
+    {
+      "key": "166e265a302b0b31192b36d3e961d816df2a933c",
+      "name": "Light/Green-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f5fbf9"
+    },
+    {
+      "key": "166e265a302b0b31192b36d3e961d816df2a933c",
+      "name": "Light/Green-5",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#f5fbf9"
+    },
+    {
+      "key": "0fd7c218607834d69933955a1d727944a7c7ca35",
+      "name": "Light/Green-65",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#7ac8af"
+    },
+    {
+      "key": "b1357752042b320141529b1d8e612b50b4a3ac4c",
+      "name": "Light/Green-85",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#5cbc9d"
+    },
+    {
+      "key": "448dc88099af6b6da755b0726c23a8cdb514834b",
+      "name": "Light/Orange-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fef5e9"
+    },
+    {
+      "key": "82bdb1eb96dee91704aa968cae6b230c75f5ed7e",
+      "name": "Light/Orange-15",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fdefde"
+    },
+    {
+      "key": "830d8d2fe25c1ff832f9f91a9cd18c3b0c100ed0",
+      "name": "Light/Orange-20",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fcead3"
+    },
+    {
+      "key": "322ff86bb4462fcd02c61a1c9b128f9ceb258fa9",
+      "name": "Light/Orange-45",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f9cf9c"
+    },
+    {
+      "key": "8831b9d7c93b15dc758ad00e9dbc2edb21d8741d",
+      "name": "Light/Orange-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fef9f4"
+    },
+    {
+      "key": "9d5f73c842f5661e893e280e9fe7492ab8d65cfe",
+      "name": "Light/Orange-65",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f7b970"
+    },
+    {
+      "key": "60c2f3c3d3a9dd63eb9df7d16e00dd2518c6107c",
+      "name": "Light/Orange-85",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f4a444"
+    },
+    {
+      "key": "27a99484f595889d0bfde1c94c24cc332eaf081e",
+      "name": "Light/Pink-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fef1fb"
+    },
+    {
+      "key": "6c5520e1a405ca82a3297f2260a2f91e1ff0f616",
+      "name": "Light/Pink-15",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fdeaf9"
+    },
+    {
+      "key": "94d250037f7921935ddbec357f45f6392c9c0994",
+      "name": "Light/Pink-20",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fde3f7"
+    },
+    {
+      "key": "0de6cb89ae97289f00e5d0cc8e675ff0a574ab22",
+      "name": "Light/Pink-45",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fac0ed"
+    },
+    {
+      "key": "2a5fd69ce12e85b1dcac349e46446e8405b951ec",
+      "name": "Light/Pink-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fef8fd"
+    },
+    {
+      "key": "e86cfd4ca46c25e921f0fa7127e9f31879c1a239",
+      "name": "Light/Pink-65",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f8a4e5"
+    },
+    {
+      "key": "34861ee2c874884733a96d22f0d1b6a5f0189c63",
+      "name": "Light/Pink-85",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f688dc"
+    },
+    {
+      "key": "5e04c3d2bda5034c470d30bace8619a57cafc157",
+      "name": "Light/Red-10",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fdefef"
+    },
+    {
+      "key": "c8b36466a12892cbe09aff65c3bbfb601184521f",
+      "name": "Light/Red-15",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fce6e7"
+    },
+    {
+      "key": "7db7576f765b5d4c3fee8877ae51a3edb9593d4c",
+      "name": "Light/Red-20",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fbdee0"
+    },
+    {
+      "key": "64666f36a44a8b6e8196b9ed54b2891966a563bc",
+      "name": "Light/Red-45",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f6b5b8"
+    },
+    {
+      "key": "2651fd87fed204a279f16e74e75a58eaf0d24f94",
+      "name": "Light/Red-5",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#fef7f7"
+    },
+    {
+      "key": "2651fd87fed204a279f16e74e75a58eaf0d24f94",
+      "name": "Light/Red-5",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#fef7f7"
+    },
+    {
+      "key": "7079da142d63657dfc68ded8112195d228bca24f",
+      "name": "Light/Red-65",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f39499"
+    },
+    {
+      "key": "0b9f7f0e115c699c15c0266ab3b103e10628de03",
+      "name": "Light/Red-85",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ef747a"
+    },
+    {
+      "key": "7db7576f765b5d4c3fee8877ae51a3edb9593d4c",
+      "name": "Light/red-20",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#fbdee0"
+    },
+    {
+      "key": "07e74018eae563eb38361f92bf421fa48bd69d21",
+      "name": "Neutral/13",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#000000"
+    },
+    {
+      "key": "f44125ff745a168a494aeacec67331041bf86d4c",
+      "name": "Orange-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f29423"
+    },
+    {
+      "key": "f44125ff745a168a494aeacec67331041bf86d4c",
+      "name": "Orange-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#f29423"
+    },
+    {
+      "key": "8eb5ed4a768ecac3d407b4b89e8931943899e85d",
+      "name": "Orange-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e68619"
+    },
+    {
+      "key": "d8ded3b324dc39fa213068374784595a0f246e49",
+      "name": "Orange-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#da7b11"
+    },
+    {
+      "key": "982d997cd042acf6fbbc24dbc5a97644c3b3c45f",
+      "name": "Orange-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#cb6f10"
+    },
+    {
+      "key": "f381d00238e4eb25c1d5b7e1f8a19d904e37695c",
+      "name": "Pink-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#f473d6"
+    },
+    {
+      "key": "efe37ff36ebfd672aa1e080a620fa1a75234dffd",
+      "name": "Pink-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e663c9"
+    },
+    {
+      "key": "d650ccfffe5658ef620b912e072a66be5801ab16",
+      "name": "Purple-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#9256d9"
+    },
+    {
+      "key": "fc005e68803f588083ac83695597db3d9712e1e4",
+      "name": "Purple-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#864ccc"
+    },
+    {
+      "key": "7d5ab6257ab96f7b0b461ef0a9576d281565958a",
+      "name": "Purple-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#7a42bf"
+    },
+    {
+      "key": "b1f9b9569c0c9e790545ee48314431e5e0b23b72",
+      "name": "Purple-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#6f38b1"
+    },
+    {
+      "key": "b1f9b9569c0c9e790545ee48314431e5e0b23b72",
+      "name": "Purple-700",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#6f38b1"
+    },
+    {
+      "key": "53b5788141eb71bc80146479d3b74c20e65560fb",
+      "name": "Red-400",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ec5b62"
+    },
+    {
+      "key": "53b5788141eb71bc80146479d3b74c20e65560fb",
+      "name": "Red-400",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#ec5b62"
+    },
+    {
+      "key": "88b7258f159ddc00dc8c3194c9b8b8ea8cb3cc13",
+      "name": "Red-500",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#e34850"
+    },
+    {
+      "key": "a16443d78ecdd639914accfb09c5b827f7ba1348",
+      "name": "Red-600",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#d7373f"
+    },
+    {
+      "key": "a16443d78ecdd639914accfb09c5b827f7ba1348",
+      "name": "Red-600",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#d7373f"
+    },
+    {
+      "key": "617e9b6f2765fc78d28d88c5f425ef071f20abe1",
+      "name": "Red-700",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#c9252d"
+    },
+    {
+      "key": "4394f85b4497ad562b8a857d1d3e13ccc5fe66da",
+      "name": "White",
+      "styleType": "FILL",
+      "remote": false,
+      "description": "",
+      "value": "#ffffff"
+    },
+    {
+      "key": "4394f85b4497ad562b8a857d1d3e13ccc5fe66da",
+      "name": "White",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#ffffff"
+    },
+    {
+      "key": "ae1256d5dc497e873edfbf095b34739e2ec3efae",
+      "name": "light-blue10",
+      "styleType": "FILL",
+      "remote": true,
+      "description": "",
+      "value": "#e2eefd"
+    }
+  ],
+  "TEXT": [
+    {
+      "key": "21aa8bf3cb1071d37f37cc17aeebc9791df93055",
+      "name": "Buttons / Small / Link Hover",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "74da2832768c96620a8effe1d234288d9b90bdf2",
+      "name": "Buttons/Large/Link Hover",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 16.0,
+        "lineHeightPx": 22.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "2f2b1bdd353f66068fa3c1e61a2ead98f8fc9dec",
+      "name": "Buttons/Large/Lowercase",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 16.0,
+        "lineHeightPx": 22.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "4d4c2cbe3f523f8926716025337949adfeb0e992",
+      "name": "Buttons/Medium/Link Hover",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5dd1a504a0f386fc1688bd70e6a9ecc727ea28c0",
+      "name": "Buttons/Medium/Lowercase",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5dd1a504a0f386fc1688bd70e6a9ecc727ea28c0",
+      "name": "Buttons/Medium/Lowercase",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "08c24b129bda5695c1ebca0a58b1546590089ce5",
+      "name": "Buttons/Small/Lowecase",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "08c24b129bda5695c1ebca0a58b1546590089ce5",
+      "name": "Buttons/Small/Lowecase",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "bbd7afcdb9500903904e347368e0ec86cab9adf0",
+      "name": "Buttons/large",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 16.0,
+        "lineHeightPx": 22.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "bbd7afcdb9500903904e347368e0ec86cab9adf0",
+      "name": "Buttons/large",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 16.0,
+        "lineHeightPx": 22.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "1777384557fd22b44ce5125e2163b0db8d8450f3",
+      "name": "Buttons/medium",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "1777384557fd22b44ce5125e2163b0db8d8450f3",
+      "name": "Buttons/medium",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "53e05d1639aef4fce9828567aeb3d04b8ed3c0e5",
+      "name": "Buttons/small",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "bcc4b70808a504c1263efd7216c3e5ae5ff7cec2",
+      "name": "Buttons/xSmall/Lowecase",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 16.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "bcc4b70808a504c1263efd7216c3e5ae5ff7cec2",
+      "name": "Buttons/xSmall/Lowecase",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 16.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "fbbbef57dc839e4c08addfb89af6db77c1f53744",
+      "name": "Buttons/xsmall",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 10.0,
+        "lineHeightPx": 16.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "bcc4b70808a504c1263efd7216c3e5ae5ff7cec2",
+      "name": "Buttons/xsmall/Seconday",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 16.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "4eef9dbd30cec572445b30ab2aa2b1895233497c",
+      "name": "Heading / H1",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 300,
+        "fontSize": 64.0,
+        "lineHeightPx": 87.2,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "a7545b9cfaaaa3edcc20e07cca137cdf3638e63f",
+      "name": "Heading/H2",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 300,
+        "fontSize": 32.0,
+        "lineHeightPx": 43.6,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e13e181c0b03aed511298ad63686cbff3827734c",
+      "name": "Heading/H6",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 20.0,
+        "lineHeightPx": 26.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "056fea826aa3027575ea7da3d0901cf2cf7be812",
+      "name": "Headings / H1",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 56.0,
+        "lineHeightPx": 72.8,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "ab81b49cf084000e53c24e302beb5209e6770e8a",
+      "name": "Headings / H2",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 48.0,
+        "lineHeightPx": 62.4,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e89d816fb630130e1355c564e41cb748328bc0a4",
+      "name": "Headings / H3",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 40.0,
+        "lineHeightPx": 52.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5e968a8156d9c7f93f46ecb4cd7b8737a41bd425",
+      "name": "Normal",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 18.0,
+        "lineHeightPx": 27.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "74552128746041d1d122833d66e4288bfe6dd4b6",
+      "name": "Regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 18.2,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "74552128746041d1d122833d66e4288bfe6dd4b6",
+      "name": "Regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "14ea0e4dbda843333ccf4a921d67f1e9c3912862",
+      "name": "Text/Upper/font-size-100-bold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "72c55f826d20499823c632c39bf1d2aa490d7823",
+      "name": "Text/Upper/font-size-25-semibold-upper",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 8.0,
+        "lineHeightPx": 10.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "72c55f826d20499823c632c39bf1d2aa490d7823",
+      "name": "Text/Upper/font-size-25-semibold-upper",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 8.0,
+        "lineHeightPx": 10.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "857f44fe4e4d98d648b07b601c9c883ce53252aa",
+      "name": "Text/Upper/font-size-50-bold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "857f44fe4e4d98d648b07b601c9c883ce53252aa",
+      "name": "Text/Upper/font-size-50-bold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "439ffc45e0dbe0958ac92bd3affd0e668c7d5e92",
+      "name": "Text/Upper/font-size-50-regular-upper",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "439ffc45e0dbe0958ac92bd3affd0e668c7d5e92",
+      "name": "Text/Upper/font-size-50-regular-upper",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5341be4e795f41b37287a33e58b24b5238fa2809",
+      "name": "Text/Upper/font-size-50-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5341be4e795f41b37287a33e58b24b5238fa2809",
+      "name": "Text/Upper/font-size-50-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 10.0,
+        "lineHeightPx": 12.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "0657606780f0a5b6b14993b878b33ed13d841888",
+      "name": "Text/Upper/font-size-75-bold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "0657606780f0a5b6b14993b878b33ed13d841888",
+      "name": "Text/Upper/font-size-75-bold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "0657606780f0a5b6b14993b878b33ed13d841888",
+      "name": "Text/Upper/font-size-75-bold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 16.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "0425c8e6d4c8e1758915b27197040c82cd637116",
+      "name": "Text/Upper/font-size-75-regular-upper",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "be33f64794b101ac3929c3821b36c6454270e2e8",
+      "name": "Text/Upper/font-size-75-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "7c674a86f11f503a11cf095d7547d3e84fc8bf30",
+      "name": "Text/font-size-100-bold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "7c674a86f11f503a11cf095d7547d3e84fc8bf30",
+      "name": "Text/font-size-100-bold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": ""
+    },
+    {
+      "key": "5911a6797c780b82cc2865c03bb478f7a189cdc4",
+      "name": "Text/font-size-100-regular",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5911a6797c780b82cc2865c03bb478f7a189cdc4",
+      "name": "Text/font-size-100-regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5911a6797c780b82cc2865c03bb478f7a189cdc4",
+      "name": "Text/font-size-100-regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 14.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "c02f983685fb90ccd02ed1f95529bf14aa5854bd",
+      "name": "Text/font-size-100-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "c02f983685fb90ccd02ed1f95529bf14aa5854bd",
+      "name": "Text/font-size-100-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 14.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5aedae0bf5dc72a7c25c7165fd11920c0f42b246",
+      "name": "Text/font-size-200-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 16.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "5aedae0bf5dc72a7c25c7165fd11920c0f42b246",
+      "name": "Text/font-size-200-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 16.0,
+        "lineHeightPx": 20.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "9c361a636f8c182099f86c8dc285459b99799041",
+      "name": "Text/font-size-25-regular",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "Não usar para textos em parágrafos e complementares. Usar somente para detalhes. ",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 8.0,
+        "lineHeightPx": 10.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e13e181c0b03aed511298ad63686cbff3827734c",
+      "name": "Text/font-size-400-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 20.0,
+        "lineHeightPx": 26.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e13e181c0b03aed511298ad63686cbff3827734c",
+      "name": "Text/font-size-400-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 20.0,
+        "lineHeightPx": 26.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "6d604a9d1ee7b323bcc74eb785c1710f4b40a631",
+      "name": "Text/font-size-50-regular",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "Não usar para textos em parágrafos e complementares. Usar somente para detalhes. ",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 14.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "6d604a9d1ee7b323bcc74eb785c1710f4b40a631",
+      "name": "Text/font-size-50-regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "Não usar para textos em parágrafos e complementares. Usar somente para detalhes. ",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 10.0,
+        "lineHeightPx": 14.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "53efa4cd9b7ad293d1d0572d10df4ed277470160",
+      "name": "Text/font-size-50-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "Não usar para textos em parágrafos e complementares. Usar somente para detalhes. ",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 10.0,
+        "lineHeightPx": 14.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "53efa4cd9b7ad293d1d0572d10df4ed277470160",
+      "name": "Text/font-size-50-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "Não usar para textos em parágrafos e complementares. Usar somente para detalhes. ",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 10.0,
+        "lineHeightPx": 14.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "fe41b434c09cc90e709571bd1068ec87cb11b973",
+      "name": "Text/font-size-600-light",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 300,
+        "fontSize": 24.0,
+        "lineHeightPx": 32.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "fe41b434c09cc90e709571bd1068ec87cb11b973",
+      "name": "Text/font-size-600-light",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 300,
+        "fontSize": 24.0,
+        "lineHeightPx": 32.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e85ced1634b7e83cd5cf9234385180bd9c3f32fc",
+      "name": "Text/font-size-75-bold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "e85ced1634b7e83cd5cf9234385180bd9c3f32fc",
+      "name": "Text/font-size-75-bold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 700,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "114be6a82d646fe31c9b406b23f805079f0590cc",
+      "name": "Text/font-size-75-regular",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "114be6a82d646fe31c9b406b23f805079f0590cc",
+      "name": "Text/font-size-75-regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "574509d7dcd8d73536145b4eda9bad6f19945248",
+      "name": "Text/font-size-75-semibold",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "574509d7dcd8d73536145b4eda9bad6f19945248",
+      "name": "Text/font-size-75-semibold",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 600,
+        "fontSize": 12.0,
+        "lineHeightPx": 18.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "9c361a636f8c182099f86c8dc285459b99799041",
+      "name": "font-size-25-regular",
+      "styleType": "TEXT",
+      "remote": true,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 400,
+        "fontSize": 8.0,
+        "lineHeightPx": 10.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    },
+    {
+      "key": "47bce9b42356a437319bcda379ab8d01e279ea13",
+      "name": "font-size-400-light",
+      "styleType": "TEXT",
+      "remote": false,
+      "description": "",
+      "textStyle": {
+        "fontFamily": "Open Sans",
+        "fontWeight": 300,
+        "fontSize": 20.0,
+        "lineHeightPx": 26.0,
+        "letterSpacing": 0.0,
+        "textTransform": ""
+      }
+    }
+  ],
+  "EFFECT": [
+    {
+      "key": "94c84e008387cc7ad8ec084866a04ea003237af9",
+      "name": "Elevation",
+      "styleType": "EFFECT",
+      "remote": true,
+      "description": "",
+      "effectValue": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.11999999731779099
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 3.0
+          },
+          "radius": 6.0,
+          "spread": -4.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.07999999821186066
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 6.0
+          },
+          "radius": 16.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.05000000074505806
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 9.0
+          },
+          "radius": 28.0,
+          "spread": 8.0,
+          "showShadowBehindNode": true
+        }
+      ]
+    },
+    {
+      "key": "c527f081f2ffe6c9267551a7cf89671aa715cd67",
+      "name": "Shadow Focus",
+      "styleType": "EFFECT",
+      "remote": false,
+      "description": "",
+      "effectValue": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0941176488995552,
+            "g": 0.5647059082984924,
+            "b": 1.0,
+            "a": 0.5
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "radius": 4.0,
+          "showShadowBehindNode": true
+        }
+      ]
+    },
+    {
+      "key": "0361c2e586b214fa4561c3bb75fad9043cf1e19a",
+      "name": "Sombra",
+      "styleType": "EFFECT",
+      "remote": false,
+      "description": "",
+      "effectValue": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.11999999731779099
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 3.0
+          },
+          "radius": 6.0,
+          "spread": -4.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.07999999821186066
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 6.0
+          },
+          "radius": 16.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.05000000074505806
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 9.0
+          },
+          "radius": 28.0,
+          "spread": 8.0,
+          "showShadowBehindNode": true
+        }
+      ]
+    },
+    {
+      "key": "0361c2e586b214fa4561c3bb75fad9043cf1e19a",
+      "name": "Sombra",
+      "styleType": "EFFECT",
+      "remote": true,
+      "description": "",
+      "effectValue": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.11999999731779099
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 3.0
+          },
+          "radius": 6.0,
+          "spread": -4.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.07999999821186066
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 6.0
+          },
+          "radius": 16.0,
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.05000000074505806
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 9.0
+          },
+          "radius": 28.0,
+          "spread": 8.0,
+          "showShadowBehindNode": true
+        }
+      ]
+    },
+    {
+      "key": "14dbfa6d32a613ea60862fc9f72fc28a0364bbbb",
+      "name": "hover",
+      "styleType": "EFFECT",
+      "remote": false,
+      "description": "",
+      "effectValue": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "color": {
+            "r": 0.3333333432674408,
+            "g": 0.6235294342041016,
+            "b": 0.9490196108818054,
+            "a": 0.4000000059604645
+          },
+          "blendMode": "NORMAL",
+          "offset": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "radius": 4.0,
+          "spread": 8.0,
+          "showShadowBehindNode": true
+        }
+      ]
+    }
+  ]
+}

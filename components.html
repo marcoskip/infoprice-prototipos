@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Biblioteca de Componentes</title>
+
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: var(--font-size-md); scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-100);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-lg);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       STYLEGUIDE SHELL
+       ════════════════════════════════════════════════════════════ */
+    .sg-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar de navegação */
+    .sg-nav {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--color-white);
+      border-right: 1px solid var(--color-gray-300);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 16px 0 32px;
+    }
+
+    .sg-nav-title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .8px;
+      padding: 0 16px 8px;
+    }
+
+    .sg-nav-group {
+      margin-bottom: 4px;
+    }
+
+    .sg-nav-group-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .6px;
+      padding: 12px 16px 4px;
+    }
+
+    .sg-nav a {
+      display: block;
+      padding: 5px 16px;
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-700);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all .12s;
+    }
+
+    .sg-nav a:hover {
+      background: var(--color-gray-100);
+      color: var(--color-blue-500);
+      border-left-color: var(--color-blue-400);
+    }
+
+    .sg-nav a.sg-nav-hidden {
+      display: none;
+    }
+
+    /* ── SEARCH ── */
+    .sg-search-wrap {
+      padding: 12px 12px 8px;
+      border-bottom: 1px solid var(--color-gray-200);
+      margin-bottom: 4px;
+      position: sticky;
+      top: 0;
+      background: var(--color-white);
+      z-index: 1;
+    }
+
+    .sg-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-gray-100);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 0 8px;
+      height: 32px;
+      transition: border-color .15s;
+    }
+
+    .sg-search:focus-within {
+      border-color: var(--color-blue-400);
+      background: var(--color-white);
+      box-shadow: var(--shadow-focus);
+    }
+
+    .sg-search .material-icons {
+      font-size: 16px;
+      color: var(--color-gray-500);
+      flex-shrink: 0;
+    }
+
+    .sg-search input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-900);
+      outline: none;
+      min-width: 0;
+    }
+
+    .sg-search input::placeholder {
+      color: var(--color-gray-500);
+    }
+
+    .sg-search-clear {
+      font-size: 14px !important;
+      cursor: pointer;
+      color: var(--color-gray-400) !important;
+      display: none;
+    }
+
+    .sg-search-clear:hover {
+      color: var(--color-gray-700) !important;
+    }
+
+    .sg-search-clear.visible {
+      display: inline !important;
+    }
+
+    /* Resultados da busca */
+    .sg-no-results {
+      display: none;
+      padding: 32px 0;
+      text-align: center;
+      color: var(--color-gray-500);
+      font-size: var(--font-size-sm);
+    }
+
+    .sg-no-results.visible {
+      display: block;
+    }
+
+    /* Highlight do texto encontrado */
+    mark.sg-highlight {
+      background: var(--color-orange-light-20);
+      color: var(--color-orange-700);
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    /* Conteúdo principal */
+    .sg-main {
+      flex: 1;
+      padding: 32px 40px 80px;
+      max-width: 1100px;
+    }
+
+    /* Cabeçalho da página */
+    .sg-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--color-gray-300);
+    }
+
+    .sg-header h1 {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .sg-header p {
+      font-size: var(--font-size-md);
+      color: var(--color-gray-600);
+      margin-top: 4px;
+    }
+
+    /* Seção */
+    .sg-section {
+      margin-bottom: 56px;
+    }
+
+    .sg-section-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sg-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-gray-300);
+    }
+
+    .sg-section-desc {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+      margin-bottom: 20px;
+    }
+
+    /* Grupo de componentes */
+    .sg-group {
+      margin-bottom: 32px;
+    }
+
+    .sg-group-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      letter-spacing: .6px;
+      margin-bottom: 10px;
+    }
+
+    /* Canvas de preview */
+    .sg-canvas {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .sg-canvas-dark {
+      background: var(--color-gray-900);
+    }
+
+    .sg-canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+    }
+
+    /* Token de referência abaixo do canvas */
+    .sg-token {
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-500);
+      font-family: monospace;
+      background: var(--color-gray-100);
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-top: 2px;
+      display: inline-block;
+    }
+
+    /* Item de variante com label */
+    .sg-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .sg-item-label {
+      font-size: 10px;
+      color: var(--color-gray-500);
+      font-family: monospace;
+    }
+
+    /* Separador de subgrupo */
+    .sg-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--color-gray-200);
+      margin: 8px 0;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       FOUNDATIONS — CORES
+       ════════════════════════════════════════════════════════════ */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 8px;
+    }
+
+    .color-swatch {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+
+    .color-swatch-block {
+      height: 48px;
+    }
+
+    .color-swatch-info {
+      background: var(--color-white);
+      padding: 4px 6px;
+    }
+
+    .color-swatch-name {
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+      line-height: 1.2;
+    }
+
+    .color-swatch-value {
+      font-size: 9px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       FOUNDATIONS — TIPOGRAFIA
+       ════════════════════════════════════════════════════════════ */
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .type-row:last-child { border-bottom: none; }
+
+    .type-meta {
+      width: 160px;
+      flex-shrink: 0;
+    }
+
+    .type-meta-name {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-700);
+    }
+
+    .type-meta-token {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       TODOS OS COMPONENTES — copiados de preco-oferta.html
+       ════════════════════════════════════════════════════════════ */
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--color-blue-400); color: var(--color-white);
+      border: none; border-radius: 4px; padding: 8px 16px;
+      cursor: pointer; font-family: var(--font-family-base);
+      font-size: var(--font-size-md); font-weight: var(--font-weight-bold);
+      height: 36px;
+    }
+    .btn-primary .material-icons { font-size: 20px; }
+    .btn-primary:hover { background: var(--color-blue-600); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 4px;
+      background: var(--color-blue-light-5); color: var(--color-blue-700);
+      border: none; cursor: pointer; font-family: var(--font-family-base);
+      font-size: var(--font-size-sm); height: 30px;
+    }
+    .btn-secondary .material-icons { font-size: 18px; color: var(--color-blue-400); }
+    .btn-secondary:hover { background: var(--color-blue-light-10); }
+
+    .btn-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 4px; border: none;
+      cursor: pointer; background: var(--color-gray-300); color: var(--color-icon-default);
+    }
+    .btn-icon:hover { background: var(--color-gray-400); }
+    .btn-icon .material-icons { font-size: var(--icon-size-lg); }
+
+    .btn-icon-blue { background: var(--color-blue-light-5); color: var(--color-blue-400); }
+    .btn-icon-blue:hover { background: var(--color-blue-light-10); }
+
+    .btn-icon-red { background: var(--color-red-light-5); color: var(--color-red-600); }
+    .btn-icon-red:hover { background: var(--color-red-light-10); }
+
+    .btn-clube {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--color-orange-400); color: var(--color-white);
+      border: none; border-radius: 4px; padding: 4px 12px;
+      cursor: pointer; font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold); text-transform: lowercase;
+    }
+
+    .btn-icon-row {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 26px; border-radius: 4px; border: none; cursor: pointer;
+      background: transparent; color: var(--color-icon-default);
+    }
+    .btn-icon-row:hover { background: var(--color-gray-200); color: var(--color-icon-default); }
+    .btn-icon-row .material-icons { font-size: var(--icon-size-lg); }
+    .btn-menu-preco { width: 26px; }
+    .btn-bloquear  { width: 22px; }
+
+    /* ── BADGES ── */
+    .badge-sm {
+      display: inline-flex; align-items: center; gap: 2px;
+      padding: 0 4px; border-radius: 3px;
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+      height: 16px;
+    }
+    .badge-blue       { background: var(--color-blue-light-5);  color: var(--color-blue-400); }
+    .badge-blue-solid { background: var(--color-blue-400);       color: var(--color-white); }
+    .badge-gray       { background: var(--color-gray-100);       color: var(--color-gray-600); }
+    .badge-green      { background: var(--color-green-light-10); color: var(--color-green-500); }
+    .badge-red        { background: var(--color-red-light-10);   color: var(--color-red-600); }
+    .badge-orange     { background: var(--color-orange-light-10);color: var(--color-orange-500); }
+    .badge-sm .material-icons { font-size: 10px; }
+
+    .badge-lite {
+      display: inline-flex; align-items: center; gap: 2px;
+      background: rgba(255,255,255,.15); border-radius: 4px;
+      padding: 0 6px; font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold); color: var(--color-blue-light-45);
+      height: 18px;
+    }
+
+    .tag-green {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--color-green-400); color: var(--color-white);
+      border-radius: 12px; padding: 0 12px;
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
+      height: 18px;
+    }
+
+    /* ── CHIPS ── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 4px; border: none; cursor: pointer;
+      font-family: var(--font-family-base); font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular); white-space: nowrap; height: 28px;
+    }
+    .chip .material-icons { font-size: 14px; }
+
+    .chip-label {
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .chip-default { background: var(--color-gray-300); color: var(--color-gray-800); }
+
+    .chip-active {
+      background: var(--color-blue-light-5); color: var(--color-blue-500);
+    }
+    .chip-active .chip-label  { color: var(--color-blue-500); }
+    .chip-active .material-icons { color: var(--color-blue-500); }
+
+    .chip-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--color-blue-400); color: var(--color-white);
+      border-radius: 8px; font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold); min-width: 18px; height: 16px; padding: 0 4px;
+    }
+
+    .chip-close { cursor: pointer; opacity: .7; }
+    .chip-close:hover { opacity: 1; }
+
+    /* ── FILTER CHIP ── */
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--color-gray-100); border: none; border-radius: 4px;
+      padding: 6px 10px; cursor: pointer; font-family: var(--font-family-base);
+      font-size: var(--font-size-md); color: var(--color-gray-800); height: 36px;
+    }
+    .filter-chip .material-icons { font-size: 16px; color: var(--color-gray-800); }
+    .filter-chip .filter-label {
+      font-size: var(--font-size-sm); font-weight: var(--font-weight-bold);
+      color: var(--color-gray-600); text-transform: uppercase; margin-right: 2px;
+    }
+
+    .filter-chip-selected {
+      background: var(--color-blue-light-5); color: var(--color-blue-500);
+      border: 1px solid var(--color-blue-400);
+    }
+    .filter-chip-selected .material-icons { color: var(--color-blue-500); }
+    .filter-chip-selected .filter-label  { color: var(--color-blue-500); }
+
+    /* ── VARIATIONS ── */
+    .variation {
+      display: inline-flex; align-items: center; gap: 2px;
+      font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold);
+      border-radius: 4px; padding: 1px 6px;
+    }
+    .variation-red   { color: var(--color-red-600);   background: var(--color-red-light-5); }
+    .variation-green { color: var(--color-green-500); background: var(--color-green-light-5); }
+    .variation .material-icons { font-size: 14px; }
+
+    .variation-sm {
+      display: inline-flex; align-items: center; gap: 2px;
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+      padding: 0 4px; border-radius: 3px; height: 16px;
+    }
+    .var-green { background: var(--color-green-light-5); color: var(--color-green-400); }
+    .var-red   { background: var(--color-red-light-5);   color: var(--color-red-400); }
+    .variation-sm .material-icons { font-size: 10px; }
+
+    /* ── INSIGHT ICON ── */
+    .insight-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--color-blue-light-10);
+    }
+    .insight-icon .material-icons { font-size: 16px; color: var(--color-blue-400); }
+
+    /* ── BIG NUMBERS ── */
+    .big-card {
+      flex: 0 0 auto; padding: 8px 12px; border-radius: 4px; min-width: 150px;
+    }
+    .big-card-orange { background: var(--color-orange-light-10); }
+    .big-card-blue   { background: var(--color-blue-light-5); }
+    .big-card-green  { background: var(--color-green-light-5); }
+    .big-card-gray   { background: var(--color-gray-100); }
+
+    .big-value {
+      display: flex; align-items: center; gap: 6px;
+      font-size: var(--font-size-2xl); font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+    .big-desc { font-size: var(--font-size-sm); color: var(--color-gray-600); margin-top: 2px; }
+    .big-btn {
+      display: inline-flex; align-items: center; gap: 2px;
+      background: var(--color-orange-400); color: var(--color-white);
+      border: none; border-radius: 4px; padding: 2px 8px;
+      cursor: pointer; font-size: var(--font-size-xs); height: 24px;
+    }
+    .big-link { font-size: var(--font-size-xs); color: var(--color-blue-400); cursor: pointer; }
+    .big-link:hover { text-decoration: underline; }
+
+    /* ── FORM — INPUTS DE PREÇO ── */
+    .preco-input {
+      width: 72px; height: 28px;
+      border: 1px solid var(--color-gray-400); border-radius: 4px;
+      padding: 0 6px; text-align: right;
+      font-family: var(--font-family-base); font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold); color: var(--color-gray-900);
+      background: var(--color-white);
+    }
+    .preco-input:focus {
+      outline: none; border-color: var(--color-blue-400);
+      box-shadow: var(--shadow-focus);
+    }
+    .preco-input-oferta {
+      border-color: var(--color-orange-400); background: var(--color-orange-light-5);
+    }
+    .preco-label {
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);
+      text-transform: uppercase; color: var(--color-gray-600); width: 52px;
+    }
+    .preco-label-oferta { color: var(--color-orange-500); }
+    .preco-row { display: flex; align-items: center; gap: 6px; }
+    .preco-diff { font-size: 11px; color: var(--color-gray-700); }
+
+    /* ── TABLE ── */
+    .data-table-wrapper {
+      overflow-x: auto; background: var(--color-white);
+      border-radius: 6px; border: 1px solid var(--color-gray-300);
+    }
+    .data-table { width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); }
+    .data-table th {
+      background: var(--color-white); color: var(--color-gray-700);
+      font-weight: var(--font-weight-regular); font-size: var(--font-size-sm);
+      padding: 8px 6px; text-align: left; white-space: nowrap;
+      border-bottom: 2px solid var(--color-gray-300);
+    }
+    .data-table th .th-inner { display: flex; align-items: center; gap: 4px; }
+    .data-table th .material-icons { font-size: 12px; color: var(--color-gray-500); }
+    .data-table td {
+      padding: 6px; border-bottom: 1px solid var(--color-gray-300);
+      vertical-align: top; white-space: nowrap;
+    }
+    .data-table tr:hover td { background: var(--color-blue-light-5); }
+    .data-table .cb-cell { width: 32px; text-align: center; }
+    .data-table input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--color-blue-400); cursor: pointer;
+    }
+    .group-row td {
+      background: var(--color-gray-50); font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-md); padding: 10px 6px;
+    }
+    .group-name { display: flex; align-items: center; gap: 6px; }
+    .group-name .material-icons { font-size: 20px; color: var(--color-gray-700); }
+    .row-oferta td { background: var(--color-orange-light-5); }
+
+    /* ── CELL TYPES ── */
+    .produto-code { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+    .produto-name { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); margin-top: 2px; }
+    .produto-tags { display: flex; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
+    .produto-tag {
+      display: inline-block; padding: 0 4px; border-radius: 3px;
+      font-size: var(--font-size-xs); color: var(--color-gray-600);
+      background: var(--color-gray-100); height: 16px; line-height: 16px;
+    }
+    .produto-badges { display: flex; gap: 4px; align-items: center; margin-top: 1px; }
+    .pharma-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; background: var(--color-blue-light-5);
+      border-radius: 2px; font-size: 10px; color: var(--color-blue-500);
+    }
+    .loja-code { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+    .loja-regional {
+      display: inline-block; padding: 0 4px; border-radius: 3px;
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+      background: var(--color-blue-light-5); color: var(--color-blue-400);
+      height: 16px; line-height: 16px; margin-top: 2px;
+    }
+    .loja-type { font-size: var(--font-size-xs); color: var(--color-gray-700); margin-top: 1px; }
+    .pmz-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+    .pmz-custo { font-size: 11px; font-weight: var(--font-weight-semibold); color: var(--color-gray-700); }
+    .pmz-detail { font-size: 11px; color: var(--color-gray-700); margin-top: 2px; display: flex; gap: 8px; }
+    .pmz-margin { background: var(--color-gray-100); padding: 0 4px; border-radius: 3px; font-weight: var(--font-weight-semibold); }
+    .margem-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+    .estoque-val { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); }
+    .estoque-main { display: flex; align-items: center; gap: 4px; }
+    .estoque-detail { font-size: 11px; color: var(--color-gray-700); display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+
+    /* ── TABLE HEADER BAR ── */
+    .table-header-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--color-white); border-radius: 6px 6px 0 0;
+      padding: 8px 12px;
+      border: 1px solid var(--color-gray-300); border-bottom: none;
+    }
+    .table-info { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-md); }
+    .table-info .material-icons { font-size: 16px; color: var(--color-blue-400); }
+    .table-actions { display: flex; gap: 4px; align-items: center; }
+    .divider-v { width: 1px; height: 24px; background: var(--color-gray-300); margin: 0 4px; }
+
+    /* ── LINK ── */
+    .link { color: var(--color-blue-400); text-decoration: none; font-size: var(--font-size-sm); cursor: pointer; }
+    .link:hover { text-decoration: underline; }
+
+    /* ── RSUITE MAPPING ── */
+    .sg-map-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sg-map-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+    }
+
+    .sg-map-row-custom {
+      grid-template-columns: 220px 1fr;
+      background: var(--color-gray-50);
+    }
+
+    .sg-map-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+    }
+
+    .sg-map-class {
+      font-size: 10px;
+      font-family: monospace;
+      color: var(--color-gray-500);
+      margin-top: 2px;
+    }
+
+    .sg-map-preview {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+    }
+
+    .sg-code {
+      background: #1e1e2e;
+      border-radius: 6px;
+      padding: 12px 14px;
+      overflow-x: auto;
+    }
+
+    .sg-code pre {
+      margin: 0;
+      font-family: 'Consolas', 'Fira Code', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #cdd6f4;
+      white-space: pre;
+    }
+
+    .sg-code .kw  { color: #cba6f7; } /* keyword: import, from, const */
+    .sg-code .cm  { color: #6c7086; } /* comment */
+    .sg-code .str { color: #a6e3a1; } /* string */
+    .sg-code .tag { color: #89b4fa; } /* JSX tag */
+    .sg-code .att { color: #fab387; } /* JSX attribute */
+    .sg-code .val { color: #a6e3a1; } /* attribute value */
+    .sg-code .fn  { color: #f38ba8; } /* function/component name */
+
+    .sg-rsuite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #e8f0fe;
+      color: #1a73e8;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+      font-family: monospace;
+      white-space: nowrap;
+    }
+
+    .sg-custom-badge {
+      background: var(--color-orange-light-10);
+      color: var(--color-orange-600);
+    }
+
+    .sg-map-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--font-size-sm);
+    }
+
+    .sg-map-table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--color-gray-100);
+      color: var(--color-gray-700);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-bottom: 2px solid var(--color-gray-300);
+    }
+
+    .sg-map-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-gray-200);
+      vertical-align: top;
+    }
+
+    .sg-map-table tr:last-child td { border-bottom: none; }
+    .sg-map-table tr:hover td { background: var(--color-blue-light-5); }
+
+    /* ── SHADOWS ── */
+    .sg-shadow-box {
+      width: 100px; height: 60px; border-radius: 6px;
+      background: var(--color-white); display: flex;
+      align-items: center; justify-content: center;
+      font-size: var(--font-size-xs); color: var(--color-gray-600);
+      text-align: center; padding: 8px;
+    }
+
+    /* ── CHARTS ── */
+    .chart-strip { display: flex; height: 20px; border-radius: 4px; overflow: hidden; }
+    .chart-strip span { flex: 1; }
+  </style>
+</head>
+
+<body>
+  <div class="sg-layout">
+
+    <!-- ═══ NAV ═══ -->
+    <nav class="sg-nav">
+      <div class="sg-nav-title">IPA Design System</div>
+
+      <div class="sg-search-wrap">
+        <div class="sg-search">
+          <span class="material-icons">search</span>
+          <input
+            type="text"
+            id="sgSearchInput"
+            placeholder="Buscar componente..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <span class="material-icons sg-search-clear" id="sgSearchClear">close</span>
+        </div>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Foundations</div>
+        <a href="#colors">Cores</a>
+        <a href="#charts">Paleta de Gráficos</a>
+        <a href="#typography">Tipografia</a>
+        <a href="#shadows">Sombras</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Ações</div>
+        <a href="#btn-primary">Botão Primary</a>
+        <a href="#btn-secondary">Botão Secondary</a>
+        <a href="#btn-icon">Botão Icon</a>
+        <a href="#btn-row">Botões de Linha</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Indicadores</div>
+        <a href="#badges">Badges</a>
+        <a href="#tags">Tags</a>
+        <a href="#chips">Chips</a>
+        <a href="#filter-chips">Filter Chips</a>
+        <a href="#variations">Variations</a>
+        <a href="#insight">Insight Icon</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Dados</div>
+        <a href="#big-numbers">Big Numbers</a>
+        <a href="#preco-inputs">Inputs de Preço</a>
+        <a href="#table">Tabela de Dados</a>
+        <a href="#table-cells">Células da Tabela</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Layout</div>
+        <a href="#table-header">Cabeçalho da Tabela</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">Ícones</div>
+        <a href="#icons-material">Material Icons</a>
+        <a href="#icons-custom">Ícones Custom</a>
+      </div>
+
+      <div class="sg-nav-group">
+        <div class="sg-nav-group-label">React</div>
+        <a href="#rsuite-map">↔ Mapeamento rsuite</a>
+      </div>
+    </nav>
+
+    <!-- ═══ MAIN ═══ -->
+    <main class="sg-main">
+
+      <div id="sgNoResults" class="sg-no-results">
+        <span class="material-icons" style="font-size:32px;display:block;margin-bottom:8px;color:var(--color-gray-400)">search_off</span>
+        Nenhum componente encontrado para "<span id="sgNoResultsQuery"></span>"
+      </div>
+
+      <div class="sg-header">
+        <h1>Biblioteca de Componentes</h1>
+        <p>IPA Farma — InfoPrice · Fonte canônica: <code>tokens.css</code> + <code>components.html</code></p>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CORES
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="colors">
+        <h2 class="sg-section-title">Cores</h2>
+        <p class="sg-section-desc">Todas as cores primitivas do Design System. Use sempre via token CSS <code>var(--color-*)</code>.</p>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Marca</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch">
+                <div class="color-swatch-block" style="background:var(--color-brand-primary)"></div>
+                <div class="color-swatch-info"><div class="color-swatch-name">Brand Primary</div><div class="color-swatch-value">#0e9ce3</div></div>
+              </div>
+              <div class="color-swatch">
+                <div class="color-swatch-block" style="background:var(--color-brand-tertiary)"></div>
+                <div class="color-swatch-info"><div class="color-swatch-name">Brand Tertiary</div><div class="color-swatch-value">#cce9fa</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Cinza</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-50)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-50</div><div class="color-swatch-value">#fafafa</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-100)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-100</div><div class="color-swatch-value">#f5f5f5</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-200)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-200</div><div class="color-swatch-value">#f4f4f4</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-300)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-300</div><div class="color-swatch-value">#eaeaea</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-400</div><div class="color-swatch-value">#d3d3d3</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-500</div><div class="color-swatch-value">#bcbcbc</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-600</div><div class="color-swatch-value">#959595</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-700</div><div class="color-swatch-value">#747474</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-800)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-800</div><div class="color-swatch-value">#505050</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-gray-900)"></div><div class="color-swatch-info"><div class="color-swatch-name">gray-900</div><div class="color-swatch-value">#323232</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Azul</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-5)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-5</div><div class="color-swatch-value">#f5f9fe</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-10)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-10</div><div class="color-swatch-value">#ebf4fe</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-15)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-15</div><div class="color-swatch-value">#e1eefd</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-20)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-20</div><div class="color-swatch-value">#d7e8fc</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-45)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-45</div><div class="color-swatch-value">#a5ccf8</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-65)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-65</div><div class="color-swatch-value">#7db6f5</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-light-85)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-light-85</div><div class="color-swatch-value">#559ff2</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-400</div><div class="color-swatch-value">#378ef0</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-500</div><div class="color-swatch-value">#2680eb</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-600</div><div class="color-swatch-value">#1473e6</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-blue-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">blue-700</div><div class="color-swatch-value">#0d66d0</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Verde</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-light-5)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-light-5</div><div class="color-swatch-value">#f5fbf9</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-light-10)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-light-10</div><div class="color-swatch-value">#ebf7f3</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-light-20)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-light-20</div><div class="color-swatch-value">#d6eee6</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-light-45)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-light-45</div><div class="color-swatch-value">#a3d9c8</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-400</div><div class="color-swatch-value">#33ab84</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-500</div><div class="color-swatch-value">#2d9d78</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-600</div><div class="color-swatch-value">#268e6c</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-green-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">green-700</div><div class="color-swatch-value">#12805c</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Vermelho</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-light-5)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-light-5</div><div class="color-swatch-value">#fef7f7</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-light-10)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-light-10</div><div class="color-swatch-value">#fdefef</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-light-20)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-light-20</div><div class="color-swatch-value">#fbdee0</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-light-45)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-light-45</div><div class="color-swatch-value">#f6b5b8</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-400</div><div class="color-swatch-value">#ec5b62</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-500</div><div class="color-swatch-value">#e34850</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-600</div><div class="color-swatch-value">#d7373f</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-red-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">red-700</div><div class="color-swatch-value">#c9252d</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Laranja</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-light-5)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-light-5</div><div class="color-swatch-value">#fef9f4</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-light-10)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-light-10</div><div class="color-swatch-value">#fef5e9</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-light-20)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-light-20</div><div class="color-swatch-value">#fcead3</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-light-45)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-light-45</div><div class="color-swatch-value">#f9cf9c</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-400</div><div class="color-swatch-value">#f29423</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-500</div><div class="color-swatch-value">#e68619</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-600</div><div class="color-swatch-value">#da7b11</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-orange-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">orange-700</div><div class="color-swatch-value">#cb6f10</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Roxo &amp; Rosa</div>
+          <div class="sg-canvas">
+            <div class="color-grid" style="width:100%">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-purple-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">purple-400</div><div class="color-swatch-value">#9256d9</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-purple-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">purple-500</div><div class="color-swatch-value">#864ccc</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-purple-600)"></div><div class="color-swatch-info"><div class="color-swatch-name">purple-600</div><div class="color-swatch-value">#7a42bf</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-purple-700)"></div><div class="color-swatch-info"><div class="color-swatch-name">purple-700</div><div class="color-swatch-value">#6f38b1</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-pink-light-5)"></div><div class="color-swatch-info"><div class="color-swatch-name">pink-light-5</div><div class="color-swatch-value">#fef8fd</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-pink-light-10)"></div><div class="color-swatch-info"><div class="color-swatch-name">pink-light-10</div><div class="color-swatch-value">#fef1fb</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-pink-400)"></div><div class="color-swatch-info"><div class="color-swatch-name">pink-400</div><div class="color-swatch-value">#f473d6</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:var(--color-pink-500)"></div><div class="color-swatch-info"><div class="color-swatch-name">pink-500</div><div class="color-swatch-value">#e663c9</div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           PALETA DE GRÁFICOS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="charts">
+        <h2 class="sg-section-title">Paleta de Gráficos</h2>
+        <p class="sg-section-desc">Sequência semântica para séries em gráficos. Use <code>var(--color-chart-1)</code> … <code>var(--color-chart-12)</code>.</p>
+        <div class="sg-canvas">
+          <div class="chart-strip" style="width:100%">
+            <span style="background:var(--color-chart-1)"  title="chart-1 · #0d66d0"></span>
+            <span style="background:var(--color-chart-2)"  title="chart-2 · #825dcb"></span>
+            <span style="background:var(--color-chart-3)"  title="chart-3 · #e663c9"></span>
+            <span style="background:var(--color-chart-4)"  title="chart-4 · #f25c96"></span>
+            <span style="background:var(--color-chart-5)"  title="chart-5 · #ff756b"></span>
+            <span style="background:var(--color-chart-6)"  title="chart-6 · #ffa164"></span>
+            <span style="background:var(--color-chart-7)"  title="chart-7 · #d9ce54"></span>
+            <span style="background:var(--color-chart-8)"  title="chart-8 · #96c74c"></span>
+            <span style="background:var(--color-chart-9)"  title="chart-9 · #5ae47a"></span>
+            <span style="background:var(--color-chart-10)" title="chart-10 · #bf9a00"></span>
+            <span style="background:var(--color-chart-11)" title="chart-11 · #d46d14"></span>
+            <span style="background:var(--color-chart-12)" title="chart-12 · #d53b3b"></span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
+            <span class="sg-token">chart-1 #0d66d0</span>
+            <span class="sg-token">chart-2 #825dcb</span>
+            <span class="sg-token">chart-3 #e663c9</span>
+            <span class="sg-token">chart-4 #f25c96</span>
+            <span class="sg-token">chart-5 #ff756b</span>
+            <span class="sg-token">chart-6 #ffa164</span>
+            <span class="sg-token">chart-7 #d9ce54</span>
+            <span class="sg-token">chart-8 #96c74c</span>
+            <span class="sg-token">chart-9 #5ae47a</span>
+            <span class="sg-token">chart-10 #bf9a00</span>
+            <span class="sg-token">chart-11 #d46d14</span>
+            <span class="sg-token">chart-12 #d53b3b</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           TIPOGRAFIA
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="typography">
+        <h2 class="sg-section-title">Tipografia</h2>
+        <p class="sg-section-desc">Open Sans · 4 pesos · 8 tamanhos de corpo + headings.</p>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Escala de corpo</div>
+          <div class="sg-canvas" style="flex-direction:column;gap:0;">
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">2xs / Regular</div><div class="type-meta-token">--font-size-2xs · 8px</div></div>
+              <span style="font-size:var(--font-size-2xs);font-weight:400;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">xs / Regular</div><div class="type-meta-token">--font-size-xs · 10px</div></div>
+              <span style="font-size:var(--font-size-xs);font-weight:400;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">sm / Regular</div><div class="type-meta-token">--font-size-sm · 12px</div></div>
+              <span style="font-size:var(--font-size-sm);font-weight:400;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">sm / Semibold</div><div class="type-meta-token">--font-size-sm · 600</div></div>
+              <span style="font-size:var(--font-size-sm);font-weight:600;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">md / Regular</div><div class="type-meta-token">--font-size-md · 14px ★ base</div></div>
+              <span style="font-size:var(--font-size-md);font-weight:400;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">md / Semibold</div><div class="type-meta-token">--font-size-md · 600</div></div>
+              <span style="font-size:var(--font-size-md);font-weight:600;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">md / Bold</div><div class="type-meta-token">--font-size-md · 700</div></div>
+              <span style="font-size:var(--font-size-md);font-weight:700;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">lg / Semibold</div><div class="type-meta-token">--font-size-lg · 16px</div></div>
+              <span style="font-size:var(--font-size-lg);font-weight:600;">The quick brown fox jumps over the lazy dog</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">2xl / Semibold</div><div class="type-meta-token">--font-size-2xl · 20px</div></div>
+              <span style="font-size:var(--font-size-2xl);font-weight:600;">The quick brown fox</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">3xl / Light</div><div class="type-meta-token">--font-size-3xl · 24px</div></div>
+              <span style="font-size:var(--font-size-3xl);font-weight:300;">The quick brown fox</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-group">
+          <div class="sg-group-label">Uppercase (Text/Upper)</div>
+          <div class="sg-canvas" style="flex-direction:column;gap:0;">
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">xs / Bold / Upper</div><div class="type-meta-token">text-transform:uppercase</div></div>
+              <span style="font-size:var(--font-size-xs);font-weight:700;text-transform:uppercase;letter-spacing:.6px;">Label de campo · Chip label</span>
+            </div>
+            <div class="type-row">
+              <div class="type-meta"><div class="type-meta-name">sm / Bold / Upper</div></div>
+              <span style="font-size:var(--font-size-sm);font-weight:700;text-transform:uppercase;letter-spacing:.6px;">Filter label · Section nav</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           SOMBRAS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="shadows">
+        <h2 class="sg-section-title">Sombras / Elevação</h2>
+        <div class="sg-canvas" style="gap:24px;padding:32px;">
+          <div class="sg-item">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-elevation)">Elevation</div>
+            <span class="sg-token">--shadow-elevation</span>
+            <span style="font-size:10px;color:var(--color-gray-500)">Cards, dropdowns, modais</span>
+          </div>
+          <div class="sg-item">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-focus);border:1px solid var(--color-blue-400)">Focus</div>
+            <span class="sg-token">--shadow-focus</span>
+            <span style="font-size:10px;color:var(--color-gray-500)">Inputs e botões focados</span>
+          </div>
+          <div class="sg-item">
+            <div class="sg-shadow-box" style="box-shadow:var(--shadow-hover)">Hover</div>
+            <span class="sg-token">--shadow-hover</span>
+            <span style="font-size:10px;color:var(--color-gray-500)">Anel de destaque hover</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BOTÃO PRIMARY
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="btn-primary">
+        <h2 class="sg-section-title">Botão Primary</h2>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <button class="btn-primary"><span class="material-icons">check</span> Aplicar preço</button>
+            <span class="sg-token">.btn-primary</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-primary" style="padding:8px;"><span class="material-icons">file_download</span></button>
+            <span class="sg-token">.btn-primary icon-only</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BOTÃO SECONDARY
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="btn-secondary">
+        <h2 class="sg-section-title">Botão Secondary</h2>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <button class="btn-secondary"><span class="material-icons">change_circle</span> Modo Aprovação</button>
+            <span class="sg-token">.btn-secondary</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-clube"><span class="material-icons" style="font-size:12px">local_offer</span> clube de descontos</button>
+            <span class="sg-token">.btn-clube</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BOTÃO ICON
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="btn-icon">
+        <h2 class="sg-section-title">Botão Icon (36×36)</h2>
+        <p class="sg-section-desc">Usado na toolbar da tabela. Três variantes de cor.</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">filter_list</span></button>
+            <span class="sg-token">.btn-icon</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon btn-icon-blue"><span class="material-icons">filter_list</span></button>
+            <span class="sg-token">.btn-icon-blue</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon btn-icon-red"><span class="material-icons">swap_vert</span></button>
+            <span class="sg-token">.btn-icon-red</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">display_settings</span></button>
+            <span class="sg-token">display_settings</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">store</span></button>
+            <span class="sg-token">store</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">price_change</span></button>
+            <span class="sg-token">price_change</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">emoji_events</span></button>
+            <span class="sg-token">emoji_events</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">attach_money</span></button>
+            <span class="sg-token">attach_money</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">restart_alt</span></button>
+            <span class="sg-token">restart_alt</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">stars</span></button>
+            <span class="sg-token">stars</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">file_download</span></button>
+            <span class="sg-token">file_download</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">auto_awesome</span></button>
+            <span class="sg-token">auto_awesome</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon"><span class="material-icons">group_work</span></button>
+            <span class="sg-token">group_work</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BOTÕES DE LINHA
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="btn-row">
+        <h2 class="sg-section-title">Botões de Linha da Tabela</h2>
+        <p class="sg-section-desc">Icon-only compactos. Fundo transparente, hover cinza.</p>
+        <div class="sg-canvas" style="align-items:center;">
+          <div class="sg-item">
+            <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+            <span class="sg-token">.btn-menu-preco · 26px</span>
+          </div>
+          <div class="sg-item">
+            <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
+            <span class="sg-token">.btn-bloquear · 22px</span>
+          </div>
+          <div style="display:flex;gap:2px;padding:6px 8px;background:var(--color-gray-50);border-radius:4px;align-items:center;">
+            <button class="btn-icon-row btn-menu-preco"><span class="material-icons">more_vert</span></button>
+            <button class="btn-icon-row btn-bloquear"><span class="material-icons">lock</span></button>
+            <span style="font-size:10px;color:var(--color-gray-500);margin-left:6px;">em contexto de linha</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BADGES
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="badges">
+        <h2 class="sg-section-title">Badges</h2>
+        <p class="sg-section-desc">Rótulos inline de status e identificação. Altura 16px.</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
+            <span class="sg-token">.badge-blue</span>
+          </div>
+          <div class="sg-item">
+            <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+            <span class="sg-token">.badge-blue-solid</span>
+          </div>
+          <div class="sg-item">
+            <span class="badge-sm badge-gray">569</span>
+            <span class="sg-token">.badge-gray</span>
+          </div>
+          <div class="sg-item">
+            <span class="badge-sm badge-green">+1,1pp</span>
+            <span class="sg-token">.badge-green</span>
+          </div>
+          <div class="sg-item">
+            <span class="badge-sm badge-red">-0,4pp</span>
+            <span class="sg-token">.badge-red</span>
+          </div>
+          <div class="sg-item">
+            <span class="badge-sm badge-orange">oferta</span>
+            <span class="sg-token">.badge-orange</span>
+          </div>
+          <div class="sg-item sg-canvas-dark" style="background:var(--color-blue-500);padding:6px 10px;border-radius:4px;">
+            <span class="badge-lite">lite</span>
+            <span class="sg-token" style="color:var(--color-gray-400)">.badge-lite</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           TAGS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="tags">
+        <h2 class="sg-section-title">Tags</h2>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <span class="tag-green">atualizado em 01/07/2023, 13:42</span>
+            <span class="sg-token">.tag-green</span>
+          </div>
+          <div class="sg-item">
+            <span class="produto-tag">super sensivel</span>
+            <span class="sg-token">.produto-tag</span>
+          </div>
+          <div class="sg-item">
+            <span class="produto-tag">GLOBAL A</span>
+            <span class="sg-token">.produto-tag</span>
+          </div>
+          <div class="sg-item">
+            <div class="loja-regional">REGIONAL 02</div>
+            <span class="sg-token">.loja-regional</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           CHIPS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="chips">
+        <h2 class="sg-section-title">Chips</h2>
+        <p class="sg-section-desc">Seleção de visualização e agrupamento. Altura 28px.</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <div class="chip chip-default"><span class="material-icons">push_pin</span> <span class="chip-label">agrupar por</span> Fixar</div>
+            <span class="sg-token">.chip-default</span>
+          </div>
+          <div class="sg-item">
+            <div class="chip chip-default"><span class="chip-label">2</span> Atacado</div>
+            <span class="sg-token">.chip-default + label</span>
+          </div>
+          <div class="sg-item">
+            <div class="chip chip-active"><span class="chip-label">agrupar por</span> Loja <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
+            <span class="sg-token">.chip-active + badge + close</span>
+          </div>
+          <div class="sg-item">
+            <div class="chip chip-active"><span class="chip-label">precificar por</span> Produto <span class="chip-badge">99</span></div>
+            <span class="sg-token">.chip-active + badge</span>
+          </div>
+          <div class="sg-item">
+            <div class="chip chip-default"><span class="chip-label">tipo preco</span> Varejo</div>
+            <span class="sg-token">.chip-default</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           FILTER CHIPS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="filter-chips">
+        <h2 class="sg-section-title">Filter Chips</h2>
+        <p class="sg-section-desc">Chips de filtro da seção de filtros. Altura 36px.</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <div class="filter-chip"><span class="material-icons">add</span> Produto</div>
+            <span class="sg-token">.filter-chip (default)</span>
+          </div>
+          <div class="sg-item">
+            <div class="filter-chip"><span class="filter-label">01</span> Setor</div>
+            <span class="sg-token">.filter-chip + label numerado</span>
+          </div>
+          <div class="sg-item">
+            <div class="filter-chip filter-chip-selected"><span class="material-icons">add</span> Loja · Centro <span class="material-icons" style="font-size:14px;color:var(--color-blue-400)">close</span></div>
+            <span class="sg-token">.filter-chip-selected</span>
+          </div>
+          <div class="sg-item">
+            <div class="filter-chip" style="padding:6px 8px;"><span class="material-icons">save</span></div>
+            <span class="sg-token">.filter-chip icon-only</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           VARIATIONS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="variations">
+        <h2 class="sg-section-title">Variations / Indicadores de variação</h2>
+        <p class="sg-section-desc">Dois tamanhos: <code>.variation</code> (grande, usado em Big Numbers) e <code>.variation-sm</code> (pequeno, usado em células de tabela).</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <span class="variation variation-red"><span class="material-icons">trending_down</span> 0,4%</span>
+            <span class="sg-token">.variation-red</span>
+          </div>
+          <div class="sg-item">
+            <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1%</span>
+            <span class="sg-token">.variation-green</span>
+          </div>
+          <div class="sg-divider"></div>
+          <div class="sg-item">
+            <span class="variation-sm var-green"><span class="material-icons">arrow_upward</span> +1,1pp</span>
+            <span class="sg-token">.variation-sm.var-green</span>
+          </div>
+          <div class="sg-item">
+            <span class="variation-sm var-red"><span class="material-icons">arrow_downward</span> -0,7pp</span>
+            <span class="sg-token">.variation-sm.var-red</span>
+          </div>
+          <div class="sg-item">
+            <span class="variation-sm var-green">15,1d</span>
+            <span class="sg-token">dias de estoque</span>
+          </div>
+          <div class="sg-item">
+            <span class="variation-sm var-red">8,2d</span>
+            <span class="sg-token">estoque crítico</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           INSIGHT ICON
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="insight">
+        <h2 class="sg-section-title">Insight Icon</h2>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+            <span class="sg-token">.insight-icon</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           BIG NUMBERS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="big-numbers">
+        <h2 class="sg-section-title">Big Numbers Cards</h2>
+        <p class="sg-section-desc">Cards de métricas do painel superior. Quatro variantes de cor de fundo.</p>
+        <div class="sg-canvas">
+          <div class="sg-item">
+            <div class="big-card big-card-orange">
+              <div class="big-value">23 <button class="big-btn"><span class="material-icons" style="font-size:14px">check</span> Revisar</button></div>
+              <div class="big-desc">Precisam de aprovação</div>
+            </div>
+            <span class="sg-token">.big-card-orange</span>
+          </div>
+          <div class="sg-item">
+            <div class="big-card big-card-blue">
+              <div class="big-value">3.645 <span class="big-link">Selecionar</span></div>
+              <div class="big-desc">do total de preços</div>
+            </div>
+            <span class="sg-token">.big-card-blue</span>
+          </div>
+          <div class="sg-item">
+            <div class="big-card big-card-blue">
+              <div class="big-value">101,3%
+                <span class="variation variation-red"><span class="material-icons">trending_down</span> 0,4%</span>
+              </div>
+              <div class="big-desc">Competitividade projetada</div>
+            </div>
+            <span class="sg-token">.big-card-blue + variation</span>
+          </div>
+          <div class="sg-item">
+            <div class="big-card big-card-green">
+              <div class="big-value">+ R$ 392mil <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1%</span></div>
+              <div class="big-desc">Estimativa de lucro</div>
+            </div>
+            <span class="sg-token">.big-card-green</span>
+          </div>
+          <div class="sg-item">
+            <div class="big-card big-card-gray">
+              <div class="big-desc">Cálculos desatualizados</div>
+              <a class="link" style="margin-top:4px;display:inline-flex;align-items:center;gap:4px"><span class="material-icons" style="font-size:12px">refresh</span> Atualizar</a>
+            </div>
+            <span class="sg-token">.big-card-gray</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           INPUTS DE PREÇO
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="preco-inputs">
+        <h2 class="sg-section-title">Inputs de Preço</h2>
+        <p class="sg-section-desc">Par Regular + Oferta usado dentro das células da tabela.</p>
+        <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:6px;">
+          <div class="preco-row">
+            <span class="preco-label">Regular</span>
+            <input type="text" class="preco-input" value="3,89" />
+            <span class="preco-diff">-2,5%</span>
+            <span class="sg-token">.preco-input</span>
+          </div>
+          <div class="preco-row" style="padding:4px;background:var(--color-orange-light-5);border-radius:4px;">
+            <span class="preco-label preco-label-oferta">Oferta</span>
+            <input type="text" class="preco-input preco-input-oferta" value="2,99" />
+            <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
+            <span class="sg-token">.preco-input-oferta</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           CABEÇALHO DA TABELA
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="table-header">
+        <h2 class="sg-section-title">Cabeçalho da Tabela</h2>
+        <div class="table-header-bar">
+          <div class="table-info">
+            <span class="material-icons">auto_awesome</span>
+            Foram encontrados 20 resultados no total
+            <span class="material-icons">info</span>
+            <a class="link">Limpar</a>
+            <a class="link">Selecionar tudo</a>
+          </div>
+          <div class="table-actions">
+            <button class="btn-icon btn-icon-blue"><span class="material-icons">filter_list</span></button>
+            <button class="btn-icon"><span class="material-icons">display_settings</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon"><span class="material-icons">store</span></button>
+            <button class="btn-icon"><span class="material-icons">price_change</span></button>
+            <button class="btn-icon"><span class="material-icons">emoji_events</span></button>
+            <button class="btn-icon"><span class="material-icons">attach_money</span></button>
+            <button class="btn-icon btn-icon-red"><span class="material-icons">swap_vert</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon"><span class="material-icons">restart_alt</span></button>
+            <button class="btn-icon"><span class="material-icons">stars</span></button>
+            <button class="btn-icon"><span class="material-icons">check</span></button>
+            <button class="btn-icon"><span class="material-icons">file_download</span></button>
+            <button class="btn-icon"><span class="material-icons">auto_awesome</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon"><span class="material-icons">report</span></button>
+            <button class="btn-icon"><span class="material-icons">account_tree</span></button>
+            <div class="divider-v"></div>
+            <button class="btn-icon"><span class="material-icons">group_work</span></button>
+            <button class="btn-primary"><span class="material-icons">check</span> aplicar preço</button>
+            <button class="btn-primary" style="padding:8px;"><span class="material-icons">file_download</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           TABELA DE DADOS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="table">
+        <h2 class="sg-section-title">Tabela de Dados</h2>
+        <p class="sg-section-desc">Estados de linha: normal, hover, grupo, oferta. Botões de ação ao final.</p>
+
+        <div class="data-table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="cb-cell"><input type="checkbox" /></th>
+                <th><div class="th-inner">Produto <span class="material-icons">unfold_more</span></div></th>
+                <th><div class="th-inner">Loja <span class="material-icons">unfold_more</span></div></th>
+                <th><div class="th-inner">PMZ e custo <span class="material-icons">unfold_more</span></div></th>
+                <th><div class="th-inner">Preco vigente <span class="material-icons">unfold_more</span></div></th>
+                <th><div class="th-inner">Preco sugerido <span class="material-icons">unfold_more</span></div></th>
+                <th><div class="th-inner">Margem <span class="material-icons">unfold_more</span></div></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Group row -->
+              <tr class="group-row">
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td colspan="7">
+                  <div class="group-name"><span class="material-icons">expand_more</span> Supermercado</div>
+                </td>
+              </tr>
+              <!-- Normal row -->
+              <tr>
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10007</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
+                    <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+                  </div>
+                  <div class="produto-name">CLOR DE HIDROXIZINA 25MG C/30 CPR</div>
+                  <div class="produto-tags">
+                    <span class="produto-tag">super sensivel</span>
+                    <span class="produto-tag">GLOBAL A</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="loja-code">01</div>
+                  <div class="loja-regional">REGIONAL 02</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td>
+                  <div class="pmz-val">R$ 2,04</div>
+                  <div class="pmz-custo">R$ 1,63</div>
+                  <div class="pmz-detail"><span class="pmz-margin">12,5%</span><span>10/03/23</span></div>
+                </td>
+                <td><div class="pmz-val">R$ 3,99</div></td>
+                <td>
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="3,89" />
+                    <span class="preco-diff">-2,5%</span>
+                  </div>
+                  <div class="preco-row" style="padding:4px;background:var(--color-orange-light-5);border-radius:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="2,99" />
+                    <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="margem-val">26,1%</div>
+                  <div class="variation-sm var-green" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_upward</span> +1,1pp</div>
+                </td>
+                <td style="text-align:center;white-space:nowrap;">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
+                </td>
+              </tr>
+              <!-- Oferta highlighted row -->
+              <tr class="row-oferta">
+                <td class="cb-cell"><input type="checkbox" /></td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:4px;">
+                    <span class="produto-code">10045</span>
+                    <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                    <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 892</span>
+                  </div>
+                  <div class="produto-name">OMEPRAZOL 20MG C/28 CAP(EMS)</div>
+                  <div class="produto-tags"><span class="produto-tag">sensivel</span><span class="produto-tag">GLOBAL B</span></div>
+                </td>
+                <td>
+                  <div class="loja-code">03</div>
+                  <div class="loja-regional">REGIONAL 01</div>
+                  <div class="loja-type">SUPERMERCADO</div>
+                </td>
+                <td>
+                  <div class="pmz-val">R$ 8,12</div>
+                  <div class="pmz-custo">R$ 6,50</div>
+                  <div class="pmz-detail"><span class="pmz-margin">15,2%</span><span>15/02/23</span></div>
+                </td>
+                <td><div class="pmz-val">R$ 10,99</div></td>
+                <td>
+                  <div class="preco-row" style="margin-bottom:4px;">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="10,79" />
+                  </div>
+                  <div class="preco-row" style="padding:4px;background:var(--color-orange-light-5);border-radius:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="8,99" />
+                  </div>
+                </td>
+                <td>
+                  <div class="margem-val">19,9%</div>
+                  <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,1pp</div>
+                </td>
+                <td style="text-align:center;white-space:nowrap;">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:8px;display:flex;gap:16px;font-size:var(--font-size-xs);color:var(--color-gray-600);">
+          <span><span style="display:inline-block;width:12px;height:12px;background:var(--color-white);border:1px solid var(--color-gray-300);border-radius:2px;vertical-align:middle;margin-right:4px;"></span>Linha normal</span>
+          <span><span style="display:inline-block;width:12px;height:12px;background:var(--color-blue-light-5);border-radius:2px;vertical-align:middle;margin-right:4px;"></span>Hover</span>
+          <span><span style="display:inline-block;width:12px;height:12px;background:var(--color-gray-50);border:1px solid var(--color-gray-300);border-radius:2px;vertical-align:middle;margin-right:4px;"></span>Group row</span>
+          <span><span style="display:inline-block;width:12px;height:12px;background:var(--color-orange-light-5);border-radius:2px;vertical-align:middle;margin-right:4px;"></span>Row oferta</span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           CÉLULAS DA TABELA
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="table-cells">
+        <h2 class="sg-section-title">Anatomia das Células</h2>
+        <p class="sg-section-desc">Cada tipo de célula decomposto com seus elementos internos.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-produto</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:4px;">
+              <div style="display:flex;align-items:center;gap:4px;">
+                <span class="produto-code">10007</span>
+                <span class="pharma-icon"><span class="material-icons" style="font-size:10px">medication</span></span>
+                <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
+                <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+                <span class="badge-sm badge-gray">569</span>
+              </div>
+              <div class="produto-name">CLOR DE HIDROXIZINA 25MG</div>
+              <div class="produto-tags">
+                <span class="produto-tag">super sensivel</span>
+                <span class="produto-tag">GLOBAL A</span>
+                <span class="produto-tag">LOCAL B</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-loja</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:2px;">
+              <div class="loja-code">01</div>
+              <div class="loja-regional">REGIONAL 02</div>
+              <div class="loja-type">SUPERMERCADO</div>
+            </div>
+          </div>
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-pmz</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:2px;">
+              <div style="display:flex;align-items:center;gap:4px;">
+                <span class="pmz-val">R$ 2,04</span>
+                <span class="material-icons" style="font-size:12px;color:var(--color-orange-400)">swap_vertical_circle</span>
+              </div>
+              <div class="pmz-custo">R$ 1,63</div>
+              <div class="pmz-detail"><span class="pmz-margin">12,5%</span><span>10/03/23</span></div>
+            </div>
+          </div>
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-estoque</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:2px;">
+              <div class="estoque-main">
+                <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
+                <span class="estoque-val">46.845un</span>
+              </div>
+              <div class="estoque-detail">
+                <span class="variation-sm var-green">15,1d</span>
+                <span>10/02/2025</span>
+                <span class="material-icons" style="font-size:12px">shopping_cart</span>
+                <span>2.361un/d</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-margem / cell-cpi</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:6px;">
+              <div>
+                <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%</div>
+                <div style="font-size:11px;color:var(--color-gray-600)">margem objetiva</div>
+              </div>
+              <div>
+                <div class="margem-val">102,6%</div>
+                <div style="font-size:11px;color:var(--color-gray-600)">CPI</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sg-group" style="margin:0;">
+            <div class="sg-group-label">cell-demanda</div>
+            <div class="sg-canvas" style="flex-direction:column;align-items:flex-start;gap:2px;">
+              <div class="estoque-val">2.450</div>
+              <div class="estoque-detail">un/semana</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           ÍCONES — MATERIAL ICONS
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="icons-material">
+        <h2 class="sg-section-title">Material Icons</h2>
+        <p class="sg-section-desc">
+          Ícones padrão do Design System. Fonte: <strong>Google Material Icons</strong> (webfont) no HTML
+          e <strong>react-icons/md</strong> no React. Container padrão <code>24×24px</code>,
+          cor padrão <code>--color-icon-default</code> (#505050).
+        </p>
+
+        <h3 class="sg-subsection-title">Uso em contexto</h3>
+        <div class="sg-canvas" style="gap:24px;flex-wrap:wrap">
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-xl);color:var(--color-icon-default)">settings</span>
+            <span class="sg-token">icon-default<br>xl (24px)</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-lg);color:var(--color-icon-default)">search</span>
+            <span class="sg-token">icon-default<br>lg (20px)</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-md);color:var(--color-icon-default)">filter_list</span>
+            <span class="sg-token">icon-default<br>md (16px)</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-sm);color:var(--color-icon-default)">close</span>
+            <span class="sg-token">icon-default<br>sm (12px)</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-xs);color:var(--color-icon-default)">arrow_drop_down</span>
+            <span class="sg-token">icon-default<br>xs (10px)</span>
+          </div>
+          <div style="width:1px;background:var(--color-gray-300);margin:0 8px"></div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-lg);color:var(--color-icon-muted)">more_vert</span>
+            <span class="sg-token">icon-muted<br>#959595</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <span class="material-icons" style="font-size:var(--icon-size-lg);color:var(--color-icon-disabled)">lock</span>
+            <span class="sg-token">icon-disabled<br>#d3d3d3</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px">
+            <div style="background:var(--color-brand-primary);padding:6px;border-radius:4px;display:inline-flex">
+              <span class="material-icons" style="font-size:var(--icon-size-lg);color:var(--color-icon-oncolor)">check</span>
+            </div>
+            <span class="sg-token">icon-oncolor<br>#ffffff</span>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title" style="margin-top:24px">Ícones do catálogo (Figma › icons_basics)</h3>
+        <div class="sg-canvas" style="gap:16px;flex-wrap:wrap">
+          <!-- icons_basics -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">settings</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdSettings</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">close</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdOutlineClose</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">search</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdSearch</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">drag_indicator</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdDragIndicator</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">add</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAdd</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">link_off</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdLinkOff</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">keyboard_arrow_up</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdKeyboard­ArrowUp</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">open_in_new</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdOpenInNew</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">arrow_back</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdArrowBack</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">tips_and_updates</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdTipsAnd­Updates</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">more_vert</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdMoreVert</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">link</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdLink</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">refresh</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdRefresh</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">info</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdInfo</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">image</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdImage</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">check_circle_outline</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdCheckCircle­Outline</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">arrow_forward</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdArrowForward</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">drag_handle</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdDragHandle</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">save</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdSave</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">group_work</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdGroupWork</span>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title" style="margin-top:24px">Ícones de funcionalidade (icons_funcionality)</h3>
+        <div class="sg-canvas" style="gap:16px;flex-wrap:wrap">
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">home</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdHome</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">local_offer</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdLocalOffer</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">price_change</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdPriceChange</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">offline_pin</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdOfflinePin</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">auto_graph</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAutoGraph</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">file_download</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdFile­Download</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">account_tree</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAccount­Tree</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">watch_later</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdWatchLater</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">fact_check</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdFactCheck</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">assignment</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAssignment</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">ads_click</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAdsClick</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">rule</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdOutlineRule</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">auto_fix_high</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdAutoFixHigh</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">timeline</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdTimeline</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">rate_review</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdRateReview</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">library_add_check</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdLibrary­AddCheck</span>
+          </div>
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:4px;width:60px">
+            <span class="material-icons" style="font-size:24px;color:var(--color-icon-default)">store</span>
+            <span class="sg-token" style="font-size:9px;text-align:center">MdStore</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           ÍCONES CUSTOM
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="icons-custom">
+        <h2 class="sg-section-title">Ícones Custom</h2>
+        <p class="sg-section-desc">
+          Ícones proprietários InfoPrice — <strong>não existem no Material Icons</strong>. Definidos no Figma em
+          <code>icons_infopanel</code> e <code>icons_specials</code>. Em React, devem ser importados
+          como componentes SVG ou via react-icons custom.
+        </p>
+
+        <div class="sg-canvas" style="gap:24px;flex-wrap:wrap;align-items:flex-start">
+
+          <!-- Premium -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px;width:80px">
+            <div style="width:24px;height:24px;background:linear-gradient(135deg,#f29423,#cb6f10);border-radius:4px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:14px;color:#fff">workspace_premium</span>
+            </div>
+            <span class="sg-token" style="font-size:9px;text-align:center">Premium_icon<br><em>SVG custom</em></span>
+          </div>
+
+          <!-- Clube de Desconto -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px;width:80px">
+            <div style="width:24px;height:24px;background:var(--color-orange-light-10);border:1.5px solid var(--color-orange-400);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:12px;color:var(--color-orange-600)">loyalty</span>
+            </div>
+            <span class="sg-token" style="font-size:9px;text-align:center">Clube de<br>Desconto<br><em>SVG custom</em></span>
+          </div>
+
+          <!-- IA -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px;width:80px">
+            <div style="width:24px;height:24px;background:linear-gradient(135deg,var(--color-purple-400),var(--color-blue-500));border-radius:4px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:14px;color:#fff">auto_awesome</span>
+            </div>
+            <span class="sg-token" style="font-size:9px;text-align:center">IA<br><em>SVG custom</em></span>
+          </div>
+
+          <!-- ip_report -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px;width:80px">
+            <div style="width:24px;height:24px;background:var(--color-blue-light-10);border-radius:4px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:14px;color:var(--color-blue-500)">ads_click</span>
+            </div>
+            <span class="sg-token" style="font-size:9px;text-align:center">ip_report<br><em>SVG custom</em></span>
+          </div>
+
+          <!-- Barcode ISA -->
+          <div class="sg-item" style="flex-direction:column;align-items:center;gap:6px;width:80px">
+            <div style="width:24px;height:24px;display:flex;align-items:center;justify-content:center">
+              <span class="material-icons" style="font-size:22px;color:var(--color-icon-default)">barcode_reader</span>
+            </div>
+            <span class="sg-token" style="font-size:9px;text-align:center">Barcode ISA<br><em>SVG custom</em></span>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;padding:12px 16px;background:var(--color-orange-light-5);border-left:3px solid var(--color-orange-400);border-radius:4px;font-size:var(--font-size-sm);color:var(--color-gray-800)">
+          <strong>Nota de implementação:</strong> Os ícones acima são apenas aproximações visuais.
+          Os SVGs originais estão no Figma em
+          <code>Design System › Icons › icons_infopanel</code> e
+          <code>icons_specials</code>. Exporte como SVG e importe no React como
+          <code>import { ReactComponent as PremiumIcon } from './premium-icon.svg'</code>.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════
+           MAPEAMENTO RSUITE
+           ═══════════════════════════════════════ -->
+      <section class="sg-section" id="rsuite-map">
+        <h2 class="sg-section-title">Mapeamento rsuite</h2>
+        <p class="sg-section-desc">
+          Cada componente do Design System mapeado para seu equivalente em
+          <strong>rsuite v5/v6</strong>. Componentes sem equivalente direto estão marcados como
+          <span class="sg-rsuite-badge sg-custom-badge">custom</span>.
+        </p>
+
+        <!-- ── Visão geral (tabela rápida) ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Visão geral</div>
+          <div class="sg-canvas" style="padding:0;overflow:hidden;">
+            <table class="sg-map-table" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Componente HTML</th>
+                  <th>rsuite</th>
+                  <th>Props principais</th>
+                  <th>Observação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.btn-primary</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Button&gt;</span></td>
+                  <td><code>appearance="primary" size="md"</code></td>
+                  <td>Cor vem do tema customizado</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-secondary</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Button&gt;</span></td>
+                  <td><code>appearance="subtle" size="sm"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-icon</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;IconButton&gt;</span></td>
+                  <td><code>appearance="default"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-icon-blue</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;IconButton&gt;</span></td>
+                  <td><code>appearance="subtle" color="blue"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-icon-red</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;IconButton&gt;</span></td>
+                  <td><code>appearance="subtle" color="red"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-icon-row</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;IconButton&gt;</span></td>
+                  <td><code>appearance="subtle" size="xs"</code></td>
+                  <td>width custom via style</td>
+                </tr>
+                <tr>
+                  <td><code>.btn-clube</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Button&gt;</span></td>
+                  <td><code>color="orange" size="xs"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.badge-sm</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Tag&gt;</span></td>
+                  <td><code>size="sm" color="blue|red|green..."</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.chip-badge</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Badge&gt;</span></td>
+                  <td><code>content={99} color="blue"</code></td>
+                  <td>Envolve o chip</td>
+                </tr>
+                <tr>
+                  <td><code>.chip-default / .chip-active</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Tag&gt;</span></td>
+                  <td><code>closable onClose size="md"</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.filter-chip</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;SelectPicker&gt;</span> / <span class="sg-rsuite-badge">&lt;CheckPicker&gt;</span></td>
+                  <td><code>size="sm" placeholder="..."</code></td>
+                  <td>Visual difere; pode precisar de custom trigger</td>
+                </tr>
+                <tr>
+                  <td><code>.variation / .variation-sm</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Tag&gt;</span></td>
+                  <td><code>size="sm" color="red|green"</code></td>
+                  <td>+ ícone via startIcon</td>
+                </tr>
+                <tr>
+                  <td><code>.preco-input</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Input&gt;</span></td>
+                  <td><code>size="xs" style={{textAlign:'right'}}</code></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code>.preco-input-oferta</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Input&gt;</span></td>
+                  <td><code>size="xs"</code> + style custom</td>
+                  <td>borderColor e background via style</td>
+                </tr>
+                <tr>
+                  <td><code>.data-table</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Table&gt;</span></td>
+                  <td><code>hover bordered data={[...]}</code></td>
+                  <td>+ Column + HeaderCell + Cell</td>
+                </tr>
+                <tr>
+                  <td><code>input[checkbox]</code></td>
+                  <td><span class="sg-rsuite-badge">&lt;Checkbox&gt;</span></td>
+                  <td><code>color="blue" indeterminate</code></td>
+                  <td>indeterminate para select-all</td>
+                </tr>
+                <tr>
+                  <td><code>.badge-lite</code></td>
+                  <td><span class="sg-rsuite-badge sg-custom-badge">custom</span></td>
+                  <td>—</td>
+                  <td>Styling muito específico do menubar</td>
+                </tr>
+                <tr>
+                  <td><code>.tag-green</code></td>
+                  <td><span class="sg-rsuite-badge sg-custom-badge">custom</span></td>
+                  <td>—</td>
+                  <td>Pill com border-radius 12px, sem equivalente exato</td>
+                </tr>
+                <tr>
+                  <td><code>.big-card-*</code></td>
+                  <td><span class="sg-rsuite-badge sg-custom-badge">custom</span></td>
+                  <td>—</td>
+                  <td>rsuite tem &lt;Card&gt; mas sem variantes de cor semântica</td>
+                </tr>
+                <tr>
+                  <td><code>.preco-row</code></td>
+                  <td><span class="sg-rsuite-badge sg-custom-badge">custom</span></td>
+                  <td>—</td>
+                  <td>Layout par Regular/Oferta sem equivalente</td>
+                </tr>
+                <tr>
+                  <td><code>.insight-icon</code></td>
+                  <td><span class="sg-rsuite-badge sg-custom-badge">custom</span></td>
+                  <td>—</td>
+                  <td>Pode usar &lt;Avatar&gt; como base</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── Botões ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Botões</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">btn-primary</div>
+                <div class="sg-map-class">.btn-primary</div>
+              </div>
+              <div class="sg-map-preview">
+                <button class="btn-primary"><span class="material-icons">check</span> Aplicar preço</button>
+                <button class="btn-primary" style="padding:8px;"><span class="material-icons">file_download</span></button>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Button } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// com texto + ícone</span>
+&lt;<span class="tag">Button</span> <span class="att">appearance</span>=<span class="str">"primary"</span> <span class="att">startIcon</span>={&lt;<span class="tag">CheckIcon</span> /&gt;}&gt;
+  Aplicar preço
+&lt;/<span class="tag">Button</span>&gt;
+
+<span class="cm">// icon-only</span>
+&lt;<span class="tag">Button</span> <span class="att">appearance</span>=<span class="str">"primary"</span>&gt;
+  &lt;<span class="tag">FileDownloadIcon</span> /&gt;
+&lt;/<span class="tag">Button</span>&gt;</pre></div>
+            </div>
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">btn-secondary</div>
+                <div class="sg-map-class">.btn-secondary</div>
+              </div>
+              <div class="sg-map-preview">
+                <button class="btn-secondary"><span class="material-icons">change_circle</span> Modo Aprovação</button>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Button } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+&lt;<span class="tag">Button</span>
+  <span class="att">appearance</span>=<span class="str">"subtle"</span>
+  <span class="att">size</span>=<span class="str">"sm"</span>
+  <span class="att">startIcon</span>={&lt;<span class="tag">ChangeCircleIcon</span> /&gt;}
+&gt;
+  Modo Aprovação
+&lt;/<span class="tag">Button</span>&gt;</pre></div>
+            </div>
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">btn-icon (3 variantes)</div>
+                <div class="sg-map-class">.btn-icon · .btn-icon-blue · .btn-icon-red</div>
+              </div>
+              <div class="sg-map-preview">
+                <button class="btn-icon"><span class="material-icons">filter_list</span></button>
+                <button class="btn-icon btn-icon-blue"><span class="material-icons">filter_list</span></button>
+                <button class="btn-icon btn-icon-red"><span class="material-icons">swap_vert</span></button>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { IconButton } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// default (cinza)</span>
+&lt;<span class="tag">IconButton</span> <span class="att">icon</span>={&lt;<span class="tag">FilterListIcon</span> /&gt;} /&gt;
+
+<span class="cm">// azul</span>
+&lt;<span class="tag">IconButton</span>
+  <span class="att">icon</span>={&lt;<span class="tag">FilterListIcon</span> /&gt;}
+  <span class="att">appearance</span>=<span class="str">"subtle"</span>
+  <span class="att">color</span>=<span class="str">"blue"</span>
+/&gt;
+
+<span class="cm">// vermelho</span>
+&lt;<span class="tag">IconButton</span>
+  <span class="att">icon</span>={&lt;<span class="tag">SwapVertIcon</span> /&gt;}
+  <span class="att">appearance</span>=<span class="str">"subtle"</span>
+  <span class="att">color</span>=<span class="str">"red"</span>
+/&gt;</pre></div>
+            </div>
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">btn-icon-row</div>
+                <div class="sg-map-class">.btn-menu-preco · .btn-bloquear</div>
+              </div>
+              <div class="sg-map-preview">
+                <button class="btn-icon-row btn-menu-preco"><span class="material-icons">more_vert</span></button>
+                <button class="btn-icon-row btn-bloquear"><span class="material-icons">lock</span></button>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { IconButton } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// Menu Preços (26px)</span>
+&lt;<span class="tag">IconButton</span>
+  <span class="att">icon</span>={&lt;<span class="tag">MoreVertIcon</span> /&gt;}
+  <span class="att">appearance</span>=<span class="str">"subtle"</span>
+  <span class="att">size</span>=<span class="str">"xs"</span>
+  <span class="att">style</span>={{ width: 26 }}
+  <span class="att">title</span>=<span class="str">"Menu Preços"</span>
+/&gt;
+
+<span class="cm">// Bloquear (22px)</span>
+&lt;<span class="tag">IconButton</span>
+  <span class="att">icon</span>={&lt;<span class="tag">LockIcon</span> /&gt;}
+  <span class="att">appearance</span>=<span class="str">"subtle"</span>
+  <span class="att">size</span>=<span class="str">"xs"</span>
+  <span class="att">style</span>={{ width: 22 }}
+  <span class="att">title</span>=<span class="str">"Bloquear"</span>
+/&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Badges e Tags ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Badges, Tags e Chips</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">badge-sm (variantes)</div>
+                <div class="sg-map-class">.badge-sm .badge-blue|solid|gray|green|red</div>
+              </div>
+              <div class="sg-map-preview">
+                <span class="badge-sm badge-blue"><span class="material-icons">group_work</span> 1268</span>
+                <span class="badge-sm badge-blue-solid"><span class="material-icons">stars</span> pai</span>
+                <span class="badge-sm badge-gray">569</span>
+                <span class="badge-sm badge-green">+1,1pp</span>
+                <span class="badge-sm badge-red">-0,4pp</span>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Tag } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// blue outline</span>
+&lt;<span class="tag">Tag</span> <span class="att">size</span>=<span class="str">"sm"</span> <span class="att">color</span>=<span class="str">"blue"</span>&gt;
+  &lt;<span class="tag">GroupWorkIcon</span> /&gt; 1268
+&lt;/<span class="tag">Tag</span>&gt;
+
+<span class="cm">// blue solid</span>
+&lt;<span class="tag">Tag</span> <span class="att">size</span>=<span class="str">"sm"</span> <span class="att">color</span>=<span class="str">"blue"</span>
+  <span class="att">style</span>={{ background: <span class="str">'var(--color-blue-400)'</span>, color: <span class="str">'#fff'</span> }}&gt;
+  &lt;<span class="tag">StarsIcon</span> /&gt; pai
+&lt;/<span class="tag">Tag</span>&gt;
+
+<span class="cm">// green / red</span>
+&lt;<span class="tag">Tag</span> <span class="att">size</span>=<span class="str">"sm"</span> <span class="att">color</span>=<span class="str">"green"</span>&gt;+1,1pp&lt;/<span class="tag">Tag</span>&gt;
+&lt;<span class="tag">Tag</span> <span class="att">size</span>=<span class="str">"sm"</span> <span class="att">color</span>=<span class="str">"red"</span>&gt;-0,4pp&lt;/<span class="tag">Tag</span>&gt;</pre></div>
+            </div>
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">chip-default / chip-active</div>
+                <div class="sg-map-class">.chip .chip-default · .chip-active + badge + close</div>
+              </div>
+              <div class="sg-map-preview">
+                <div class="chip chip-default"><span class="chip-label">tipo preco</span> Varejo</div>
+                <div class="chip chip-active"><span class="chip-label">agrupar por</span> Loja <span class="chip-badge">99</span> <span class="material-icons chip-close">close</span></div>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Tag, Badge } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// default</span>
+&lt;<span class="tag">Tag</span>&gt;
+  &lt;<span class="tag">span</span> <span class="att">className</span>=<span class="str">"chip-label"</span>&gt;tipo preco&lt;/<span class="tag">span</span>&gt; Varejo
+&lt;/<span class="tag">Tag</span>&gt;
+
+<span class="cm">// active com badge e close</span>
+&lt;<span class="tag">Badge</span> <span class="att">content</span>={99} <span class="att">color</span>=<span class="str">"blue"</span>&gt;
+  &lt;<span class="tag">Tag</span>
+    <span class="att">closable</span>
+    <span class="att">onClose</span>={handleRemove}
+    <span class="att">style</span>={{ background: <span class="str">'var(--color-blue-light-5)'</span>,
+             color: <span class="str">'var(--color-blue-500)'</span> }}
+  &gt;
+    &lt;<span class="tag">span</span> <span class="att">className</span>=<span class="str">"chip-label"</span>&gt;agrupar por&lt;/<span class="tag">span</span>&gt; Loja
+  &lt;/<span class="tag">Tag</span>&gt;
+&lt;/<span class="tag">Badge</span>&gt;</pre></div>
+            </div>
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">filter-chip</div>
+                <div class="sg-map-class">.filter-chip · .filter-chip-selected</div>
+              </div>
+              <div class="sg-map-preview">
+                <div class="filter-chip"><span class="material-icons">add</span> Produto</div>
+                <div class="filter-chip filter-chip-selected"><span class="material-icons">add</span> Loja · Centro <span class="material-icons" style="font-size:14px;color:var(--color-blue-400)">close</span></div>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { SelectPicker, CheckPicker } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// seleção única</span>
+&lt;<span class="tag">SelectPicker</span>
+  <span class="att">data</span>={[
+    { label: <span class="str">'Omeprazol 20mg'</span>, value: <span class="str">'1'</span> },
+    { label: <span class="str">'Dipirona 500mg'</span>,  value: <span class="str">'2'</span> },
+  ]}
+  <span class="att">placeholder</span>=<span class="str">"Produto"</span>
+  <span class="att">size</span>=<span class="str">"sm"</span>
+  <span class="att">style</span>={{ width: 150 }}
+/&gt;
+
+<span class="cm">// seleção múltipla</span>
+&lt;<span class="tag">CheckPicker</span>
+  <span class="att">data</span>={lojaData}
+  <span class="att">placeholder</span>=<span class="str">"Loja"</span>
+  <span class="att">size</span>=<span class="str">"sm"</span>
+  <span class="att">style</span>={{ width: 150 }}
+/&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Variações ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Indicadores de Variação</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">variation / variation-sm</div>
+                <div class="sg-map-class">.variation-red · .variation-green · .var-red · .var-green</div>
+              </div>
+              <div class="sg-map-preview">
+                <span class="variation variation-red"><span class="material-icons">trending_down</span> 0,4%</span>
+                <span class="variation variation-green"><span class="material-icons">trending_up</span> 0,1%</span>
+                <span class="variation-sm var-green"><span class="material-icons">arrow_upward</span>+1,1pp</span>
+                <span class="variation-sm var-red"><span class="material-icons">arrow_downward</span>-0,7pp</span>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Tag } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+<span class="kw">import</span> { TrendingDownIcon, TrendingUpIcon } <span class="kw">from</span> <span class="str">'...'</span>;
+
+<span class="cm">// grande (Big Numbers)</span>
+&lt;<span class="tag">Tag</span> <span class="att">color</span>=<span class="str">"red"</span>
+  <span class="att">startIcon</span>={&lt;<span class="tag">TrendingDownIcon</span> /&gt;}&gt;
+  0,4%
+&lt;/<span class="tag">Tag</span>&gt;
+
+<span class="cm">// pequeno (célula de tabela)</span>
+&lt;<span class="tag">Tag</span> <span class="att">size</span>=<span class="str">"sm"</span> <span class="att">color</span>=<span class="str">"green"</span>
+  <span class="att">startIcon</span>={&lt;<span class="tag">ArrowUpwardIcon</span> /&gt;}&gt;
+  +1,1pp
+&lt;/<span class="tag">Tag</span>&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Inputs ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Inputs de Preço</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">preco-input (par Regular/Oferta)</div>
+                <div class="sg-map-class">.preco-input · .preco-input-oferta</div>
+              </div>
+              <div class="sg-map-preview" style="flex-direction:column;align-items:flex-start;gap:6px;">
+                <div class="preco-row">
+                  <span class="preco-label">Regular</span>
+                  <input type="text" class="preco-input" value="3,89" />
+                  <span class="preco-diff">-2,5%</span>
+                </div>
+                <div class="preco-row" style="padding:4px;background:var(--color-orange-light-5);border-radius:4px;">
+                  <span class="preco-label preco-label-oferta">Oferta</span>
+                  <input type="text" class="preco-input preco-input-oferta" value="2,99" />
+                  <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
+                </div>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Input } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// Regular</span>
+&lt;<span class="tag">Input</span>
+  <span class="att">size</span>=<span class="str">"xs"</span>
+  <span class="att">value</span>={regularPrice}
+  <span class="att">onChange</span>={setRegularPrice}
+  <span class="att">style</span>={{ width: 72, textAlign: <span class="str">'right'</span> }}
+/&gt;
+
+<span class="cm">// Oferta</span>
+&lt;<span class="tag">Input</span>
+  <span class="att">size</span>=<span class="str">"xs"</span>
+  <span class="att">value</span>={ofertaPrice}
+  <span class="att">onChange</span>={setOfertaPrice}
+  <span class="att">style</span>={{
+    width: 72,
+    textAlign: <span class="str">'right'</span>,
+    borderColor: <span class="str">'var(--color-orange-400)'</span>,
+    background: <span class="str">'var(--color-orange-light-5)'</span>,
+  }}
+/&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Checkbox ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Checkbox</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">Checkbox (tabela)</div>
+                <div class="sg-map-class">input[type=checkbox] · select-all indeterminate</div>
+              </div>
+              <div class="sg-map-preview" style="gap:16px;">
+                <input type="checkbox" style="width:16px;height:16px;accent-color:var(--color-blue-400)" />
+                <input type="checkbox" checked style="width:16px;height:16px;accent-color:var(--color-blue-400)" />
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Checkbox } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// linha individual</span>
+&lt;<span class="tag">Checkbox</span>
+  <span class="att">color</span>=<span class="str">"blue"</span>
+  <span class="att">checked</span>={isSelected}
+  <span class="att">onChange</span>={handleRowSelect}
+/&gt;
+
+<span class="cm">// select-all (header) com indeterminate</span>
+&lt;<span class="tag">Checkbox</span>
+  <span class="att">color</span>=<span class="str">"blue"</span>
+  <span class="att">checked</span>={allSelected}
+  <span class="att">indeterminate</span>={someSelected}
+  <span class="att">onChange</span>={handleSelectAll}
+/&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Tabela ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Tabela de Dados</div>
+          <div class="sg-map-section">
+
+            <div class="sg-map-row">
+              <div>
+                <div class="sg-map-label">data-table</div>
+                <div class="sg-map-class">.data-table · group-row · row-oferta</div>
+              </div>
+              <div class="sg-map-preview">
+                <span style="font-size:var(--font-size-sm);color:var(--color-gray-600);">ver seção Tabela de Dados ↑</span>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Table, Checkbox } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+<span class="kw">const</span> { Column, HeaderCell, Cell } = Table;
+
+&lt;<span class="tag">Table</span>
+  <span class="att">data</span>={rows}
+  <span class="att">hover</span>
+  <span class="att">bordered</span>
+  <span class="att">rowClassName</span>={(row) =>
+    row?.tipo === <span class="str">'oferta'</span> ? <span class="str">'row-oferta'</span> : <span class="str">''</span>
+  }
+&gt;
+  &lt;<span class="tag">Column</span> <span class="att">width</span>={32} <span class="att">align</span>=<span class="str">"center"</span>&gt;
+    &lt;<span class="tag">HeaderCell</span>&gt;
+      &lt;<span class="tag">Checkbox</span> <span class="att">indeterminate</span>={someSelected}
+        <span class="att">onChange</span>={handleSelectAll} /&gt;
+    &lt;/<span class="tag">HeaderCell</span>&gt;
+    &lt;<span class="tag">Cell</span>&gt;
+      {(row) => &lt;<span class="tag">Checkbox</span> <span class="att">value</span>={row.id} /&gt;}
+    &lt;/<span class="tag">Cell</span>&gt;
+  &lt;/<span class="tag">Column</span>&gt;
+
+  &lt;<span class="tag">Column</span> <span class="att">flexGrow</span>={2} <span class="att">minWidth</span>={220}&gt;
+    &lt;<span class="tag">HeaderCell</span>&gt;Produto&lt;/<span class="tag">HeaderCell</span>&gt;
+    &lt;<span class="tag">Cell</span> <span class="att">dataKey</span>=<span class="str">"produto"</span> /&gt;
+  &lt;/<span class="tag">Column</span>&gt;
+
+  &lt;<span class="tag">Column</span> <span class="att">width</span>={56} <span class="att">fixed</span>=<span class="str">"right"</span>&gt;
+    &lt;<span class="tag">HeaderCell</span> /&gt;
+    &lt;<span class="tag">Cell</span>&gt;{(row) => &lt;<span class="tag">ActionCell</span> row={row} /&gt;}&lt;/<span class="tag">Cell</span>&gt;
+  &lt;/<span class="tag">Column</span>&gt;
+&lt;/<span class="tag">Table</span>&gt;</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Componentes custom ── -->
+        <div class="sg-group">
+          <div class="sg-group-label">Componentes sem equivalente rsuite <span class="sg-rsuite-badge sg-custom-badge">custom</span></div>
+          <div class="sg-canvas" style="flex-direction:column;gap:12px;align-items:stretch;">
+
+            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+              <div>
+                <div class="sg-map-label">badge-lite</div>
+                <div class="sg-map-class">.badge-lite</div>
+                <div style="margin-top:8px;background:var(--color-blue-500);padding:6px 10px;border-radius:4px;display:inline-block;">
+                  <span class="badge-lite">lite</span>
+                </div>
+              </div>
+              <div class="sg-code"><pre><span class="cm">// Sem equivalente rsuite. Componente custom:</span>
+<span class="kw">const</span> <span class="fn">BadgeLite</span> = ({ children }) => (
+  &lt;<span class="tag">span</span> <span class="att">style</span>={{
+    display: <span class="str">'inline-flex'</span>, alignItems: <span class="str">'center'</span>,
+    background: <span class="str">'rgba(255,255,255,.15)'</span>,
+    borderRadius: 4, padding: <span class="str">'0 6px'</span>,
+    fontSize: <span class="str">'var(--font-size-xs)'</span>,
+    fontWeight: 700,
+    color: <span class="str">'var(--color-blue-light-45)'</span>,
+    height: 18,
+  }}&gt;
+    {children}
+  &lt;/<span class="tag">span</span>&gt;
+);</pre></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+              <div>
+                <div class="sg-map-label">big-card-*</div>
+                <div class="sg-map-class">.big-card-orange · blue · green · gray</div>
+                <div style="margin-top:8px;">
+                  <div class="big-card big-card-orange" style="min-width:120px;">
+                    <div class="big-value" style="font-size:16px;">23 <button class="big-btn" style="font-size:10px;height:20px;">Revisar</button></div>
+                    <div class="big-desc">Precisam de aprovação</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sg-code"><pre><span class="cm">// rsuite tem &lt;Card&gt; mas sem variantes semânticas.
+// Use componente custom com tokens:</span>
+<span class="kw">const</span> <span class="fn">BigCard</span> = ({ variant, value, desc, action }) => {
+  <span class="kw">const</span> bg = {
+    orange: <span class="str">'var(--color-orange-light-10)'</span>,
+    blue:   <span class="str">'var(--color-blue-light-5)'</span>,
+    green:  <span class="str">'var(--color-green-light-5)'</span>,
+    gray:   <span class="str">'var(--color-gray-100)'</span>,
+  }[variant];
+
+  <span class="kw">return</span> (
+    &lt;<span class="tag">div</span> <span class="att">style</span>={{ background: bg, borderRadius: 4,
+                   padding: <span class="str">'8px 12px'</span>, minWidth: 130 }}&gt;
+      &lt;<span class="tag">div</span> <span class="att">className</span>=<span class="str">"big-value"</span>&gt;{value} {action}&lt;/<span class="tag">div</span>&gt;
+      &lt;<span class="tag">div</span> <span class="att">className</span>=<span class="str">"big-desc"</span>&gt;{desc}&lt;/<span class="tag">div</span>&gt;
+    &lt;/<span class="tag">div</span>&gt;
+  );
+};</pre></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:start;">
+              <div>
+                <div class="sg-map-label">preco-row</div>
+                <div class="sg-map-class">.preco-row (par Regular/Oferta)</div>
+                <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px;">
+                  <div class="preco-row">
+                    <span class="preco-label">Regular</span>
+                    <input type="text" class="preco-input" value="3,89" />
+                  </div>
+                  <div class="preco-row" style="padding:4px;background:var(--color-orange-light-5);border-radius:4px;">
+                    <span class="preco-label preco-label-oferta">Oferta</span>
+                    <input type="text" class="preco-input preco-input-oferta" value="2,99" />
+                  </div>
+                </div>
+              </div>
+              <div class="sg-code"><pre><span class="kw">import</span> { Input } <span class="kw">from</span> <span class="str">'rsuite'</span>;
+
+<span class="cm">// Componente custom que combina dois inputs rsuite</span>
+<span class="kw">const</span> <span class="fn">PrecoCell</span> = ({ regular, oferta, onChange }) => (
+  &lt;<span class="tag">div</span>&gt;
+    &lt;<span class="tag">div</span> <span class="att">style</span>={{ display: <span class="str">'flex'</span>, alignItems: <span class="str">'center'</span>, gap: 6,
+                   marginBottom: 4 }}&gt;
+      &lt;<span class="tag">span</span> <span class="att">className</span>=<span class="str">"preco-label"</span>&gt;Regular&lt;/<span class="tag">span</span>&gt;
+      &lt;<span class="tag">Input</span> <span class="att">size</span>=<span class="str">"xs"</span> <span class="att">value</span>={regular}
+        <span class="att">style</span>={{ width: 72, textAlign: <span class="str">'right'</span> }}
+        <span class="att">onChange</span>={(v) => onChange(<span class="str">'regular'</span>, v)} /&gt;
+    &lt;/<span class="tag">div</span>&gt;
+    &lt;<span class="tag">div</span> <span class="att">style</span>={{ display: <span class="str">'flex'</span>, alignItems: <span class="str">'center'</span>, gap: 6,
+                   padding: 4, borderRadius: 4,
+                   background: <span class="str">'var(--color-orange-light-5)'</span> }}&gt;
+      &lt;<span class="tag">span</span> <span class="att">className</span>=<span class="str">"preco-label preco-label-oferta"</span>&gt;Oferta&lt;/<span class="tag">span</span>&gt;
+      &lt;<span class="tag">Input</span> <span class="att">size</span>=<span class="str">"xs"</span> <span class="att">value</span>={oferta}
+        <span class="att">style</span>={{ width: 72, textAlign: <span class="str">'right'</span>,
+                  borderColor: <span class="str">'var(--color-orange-400)'</span>,
+                  background: <span class="str">'var(--color-orange-light-5)'</span> }}
+        <span class="att">onChange</span>={(v) => onChange(<span class="str">'oferta'</span>, v)} /&gt;
+    &lt;/<span class="tag">div</span>&gt;
+  &lt;/<span class="tag">div</span>&gt;
+);</pre></div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+  <script>
+    (function () {
+      'use strict';
+
+      var input     = document.getElementById('sgSearchInput');
+      var clearBtn  = document.getElementById('sgSearchClear');
+      var noResults = document.getElementById('sgNoResults');
+      var noResultsQuery = document.getElementById('sgNoResultsQuery');
+
+      // Todos os elementos que participam da busca
+      var sections  = Array.from(document.querySelectorAll('.sg-section'));
+      var navLinks  = Array.from(document.querySelectorAll('.sg-nav a[href^="#"]'));
+
+      // Campos de texto que serão pesquisados dentro de cada seção
+      var SEARCH_SELECTORS = [
+        '.sg-section-title',
+        '.sg-group-label',
+        '.sg-map-label',
+        '.sg-map-class',
+        '.sg-token',
+        '.sg-rsuite-badge',
+        '.sg-item-label',
+        'code',
+      ].join(', ');
+
+      // Guarda o texto original de cada nó para poder restaurar
+      var originalTexts = new WeakMap();
+
+      function getTextNodes(el) {
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        var nodes = [];
+        var node;
+        while ((node = walker.nextNode())) {
+          if (node.parentElement.closest('.sg-code')) return nodes; // não mexe em code blocks
+          if (node.textContent.trim()) nodes.push(node);
+        }
+        return nodes;
+      }
+
+      function restoreHighlights(section) {
+        var marks = section.querySelectorAll('mark.sg-highlight');
+        marks.forEach(function (mark) {
+          var parent = mark.parentNode;
+          parent.replaceChild(document.createTextNode(mark.textContent), mark);
+          parent.normalize();
+        });
+      }
+
+      function highlightText(section, query) {
+        restoreHighlights(section);
+        if (!query) return;
+
+        var targets = section.querySelectorAll(SEARCH_SELECTORS);
+        var re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+
+        targets.forEach(function (el) {
+          var textNodes = getTextNodes(el);
+          textNodes.forEach(function (node) {
+            var text = node.textContent;
+            if (!re.test(text)) return;
+            re.lastIndex = 0;
+            var frag = document.createDocumentFragment();
+            var last = 0;
+            var match;
+            while ((match = re.exec(text)) !== null) {
+              if (match.index > last) {
+                frag.appendChild(document.createTextNode(text.slice(last, match.index)));
+              }
+              var mark = document.createElement('mark');
+              mark.className = 'sg-highlight';
+              mark.textContent = match[1];
+              frag.appendChild(mark);
+              last = re.lastIndex;
+            }
+            if (last < text.length) {
+              frag.appendChild(document.createTextNode(text.slice(last)));
+            }
+            node.parentNode.replaceChild(frag, node);
+          });
+        });
+      }
+
+      function sectionMatches(section, query) {
+        if (!query) return true;
+        var text = section.textContent.toLowerCase();
+        return text.indexOf(query.toLowerCase()) !== -1;
+      }
+
+      function runSearch(query) {
+        var q = query.trim();
+        var visibleCount = 0;
+
+        sections.forEach(function (section) {
+          var matches = sectionMatches(section, q);
+          section.style.display = matches ? '' : 'none';
+          if (matches) {
+            visibleCount++;
+            highlightText(section, q);
+          } else {
+            restoreHighlights(section);
+          }
+        });
+
+        // Atualiza links do nav
+        navLinks.forEach(function (link) {
+          var href = link.getAttribute('href').slice(1); // remove #
+          var target = document.getElementById(href);
+          if (!target) return;
+          var visible = !q || target.style.display !== 'none';
+          link.classList.toggle('sg-nav-hidden', !visible);
+        });
+
+        // Mensagem sem resultados
+        if (q && visibleCount === 0) {
+          noResultsQuery.textContent = q;
+          noResults.classList.add('visible');
+        } else {
+          noResults.classList.remove('visible');
+        }
+
+        // Botão limpar
+        clearBtn.classList.toggle('visible', q.length > 0);
+      }
+
+      input.addEventListener('input', function () {
+        runSearch(input.value);
+      });
+
+      clearBtn.addEventListener('click', function () {
+        input.value = '';
+        runSearch('');
+        input.focus();
+      });
+
+      // Atalho de teclado: "/" foca o campo de busca
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '/' && document.activeElement !== input) {
+          e.preventDefault();
+          input.focus();
+          input.select();
+        }
+        if (e.key === 'Escape' && document.activeElement === input) {
+          input.value = '';
+          runSearch('');
+          input.blur();
+        }
+      });
+
+    }());
+  </script>
+</body>
+</html>

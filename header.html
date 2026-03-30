@@ -403,6 +403,287 @@
       flex-shrink: 0;
     }
 
+    /* ── Title Bar ───────────────────────────────────── */
+    .title-bar {
+      position: fixed;
+      top: 52px;
+      left: 52px;
+      right: 0;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-4);
+      z-index: 45;
+    }
+
+    .title-bar__left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .title-bar__heading {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .title-bar__badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px var(--space-2);
+      border-radius: var(--radius-pill);
+      background: var(--color-green-400);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      line-height: 12px;
+      color: var(--color-white);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .title-bar__right {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    /* ── Title bar — botões ──────────────────────────── */
+    .title-btn-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .title-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 26px;
+      padding: 0 var(--space-2);
+      background: var(--color-gray-300);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-sm);
+      color: var(--color-gray-700);
+      white-space: nowrap;
+    }
+
+    .title-btn:hover {
+      background: var(--color-gray-400);
+    }
+
+    .title-btn__icon {
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .title-btn__chevron {
+      font-size: var(--icon-size-sm);
+      color: var(--color-gray-700);
+      transition: transform 120ms ease;
+    }
+
+    .title-btn[aria-expanded="true"] .title-btn__chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Fixar — estado ativo */
+    .title-btn--fixar.is-active {
+      color: var(--color-blue-500);
+      background: var(--color-gray-300);
+    }
+
+    .title-btn--fixar.is-active .title-btn__icon path {
+      fill: var(--color-blue-500);
+    }
+
+    /* ── Title bar — dropdowns ───────────────────────── */
+    .title-dropdown {
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      min-width: 140px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-elevation);
+      z-index: 90;
+      display: none;
+    }
+
+    .title-dropdown.is-open {
+      display: block;
+    }
+
+    .title-dropdown__item {
+      padding: 6px var(--space-3);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-900);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .title-dropdown__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    /* ── Big Numbers ─────────────────────────────────── */
+    .big-numbers {
+      position: fixed;
+      top: 88px;
+      left: 52px;
+      right: 0;
+      z-index: 40;
+      padding: 4px var(--space-4); /* 4px vertical, 16px horizontal — alinha com o title */
+    }
+
+    .big-numbers__inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .big-numbers__cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1 0 0;
+      min-width: 0;
+    }
+
+    .bn-card {
+      display: flex;
+      align-items: center;
+      height: 68px;
+      padding: 4px var(--space-2);
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .bn-card--blue {
+      width: 140px;
+      border: 1px solid var(--color-blue-light-20);   /* #d7e8fc */
+      background: var(--color-blue-light-5);           /* #f5f9fe */
+    }
+
+    .bn-card--blue-auto {
+      border: 1px solid var(--color-blue-light-20);
+      background: var(--color-blue-light-5);
+    }
+
+    .bn-card--green {
+      border: 1.5px solid var(--color-green-400);     /* #33ab84 */
+      background: var(--color-green-light-5);          /* #f5fbf9 */
+    }
+
+    .bn-card--empty {
+      width: 108px;
+      border: 1px solid var(--color-gray-300);        /* #eaeaea */
+      background: var(--color-gray-100);               /* #f5f5f5 */
+    }
+
+    .bn-card__body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .bn-card__top {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .bn-card__number {
+      font-size: var(--font-size-2xl);                /* 20px */
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-2xl);            /* 26px */
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .bn-card__variation {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 0;
+    }
+
+    .bn-card__variation .material-icons-outlined {
+      font-size: var(--icon-size-md);                 /* 16px */
+    }
+
+    .bn-card__variation--up .material-icons-outlined,
+    .bn-card__variation--up .bn-card__variation-val  { color: var(--color-green-500); }
+
+    .bn-card__variation--down .material-icons-outlined,
+    .bn-card__variation--down .bn-card__variation-val { color: var(--color-red-600); }
+
+    .bn-card__variation-val {
+      font-size: var(--font-size-sm);                 /* 12px */
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-md);             /* 18px */
+      white-space: nowrap;
+    }
+
+    .bn-card__desc {
+      font-size: var(--font-size-sm);                 /* 12px */
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-sm);             /* 14px */
+      color: var(--color-gray-600);                   /* #959595 */
+    }
+
+    .bn-card__desc b {
+      font-size: var(--font-size-md);                 /* 14px */
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);                   /* #747474 */
+    }
+
+    /* ── Tooltips ────────────────────────────────────── */
+    .tooltip {
+      position: absolute;
+      background: var(--color-gray-900);
+      color: var(--color-white);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-md);
+      white-space: nowrap;
+      padding: 4px var(--space-2);
+      border-radius: 6px;
+      pointer-events: none;
+      z-index: 200;
+      display: none;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .tooltip--below {
+      top: calc(100% + 4px);
+    }
+
+    .tooltip--above {
+      bottom: calc(100% + 4px);
+    }
+
+    .title-btn-wrapper:hover .tooltip {
+      display: block;
+    }
+
     /* Overlay para fechar ao clicar fora */
     .dropdown-overlay {
       display: none;
@@ -562,6 +843,156 @@
 
   </header>
 
+  <!-- Title Bar -->
+  <section class="title-bar">
+
+    <div class="title-bar__left">
+      <span class="title-bar__heading">Gerenciador de preços</span>
+      <span class="title-bar__badge">Atualizado em 01/07/2023, 13:42</span>
+    </div>
+
+    <div class="title-bar__right">
+
+      <!-- Fixar -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn title-btn--fixar" id="fixarBtn" aria-pressed="false">
+          <svg class="title-btn__icon" width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 0H1.16667C0.845833 0 0.583333 0.2625 0.583333 0.583333C0.583333 0.904167 0.845833 1.16667 1.16667 1.16667H1.75V4.08333C1.75 5.05167 0.968333 5.83333 0 5.83333V7H3.4825V11.0833L4.06583 11.6667L4.64917 11.0833V7H8.16667V5.83333C7.19833 5.83333 6.41667 5.05167 6.41667 4.08333V1.16667H7C7.32083 1.16667 7.58333 0.904167 7.58333 0.583333C7.58333 0.2625 7.32083 0 7 0Z" fill="currentColor"/>
+          </svg>
+          <span>Fixar</span>
+        </button>
+        <span class="tooltip tooltip--below">Alternar a exibição do layout fixo</span>
+      </div>
+
+      <!-- Loja -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn" id="lojaBtn" aria-expanded="false" aria-controls="lojaDropdown">
+          <svg class="title-btn__icon" width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27096 1.16667H9.43762C9.75846 1.16667 10.021 0.904167 10.021 0.583333C10.021 0.2625 9.75846 0 9.43762 0H1.27096C0.950124 0 0.687624 0.2625 0.687624 0.583333C0.687624 0.904167 0.950124 1.16667 1.27096 1.16667ZM10.1143 2.21667C10.0618 1.94833 9.82262 1.75 9.54262 1.75H1.16596C0.885958 1.75 0.646791 1.94833 0.594291 2.21667L0.0109576 5.13333C-0.0590424 5.495 0.215124 5.83333 0.582624 5.83333H0.687624V8.75C0.687624 9.07083 0.950124 9.33333 1.27096 9.33333H5.93762C6.25846 9.33333 6.52096 9.07083 6.52096 8.75V5.83333H8.85429V8.75C8.85429 9.07083 9.11679 9.33333 9.43762 9.33333C9.75846 9.33333 10.021 9.07083 10.021 8.75V5.83333H10.126C10.4935 5.83333 10.7676 5.495 10.6976 5.13333L10.1143 2.21667ZM5.35429 8.16667H1.85429V5.83333H5.35429V8.16667Z" fill="currentColor"/>
+          </svg>
+          <span>Loja</span>
+          <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+        </button>
+        <span class="tooltip tooltip--above">Agrupar por</span>
+        <div class="title-dropdown" id="lojaDropdown" role="menu">
+          <div class="title-dropdown__item" role="menuitem">Loja</div>
+          <div class="title-dropdown__item" role="menuitem">Cluster de lojas</div>
+        </div>
+      </div>
+
+      <!-- Produto -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn" id="produtoBtn" aria-expanded="false" aria-controls="produtoDropdown">
+          <svg class="title-btn__icon" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.6667 4.66667V0H7.58333V1.75H4.08333V0H0V4.66667H4.08333V2.91667H5.25V8.75H7.58333V10.5H11.6667V5.83333H7.58333V7.58333H6.41667V2.91667H7.58333V4.66667H11.6667Z" fill="currentColor"/>
+          </svg>
+          <span>Produto</span>
+          <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+        </button>
+        <span class="tooltip tooltip--below">Precificar por</span>
+        <div class="title-dropdown" id="produtoDropdown" role="menu">
+          <div class="title-dropdown__item" role="menuitem">Produto</div>
+          <div class="title-dropdown__item" role="menuitem">Família</div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Big Numbers -->
+  <section class="big-numbers">
+    <div class="big-numbers__inner">
+
+      <div class="big-numbers__cards">
+
+        <!-- Card 1: Total de preços -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="3645">3.645</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="3645">3.645</b> do<br>total de preços</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Novos custos -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="236">236</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="236">236</b> de<br>novos custos</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Preços sugeridos -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="1269">1.269</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="1269">1.269</b><br>preços sugeridos</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Preços aplicados -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="364">364</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="364">364</b><br>preços aplicados</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Competitividade -->
+        <div class="bn-card bn-card--blue-auto">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="101.3">101,3%</span>
+              <div class="bn-card__variation bn-card__variation--down">
+                <span class="material-icons-outlined">arrow_downward</span>
+                <span class="bn-card__variation-val" data-value="-0.4">0,4 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Competitividade projetada,<br>era <b data-value="102.3">102,3 %</b></span>
+          </div>
+        </div>
+
+        <!-- Card 6: Margem -->
+        <div class="bn-card bn-card--blue-auto">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="26.3">26,3%</span>
+              <div class="bn-card__variation bn-card__variation--up">
+                <span class="material-icons-outlined">arrow_upward</span>
+                <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Margem projetada,<br>era <b data-value="26.2">26,2 %</b></span>
+          </div>
+        </div>
+
+        <!-- Card 7: Estimativa de lucro (verde) -->
+        <div class="bn-card bn-card--green">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="392000">+ R$ 392mil</span>
+              <div class="bn-card__variation bn-card__variation--up">
+                <span class="material-icons-outlined">arrow_upward</span>
+                <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Estimativa de<br>diferença no lucro</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- Sidebar fixa -->
   <aside class="sidebar">
 
@@ -598,20 +1029,29 @@
   </aside>
 
   <script>
-    const overlay     = document.getElementById('dropdownOverlay');
+    const overlay = document.getElementById('dropdownOverlay');
 
-    // ── Dropdown de produtos ──────────────────────────
+    // ── Header: dropdown de produtos ──────────────────
     const menuBtn         = document.getElementById('menuBtn');
     const productDropdown = document.getElementById('productDropdown');
 
-    // ── Dropdown de usuário ───────────────────────────
+    // ── Header: dropdown de usuário ───────────────────
     const userBtn         = document.getElementById('userBtn');
     const userDropdown    = document.getElementById('userDropdown');
 
+    // ── Title bar ─────────────────────────────────────
+    const fixarBtn        = document.getElementById('fixarBtn');
+    const lojaBtn         = document.getElementById('lojaBtn');
+    const lojaDropdown    = document.getElementById('lojaDropdown');
+    const produtoBtn      = document.getElementById('produtoBtn');
+    const produtoDropdown = document.getElementById('produtoDropdown');
+
     function closeAll() {
-      [productDropdown, userDropdown].forEach(d => d.classList.remove('is-open'));
+      [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
       menuBtn.setAttribute('aria-expanded', 'false');
       userBtn.setAttribute('aria-expanded', 'false');
+      lojaBtn.setAttribute('aria-expanded', 'false');
+      produtoBtn.setAttribute('aria-expanded', 'false');
       overlay.classList.remove('is-open');
     }
 
@@ -625,21 +1065,30 @@
       }
     }
 
+    // Header dropdowns
     menuBtn.addEventListener('click', () => toggle(productDropdown, menuBtn));
     userBtn.addEventListener('click',  () => toggle(userDropdown,    userBtn));
-
     userBtn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle(userDropdown, userBtn);
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(userDropdown, userBtn); }
+    });
+
+    // Fixar toggle
+    fixarBtn.addEventListener('click', () => {
+      const isActive = fixarBtn.classList.toggle('is-active');
+      fixarBtn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    // Title bar dropdowns
+    lojaBtn.addEventListener('click',    () => toggle(lojaDropdown,    lojaBtn));
+    produtoBtn.addEventListener('click', () => toggle(produtoDropdown, produtoBtn));
+
+    // Fechar ao clicar em qualquer item de dropdown
+    document.querySelectorAll('.title-dropdown__item, .product-dropdown__item:not(.product-dropdown__item--disabled), .user-dropdown__item').forEach(item => {
+      item.addEventListener('click', closeAll);
     });
 
     overlay.addEventListener('click', closeAll);
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAll();
-    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
   </script>
 
 </body>

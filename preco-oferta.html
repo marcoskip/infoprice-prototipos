@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Preço Oferta / Regular — IPA Farma</title>
+  <title>Preco Oferta / Regular — IPA Farma</title>
 
   <link rel="stylesheet" href="tokens.css" />
 
@@ -33,6 +33,7 @@
       color: var(--color-gray-900);
       line-height: var(--line-height-lg);
       min-height: 100vh;
+      overflow-x: auto;
     }
 
     /* ── LAYOUT SHELL ── */
@@ -40,6 +41,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      min-width: 1440px;
     }
 
     .app-body {
@@ -490,6 +492,99 @@
       align-items: flex-start;
     }
 
+    /* ── FILTER CHIP WRAPPER & DROPDOWN ── */
+    .filter-chip-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .filter-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 180px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+      z-index: 100;
+      margin-top: 4px;
+      padding: 4px 0;
+    }
+
+    .filter-dropdown.open {
+      display: block;
+    }
+
+    .filter-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-800);
+      cursor: pointer;
+      transition: background .1s;
+    }
+
+    .filter-dropdown-item:hover {
+      background: var(--color-blue-light-5);
+    }
+
+    .filter-chip-selected {
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-500);
+      border: 1px solid var(--color-blue-400);
+    }
+
+    .filter-chip-selected .material-icons {
+      color: var(--color-blue-500);
+    }
+
+    .filter-chip-selected .filter-label {
+      color: var(--color-blue-500);
+    }
+
+    .filter-chip-clear {
+      display: none;
+      font-size: 14px !important;
+      color: var(--color-blue-400) !important;
+      cursor: pointer;
+      margin-left: 2px;
+    }
+
+    .filter-chip-selected .filter-chip-clear {
+      display: inline-flex;
+    }
+
+    /* ── FILTERS ACCORDION (tablet) ── */
+    .filters-accordion-toggle {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .filters-accordion-toggle .material-icons {
+      font-size: 20px;
+      transition: transform .2s;
+    }
+
+    .filters-accordion-toggle.accordion-open .material-icons {
+      transform: rotate(180deg);
+    }
+
     /* ── TABLE HEADER AREA ── */
     .table-header-bar {
       display: flex;
@@ -895,17 +990,17 @@
       min-width: 80px;
     }
 
-    /* Cell: Preço vigente */
+    /* Cell: Preco vigente */
     .cell-vigente {
       min-width: 100px;
     }
 
-    /* Cell: Preço concorrência */
+    /* Cell: Preco concorrencia */
     .cell-concor {
       min-width: 100px;
     }
 
-    /* Cell: Preço sugerido + Preço oferta (combined) */
+    /* Cell: Preco sugerido + Preco oferta (combined) */
     .cell-sugerido {
       min-width: 220px;
     }
@@ -968,7 +1063,7 @@
       min-width: 70px;
     }
 
-    /* Cell: Previsão demanda */
+    /* Cell: Previsao demanda */
     .cell-demanda {
       min-width: 100px;
     }
@@ -1021,6 +1116,251 @@
     @media (max-width: 1400px) {
       .data-table-wrapper {
         border-right: 3px solid var(--color-blue-light-20);
+      }
+    }
+
+    /* ── FIGMA HIDDEN COLUMNS ── */
+    .col-figma-hidden {
+      display: none !important;
+    }
+
+    /* ── ROW ACTION BUTTONS ── */
+    .cell-actions {
+      width: 56px;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      padding: 0 2px;
+    }
+
+    .btn-icon-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 26px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-icon-default);
+    }
+
+    .btn-icon-row:hover {
+      background: var(--color-gray-200);
+      color: var(--color-icon-default);
+    }
+
+    .btn-icon-row .material-icons {
+      font-size: var(--icon-size-lg);
+    }
+
+    .btn-menu-preco {
+      width: 26px;
+    }
+
+    .btn-bloquear {
+      width: 22px;
+    }
+
+    /* ── MOBILE COLUMN TOGGLE ── */
+    .mobile-col-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-500);
+      border: 1px solid var(--color-blue-400);
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .mobile-col-toggle .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── BOTTOM NAV (tablet/mobile) ── */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-gray-300);
+      z-index: 200;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 8px;
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--color-gray-600);
+      font-size: 10px;
+    }
+
+    .bottom-nav-item .material-icons {
+      font-size: 22px;
+    }
+
+    .bottom-nav-item.active {
+      color: var(--color-blue-400);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — Notebook (<1280px)
+       ═══════════════════════════════════════════════════ */
+    @media (max-width: 1280px) {
+      .sidebar {
+        width: 48px;
+      }
+
+      .big-numbers {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .data-table-wrapper {
+        overflow-x: auto;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — Tablet (<768px)
+       ═══════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* Menubar simplified */
+      .menubar-status,
+      .btn-clube,
+      .menubar-right .material-icons {
+        display: none;
+      }
+
+      .menubar-user {
+        display: inline-flex !important;
+      }
+
+      .menubar-right {
+        gap: 8px;
+      }
+
+      /* Sidebar becomes bottom nav */
+      .sidebar {
+        display: none;
+      }
+
+      .bottom-nav {
+        display: flex;
+      }
+
+      .main {
+        padding: 4px 10px 72px;
+      }
+
+      /* Big numbers 2x2 grid */
+      .big-numbers {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        overflow-x: visible;
+      }
+
+      .big-card+.big-card {
+        margin-left: 0;
+      }
+
+      /* Filters accordion */
+      .filters-accordion-toggle {
+        display: flex;
+      }
+
+      .filters-section.accordion-collapsed .filters-row {
+        display: none;
+      }
+
+      /* Table actions wrap */
+      .table-header-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .table-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RESPONSIVE — Mobile (<480px)
+       ═══════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .main {
+        padding: 4px 6px 72px;
+      }
+
+      .section-top {
+        flex-direction: column;
+      }
+
+      .section-top-right {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      /* Big numbers single column */
+      .big-numbers {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .big-card {
+        min-width: unset;
+      }
+
+      /* Table: hide secondary columns by default */
+      .data-table .col-secondary {
+        display: none;
+      }
+
+      .data-table.show-all-cols .col-secondary {
+        display: table-cell;
+      }
+
+      /* Show the toggle button */
+      .mobile-col-toggle {
+        display: flex;
+      }
+
+      /* Filters: smaller chips */
+      .filter-chip {
+        font-size: var(--font-size-sm);
+        padding: 4px 8px;
+        height: 32px;
+      }
+
+      .page-title {
+        font-size: var(--font-size-md);
+        flex-wrap: wrap;
+      }
+
+      .tag-green {
+        font-size: 10px;
       }
     }
   </style>
@@ -1139,42 +1479,260 @@
         </section>
 
         <!-- Section: Filtros -->
-        <section class="filters-section">
+        <button class="filters-accordion-toggle" id="filtersAccordionBtn">
+          <span class="material-icons">expand_more</span> Filtros
+        </button>
+        <section class="filters-section" id="filtersSection">
           <div class="filters-row">
-            <div class="filter-chip"><span class="material-icons">add</span> Produto</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Familia</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Loja</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Cluster</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Tipo loja</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Segmentacao</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Tipo de preco</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Fornecedor</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Marca</div>
-            <div class="filter-chip"><span class="material-icons">add</span> Filtro</div>
+            <!-- Filter chips with dropdowns -->
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="produto"><span class="material-icons">add</span> Produto<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Omeprazol 20mg</div>
+                <div class="filter-dropdown-item">Dipirona 500mg</div>
+                <div class="filter-dropdown-item">Losartana 50mg</div>
+                <div class="filter-dropdown-item">Paracetamol 750mg</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="familia"><span class="material-icons">add</span> Familia<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Analgesicos</div>
+                <div class="filter-dropdown-item">Anti-hipertensivos</div>
+                <div class="filter-dropdown-item">Antiinflamatorios</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="loja"><span class="material-icons">add</span> Loja<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Loja 01 - Centro</div>
+                <div class="filter-dropdown-item">Loja 03 - Shopping</div>
+                <div class="filter-dropdown-item">Loja 05 - Bairro</div>
+                <div class="filter-dropdown-item">Loja 08 - Mall</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="cluster"><span class="material-icons">add</span> Cluster<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Cluster A - Premium</div>
+                <div class="filter-dropdown-item">Cluster B - Medio</div>
+                <div class="filter-dropdown-item">Cluster C - Popular</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="tipo-loja"><span class="material-icons">add</span> Tipo loja<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Supermercado</div>
+                <div class="filter-dropdown-item">Hipermercado</div>
+                <div class="filter-dropdown-item">Express</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="segmentacao"><span class="material-icons">add</span> Segmentacao<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Super sensivel</div>
+                <div class="filter-dropdown-item">Sensivel</div>
+                <div class="filter-dropdown-item">Normal</div>
+                <div class="filter-dropdown-item">Insensivel</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="tipo-preco"><span class="material-icons">add</span> Tipo de preco<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Regular</div>
+                <div class="filter-dropdown-item">Oferta</div>
+                <div class="filter-dropdown-item">Atacado</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="fornecedor"><span class="material-icons">add</span> Fornecedor<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">EMS</div>
+                <div class="filter-dropdown-item">Neo Quimica</div>
+                <div class="filter-dropdown-item">Medley</div>
+                <div class="filter-dropdown-item">Generico</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="marca"><span class="material-icons">add</span> Marca<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">EMS</div>
+                <div class="filter-dropdown-item">Novartis</div>
+                <div class="filter-dropdown-item">Bayer</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro-gen"><span class="material-icons">add</span> Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Com estoque</div>
+                <div class="filter-dropdown-item">Sem estoque</div>
+                <div class="filter-dropdown-item">Preco alterado</div>
+              </div>
+            </div>
           </div>
           <div class="filters-row">
-            <div class="filter-chip"><span class="filter-label">01</span> Setor</div>
-            <div class="filter-chip"><span class="filter-label">02</span> Secao</div>
-            <div class="filter-chip"><span class="filter-label">03</span> Categoria</div>
-            <div class="filter-chip"><span class="filter-label">04</span> Departamento</div>
-            <div class="filter-chip"><span class="filter-label">05</span> Sub-categoria</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="setor"><span class="filter-label">01</span> Setor<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Medicamentos</div>
+                <div class="filter-dropdown-item">Perfumaria</div>
+                <div class="filter-dropdown-item">Higiene</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="secao"><span class="filter-label">02</span> Secao<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Eticos</div>
+                <div class="filter-dropdown-item">Genericos</div>
+                <div class="filter-dropdown-item">Similares</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="categoria"><span class="filter-label">03</span> Categoria<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Analgesicos</div>
+                <div class="filter-dropdown-item">Antibioticos</div>
+                <div class="filter-dropdown-item">Cardiovascular</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="departamento"><span class="filter-label">04</span> Departamento<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Farmacia</div>
+                <div class="filter-dropdown-item">Dermocosmeticos</div>
+                <div class="filter-dropdown-item">Conveniencia</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="subcategoria"><span class="filter-label">05</span> Sub-categoria<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Comprimidos</div>
+                <div class="filter-dropdown-item">Capsulas</div>
+                <div class="filter-dropdown-item">Liquidos</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro2">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro3">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro4">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro5">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro6">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
           </div>
           <div class="filters-row">
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
-            <div class="filter-chip">Filtro</div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro7">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro8">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro9">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro10">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro11">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro12">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro13">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro14">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro15">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
+            <div class="filter-chip-wrapper">
+              <div class="filter-chip" data-filter="filtro16">Filtro<span class="material-icons filter-chip-clear">close</span></div>
+              <div class="filter-dropdown">
+                <div class="filter-dropdown-item">Opcao A</div>
+                <div class="filter-dropdown-item">Opcao B</div>
+                <div class="filter-dropdown-item">Opcao C</div>
+              </div>
+            </div>
             <div style="margin-left:auto;display:flex;gap:8px;">
               <div class="filter-chip"><span class="material-icons">add</span> + Filtros</div>
               <div class="filter-chip"><span class="material-icons">add</span> Limpar filtros</div>
@@ -1190,7 +1748,7 @@
         <div class="table-header-bar">
           <div class="table-info">
             <span class="material-icons">auto_awesome</span>
-            Foram encontrados 20 resultados no total
+            <span id="tableInfoText">Foram encontrados 20 resultados no total</span>
             <span class="material-icons" style="font-size:16px;color:var(--color-blue-400)">info</span>
             <a class="link">Limpar</a>
             <a class="link">Selecionar tudo</a>
@@ -1223,59 +1781,60 @@
 
         <!-- ═══ DATA TABLE ═══ -->
         <div class="data-table-wrapper">
-          <table class="data-table">
+          <table class="data-table" id="dataTable">
             <thead>
               <tr>
-                <th class="cb-cell"><input type="checkbox" /></th>
+                <th class="cb-cell"><input type="checkbox" id="selectAll" /></th>
                 <th>
                   <div class="th-inner">Produto <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Loja <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">PMZ e custo <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Estoque e<br>Venda diaria <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Margem<br>objetiva <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary col-figma-hidden">
                   <div class="th-inner">Emb... <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">PMC <span class="material-icons">unfold_more</span></div>
                 </th>
                 <th>
                   <div class="th-inner">Preco<br>vigente <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Preco<br>concorre... <span class="material-icons">unfold_more</span></div>
                 </th>
                 <th>
                   <div class="th-inner">Preco sugerido <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Margem <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">CPI <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary">
                   <div class="th-inner">Previsao de<br>demanda <span class="material-icons">unfold_more</span></div>
                 </th>
-                <th>
+                <th class="col-secondary col-figma-hidden">
                   <div class="th-inner">Insight <span class="material-icons">unfold_more</span></div>
                 </th>
+                <th class="cell-actions"></th>
               </tr>
             </thead>
             <tbody>
               <!-- Group: Supermercado -->
               <tr class="group-row">
                 <td class="cb-cell"><input type="checkbox" /></td>
-                <td colspan="14">
+                <td colspan="15">
                   <div class="group-name">
                     <span class="material-icons">expand_more</span>
                     Supermercado
@@ -1285,7 +1844,7 @@
 
               <!-- Row 1 — Regular + Oferta na mesma linha -->
               <tr>
-                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cb-cell"><input type="checkbox" class="row-checkbox" /></td>
                 <td class="cell-produto">
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span class="produto-code">10007</span>
@@ -1302,12 +1861,12 @@
                     <span class="produto-tag">RELEVANCIA</span>
                   </div>
                 </td>
-                <td class="cell-loja">
+                <td class="cell-loja col-secondary">
                   <div class="loja-code">01</div>
                   <div class="loja-regional">REGIONAL 02</div>
                   <div class="loja-type">SUPERMERCADO</div>
                 </td>
-                <td class="cell-pmz">
+                <td class="cell-pmz col-secondary">
                   <div class="pmz-main">
                     <span class="pmz-val">R$ 2,04</span>
                     <span class="material-icons" style="font-size:12px;color:var(--color-orange-400)">swap_vertical_circle</span>
@@ -1318,7 +1877,7 @@
                     <span>10/03/23</span>
                   </div>
                 </td>
-                <td class="cell-estoque">
+                <td class="cell-estoque col-secondary">
                   <div class="estoque-main">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
                     <span class="estoque-val">46.845un</span>
@@ -1334,23 +1893,23 @@
                     46.845un &nbsp;|&nbsp; <strong>15,10d</strong>
                   </div>
                 </td>
-                <td class="cell-margem">
+                <td class="cell-margem col-secondary">
                   <div class="margem-val">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%
                   </div>
                 </td>
-                <td class="cell-emb">
+                <td class="cell-emb col-secondary col-figma-hidden">
                   <div class="emb-val">1</div>
                   <div class="emb-unit">un</div>
                 </td>
-                <td class="cell-pmc">
+                <td class="cell-pmc col-secondary">
                   <div class="pmz-val">R$ 4,89</div>
                 </td>
                 <td class="cell-vigente">
                   <div class="pmz-val">R$ 3,99</div>
                   <div class="pmz-detail"><span>01/03/23</span></div>
                 </td>
-                <td class="cell-concor">
+                <td class="cell-concor col-secondary">
                   <div class="pmz-val">R$ 3,79</div>
                   <div class="pmz-detail"><span>Atacadao</span></div>
                 </td>
@@ -1368,25 +1927,29 @@
                     <span class="preco-diff" style="color:var(--color-orange-500)">-25,1%</span>
                   </div>
                 </td>
-                <td class="cell-margin">
+                <td class="cell-margin col-secondary">
                   <div class="margem-val">26,1%</div>
                   <div class="variation-sm var-green" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_upward</span> +1,1pp</div>
                 </td>
-                <td class="cell-cpi">
+                <td class="cell-cpi col-secondary">
                   <div class="margem-val">102,6%</div>
                 </td>
-                <td class="cell-demanda">
+                <td class="cell-demanda col-secondary">
                   <div class="estoque-val">2.450</div>
                   <div class="estoque-detail">un/semana</div>
                 </td>
-                <td class="cell-insight">
+                <td class="cell-insight col-secondary col-figma-hidden">
                   <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+                <td class="cell-actions">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
                 </td>
               </tr>
 
               <!-- Row 2 -->
               <tr>
-                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cb-cell"><input type="checkbox" class="row-checkbox" /></td>
                 <td class="cell-produto">
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span class="produto-code">10045</span>
@@ -1401,17 +1964,17 @@
                     <span class="produto-tag">LOCAL A</span>
                   </div>
                 </td>
-                <td class="cell-loja">
+                <td class="cell-loja col-secondary">
                   <div class="loja-code">03</div>
                   <div class="loja-regional">REGIONAL 01</div>
                   <div class="loja-type">SUPERMERCADO</div>
                 </td>
-                <td class="cell-pmz">
+                <td class="cell-pmz col-secondary">
                   <div class="pmz-main"><span class="pmz-val">R$ 8,12</span></div>
                   <div class="pmz-custo">R$ 6,50</div>
                   <div class="pmz-detail"><span class="pmz-margin">15,2%</span> <span>15/02/23</span></div>
                 </td>
-                <td class="cell-estoque">
+                <td class="cell-estoque col-secondary">
                   <div class="estoque-main">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
                     <span class="estoque-val">12.320un</span>
@@ -1423,21 +1986,21 @@
                     <span>552un/d</span>
                   </div>
                 </td>
-                <td class="cell-margem">
+                <td class="cell-margem col-secondary">
                   <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 20,0%</div>
                 </td>
-                <td class="cell-emb">
+                <td class="cell-emb col-secondary col-figma-hidden">
                   <div class="emb-val">1</div>
                   <div class="emb-unit">un</div>
                 </td>
-                <td class="cell-pmc">
+                <td class="cell-pmc col-secondary">
                   <div class="pmz-val">R$ 12,45</div>
                 </td>
                 <td class="cell-vigente">
                   <div class="pmz-val">R$ 10,99</div>
                   <div class="pmz-detail"><span>20/02/23</span></div>
                 </td>
-                <td class="cell-concor">
+                <td class="cell-concor col-secondary">
                   <div class="pmz-val">R$ 10,49</div>
                   <div class="pmz-detail"><span>Drogasil</span></div>
                 </td>
@@ -1453,25 +2016,29 @@
                     <span class="preco-diff" style="color:var(--color-orange-500)">-18,2%</span>
                   </div>
                 </td>
-                <td class="cell-margin">
+                <td class="cell-margin col-secondary">
                   <div class="margem-val">19,9%</div>
                   <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,1pp</div>
                 </td>
-                <td class="cell-cpi">
+                <td class="cell-cpi col-secondary">
                   <div class="margem-val">104,5%</div>
                 </td>
-                <td class="cell-demanda">
+                <td class="cell-demanda col-secondary">
                   <div class="estoque-val">580</div>
                   <div class="estoque-detail">un/semana</div>
                 </td>
-                <td class="cell-insight">
+                <td class="cell-insight col-secondary col-figma-hidden">
                   <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+                <td class="cell-actions">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
                 </td>
               </tr>
 
               <!-- Row 3 -->
               <tr>
-                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cb-cell"><input type="checkbox" class="row-checkbox" /></td>
                 <td class="cell-produto">
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span class="produto-code">10123</span>
@@ -1484,17 +2051,17 @@
                     <span class="produto-tag">GLOBAL C</span>
                   </div>
                 </td>
-                <td class="cell-loja">
+                <td class="cell-loja col-secondary">
                   <div class="loja-code">01</div>
                   <div class="loja-regional">REGIONAL 02</div>
                   <div class="loja-type">SUPERMERCADO</div>
                 </td>
-                <td class="cell-pmz">
+                <td class="cell-pmz col-secondary">
                   <div class="pmz-main"><span class="pmz-val">R$ 1,25</span></div>
                   <div class="pmz-custo">R$ 0,98</div>
                   <div class="pmz-detail"><span class="pmz-margin">18,0%</span> <span>05/03/23</span></div>
                 </td>
-                <td class="cell-estoque">
+                <td class="cell-estoque col-secondary">
                   <div class="estoque-main">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
                     <span class="estoque-val">89.100un</span>
@@ -1506,21 +2073,21 @@
                     <span>2.920un/d</span>
                   </div>
                 </td>
-                <td class="cell-margem">
+                <td class="cell-margem col-secondary">
                   <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 22,0%</div>
                 </td>
-                <td class="cell-emb">
+                <td class="cell-emb col-secondary col-figma-hidden">
                   <div class="emb-val">1</div>
                   <div class="emb-unit">un</div>
                 </td>
-                <td class="cell-pmc">
+                <td class="cell-pmc col-secondary">
                   <div class="pmz-val">R$ 2,89</div>
                 </td>
                 <td class="cell-vigente">
                   <div class="pmz-val">R$ 2,49</div>
                   <div class="pmz-detail"><span>28/02/23</span></div>
                 </td>
-                <td class="cell-concor">
+                <td class="cell-concor col-secondary">
                   <div class="pmz-val">R$ 2,29</div>
                   <div class="pmz-detail"><span>Pague Menos</span></div>
                 </td>
@@ -1536,25 +2103,29 @@
                     <span class="preco-diff" style="color:var(--color-orange-500)">-28,1%</span>
                   </div>
                 </td>
-                <td class="cell-margin">
+                <td class="cell-margin col-secondary">
                   <div class="margem-val">21,6%</div>
                   <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,4pp</div>
                 </td>
-                <td class="cell-cpi">
+                <td class="cell-cpi col-secondary">
                   <div class="margem-val">95,7%</div>
                 </td>
-                <td class="cell-demanda">
+                <td class="cell-demanda col-secondary">
                   <div class="estoque-val">3.100</div>
                   <div class="estoque-detail">un/semana</div>
                 </td>
-                <td class="cell-insight">
+                <td class="cell-insight col-secondary col-figma-hidden">
                   <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+                <td class="cell-actions">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
                 </td>
               </tr>
 
               <!-- Row 4 -->
               <tr>
-                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cb-cell"><input type="checkbox" class="row-checkbox" /></td>
                 <td class="cell-produto">
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span class="produto-code">10298</span>
@@ -1569,17 +2140,17 @@
                     <span class="produto-tag">LOCAL A</span>
                   </div>
                 </td>
-                <td class="cell-loja">
+                <td class="cell-loja col-secondary">
                   <div class="loja-code">05</div>
                   <div class="loja-regional">REGIONAL 03</div>
                   <div class="loja-type">SUPERMERCADO</div>
                 </td>
-                <td class="cell-pmz">
+                <td class="cell-pmz col-secondary">
                   <div class="pmz-main"><span class="pmz-val">R$ 5,67</span></div>
                   <div class="pmz-custo">R$ 4,53</div>
                   <div class="pmz-detail"><span class="pmz-margin">10,8%</span> <span>22/02/23</span></div>
                 </td>
-                <td class="cell-estoque">
+                <td class="cell-estoque col-secondary">
                   <div class="estoque-main">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
                     <span class="estoque-val">25.600un</span>
@@ -1591,21 +2162,21 @@
                     <span>3.121un/d</span>
                   </div>
                 </td>
-                <td class="cell-margem">
+                <td class="cell-margem col-secondary">
                   <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 18,0%</div>
                 </td>
-                <td class="cell-emb">
+                <td class="cell-emb col-secondary col-figma-hidden">
                   <div class="emb-val">1</div>
                   <div class="emb-unit">un</div>
                 </td>
-                <td class="cell-pmc">
+                <td class="cell-pmc col-secondary">
                   <div class="pmz-val">R$ 9,80</div>
                 </td>
                 <td class="cell-vigente">
                   <div class="pmz-val">R$ 7,99</div>
                   <div class="pmz-detail"><span>18/02/23</span></div>
                 </td>
-                <td class="cell-concor">
+                <td class="cell-concor col-secondary">
                   <div class="pmz-val">R$ 7,49</div>
                   <div class="pmz-detail"><span>Raia</span></div>
                 </td>
@@ -1621,25 +2192,29 @@
                     <span class="preco-diff" style="color:var(--color-orange-500)">-25,0%</span>
                   </div>
                 </td>
-                <td class="cell-margin">
+                <td class="cell-margin col-secondary">
                   <div class="margem-val">17,3%</div>
                   <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,7pp</div>
                 </td>
-                <td class="cell-cpi">
+                <td class="cell-cpi col-secondary">
                   <div class="margem-val">97,3%</div>
                 </td>
-                <td class="cell-demanda">
+                <td class="cell-demanda col-secondary">
                   <div class="estoque-val">3.250</div>
                   <div class="estoque-detail">un/semana</div>
                 </td>
-                <td class="cell-insight">
+                <td class="cell-insight col-secondary col-figma-hidden">
                   <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+                <td class="cell-actions">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
                 </td>
               </tr>
 
               <!-- Row 5 -->
               <tr>
-                <td class="cb-cell"><input type="checkbox" /></td>
+                <td class="cb-cell"><input type="checkbox" class="row-checkbox" /></td>
                 <td class="cell-produto">
                   <div style="display:flex;align-items:center;gap:4px;">
                     <span class="produto-code">10512</span>
@@ -1652,17 +2227,17 @@
                     <span class="produto-tag">GLOBAL B</span>
                   </div>
                 </td>
-                <td class="cell-loja">
+                <td class="cell-loja col-secondary">
                   <div class="loja-code">01</div>
                   <div class="loja-regional">REGIONAL 02</div>
                   <div class="loja-type">SUPERMERCADO</div>
                 </td>
-                <td class="cell-pmz">
+                <td class="cell-pmz col-secondary">
                   <div class="pmz-main"><span class="pmz-val">R$ 0,95</span></div>
                   <div class="pmz-custo">R$ 0,72</div>
                   <div class="pmz-detail"><span class="pmz-margin">20,1%</span> <span>10/03/23</span></div>
                 </td>
-                <td class="cell-estoque">
+                <td class="cell-estoque col-secondary">
                   <div class="estoque-main">
                     <span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">inventory_2</span>
                     <span class="estoque-val">120.500un</span>
@@ -1674,21 +2249,21 @@
                     <span>2.665un/d</span>
                   </div>
                 </td>
-                <td class="cell-margem">
+                <td class="cell-margem col-secondary">
                   <div class="margem-val"><span class="material-icons" style="font-size:12px;color:var(--color-gray-600)">flag</span> 25,0%</div>
                 </td>
-                <td class="cell-emb">
+                <td class="cell-emb col-secondary col-figma-hidden">
                   <div class="emb-val">1</div>
                   <div class="emb-unit">un</div>
                 </td>
-                <td class="cell-pmc">
+                <td class="cell-pmc col-secondary">
                   <div class="pmz-val">R$ 1,89</div>
                 </td>
                 <td class="cell-vigente">
                   <div class="pmz-val">R$ 1,49</div>
                   <div class="pmz-detail"><span>01/03/23</span></div>
                 </td>
-                <td class="cell-concor">
+                <td class="cell-concor col-secondary">
                   <div class="pmz-val">R$ 1,39</div>
                   <div class="pmz-detail"><span>Panvel</span></div>
                 </td>
@@ -1704,19 +2279,23 @@
                     <span class="preco-diff" style="color:var(--color-orange-500)">-33,6%</span>
                   </div>
                 </td>
-                <td class="cell-margin">
+                <td class="cell-margin col-secondary">
                   <div class="margem-val">24,2%</div>
                   <div class="variation-sm var-red" style="margin-top:2px;"><span class="material-icons" style="font-size:10px">arrow_downward</span> -0,8pp</div>
                 </td>
-                <td class="cell-cpi">
+                <td class="cell-cpi col-secondary">
                   <div class="margem-val">95,9%</div>
                 </td>
-                <td class="cell-demanda">
+                <td class="cell-demanda col-secondary">
                   <div class="estoque-val">2.800</div>
                   <div class="estoque-detail">un/semana</div>
                 </td>
-                <td class="cell-insight">
+                <td class="cell-insight col-secondary col-figma-hidden">
                   <span class="insight-icon"><span class="material-icons">auto_awesome</span></span>
+                </td>
+                <td class="cell-actions">
+                  <button class="btn-icon-row btn-menu-preco" title="Menu Preços"><span class="material-icons">more_vert</span></button>
+                  <button class="btn-icon-row btn-bloquear" title="Bloquear"><span class="material-icons">lock</span></button>
                 </td>
               </tr>
 
@@ -1724,9 +2303,201 @@
           </table>
         </div>
 
+        <!-- Mobile: toggle columns button -->
+        <button class="mobile-col-toggle" id="mobileColToggle">
+          <span class="material-icons">view_column</span> Ver mais colunas
+        </button>
+
       </div><!-- /main -->
     </div><!-- /app-body -->
+
+    <!-- Bottom Navigation (tablet/mobile) -->
+    <nav class="bottom-nav">
+      <div class="bottom-nav-item"><span class="material-icons">home</span><span>Inicio</span></div>
+      <div class="bottom-nav-item active"><span class="material-icons">offline_pin</span><span>Precos</span></div>
+      <div class="bottom-nav-item"><span class="material-icons">price_change</span><span>Ofertas</span></div>
+      <div class="bottom-nav-item"><span class="material-icons">auto_graph</span><span>Analise</span></div>
+      <div class="bottom-nav-item"><span class="material-icons">settings</span><span>Config</span></div>
+    </nav>
+
   </div><!-- /app -->
+
+  <!-- ═══════════════════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ─── 1. FILTER CHIP DROPDOWNS ───
+      var wrappers = document.querySelectorAll('.filter-chip-wrapper');
+
+      wrappers.forEach(function (wrapper) {
+        var chip = wrapper.querySelector('.filter-chip');
+        var dropdown = wrapper.querySelector('.filter-dropdown');
+        var clearBtn = chip.querySelector('.filter-chip-clear');
+        if (!dropdown) return;
+
+        var items = dropdown.querySelectorAll('.filter-dropdown-item');
+
+        // Store original chip text (without the clear icon)
+        var originalHTML = '';
+        var childNodes = chip.childNodes;
+        for (var i = 0; i < childNodes.length; i++) {
+          var node = childNodes[i];
+          if (node.classList && node.classList.contains('filter-chip-clear')) continue;
+          if (node.nodeType === 1) {
+            originalHTML += node.outerHTML;
+          } else if (node.nodeType === 3) {
+            originalHTML += node.textContent;
+          }
+        }
+
+        chip._originalHTML = originalHTML;
+
+        // Toggle dropdown on chip click
+        chip.addEventListener('click', function (e) {
+          // If clicking the clear button, handle separately
+          if (e.target.classList.contains('filter-chip-clear')) {
+            e.stopPropagation();
+            clearSelection(chip, dropdown);
+            return;
+          }
+
+          // Close all other dropdowns
+          document.querySelectorAll('.filter-dropdown.open').forEach(function (dd) {
+            if (dd !== dropdown) dd.classList.remove('open');
+          });
+
+          dropdown.classList.toggle('open');
+        });
+
+        // Select an option
+        items.forEach(function (item) {
+          item.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var selectedText = item.textContent.trim();
+
+            // Find the label if exists
+            var labelEl = null;
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = chip._originalHTML;
+            labelEl = tempDiv.querySelector('.filter-label');
+
+            // Build new chip content
+            var newHTML = '';
+            if (labelEl) {
+              newHTML = labelEl.outerHTML + ' ' + selectedText;
+            } else {
+              newHTML = selectedText;
+            }
+
+            // Set chip content (preserve clear button)
+            chip.innerHTML = newHTML + '<span class="material-icons filter-chip-clear">close</span>';
+            chip.classList.add('filter-chip-selected');
+            dropdown.classList.remove('open');
+
+            // Re-bind clear button
+            chip.querySelector('.filter-chip-clear').addEventListener('click', function (ev) {
+              ev.stopPropagation();
+              clearSelection(chip, dropdown);
+            });
+          });
+        });
+      });
+
+      function clearSelection(chip, dropdown) {
+        chip.innerHTML = chip._originalHTML + '<span class="material-icons filter-chip-clear">close</span>';
+        chip.classList.remove('filter-chip-selected');
+        dropdown.classList.remove('open');
+
+        // Re-bind clear button
+        chip.querySelector('.filter-chip-clear').addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          clearSelection(chip, dropdown);
+        });
+      }
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.filter-chip-wrapper')) {
+          document.querySelectorAll('.filter-dropdown.open').forEach(function (dd) {
+            dd.classList.remove('open');
+          });
+        }
+      });
+
+      // ─── 2. CHECKBOX SELECT ALL ───
+      var selectAll = document.getElementById('selectAll');
+      var rowCheckboxes = document.querySelectorAll('.row-checkbox');
+      var tableInfoText = document.getElementById('tableInfoText');
+      var totalResults = 20;
+
+      function updateTableInfo() {
+        var checked = document.querySelectorAll('.row-checkbox:checked').length;
+        if (checked > 0) {
+          tableInfoText.textContent = checked + ' de ' + totalResults + ' resultados selecionados';
+        } else {
+          tableInfoText.textContent = 'Foram encontrados ' + totalResults + ' resultados no total';
+        }
+      }
+
+      if (selectAll) {
+        selectAll.addEventListener('change', function () {
+          var isChecked = selectAll.checked;
+          rowCheckboxes.forEach(function (cb) {
+            cb.checked = isChecked;
+          });
+          updateTableInfo();
+        });
+      }
+
+      rowCheckboxes.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          // Update selectAll state
+          var allChecked = true;
+          var noneChecked = true;
+          rowCheckboxes.forEach(function (rcb) {
+            if (rcb.checked) noneChecked = false;
+            else allChecked = false;
+          });
+          if (selectAll) {
+            selectAll.checked = allChecked;
+            selectAll.indeterminate = !allChecked && !noneChecked;
+          }
+          updateTableInfo();
+        });
+      });
+
+      // ─── 3. FILTERS ACCORDION (tablet) ───
+      var accordionBtn = document.getElementById('filtersAccordionBtn');
+      var filtersSection = document.getElementById('filtersSection');
+
+      if (accordionBtn && filtersSection) {
+        // Start collapsed on tablet
+        accordionBtn.addEventListener('click', function () {
+          filtersSection.classList.toggle('accordion-collapsed');
+          accordionBtn.classList.toggle('accordion-open');
+        });
+      }
+
+      // ─── 4. MOBILE COLUMN TOGGLE ───
+      var colToggleBtn = document.getElementById('mobileColToggle');
+      var dataTable = document.getElementById('dataTable');
+
+      if (colToggleBtn && dataTable) {
+        colToggleBtn.addEventListener('click', function () {
+          dataTable.classList.toggle('show-all-cols');
+          if (dataTable.classList.contains('show-all-cols')) {
+            colToggleBtn.innerHTML = '<span class="material-icons">view_column</span> Ocultar colunas extras';
+          } else {
+            colToggleBtn.innerHTML = '<span class="material-icons">view_column</span> Ver mais colunas';
+          }
+        });
+      }
+
+    })();
+  </script>
 </body>
 
 </html>
