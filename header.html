@@ -368,6 +368,12 @@
       justify-content: space-between;
       z-index: 50;
       box-shadow: 2px 0 6px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      transition: width 300ms ease;
+    }
+
+    .sidebar.is-expanded {
+      width: 220px;
     }
 
     .sidebar__top,
@@ -380,11 +386,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 52px;
+      width: 100%;
       height: 48px;
       padding: 14px;
       cursor: pointer;
       transition: background 100ms ease;
+      gap: 12px;
+    }
+
+    .sidebar.is-expanded .sidebar__item {
+      justify-content: flex-start;
     }
 
     .sidebar__item:hover {
@@ -394,6 +405,7 @@
     .sidebar__item .material-icons-outlined {
       font-size: var(--icon-size-lg);   /* 20px */
       color: var(--color-gray-700);     /* #747474 */
+      flex-shrink: 0;
     }
 
     .sidebar__icon {
@@ -401,6 +413,99 @@
       height: 20px;
       display: block;
       flex-shrink: 0;
+    }
+
+    /* Labels do menu expandido */
+    .sidebar__label {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-700);
+      white-space: nowrap;
+      display: none;
+    }
+
+    .sidebar.is-expanded .sidebar__label {
+      display: block;
+    }
+
+    /* Tooltips da sidebar */
+    .sidebar__tooltip {
+      position: absolute;
+      left: calc(100% + 6px);
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--color-gray-900);
+      color: var(--color-white);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      line-height: var(--line-height-md);
+      white-space: nowrap;
+      padding: 4px var(--space-2);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 200;
+      display: none;
+    }
+
+    .sidebar__item {
+      position: relative;
+    }
+
+    .sidebar__item:hover .sidebar__tooltip {
+      display: block;
+    }
+
+    .sidebar.is-expanded .sidebar__tooltip {
+      display: none !important;
+    }
+
+    .sidebar__item-chevron {
+      font-size: var(--icon-size-md);
+      color: var(--color-gray-600);
+      margin-left: auto;
+      display: none;
+    }
+
+    .sidebar.is-expanded .sidebar__item-chevron {
+      display: block;
+    }
+
+    /* Seta (expand/collapse) */
+    .sidebar__seta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 37px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 300ms ease;
+      margin: 0 0 14px 0;
+    }
+
+    .sidebar__seta:hover {
+      background: var(--color-gray-300);
+    }
+
+    .sidebar__seta .material-icons-outlined {
+      font-size: var(--icon-size-lg);
+      color: var(--color-gray-700);
+      transition: transform 300ms ease;
+    }
+
+    .sidebar__seta.is-flipped .material-icons-outlined {
+      transform: rotate(180deg);
+    }
+
+    /* Transição dos elementos dependentes */
+    .title-bar,
+    .big-numbers,
+    .filtros,
+    .resultados {
+      transition: left 300ms ease;
     }
 
     /* ── Title Bar ───────────────────────────────────── */
@@ -694,6 +799,928 @@
 
     .dropdown-overlay.is-open {
       display: block;
+    }
+
+    /* ── Filtros ──────────────────────────────────────── */
+    .filtros {
+      position: fixed;
+      top: 188px;
+      left: 52px;
+      right: 0;
+      z-index: 39;
+      padding: 0 var(--space-4);
+      transition: left 300ms ease;
+    }
+
+    .filtros__inner {
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .filtros__box {
+      display: flex;
+      gap: 12px;
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .filtros__left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filtros__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .filtros__right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: flex-end;
+      flex-shrink: 0;
+      width: 240px;
+    }
+
+    /* ── Chip (pill button) ──────────────────────────── */
+    .filtro-chip-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .filtro-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 32px;
+      padding: 0 12px;
+      background: var(--color-gray-100);
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-800);
+      white-space: nowrap;
+      transition: background 100ms ease;
+    }
+
+    .filtro-chip:hover {
+      background: var(--color-gray-300);
+    }
+
+    .filtro-chip.is-open {
+      background: var(--color-gray-300);
+    }
+
+    .filtro-chip__prefix {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-600);
+      text-transform: uppercase;
+    }
+
+    .filtro-chip__chevron {
+      font-size: 16px;
+      color: var(--color-gray-600);
+      transition: transform 120ms ease;
+    }
+
+    .filtro-chip.is-open .filtro-chip__chevron {
+      transform: rotate(180deg);
+    }
+
+    .filtro-chip--clear:hover {
+      background: var(--color-gray-300);
+    }
+
+    /* ── Filtro dropdown (base) ──────────────────────── */
+    .filtro-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      width: 280px;
+      max-height: 320px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      box-shadow: var(--shadow-elevation);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .filtro-dropdown.is-open {
+      display: flex;
+    }
+
+    /* Alinha dropdowns da coluna direita à direita */
+    .filtros__right .filtro-dropdown {
+      left: auto;
+      right: 0;
+    }
+
+    /* Search bar */
+    .filtro-dropdown__search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--color-gray-300);
+      flex-shrink: 0;
+    }
+
+    .filtro-dropdown__search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      color: var(--color-gray-900);
+      background: transparent;
+    }
+
+    .filtro-dropdown__search-input::placeholder {
+      color: var(--color-gray-500);
+    }
+
+    .filtro-dropdown__search .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-gray-500);
+    }
+
+    .filtro-dropdown__paste-link {
+      font-size: var(--font-size-sm);
+      color: var(--color-blue-500);
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: var(--font-weight-semibold);
+      flex-shrink: 0;
+    }
+
+    .filtro-dropdown__paste-link:hover {
+      text-decoration: underline;
+    }
+
+    /* List */
+    .filtro-dropdown__list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+
+    .filtro-dropdown__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-900);
+      transition: background 80ms ease;
+    }
+
+    .filtro-dropdown__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .filtro-dropdown__item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--color-blue-500);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Select all footer */
+    .filtro-dropdown__footer {
+      border-top: 1px solid var(--color-gray-300);
+      padding: 6px 12px;
+      flex-shrink: 0;
+    }
+
+    .filtro-dropdown__footer .filtro-dropdown__item {
+      padding: 4px 0;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /* Empty state */
+    .filtro-dropdown__empty {
+      padding: 16px 12px;
+      text-align: center;
+      font-size: var(--font-size-md);
+      color: var(--color-gray-500);
+    }
+
+    /* Grouped dropdown (Status de Preço, Segmentação) */
+    .filtro-dropdown__group-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filtro-dropdown__group-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-500);
+      text-transform: uppercase;
+    }
+
+    .filtro-dropdown__group-arrow {
+      font-size: 16px;
+      color: var(--color-blue-500);
+      transition: transform 120ms ease;
+    }
+
+    .filtro-dropdown__group-header.is-collapsed .filtro-dropdown__group-arrow {
+      transform: rotate(-90deg);
+    }
+
+    .filtro-dropdown__group-items {
+      padding: 0;
+    }
+
+    .filtro-dropdown__group-header.is-collapsed + .filtro-dropdown__group-items {
+      display: none;
+    }
+
+    /* ── Resultados (toolbar da tabela) ──────────────── */
+    .resultados {
+      position: fixed;
+      top: 314px;
+      left: 52px;
+      right: 0;
+      z-index: 38;
+      padding: 4px var(--space-4) 0;
+      transition: left 300ms ease;
+    }
+
+    .resultados__inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: var(--color-white);
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    /* Estado selecionado */
+    .resultados__inner.is-selected {
+      background: var(--color-blue-light-5);
+      border: 1px solid var(--color-blue-400);
+      padding: 7px 11px;
+    }
+
+    /* ── Search bar ──────────────────────────────────── */
+    .resultados__search {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      gap: 8px;
+    }
+
+    .resultados__searchbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      min-width: 0;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: text;
+    }
+
+    .resultados__searchbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .resultados__searchbar .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-gray-600);
+    }
+
+    .resultados__searchbar-placeholder {
+      font-size: var(--font-size-md);
+      color: var(--color-gray-700);
+      white-space: nowrap;
+    }
+
+    /* ── Toolbar buttons area ────────────────────────── */
+    .resultados__tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Divider vertical entre grupos */
+    .resultados__divider {
+      width: 1px;
+      height: 36px;
+      background: var(--color-gray-300);
+      flex-shrink: 0;
+    }
+
+    /* Grupo de botões */
+    .resultados__group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Icon button base ────────────────────────────── */
+    .res-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background: var(--color-gray-200);
+      transition: background 100ms ease;
+      flex-shrink: 0;
+    }
+
+    .res-btn:hover {
+      background: var(--color-gray-300);
+    }
+
+    .res-btn .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-gray-800);
+    }
+
+    /* White background variant */
+    .res-btn--white {
+      background: var(--color-white);
+    }
+
+    .res-btn--white:hover {
+      background: var(--color-gray-100);
+    }
+
+    /* Active/blue variant */
+    .res-btn--active {
+      background: var(--color-blue-light-5);
+    }
+
+    .res-btn--active:hover {
+      background: var(--color-blue-light-15);
+    }
+
+    .res-btn--active .material-icons-outlined {
+      color: var(--color-blue-500);
+    }
+
+    /* ── Split button (icon + chevron) ───────────────── */
+    .res-split-btn {
+      display: flex;
+      align-items: stretch;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--color-gray-200);
+      flex-shrink: 0;
+      cursor: pointer;
+      border: none;
+    }
+
+    .res-split-btn:hover {
+      background: var(--color-gray-300);
+    }
+
+    .res-split-btn__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background: var(--color-gray-300);
+    }
+
+    .res-split-btn__icon .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-gray-800);
+    }
+
+    .res-split-btn__chevron {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      background: var(--color-gray-300);
+    }
+
+    .res-split-btn__chevron .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-gray-700);
+    }
+
+    /* ── APLICAR PREÇO (twin button) ─────────────────── */
+    .res-aplicar {
+      display: flex;
+      align-items: stretch;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+
+    .res-aplicar.is-active {
+      opacity: 1;
+    }
+
+    .res-aplicar__main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      background: var(--color-blue-400);
+      border: none;
+      border-right: 1px solid var(--color-white);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      line-height: 20px;
+      color: var(--color-white);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .res-aplicar__dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background: var(--color-blue-400);
+      border: none;
+      cursor: pointer;
+    }
+
+    .res-aplicar__dropdown .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-white);
+    }
+
+    /* ── Selected state toolbar buttons ──────────────── */
+    .resultados__selection-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 8px;
+    }
+
+    .resultados__selection-text {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .resultados__selection-clear {
+      font-size: var(--font-size-sm);
+      color: var(--color-blue-400);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font-family-base);
+      white-space: nowrap;
+    }
+
+    .resultados__selection-clear:hover {
+      text-decoration: underline;
+    }
+
+    /* Outlined button (Alterar preço) */
+    .res-btn-outlined {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border: 1px solid var(--color-blue-400);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      line-height: 20px;
+      color: var(--color-blue-400);
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .res-btn-outlined:hover {
+      background: var(--color-blue-light-5);
+    }
+
+    /* ── Grid (tabela de dados) ──────────────────────── */
+    .grid {
+      position: fixed;
+      top: 370px;
+      left: 52px;
+      right: 0;
+      bottom: 0;
+      z-index: 37;
+      padding: 0 var(--space-4);
+      transition: left 300ms ease;
+      overflow: hidden;
+    }
+
+    .grid__wrapper {
+      background: var(--color-white);
+      border-radius: 6px 6px 0 0;
+      height: 100%;
+      overflow: auto;
+    }
+
+    .grid__table {
+      width: 100%;
+      min-width: 1600px;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-md);
+    }
+
+    /* Header */
+    .grid__table thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .grid__table th {
+      background: var(--color-gray-100);
+      color: var(--color-gray-700);
+      font-weight: var(--font-weight-semibold);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 8px 10px;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--color-gray-300);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .grid__table th:hover {
+      background: var(--color-gray-200);
+    }
+
+    .grid__th-content {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .grid__th-content .material-icons-outlined {
+      font-size: 14px;
+      color: var(--color-gray-500);
+    }
+
+    /* Cells */
+    .grid__table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--color-gray-200);
+      vertical-align: top;
+      color: var(--color-gray-900);
+      font-size: var(--font-size-sm);
+    }
+
+    .grid__table tbody tr:hover td {
+      background: var(--color-gray-50);
+    }
+
+    /* Checkbox column */
+    .grid__check {
+      width: 36px;
+      text-align: center;
+    }
+
+    .grid__check input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--color-blue-400);
+      cursor: pointer;
+    }
+
+    /* ── Produto cell ────────────────────────────────── */
+    .grid__produto {
+      min-width: 280px;
+    }
+
+    .grid__produto-top {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .grid__produto-code {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+    }
+
+    .grid__tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+      line-height: 14px;
+    }
+
+    .grid__tag--blue {
+      background: var(--color-blue-light-15);
+      color: var(--color-blue-700);
+    }
+
+    .grid__tag--pink {
+      background: #fce4ec;
+      color: #c62828;
+    }
+
+    .grid__tag--gray {
+      background: var(--color-gray-200);
+      color: var(--color-gray-700);
+    }
+
+    .grid__produto-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      margin-top: 2px;
+    }
+
+    .grid__produto-labels {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .grid__produto-label {
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    .grid__produto-label--red {
+      color: var(--color-red-600);
+      background: #fef7f7;
+    }
+
+    .grid__produto-label--green {
+      color: var(--color-green-500);
+      background: var(--color-green-light-5);
+    }
+
+    .grid__produto-label--gray {
+      color: var(--color-gray-600);
+      background: var(--color-gray-100);
+    }
+
+    /* ── Loja cell ───────────────────────────────────── */
+    .grid__loja {
+      min-width: 60px;
+    }
+
+    .grid__loja-code {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+    }
+
+    .grid__loja-name {
+      font-size: 10px;
+      color: var(--color-blue-500);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+    }
+
+    .grid__loja-detail {
+      font-size: 10px;
+      color: var(--color-gray-600);
+      text-transform: uppercase;
+    }
+
+    /* ── Numeric / value cells ────────────────────────── */
+    .grid__val-main {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .grid__val-sub {
+      font-size: 10px;
+      color: var(--color-gray-600);
+      white-space: nowrap;
+    }
+
+    .grid__val-approx {
+      color: var(--color-gray-700);
+    }
+
+    /* ── Preço sugerido input ────────────────────────── */
+    .grid__preco-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .grid__preco-input {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--color-gray-300);
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-900);
+      width: 80px;
+      background: var(--color-white);
+    }
+
+    .grid__preco-input:focus {
+      outline: none;
+      border-color: var(--color-blue-400);
+    }
+
+    .grid__preco-prefix {
+      color: var(--color-gray-600);
+      font-size: var(--font-size-sm);
+      margin-right: 2px;
+      white-space: nowrap;
+    }
+
+    /* ── Status tags ─────────────────────────────────── */
+    .grid__status {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .grid__status--auto {
+      background: #e8f5e9;
+      color: var(--color-green-500);
+    }
+
+    .grid__status--erp {
+      background: #fce4ec;
+      color: var(--color-red-600);
+    }
+
+    .grid__status--promo {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .grid__status--editado {
+      background: var(--color-blue-light-15);
+      color: var(--color-blue-700);
+    }
+
+    /* ── Variation indicator ──────────────────────────── */
+    .grid__variation {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 10px;
+      font-weight: var(--font-weight-semibold);
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .grid__variation--down {
+      color: var(--color-red-600);
+    }
+
+    .grid__variation--up {
+      color: var(--color-green-500);
+    }
+
+    .grid__variation--neutral {
+      color: var(--color-gray-600);
+    }
+
+    /* ── Margem input ────────────────────────────────── */
+    .grid__margem-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .grid__margem-input {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--color-gray-300);
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-900);
+      width: 50px;
+      background: var(--color-white);
+      text-align: right;
+    }
+
+    .grid__margem-input:focus {
+      outline: none;
+      border-color: var(--color-blue-400);
+    }
+
+    .grid__margem-pct {
+      color: var(--color-gray-700);
+      font-size: var(--font-size-sm);
+    }
+
+    /* ── Previsão de demanda ──────────────────────────── */
+    .grid__prev-main {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      white-space: nowrap;
+    }
+
+    .grid__prev-sub {
+      font-size: 10px;
+      color: var(--color-gray-600);
+      white-space: nowrap;
+    }
+
+    .grid__link {
+      font-size: 10px;
+      color: var(--color-blue-400);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .grid__link:hover {
+      text-decoration: underline;
+    }
+
+    .grid__loading {
+      font-size: 10px;
+      color: var(--color-gray-500);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    /* ── Preço vigente / concorrência ────────────────── */
+    .grid__preco-vigente {
+      min-width: 100px;
+    }
+
+    .grid__preco-concorrencia {
+      min-width: 110px;
+    }
+
+    .grid__concorrencia-link {
+      font-size: 10px;
+      color: var(--color-blue-400);
+      cursor: pointer;
+    }
+
+    .grid__concorrencia-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ── CPI cell ────────────────────────────────────── */
+    .grid__cpi-val {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
     }
   </style>
 </head>
@@ -993,37 +2020,1096 @@
     </div>
   </section>
 
+  <!-- Filtros -->
+  <section class="filtros">
+    <div class="filtros__inner">
+      <div class="filtros__box">
+
+        <!-- Coluna esquerda: chips de filtro -->
+        <div class="filtros__left">
+
+          <!-- Linha 1 -->
+          <div class="filtros__row">
+
+            <!-- Produtos -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="produtos">
+                <span>Produtos</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-produtos">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos…" />
+                  <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313 - LINGUICA SEARA 215G FININHA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314 - SALSICHA PERDIGAO 500G</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125 - ARROZ CAMIL TIPO 1 5KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810 - CAFE PILAO 500G TRAD</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>205417 - FEIJAO CARIOCA KICALDO 1KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>308912 - LEITE INTEGRAL ITALAC 1L</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>412350 - OLEO SOJA LIZA 900ML</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>509876 - ACUCAR UNIAO 1KG</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Família -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="familia">
+                <span>Família</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-familia">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar família…" />
+                  <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>205417</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>308912</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lojas -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="lojas">
+                <span>Lojas</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-lojas">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar lojas…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1 - Supermercados Nova União</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>2 - Rede BomLar</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>3 - Atacadão Central</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>4 - Mercado Estrela</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>5 - Super Econômico</span></label>
+                </div>
+                <div class="filtro-dropdown__footer">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Selecionar todos</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cluster -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="cluster">
+                <span>Cluster</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-cluster">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar cluster…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 01</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 02</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tipo de loja -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="tipo-loja">
+                <span>Tipo loja</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-tipo-loja">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar tipo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Supermercado</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Atacado</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status de preço -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="status-preco">
+                <span>Status de preço</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-status-preco">
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Regular</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                  </div>
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Oferta</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segmentação -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="segmentacao">
+                <span>Segmentação</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-segmentacao">
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Sensibilidade InfoPrice</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Super Sensível</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Sensível</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Não Sensível</span></label>
+                  </div>
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Curva ABC Local</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local A</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local B</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local C</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local D</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Marca -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="marca">
+                <span>Marca</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-marca">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar marca…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fornecedor -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="fornecedor">
+                <span>Fornecedor</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-fornecedor">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar fornecedor…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Linha 2: hierarquia de produto -->
+          <div class="filtros__row">
+
+            <!-- 01 Departamento -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="departamento">
+                <span class="filtro-chip__prefix">01</span>
+                <span>Departamento</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-departamento">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar departamento…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>BEBIDAS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>DROGARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>HIGIENE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>LIMPEZA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>MERCEARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>PERECÍVEIS</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 02 Seção -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="secao">
+                <span class="filtro-chip__prefix">02</span>
+                <span>Seção</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-secao">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar seção…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CARNES</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>COMMODITIES</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>LAVAGEM</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>MEDICAMENTOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>NÃO MEDICAMENTOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>PERFUMARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>SUÍNOS</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03 Grupo -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="grupo">
+                <span class="filtro-chip__prefix">03</span>
+                <span>Grupo</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-grupo">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar grupo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>BOVINOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFÉ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS LAGER</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS PURO MALTE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CUIDADOS MÃOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>EMBUTIDOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>FEIJÃO</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>HIGIENE INFANTIL</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04 Sub-grupo -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="subgrupo">
+                <span class="filtro-chip__prefix">04</span>
+                <span>Sub-grupo</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-subgrupo">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar sub-grupo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 1KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 2KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 5KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFÉ PÓ 500G</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS LAGER LATA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS PURO MALTE LATA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CONTRA FILÉ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>COXÃO MOLE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ESMALTE</span></label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Coluna direita: ações -->
+        <div class="filtros__right">
+
+          <!-- + Filtros -->
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--add" data-filtro="mais-filtros">
+              <span>+ Filtros</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-mais-filtros">
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Filtro MPDV</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Limpar filtros -->
+          <button class="filtro-chip filtro-chip--clear">
+            <span>Limpar filtros</span>
+          </button>
+
+          <!-- Filtros salvos -->
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--action" data-filtro="filtros-salvos">
+              <span>Filtros salvos</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-filtros-salvos">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar filtros salvos…" />
+              </div>
+              <div class="filtro-dropdown__list">
+                <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados (toolbar da tabela) -->
+  <section class="resultados" id="resultadosSection">
+
+    <!-- Estado default -->
+    <div class="resultados__inner" id="resultadosDefault">
+
+      <div class="resultados__search">
+        <!-- Search bar -->
+        <div class="resultados__searchbar">
+          <div class="resultados__searchbar-left">
+            <span class="material-icons-outlined">search</span>
+            <span class="resultados__searchbar-placeholder">Pesquise por um produto</span>
+          </div>
+          <span class="material-icons-outlined" style="cursor:pointer;">close</span>
+        </div>
+      </div>
+
+      <div class="resultados__tools">
+
+        <!-- Grupo 1: filtro + visualização -->
+        <div class="resultados__group">
+          <button class="res-btn res-btn--active" title="Filtrar">
+            <span class="material-icons-outlined">tune</span>
+          </button>
+          <button class="res-btn" title="Visualização em grade">
+            <span class="material-icons-outlined">grid_view</span>
+          </button>
+        </div>
+
+        <div class="resultados__divider"></div>
+
+        <!-- Grupo 2: colunas com dropdowns -->
+        <div class="resultados__group">
+          <button class="res-split-btn" title="Colunas">
+            <span class="res-split-btn__icon"><span class="material-icons-outlined">view_column</span></span>
+            <span class="res-split-btn__chevron"><span class="material-icons-outlined">keyboard_arrow_down</span></span>
+          </button>
+          <button class="res-split-btn" title="Ordenar">
+            <span class="res-split-btn__icon"><span class="material-icons-outlined">swap_vert</span></span>
+            <span class="res-split-btn__chevron"><span class="material-icons-outlined">keyboard_arrow_down</span></span>
+          </button>
+          <button class="res-split-btn" title="Visibilidade">
+            <span class="res-split-btn__icon"><span class="material-icons-outlined">visibility</span></span>
+            <span class="res-split-btn__chevron"><span class="material-icons-outlined">keyboard_arrow_down</span></span>
+          </button>
+          <button class="res-split-btn" title="Agrupar">
+            <span class="res-split-btn__icon"><span class="material-icons-outlined">account_tree</span></span>
+            <span class="res-split-btn__chevron"><span class="material-icons-outlined">keyboard_arrow_down</span></span>
+          </button>
+          <button class="res-split-btn" title="Regras">
+            <span class="res-split-btn__icon"><span class="material-icons-outlined">rule</span></span>
+            <span class="res-split-btn__chevron"><span class="material-icons-outlined">keyboard_arrow_down</span></span>
+          </button>
+        </div>
+
+        <div class="resultados__divider"></div>
+
+        <!-- Grupo 3: ações rápidas -->
+        <div class="resultados__group">
+          <button class="res-btn res-btn--white" title="Atualizar">
+            <span class="material-icons-outlined">refresh</span>
+          </button>
+          <button class="res-btn res-btn--white" title="Valores monetários">
+            <span class="material-icons-outlined">attach_money</span>
+          </button>
+          <button class="res-btn res-btn--white" title="Gráfico">
+            <span class="material-icons-outlined">bar_chart</span>
+          </button>
+        </div>
+
+        <div class="resultados__divider"></div>
+
+        <!-- Grupo 4: utilitários -->
+        <div class="resultados__group">
+          <button class="res-btn" title="Histórico">
+            <span class="material-icons-outlined">history</span>
+          </button>
+          <button class="res-btn" title="Configurações">
+            <span class="material-icons-outlined">settings</span>
+          </button>
+          <button class="res-btn" title="Download">
+            <span class="material-icons-outlined">file_download</span>
+          </button>
+        </div>
+
+        <div class="resultados__divider"></div>
+
+        <!-- Aplicar preço (desabilitado por padrão) -->
+        <div class="res-aplicar" id="aplicarPrecoBtn">
+          <button class="res-aplicar__main">Aplicar preço</button>
+          <button class="res-aplicar__dropdown">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Estado selecionado (hidden por padrão) -->
+    <div class="resultados__inner is-selected" id="resultadosSelected" style="display: none;">
+
+      <div class="resultados__selection-info">
+        <span class="resultados__selection-text"><span id="selectionCount">1</span> preço selecionado</span>
+        <button class="resultados__selection-clear" id="limparSelecaoBtn">Limpar seleção</button>
+      </div>
+
+      <div class="resultados__tools">
+        <button class="res-btn" title="Download">
+          <span class="material-icons-outlined">file_download</span>
+        </button>
+        <button class="res-btn-outlined">Alterar preço</button>
+        <div class="res-aplicar is-active">
+          <button class="res-aplicar__main">Aplicar preço</button>
+          <button class="res-aplicar__dropdown">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Grid (tabela de dados) -->
+  <section class="grid" id="gridSection">
+    <div class="grid__wrapper">
+      <table class="grid__table">
+        <thead>
+          <tr>
+            <th class="grid__check"><input type="checkbox" id="gridCheckAll" /></th>
+            <th><div class="grid__th-content">Produto <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Loja <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Vendas e estoque <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">PMZ e custo <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Margem objetiva <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Emb. <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Preço vigente <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Preço concorrência <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Preço sugerido <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">Margem <span class="material-icons-outlined">unfold_more</span></div></th>
+            <th><div class="grid__th-content">CPI</div></th>
+            <th><div class="grid__th-content">Previsão de demanda</div></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Row 1 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10007</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--red">SUPER SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.12</div>
+              <div class="grid__loja-name">REGIONAL 02</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__variation grid__variation--down">-2,1%</span>
+                <span class="grid__status grid__status--auto">AUTO</span>
+                <span class="grid__variation grid__variation--up">↑ 1,2</span>
+                <span>20,3%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+            </td>
+            <td><span class="grid__cpi-val">100,1</span></td>
+            <td>
+              <div class="grid__prev-main">R$ 796.634,00</div>
+              <div class="grid__prev-sub">
+                <span class="grid__variation grid__variation--down">-0,1%</span> 9.639un
+              </div>
+              <div class="grid__prev-sub">R$ 157.986 MTO EL...</div>
+            </td>
+          </tr>
+
+          <!-- Row 2 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10007</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--red">SUPER SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.14</div>
+              <div class="grid__loja-name">REGIONAL 02</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__variation grid__variation--down">-2,1%</span>
+                <span class="grid__status grid__status--erp">ERP</span>
+                <span>↑ -8,0%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+            </td>
+            <td><span class="grid__cpi-val">102,6</span></td>
+            <td>
+              <div class="grid__loading">Carregando...</div>
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10007</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--red">SUPER SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.15</div>
+              <div class="grid__loja-name">REGIONAL 02</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__status grid__status--promo">PROMO</span>
+                <span>↑ -8,0%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+              <div class="grid__val-sub">(G) 20,5%</div>
+            </td>
+            <td><span class="grid__cpi-val">102,6</span></td>
+            <td>
+              <div class="grid__link">Calcular</div>
+            </td>
+          </tr>
+
+          <!-- Row 4 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10007</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--green">SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.05</div>
+              <div class="grid__loja-name">CENTRAL</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__variation grid__variation--down">-2,1%</span>
+                <span class="grid__status grid__status--editado">EDITADO</span>
+                <span>↑ -2,4</span>
+                <span>20,3%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+            </td>
+            <td><span class="grid__cpi-val">102,6</span></td>
+            <td>
+              <div class="grid__prev-main">R$ 796.634,00</div>
+              <div class="grid__prev-sub">
+                <span class="grid__variation grid__variation--down">-0,1%</span> 9.639un
+              </div>
+              <div class="grid__prev-sub">R$ 157.986 MTO EL...</div>
+            </td>
+          </tr>
+
+          <!-- Row 5 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10007</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--green">SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.06</div>
+              <div class="grid__loja-name">CENTRAL</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__variation grid__variation--down">-2,1%</span>
+                <span class="grid__status grid__status--auto">AUTO</span>
+                <span class="grid__variation grid__variation--up">↑ 1,2</span>
+                <span>20,3%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+            </td>
+            <td><span class="grid__cpi-val">100,1</span></td>
+            <td>
+              <div class="grid__prev-main">R$ 796.634,00</div>
+              <div class="grid__prev-sub">
+                <span class="grid__variation grid__variation--up">+0,1%</span> 9.639un
+              </div>
+              <div class="grid__prev-sub">R$ 157.986 MTO EL...</div>
+            </td>
+          </tr>
+
+          <!-- Row 6 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10012</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--red">SUPER SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.12</div>
+              <div class="grid__loja-name">REGIONAL 02</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:3px;">
+                <span class="grid__variation grid__variation--down">-2,1%</span>
+                <span class="grid__status grid__status--erp">ERP</span>
+                <span>↑ -8,0%</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+              <div class="grid__val-sub">↑ 20,3%</div>
+            </td>
+            <td><span class="grid__cpi-val">102,6</span></td>
+            <td>
+              <div class="grid__loading">Carregando...</div>
+            </td>
+          </tr>
+
+          <!-- Row 7 -->
+          <tr>
+            <td class="grid__check"><input type="checkbox" /></td>
+            <td class="grid__produto">
+              <div class="grid__produto-top">
+                <span class="grid__produto-code">10012</span>
+                <span class="grid__tag grid__tag--blue">32</span>
+                <span class="grid__tag grid__tag--pink">REF</span>
+                <span class="grid__tag grid__tag--gray">1268</span>
+              </div>
+              <div class="grid__produto-name">SABAO PO BRILHANTE 1,6KG</div>
+              <div class="grid__produto-labels">
+                <span class="grid__produto-label grid__produto-label--red">SUPER SENSÍVEL</span>
+                <span class="grid__produto-label grid__produto-label--gray">GLOBAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">LOCAL A</span>
+                <span class="grid__produto-label grid__produto-label--gray">SUPERMERCADO</span>
+              </div>
+            </td>
+            <td class="grid__loja">
+              <div class="grid__loja-code">L.14</div>
+              <div class="grid__loja-name">REGIONAL 02</div>
+              <div class="grid__loja-detail">SUPERMERCADO</div>
+            </td>
+            <td>
+              <div class="grid__val-main">46.845un</div>
+              <div class="grid__val-sub">15,1d 10/02/2025</div>
+            </td>
+            <td>
+              <div class="grid__val-main">R$ 2,04</div>
+              <div class="grid__val-sub">R$ 1,63</div>
+              <div class="grid__val-sub">12,5% 10/03/23</div>
+            </td>
+            <td>
+              <div class="grid__val-approx">≈ 20,0%</div>
+              <div class="grid__val-sub">CAT. 16,3%</div>
+              <div class="grid__val-sub">MIX 14,8%</div>
+            </td>
+            <td>
+              <div class="grid__val-main">1</div>
+              <div class="grid__val-sub">UN</div>
+            </td>
+            <td class="grid__preco-vigente">
+              <div class="grid__val-main">R$ 2,79</div>
+              <div class="grid__val-sub">▼ 17,8% ▼101,9%</div>
+              <div class="grid__val-sub">10/03/23</div>
+            </td>
+            <td class="grid__preco-concorrencia">
+              <div class="grid__val-main">R$ 3,02 <span style="color:var(--color-red-600)">✕</span></div>
+              <div class="grid__val-sub">MÉDIA 6 lojas</div>
+              <div class="grid__concorrencia-link">- Abrir</div>
+            </td>
+            <td>
+              <div class="grid__preco-input-wrapper">
+                <span class="grid__preco-prefix">R$</span>
+                <input type="text" class="grid__preco-input" value="2,59" />
+              </div>
+            </td>
+            <td>
+              <div class="grid__margem-wrapper">
+                <input type="text" class="grid__margem-input" value="20,5" />
+                <span class="grid__margem-pct">%</span>
+              </div>
+            </td>
+            <td><span class="grid__cpi-val">102,6</span></td>
+            <td>
+              <div class="grid__link">Calcular</div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- Sidebar fixa -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
 
     <div class="sidebar__top">
 
-      <div class="sidebar__item sidebar__item--active" title="Gerenciador">
+      <div class="sidebar__item sidebar__item--active">
         <img src="assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+        <span class="sidebar__tooltip">Gerenciador</span>
       </div>
 
-      <div class="sidebar__item" title="Estratégia">
+      <div class="sidebar__item">
         <img src="assets/estrategia-symbol.svg" alt="Estratégia" class="sidebar__icon" />
+        <span class="sidebar__label">Estratégia</span>
+        <span class="sidebar__tooltip">Estratégia</span>
       </div>
 
-      <div class="sidebar__item" title="Negociações">
+      <div class="sidebar__item">
         <img src="assets/negociacoes-symbol.svg" alt="Negociações" class="sidebar__icon" />
+        <span class="sidebar__label">Negociações Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+        <span class="sidebar__tooltip">Negociações Fornecedor</span>
       </div>
 
-      <div class="sidebar__item" title="Extração">
+      <div class="sidebar__item">
         <img src="assets/extracao-symbol.svg" alt="Extração" class="sidebar__icon" />
+        <span class="sidebar__label">Extração de preços</span>
+        <span class="sidebar__tooltip">Extração de preços</span>
       </div>
 
-      <div class="sidebar__item" title="IA">
+      <div class="sidebar__item">
         <img src="assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+        <span class="sidebar__tooltip">Precifique com IA</span>
       </div>
 
     </div>
 
     <div class="sidebar__bottom">
-      <div class="sidebar__item" title="Expandir">
+      <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu">
         <span class="material-icons-outlined">keyboard_arrow_right</span>
-      </div>
+      </button>
     </div>
 
   </aside>
@@ -1046,6 +3132,15 @@
     const produtoBtn      = document.getElementById('produtoBtn');
     const produtoDropdown = document.getElementById('produtoDropdown');
 
+    // ── Filtros ───────────────────────────────────────
+    let activeFiltroChip = null;
+
+    function closeFiltros() {
+      document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      document.querySelectorAll('.filtro-chip.is-open').forEach(c => c.classList.remove('is-open'));
+      activeFiltroChip = null;
+    }
+
     function closeAll() {
       [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
       menuBtn.setAttribute('aria-expanded', 'false');
@@ -1053,6 +3148,7 @@
       lojaBtn.setAttribute('aria-expanded', 'false');
       produtoBtn.setAttribute('aria-expanded', 'false');
       overlay.classList.remove('is-open');
+      closeFiltros();
     }
 
     function toggle(dropdown, trigger) {
@@ -1089,6 +3185,140 @@
 
     overlay.addEventListener('click', closeAll);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+    // ── Sidebar expand/collapse ───────────────────────
+    const sidebar     = document.getElementById('sidebar');
+    const sidebarSeta = document.getElementById('sidebarSeta');
+    const titleBar    = document.querySelector('.title-bar');
+    const bigNumbers  = document.querySelector('.big-numbers');
+    const filtros      = document.querySelector('.filtros');
+    const resultados   = document.querySelector('.resultados');
+
+    sidebarSeta.addEventListener('click', () => {
+      const expanded = sidebar.classList.toggle('is-expanded');
+      sidebarSeta.classList.toggle('is-flipped');
+      const left = expanded ? '220px' : '52px';
+      titleBar.style.left    = left;
+      bigNumbers.style.left  = left;
+      filtros.style.left     = left;
+      resultados.style.left  = left;
+    });
+
+    // ── Filtros: chip toggle ──────────────────────────
+    document.querySelectorAll('.filtro-chip[data-filtro]').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const filtroId = chip.getAttribute('data-filtro');
+        const dropdown = document.getElementById('filtro-' + filtroId);
+        const wasOpen = dropdown.classList.contains('is-open');
+
+        // Close header/title dropdowns
+        [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
+        menuBtn.setAttribute('aria-expanded', 'false');
+        userBtn.setAttribute('aria-expanded', 'false');
+        lojaBtn.setAttribute('aria-expanded', 'false');
+        produtoBtn.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('is-open');
+
+        // Close other filtro dropdowns
+        closeFiltros();
+
+        if (!wasOpen) {
+          dropdown.classList.add('is-open');
+          chip.classList.add('is-open');
+          activeFiltroChip = chip;
+          // Focus search input if present
+          const searchInput = dropdown.querySelector('.filtro-dropdown__search-input');
+          if (searchInput) setTimeout(() => searchInput.focus(), 50);
+        }
+      });
+    });
+
+    // ── Filtros: search filtering ─────────────────────
+    document.querySelectorAll('.filtro-dropdown__search-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const query = input.value.toLowerCase();
+        const list = input.closest('.filtro-dropdown').querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('.filtro-dropdown__item').forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(query) ? '' : 'none';
+        });
+        // Show/hide empty state
+        const emptyEl = list.querySelector('.filtro-dropdown__empty');
+        if (emptyEl) return; // already has static empty message
+        const visibleItems = list.querySelectorAll('.filtro-dropdown__item:not([style*="display: none"])');
+        let dynamicEmpty = list.querySelector('.filtro-dropdown__empty--dynamic');
+        if (visibleItems.length === 0) {
+          if (!dynamicEmpty) {
+            dynamicEmpty = document.createElement('div');
+            dynamicEmpty.className = 'filtro-dropdown__empty filtro-dropdown__empty--dynamic';
+            dynamicEmpty.textContent = 'Nenhum item encontrado';
+            list.appendChild(dynamicEmpty);
+          }
+          dynamicEmpty.style.display = '';
+        } else if (dynamicEmpty) {
+          dynamicEmpty.style.display = 'none';
+        }
+      });
+
+      // Prevent click on search from closing dropdown
+      input.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ── Filtros: group collapse toggle ────────────────
+    document.querySelectorAll('.filtro-dropdown__group-header').forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.stopPropagation();
+        header.classList.toggle('is-collapsed');
+      });
+    });
+
+    // ── Filtros: "Selecionar todos" (Lojas) ──────────
+    document.querySelectorAll('.filtro-dropdown__footer .filtro-dropdown__item input[type="checkbox"]').forEach(selectAllCb => {
+      selectAllCb.addEventListener('change', () => {
+        const dropdown = selectAllCb.closest('.filtro-dropdown');
+        const list = dropdown.querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.checked = selectAllCb.checked;
+        });
+      });
+    });
+
+    // ── Filtros: "Limpar filtros" ─────────────────────
+    document.querySelector('.filtro-chip--clear').addEventListener('click', () => {
+      document.querySelectorAll('.filtro-dropdown input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+    });
+
+    // ── Close filtros on outside click ────────────────
+    document.addEventListener('click', (e) => {
+      if (activeFiltroChip && !e.target.closest('.filtro-chip-wrapper')) {
+        closeFiltros();
+      }
+    });
+
+    // Prevent dropdown content clicks from closing
+    document.querySelectorAll('.filtro-dropdown').forEach(dd => {
+      dd.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ── Resultados: toggle seleção (demo) ─────────────
+    const resultadosDefault  = document.getElementById('resultadosDefault');
+    const resultadosSelected = document.getElementById('resultadosSelected');
+    const aplicarPrecoBtn    = document.getElementById('aplicarPrecoBtn');
+    const limparSelecaoBtn   = document.getElementById('limparSelecaoBtn');
+
+    // Demo: click "APLICAR PREÇO" toggles to selected state
+    aplicarPrecoBtn.addEventListener('click', () => {
+      resultadosDefault.style.display  = 'none';
+      resultadosSelected.style.display = '';
+    });
+
+    limparSelecaoBtn.addEventListener('click', () => {
+      resultadosSelected.style.display = 'none';
+      resultadosDefault.style.display  = '';
+    });
   </script>
 
 </body>

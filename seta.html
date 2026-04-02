@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seta — Teste de componente</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
+  <link rel="stylesheet" href="tokens.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .seta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 55px;
+      height: 37px;
+      background: transparent;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 300ms ease;
+    }
+
+    .seta:hover {
+      background: var(--color-gray-300);
+    }
+
+    .seta .material-icons-outlined {
+      font-size: var(--icon-size-lg); /* 20px */
+      color: var(--color-gray-700);  /* #747474 */
+      transition: transform 300ms ease;
+    }
+
+    .seta.is-flipped .material-icons-outlined {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+  <button class="seta" aria-label="Avançar">
+    <span class="material-icons-outlined">keyboard_arrow_right</span>
+  </button>
+
+  <script>
+    document.querySelector('.seta').addEventListener('click', function () {
+      this.classList.toggle('is-flipped');
+    });
+  </script>
+
+</body>
+</html>
