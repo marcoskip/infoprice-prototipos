@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Gerenciador Modular</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ── Override: remove position fixed from content sections ── */
+    .modular-content .title-bar,
+    .modular-content .big-numbers,
+    .modular-content .filtros,
+    .modular-content .cabecalho,
+    .modular-content .grid {
+      position: static;
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      padding: 0;
+      transition: none;
+    }
+
+    .modular-content .grid {
+      overflow: visible;
+    }
+
+    /* ── Content wrapper (scrollable area right of sidebar) ── */
+    .modular-content {
+      position: fixed;
+      top: 52px;
+      left: 52px;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 var(--space-4) var(--space-4);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: left 300ms ease;
+      z-index: 35;
+    }
+
+    /* ── Module card ── */
+    .module {
+      position: relative;
+      border-radius: 8px;
+      margin-top: 8px;
+      transition: box-shadow 200ms ease, transform 200ms ease, opacity 200ms ease;
+      flex-shrink: 0;
+    }
+
+    .module:first-child {
+      margin-top: 0;
+    }
+
+    /* ── Module header (drag handle bar) ── */
+    .module__header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--color-gray-100);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 8px 8px 0 0;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .module__header:active {
+      cursor: grabbing;
+    }
+
+    .module__drag-icon {
+      font-size: 18px;
+      color: var(--color-gray-500);
+    }
+
+    .module__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      flex: 1;
+    }
+
+    .module__collapse-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 100ms ease;
+    }
+
+    .module__collapse-btn:hover {
+      background: var(--color-gray-300);
+    }
+
+    .module__collapse-btn .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-gray-600);
+      transition: transform 200ms ease;
+    }
+
+    .module.is-collapsed .module__collapse-btn .material-icons-outlined {
+      transform: rotate(180deg);
+    }
+
+    .module__body {
+      border: 1px solid var(--color-gray-300);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      transition: max-height 300ms ease, opacity 200ms ease;
+    }
+
+    .module.is-collapsed .module__body {
+      max-height: 0 !important;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    /* ── Drag states ── */
+    .module.is-dragging {
+      opacity: 0.4;
+      transform: scale(0.98);
+    }
+
+    .module.drag-over-above::before,
+    .module.drag-over-below::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      height: 3px;
+      background: var(--color-blue-400);
+      border-radius: 2px;
+      z-index: 10;
+    }
+
+    .module.drag-over-above::before {
+      top: -6px;
+    }
+
+    .module.drag-over-below::after {
+      bottom: -6px;
+    }
+
+    /* ── Title bar adjustments inside module ── */
+    .module .title-bar {
+      height: auto;
+      min-height: 36px;
+      padding: 4px var(--space-4);
+      z-index: auto;
+    }
+
+    /* ── Big numbers inside module ── */
+    .module .big-numbers {
+      z-index: auto;
+      padding: 4px 0;
+    }
+
+    /* ── Filtros inside module ── */
+    .module .filtros {
+      z-index: auto;
+      padding: 0;
+    }
+
+    /* ── Cabecalho inside module ── */
+    .module .cabecalho {
+      z-index: auto;
+      padding: 0;
+    }
+
+    /* ── Grid inside module ── */
+    .module .grid {
+      z-index: auto;
+      padding: 0;
+    }
+
+    .module .grid__wrapper {
+      max-height: 600px;
+      overflow: auto;
+    }
+
+    /* ── Toolbar (reset + edit mode) ── */
+    .modular-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 8px 0;
+      flex-shrink: 0;
+    }
+
+    .modular-toolbar__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 30px;
+      padding: 0 12px;
+      border: 1px solid var(--color-gray-400);
+      border-radius: var(--radius-pill);
+      background: var(--color-white);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .modular-toolbar__btn:hover {
+      background: var(--color-gray-100);
+      border-color: var(--color-gray-500);
+    }
+
+    .modular-toolbar__btn .material-icons-outlined {
+      font-size: 16px;
+    }
+
+    .modular-toolbar__btn--active {
+      background: var(--color-blue-light-5);
+      border-color: var(--color-blue-400);
+      color: var(--color-blue-500);
+    }
+
+    .modular-toolbar__btn--active:hover {
+      background: var(--color-blue-light-10);
+    }
+
+    /* ── Lock mode: hide drag handles ── */
+    .modular-content.is-locked .module__header {
+      display: none;
+    }
+
+    .modular-content.is-locked .module__body {
+      border-top: 1px solid var(--color-gray-300);
+      border-radius: 8px;
+    }
+
+    .modular-content.is-locked .module {
+      margin-top: 4px;
+    }
+
+    /* ── Module settings button ── */
+    .module__settings-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 100ms ease;
+    }
+
+    .module__settings-btn:hover {
+      background: var(--color-gray-300);
+    }
+
+    .module__settings-btn .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-gray-600);
+    }
+
+    .module__settings-btn.is-active {
+      background: var(--color-blue-light-10);
+    }
+
+    .module__settings-btn.is-active .material-icons-outlined {
+      color: var(--color-blue-500);
+    }
+
+    /* ── Column picker panel ── */
+    .col-picker {
+      display: none;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-300);
+      padding: 12px 16px;
+    }
+
+    .col-picker.is-open {
+      display: block;
+    }
+
+    .col-picker__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .col-picker__title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .col-picker__actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .col-picker__action {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-500);
+      padding: 0;
+    }
+
+    .col-picker__action:hover {
+      text-decoration: underline;
+    }
+
+    .col-picker__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+    }
+
+    .col-picker__item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 80ms ease;
+      min-width: 140px;
+    }
+
+    .col-picker__item:hover {
+      background: var(--color-gray-100);
+    }
+
+    .col-picker__item input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--color-blue-500);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .col-picker__item span {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-800);
+      white-space: nowrap;
+    }
+
+    .col-picker__item.is-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .col-picker__hint {
+      margin-top: 8px;
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-500);
+    }
+
+    /* ── Inline settings bar (visible in locked mode) ── */
+    .module__inline-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--color-gray-50);
+      border-bottom: 1px solid var(--color-gray-300);
+    }
+
+    .module__inline-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid var(--color-gray-400);
+      border-radius: var(--radius-pill);
+      background: var(--color-white);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+      transition: background 100ms ease, border-color 100ms ease;
+    }
+
+    .module__inline-btn:hover {
+      background: var(--color-gray-100);
+      border-color: var(--color-gray-500);
+    }
+
+    .module__inline-btn .material-icons-outlined {
+      font-size: 14px;
+    }
+
+    .module__inline-btn.is-active {
+      background: var(--color-blue-light-5);
+      border-color: var(--color-blue-400);
+      color: var(--color-blue-500);
+    }
+
+    /* ── BN card visibility transition ── */
+    .bn-card[data-bn] {
+      transition: opacity 200ms ease, transform 200ms ease, max-width 300ms ease, margin 300ms ease, padding 300ms ease;
+      max-width: 300px;
+    }
+
+    .bn-card.is-hidden {
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      border: none;
+      pointer-events: none;
+    }
+
+    /* ── Drag ghost (custom) ── */
+    .drag-ghost {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      padding: 8px 16px;
+      background: var(--color-blue-light-5);
+      border: 1px solid var(--color-blue-400);
+      border-radius: 6px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-500);
+      box-shadow: var(--shadow-elevation);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+  <header class="header">
+
+    <!-- Esquerda: botao menu + dropdown de produtos + logo -->
+    <div class="header__left">
+
+      <button class="header__menu-btn" id="menuBtn" aria-label="Abrir menu de produtos" aria-expanded="false" aria-controls="productDropdown">
+        <span class="material-icons-outlined">apps</span>
+      </button>
+
+      <!-- Dropdown de produtos -->
+      <div class="dropdown product-dropdown" id="productDropdown" role="menu">
+        <div class="product-dropdown__header">
+          <span class="product-dropdown__title">Produtos</span>
+        </div>
+        <div class="product-dropdown__list">
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--isa-active">ISA</span>
+            <span class="product-dropdown__item-name">InfoPanel</span>
+          </div>
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--ipa-active">IPA</span>
+            <span class="product-dropdown__item-name">Software de precificacao</span>
+          </div>
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">IPA</span>
+            <span class="product-dropdown__item-name">Simulador de demanda <span class="material-icons-outlined">lock</span></span>
+          </div>
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">ISA</span>
+            <span class="product-dropdown__item-name">Monitoramento PDV <span class="material-icons-outlined">lock</span></span>
+          </div>
+        </div>
+        <div class="dropdown__divider"></div>
+      </div>
+
+      <div class="header__brand">
+        <img class="header__logo" src="assets/logo-principal.svg" alt="InfoPrice" />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificacao</span>
+      </div>
+
+    </div>
+
+    <!-- Direita: ajuda + usuario + dropdown de usuario -->
+    <div class="header__right">
+
+      <button class="header__help-btn" aria-label="Ajuda">
+        <span class="material-icons-outlined">help_outline</span>
+      </button>
+
+      <div class="header__user" id="userBtn" role="button" tabindex="0" aria-label="Menu do usuario" aria-expanded="false" aria-controls="userDropdown">
+        <span class="header__user-name">Ola, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+
+      <!-- Dropdown de usuario -->
+      <div class="dropdown user-dropdown" id="userDropdown" role="menu">
+        <div class="user-dropdown__identity">
+          <span class="user-dropdown__name">Marcus Roggero</span>
+          <span class="user-dropdown__email">marcus@infoprice.co</span>
+        </div>
+        <div class="dropdown__divider"></div>
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">settings</span>
+            <span class="user-dropdown__item-label">Configuracoes</span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">person_add</span>
+            <span class="user-dropdown__item-label">Pessoas <span class="user-dropdown__badge">Convidar</span></span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">help</span>
+            <span class="user-dropdown__item-label">Base de conhecimento</span>
+          </div>
+        </div>
+        <div class="dropdown__divider"></div>
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Termos de uso e servicos</span>
+          </div>
+        </div>
+        <div class="dropdown__divider"></div>
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Sair</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- Sidebar fixa -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__top">
+      <div class="sidebar__item sidebar__item--active">
+        <img src="assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+        <span class="sidebar__tooltip">Gerenciador</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
+        <span class="sidebar__label">Estrategia</span>
+        <span class="sidebar__tooltip">Estrategia</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
+        <span class="sidebar__label">Negociacoes Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+        <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
+        <span class="sidebar__label">Extracao de precos</span>
+        <span class="sidebar__tooltip">Extracao de precos</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+        <span class="sidebar__tooltip">Precifique com IA</span>
+      </div>
+    </div>
+    <div class="sidebar__bottom">
+      <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu">
+        <span class="material-icons-outlined">keyboard_arrow_right</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════════
+       MODULAR CONTENT AREA
+       ══════════════════════════════════════════════════ -->
+  <div class="modular-content" id="modularContent">
+
+    <!-- Toolbar -->
+    <div class="modular-toolbar">
+      <button class="modular-toolbar__btn" id="btnToggleLock" title="Alternar modo de edicao do layout">
+        <span class="material-icons-outlined">drag_indicator</span>
+        <span>Editar layout</span>
+      </button>
+      <button class="modular-toolbar__btn" id="btnResetLayout" title="Restaurar ordem padrao dos modulos">
+        <span class="material-icons-outlined">restart_alt</span>
+        <span>Resetar layout</span>
+      </button>
+    </div>
+
+    <!-- ── Module: Title Bar ── -->
+    <div class="module" data-module="title-bar" draggable="true">
+      <div class="module__header">
+        <span class="material-icons-outlined module__drag-icon">drag_indicator</span>
+        <span class="module__title">Titulo</span>
+        <button class="module__collapse-btn" aria-label="Minimizar modulo">
+          <span class="material-icons-outlined">expand_less</span>
+        </button>
+      </div>
+      <div class="module__body">
+        <section class="title-bar">
+          <div class="title-bar__left">
+            <span class="title-bar__heading">Gerenciador de precos</span>
+            <span class="title-bar__badge">Atualizado em 01/07/2023, 13:42</span>
+          </div>
+          <div class="title-bar__right">
+            <div class="title-btn-wrapper">
+              <button class="title-btn title-btn--fixar" id="fixarBtn" aria-pressed="false">
+                <svg class="title-btn__icon" width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 0H1.16667C0.845833 0 0.583333 0.2625 0.583333 0.583333C0.583333 0.904167 0.845833 1.16667 1.16667 1.16667H1.75V4.08333C1.75 5.05167 0.968333 5.83333 0 5.83333V7H3.4825V11.0833L4.06583 11.6667L4.64917 11.0833V7H8.16667V5.83333C7.19833 5.83333 6.41667 5.05167 6.41667 4.08333V1.16667H7C7.32083 1.16667 7.58333 0.904167 7.58333 0.583333C7.58333 0.2625 7.32083 0 7 0Z" fill="currentColor" />
+                </svg>
+                <span>Fixar</span>
+              </button>
+              <span class="tooltip tooltip--below">Alternar a exibicao do layout fixo</span>
+            </div>
+            <div class="title-btn-wrapper">
+              <button class="title-btn" id="lojaBtn" aria-expanded="false" aria-controls="lojaDropdown">
+                <svg class="title-btn__icon" width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.27096 1.16667H9.43762C9.75846 1.16667 10.021 0.904167 10.021 0.583333C10.021 0.2625 9.75846 0 9.43762 0H1.27096C0.950124 0 0.687624 0.2625 0.687624 0.583333C0.687624 0.904167 0.950124 1.16667 1.27096 1.16667ZM10.1143 2.21667C10.0618 1.94833 9.82262 1.75 9.54262 1.75H1.16596C0.885958 1.75 0.646791 1.94833 0.594291 2.21667L0.0109576 5.13333C-0.0590424 5.495 0.215124 5.83333 0.582624 5.83333H0.687624V8.75C0.687624 9.07083 0.950124 9.33333 1.27096 9.33333H5.93762C6.25846 9.33333 6.52096 9.07083 6.52096 8.75V5.83333H8.85429V8.75C8.85429 9.07083 9.11679 9.33333 9.43762 9.33333C9.75846 9.33333 10.021 9.07083 10.021 8.75V5.83333H10.126C10.4935 5.83333 10.7676 5.495 10.6976 5.13333L10.1143 2.21667ZM5.35429 8.16667H1.85429V5.83333H5.35429V8.16667Z" fill="currentColor" />
+                </svg>
+                <span>Loja</span>
+                <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+              </button>
+              <span class="tooltip tooltip--above">Agrupar por</span>
+              <div class="title-dropdown" id="lojaDropdown" role="menu">
+                <div class="title-dropdown__item" role="menuitem">Loja</div>
+                <div class="title-dropdown__item" role="menuitem">Cluster de lojas</div>
+              </div>
+            </div>
+            <div class="title-btn-wrapper">
+              <button class="title-btn" id="produtoBtn" aria-expanded="false" aria-controls="produtoDropdown">
+                <svg class="title-btn__icon" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.6667 4.66667V0H7.58333V1.75H4.08333V0H0V4.66667H4.08333V2.91667H5.25V8.75H7.58333V10.5H11.6667V5.83333H7.58333V7.58333H6.41667V2.91667H7.58333V4.66667H11.6667Z" fill="currentColor" />
+                </svg>
+                <span>Produto</span>
+                <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+              </button>
+              <span class="tooltip tooltip--below">Precificar por</span>
+              <div class="title-dropdown" id="produtoDropdown" role="menu">
+                <div class="title-dropdown__item" role="menuitem">Produto</div>
+                <div class="title-dropdown__item" role="menuitem">Familia</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ── Module: Big Numbers ── -->
+    <div class="module" data-module="big-numbers" draggable="true">
+      <div class="module__header">
+        <span class="material-icons-outlined module__drag-icon">drag_indicator</span>
+        <span class="module__title">Indicadores (Big Numbers)</span>
+        <button class="module__settings-btn" id="btnBnPicker" aria-label="Configurar indicadores" title="Configurar indicadores visiveis">
+          <span class="material-icons-outlined">tune</span>
+        </button>
+        <button class="module__collapse-btn" aria-label="Minimizar modulo">
+          <span class="material-icons-outlined">expand_less</span>
+        </button>
+      </div>
+      <div class="module__body">
+        <!-- Inline toolbar -->
+        <div class="module__inline-toolbar">
+          <button class="module__inline-btn" id="btnBnPickerInline" title="Configurar indicadores visiveis">
+            <span class="material-icons-outlined">tune</span>
+            <span>Indicadores</span>
+          </button>
+        </div>
+        <!-- Card picker panel -->
+        <div class="col-picker" id="bnPickerPanel">
+          <div class="col-picker__header">
+            <span class="col-picker__title">Indicadores visiveis</span>
+            <div class="col-picker__actions">
+              <button class="col-picker__action" id="bnPickerSelectAll">Selecionar todos</button>
+              <button class="col-picker__action" id="bnPickerReset">Resetar</button>
+            </div>
+          </div>
+          <div class="col-picker__grid" id="bnPickerGrid"></div>
+        </div>
+        <section class="big-numbers">
+          <div class="big-numbers__inner">
+            <div class="big-numbers__cards">
+              <div class="bn-card bn-card--blue" data-bn="total-precos">
+                <div class="bn-card__body">
+                  <div class="bn-card__top"><span class="bn-card__number" data-value="3645">3.645</span></div>
+                  <span class="bn-card__desc">de <b data-value="3645">3.645</b> do<br>total de precos</span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--blue" data-bn="novos-custos">
+                <div class="bn-card__body">
+                  <div class="bn-card__top"><span class="bn-card__number" data-value="236">236</span></div>
+                  <span class="bn-card__desc">de <b data-value="236">236</b> de<br>novos custos</span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--blue" data-bn="precos-sugeridos">
+                <div class="bn-card__body">
+                  <div class="bn-card__top"><span class="bn-card__number" data-value="1269">1.269</span></div>
+                  <span class="bn-card__desc">de <b data-value="1269">1.269</b><br>precos sugeridos</span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--blue" data-bn="precos-aplicados">
+                <div class="bn-card__body">
+                  <div class="bn-card__top"><span class="bn-card__number" data-value="364">364</span></div>
+                  <span class="bn-card__desc">de <b data-value="364">364</b><br>precos aplicados</span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--blue-auto" data-bn="competitividade">
+                <div class="bn-card__body">
+                  <div class="bn-card__top">
+                    <span class="bn-card__number" data-value="101.3">101,3%</span>
+                    <div class="bn-card__variation bn-card__variation--down">
+                      <span class="material-icons-outlined">arrow_downward</span>
+                      <span class="bn-card__variation-val" data-value="-0.4">0,4 %</span>
+                    </div>
+                  </div>
+                  <span class="bn-card__desc">Competitividade projetada,<br>era <b data-value="102.3">102,3 %</b></span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--blue-auto" data-bn="margem-projetada">
+                <div class="bn-card__body">
+                  <div class="bn-card__top">
+                    <span class="bn-card__number" data-value="26.3">26,3%</span>
+                    <div class="bn-card__variation bn-card__variation--up">
+                      <span class="material-icons-outlined">arrow_upward</span>
+                      <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+                    </div>
+                  </div>
+                  <span class="bn-card__desc">Margem projetada,<br>era <b data-value="26.2">26,2 %</b></span>
+                </div>
+              </div>
+              <div class="bn-card bn-card--green" data-bn="estimativa-lucro">
+                <div class="bn-card__body">
+                  <div class="bn-card__top">
+                    <span class="bn-card__number" data-value="392000">+ R$ 392mil</span>
+                    <div class="bn-card__variation bn-card__variation--up">
+                      <span class="material-icons-outlined">arrow_upward</span>
+                      <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+                    </div>
+                  </div>
+                  <span class="bn-card__desc">Estimativa de<br>diferenca no lucro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ── Module: Filtros ── -->
+    <div class="module" data-module="filtros" draggable="true">
+      <div class="module__header">
+        <span class="material-icons-outlined module__drag-icon">drag_indicator</span>
+        <span class="module__title">Filtros</span>
+        <button class="module__collapse-btn" aria-label="Minimizar modulo">
+          <span class="material-icons-outlined">expand_less</span>
+        </button>
+      </div>
+      <div class="module__body">
+        <section class="filtros">
+          <div class="filtros__inner">
+            <div class="filtros__box">
+              <div class="filtros__left">
+                <!-- Linha 1 -->
+                <div class="filtros__row">
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="produtos"><span>Produtos</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-produtos">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos..." /><span class="filtro-dropdown__paste-link">Colar lista de codigos</span></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313 - LINGUICA SEARA 215G FININHA</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314 - SALSICHA PERDIGAO 500G</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125 - ARROZ CAMIL TIPO 1 5KG</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810 - CAFE PILAO 500G TRAD</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>205417 - FEIJAO CARIOCA KICALDO 1KG</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>308912 - LEITE INTEGRAL ITALAC 1L</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>412350 - OLEO SOJA LIZA 900ML</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>509876 - ACUCAR UNIAO 1KG</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="familia"><span>Familia</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-familia">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar familia..." /><span class="filtro-dropdown__paste-link">Colar lista de codigos</span></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="lojas"><span>Lojas</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-lojas">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar lojas..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>1 - Supermercados Nova Uniao</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>2 - Rede BomLar</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>3 - Atacadao Central</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>4 - Mercado Estrela</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>5 - Super Economico</span></label>
+                      </div>
+                      <div class="filtro-dropdown__footer"><label class="filtro-dropdown__item"><input type="checkbox" /><span>Selecionar todos</span></label></div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="cluster"><span>Cluster</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-cluster">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar cluster..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 01</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 02</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="status-preco"><span>Status de preco</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-status-preco">
+                      <div class="filtro-dropdown__list">
+                        <div class="filtro-dropdown__group-header"><span class="filtro-dropdown__group-title">Regular</span><span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span></div>
+                        <div class="filtro-dropdown__group-items">
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                        </div>
+                        <div class="filtro-dropdown__group-header"><span class="filtro-dropdown__group-title">Oferta</span><span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span></div>
+                        <div class="filtro-dropdown__group-items">
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="segmentacao"><span>Segmentacao</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-segmentacao">
+                      <div class="filtro-dropdown__list">
+                        <div class="filtro-dropdown__group-header"><span class="filtro-dropdown__group-title">Sensibilidade InfoPrice</span><span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span></div>
+                        <div class="filtro-dropdown__group-items">
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Super Sensivel</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Sensivel</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Nao Sensivel</span></label>
+                        </div>
+                        <div class="filtro-dropdown__group-header"><span class="filtro-dropdown__group-title">Curva ABC Local</span><span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span></div>
+                        <div class="filtro-dropdown__group-items">
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local A</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local B</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local C</span></label>
+                          <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local D</span></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Linha 2 -->
+                <div class="filtros__row">
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="departamento"><span class="filtro-chip__prefix">01</span><span>Departamento</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-departamento">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar departamento..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>BEBIDAS</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>DROGARIA</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>HIGIENE</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>LIMPEZA</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>MERCEARIA</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>PERECIVEIS</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="secao"><span class="filtro-chip__prefix">02</span><span>Secao</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-secao">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar secao..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>CARNES</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>COMMODITIES</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>LAVAGEM</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="grupo"><span class="filtro-chip__prefix">03</span><span>Grupo</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-grupo">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar grupo..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>BOVINOS</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFE</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>EMBUTIDOS</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="filtro-chip-wrapper">
+                    <button class="filtro-chip" data-filtro="subgrupo"><span class="filtro-chip__prefix">04</span><span>Sub-grupo</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                    <div class="filtro-dropdown" id="filtro-subgrupo">
+                      <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar sub-grupo..." /></div>
+                      <div class="filtro-dropdown__list">
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 1KG</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 5KG</span></label>
+                        <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFE PO 500G</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="filtros__right">
+                <div class="filtro-chip-wrapper">
+                  <button class="filtro-chip filtro-chip--add" data-filtro="mais-filtros"><span>+ Filtros</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                  <div class="filtro-dropdown" id="filtro-mais-filtros">
+                    <div class="filtro-dropdown__list"><label class="filtro-dropdown__item"><input type="checkbox" /><span>Filtro MPDV</span></label></div>
+                  </div>
+                </div>
+                <button class="filtro-chip filtro-chip--clear"><span>Limpar filtros</span></button>
+                <div class="filtro-chip-wrapper">
+                  <button class="filtro-chip filtro-chip--action" data-filtro="filtros-salvos"><span>Filtros salvos</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                  <div class="filtro-dropdown" id="filtro-filtros-salvos">
+                    <div class="filtro-dropdown__search"><span class="material-icons-outlined">search</span><input type="text" class="filtro-dropdown__search-input" placeholder="Buscar filtros salvos..." /></div>
+                    <div class="filtro-dropdown__list"><div class="filtro-dropdown__empty">Nenhum item encontrado</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ── Module: Cabecalho ── -->
+    <div class="module" data-module="cabecalho" draggable="true">
+      <div class="module__header">
+        <span class="material-icons-outlined module__drag-icon">drag_indicator</span>
+        <span class="module__title">Acoes e Resultados</span>
+        <button class="module__collapse-btn" aria-label="Minimizar modulo">
+          <span class="material-icons-outlined">expand_less</span>
+        </button>
+      </div>
+      <div class="module__body">
+        <section class="cabecalho" id="cabecalhoSection">
+          <div class="cabecalho__inner">
+            <span class="cabecalho__info">Foram encontrados <b id="totalResultados">20 resultados</b> no total</span>
+            <div class="cabecalho__buttons">
+              <div class="composed-btn" id="btnCustos">
+                <button class="composed-btn__base"><img src="assets/cabecalho/icon-custos.svg" alt="Custos" /></button>
+                <button class="composed-btn__drop" data-dropdown="dd-custos"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <span class="composed-btn__tooltip">Filtrar custos alterados</span>
+                <div class="composed-dropdown" id="dd-custos">
+                  <span class="composed-dropdown__title">Filtrar custos<br>alterados nos ultimos</span>
+                  <div class="composed-dropdown__row"><input type="number" class="composed-dropdown__input" value="7" min="1" /><span class="composed-dropdown__unit">dias</span></div>
+                </div>
+              </div>
+              <div class="composed-btn" id="btnConcorrentes">
+                <button class="composed-btn__base"><img src="assets/cabecalho/icon-concorrentes.svg" alt="Concorrentes" /></button>
+                <button class="composed-btn__drop" data-dropdown="dd-concorrentes"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <span class="composed-btn__tooltip">Filtrar precos concorrentes</span>
+                <div class="composed-dropdown" id="dd-concorrentes">
+                  <span class="composed-dropdown__title">Filtrar precos concorrentes<br>dos ultimos</span>
+                  <div class="composed-dropdown__row"><input type="number" class="composed-dropdown__input" value="1" min="1" /><span class="composed-dropdown__unit">dias</span></div>
+                </div>
+              </div>
+              <div class="composed-btn" id="btnCompetitividade">
+                <button class="composed-btn__base"><img src="assets/cabecalho/MdEmojiEvents.svg" alt="Competitividade" /></button>
+                <button class="composed-btn__drop" data-dropdown="dd-competitividade"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <span class="composed-btn__tooltip">Filtrar por Competitividade</span>
+                <div class="composed-dropdown" id="dd-competitividade">
+                  <span class="composed-dropdown__title">Filtrar precos com competitividade</span>
+                  <div class="composed-dropdown__row"><span class="composed-dropdown__label">Maior ou igual a</span><input type="text" class="composed-dropdown__input" value="0,0" /><span class="composed-dropdown__unit">%</span></div>
+                </div>
+              </div>
+              <div class="composed-btn" id="btnMargem">
+                <button class="composed-btn__base"><img src="assets/cabecalho/icon-margem.svg" alt="Margem" /></button>
+                <button class="composed-btn__drop" data-dropdown="dd-margem"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <span class="composed-btn__tooltip">Filtrar por Margem</span>
+                <div class="composed-dropdown" id="dd-margem">
+                  <span class="composed-dropdown__title">Filtrar precos com margem</span>
+                  <div class="composed-dropdown__row"><span class="composed-dropdown__label">Maior ou igual a</span><input type="text" class="composed-dropdown__input" value="0,0" /><span class="composed-dropdown__unit">%</span></div>
+                </div>
+              </div>
+              <div class="composed-btn" id="btnLimites">
+                <button class="composed-btn__base"><img src="assets/cabecalho/icon limites.svg" alt="Limites" /></button>
+                <button class="composed-btn__drop" data-dropdown="dd-limites"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <span class="composed-btn__tooltip">Filtrar limites</span>
+                <div class="composed-dropdown" id="dd-limites">
+                  <label class="composed-dropdown__item"><input type="radio" name="limites" /><span>Somente limites nao quebrados</span></label>
+                  <label class="composed-dropdown__item"><input type="radio" name="limites" /><span>Somente limites quebrados</span></label>
+                </div>
+              </div>
+              <div class="composed-btn composed-btn--solo" id="btnDerivados">
+                <button class="composed-btn__base"><img src="assets/cabecalho/icon-derivados.svg" alt="Derivados" /></button>
+                <span class="composed-btn__tooltip">Filtrar produtos derivados</span>
+              </div>
+              <div class="aplicar-btn" id="aplicarPrecoBtn">
+                <button class="aplicar-btn__main">Aplicar preco</button>
+                <button class="aplicar-btn__drop" data-dropdown="dd-aplicar"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                <div class="composed-dropdown composed-dropdown--right" id="dd-aplicar">
+                  <label class="composed-dropdown__item"><input type="radio" name="aplicar" checked /><span>Aplicar preco sugerido</span></label>
+                  <label class="composed-dropdown__item"><input type="radio" name="aplicar" /><span>Aplicar preco vigente</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ── Module: Grid ── -->
+    <div class="module" data-module="grid" draggable="true">
+      <div class="module__header">
+        <span class="material-icons-outlined module__drag-icon">drag_indicator</span>
+        <span class="module__title">Tabela de Precos</span>
+        <button class="module__settings-btn" id="btnColPicker" aria-label="Configurar colunas" title="Configurar colunas visiveis">
+          <span class="material-icons-outlined">view_column</span>
+        </button>
+        <button class="module__collapse-btn" aria-label="Minimizar modulo">
+          <span class="material-icons-outlined">expand_less</span>
+        </button>
+      </div>
+      <div class="module__body">
+        <!-- Inline toolbar (always visible) -->
+        <div class="module__inline-toolbar">
+          <button class="module__inline-btn" id="btnColPickerInline" title="Configurar colunas visiveis">
+            <span class="material-icons-outlined">view_column</span>
+            <span>Colunas</span>
+          </button>
+        </div>
+        <!-- Column picker panel -->
+        <div class="col-picker" id="colPickerPanel">
+          <div class="col-picker__header">
+            <span class="col-picker__title">Colunas visiveis</span>
+            <div class="col-picker__actions">
+              <button class="col-picker__action" id="colPickerSelectAll">Selecionar todas</button>
+              <button class="col-picker__action" id="colPickerReset">Resetar</button>
+            </div>
+          </div>
+          <div class="col-picker__grid" id="colPickerGrid">
+            <!-- populated by JS -->
+          </div>
+          <div class="col-picker__hint">Produto e Menu sao colunas fixas e nao podem ser ocultadas.</div>
+        </div>
+        <section class="grid" id="gridSection">
+          <div class="grid__wrapper">
+            <table class="grid__table">
+              <colgroup>
+                <col style="width:40px">
+                <col>
+                <col style="width:70px">
+                <col style="width:108px">
+                <col style="width:90px">
+                <col style="width:80px">
+                <col style="width:50px">
+                <col style="width:110px">
+                <col style="width:120px">
+                <col style="width:104px">
+                <col style="width:108px">
+                <col style="width:108px">
+                <col style="width:108px">
+                <col style="width:100px">
+                <col style="width:50px">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th style="padding:0 8px"><input type="checkbox" class="grid__check" id="gridCheckAll" /></th>
+                  <th>
+                    <div class="grid__th-content">
+                      <span>Produto</span>
+                      <button class="grid__pref-btn" data-pref="produto"><img src="assets/grid/preferences.svg" alt="" /></button>
+                      <div class="grid__pref-dropdown" id="pref-produto">
+                        <div class="grid__pref-dropdown__title">Ordenar por</div>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="codigo" /> Codigo do produto</label>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="descricao" /> Descricao do produto</label>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="familia" /> Codigo da familia</label>
+                      </div>
+                      <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+                    </div>
+                  </th>
+                  <th><div class="grid__th-content"><span>Loja</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>Estoque</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>PMZ e<br>custos</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>Margem<br>Objetiva</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>Emb...</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>PMC</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>Preco<br>vigente</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th><div class="grid__th-content"><span>Preco<br>concorrente</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th>
+                    <div class="grid__th-content">
+                      <span>Preco sugerido</span>
+                      <button class="grid__pref-btn" data-pref="preco-sugerido"><img src="assets/grid/preferences.svg" alt="" /></button>
+                      <div class="grid__pref-dropdown" id="pref-preco-sugerido">
+                        <div class="grid__pref-dropdown__title">Ordenar por</div>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-preco-sugerido" value="preco" /> Preco sugerido</label>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-preco-sugerido" value="variacao" /> Variacao de preco</label>
+                      </div>
+                      <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="grid__th-content">
+                      <span>CPI</span>
+                      <button class="grid__pref-btn" data-pref="cpi"><img src="assets/grid/preferences.svg" alt="" /></button>
+                      <div class="grid__pref-dropdown" id="pref-cpi">
+                        <div class="grid__pref-dropdown__title">Ordenar por</div>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-cpi" value="nova-comp" /> Nova competitividade</label>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-cpi" value="var-comp" /> Variacao de competitividade</label>
+                      </div>
+                      <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="grid__th-content">
+                      <span>Margem</span>
+                      <button class="grid__pref-btn" data-pref="margem"><img src="assets/grid/preferences.svg" alt="" /></button>
+                      <div class="grid__pref-dropdown" id="pref-margem">
+                        <div class="grid__pref-dropdown__title">Ordenar por</div>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-margem" value="nova-margem" /> Nova margem</label>
+                        <label class="grid__pref-dropdown__item"><input type="radio" name="pref-margem" value="var-margem" /> Variacao de margem</label>
+                      </div>
+                      <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+                    </div>
+                  </th>
+                  <th><div class="grid__th-content"><span>Previsao</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="gridBody"></tbody>
+            </table>
+            <div class="grid__pagination">
+              <div class="grid__pagination-left">
+                <span class="grid__pagination-val">20</span>
+                <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
+                <span class="grid__pagination-label">/ pagina</span>
+                <span class="grid__pagination-sep"></span>
+                <span class="grid__pagination-label">total: 20</span>
+              </div>
+              <div class="grid__pagination-right">
+                <div class="grid__pagination-nav" style="display:flex">
+                  <span class="material-icons-outlined">first_page</span>
+                  <span class="material-icons-outlined">chevron_left</span>
+                </div>
+                <div id="gridPaginationPages" style="display:flex">
+                  <button class="grid__pagination-btn is-active" data-page="1">1</button>
+                  <button class="grid__pagination-btn" data-page="2">2</button>
+                  <button class="grid__pagination-btn" data-page="3">3</button>
+                  <button class="grid__pagination-btn" data-page="...">...</button>
+                  <button class="grid__pagination-btn" data-page="9999">9999</button>
+                </div>
+                <div class="grid__pagination-nav" style="display:flex">
+                  <span class="material-icons-outlined">chevron_right</span>
+                  <span class="material-icons-outlined">last_page</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+  </div><!-- /modular-content -->
+
+  <script>
+    // ═══════════════════════════════════════════════════
+    // HEADER DROPDOWNS
+    // ═══════════════════════════════════════════════════
+    const overlay = document.getElementById('dropdownOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const productDropdown = document.getElementById('productDropdown');
+    const userBtn = document.getElementById('userBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    const fixarBtn = document.getElementById('fixarBtn');
+    const lojaBtn = document.getElementById('lojaBtn');
+    const lojaDropdown = document.getElementById('lojaDropdown');
+    const produtoBtn = document.getElementById('produtoBtn');
+    const produtoDropdown = document.getElementById('produtoDropdown');
+
+    let activeFiltroChip = null;
+
+    function closeFiltros() {
+      document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      document.querySelectorAll('.filtro-chip.is-open').forEach(c => c.classList.remove('is-open'));
+      activeFiltroChip = null;
+    }
+
+    function closeAll() {
+      [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
+      menuBtn.setAttribute('aria-expanded', 'false');
+      userBtn.setAttribute('aria-expanded', 'false');
+      lojaBtn.setAttribute('aria-expanded', 'false');
+      produtoBtn.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('is-open');
+      closeFiltros();
+      closeGridPrefDropdowns();
+      closeComposedDropdowns();
+    }
+
+    function toggle(dropdown, trigger) {
+      const isOpen = dropdown.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        dropdown.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        overlay.classList.add('is-open');
+      }
+    }
+
+    menuBtn.addEventListener('click', () => toggle(productDropdown, menuBtn));
+    userBtn.addEventListener('click', () => toggle(userDropdown, userBtn));
+    userBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(userDropdown, userBtn); }
+    });
+
+    fixarBtn.addEventListener('click', () => {
+      const isActive = fixarBtn.classList.toggle('is-active');
+      fixarBtn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    lojaBtn.addEventListener('click', () => toggle(lojaDropdown, lojaBtn));
+    produtoBtn.addEventListener('click', () => toggle(produtoDropdown, produtoBtn));
+
+    document.querySelectorAll('.title-dropdown__item, .product-dropdown__item:not(.product-dropdown__item--disabled), .user-dropdown__item').forEach(item => {
+      item.addEventListener('click', closeAll);
+    });
+
+    overlay.addEventListener('click', closeAll);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+    // ═══════════════════════════════════════════════════
+    // SIDEBAR
+    // ═══════════════════════════════════════════════════
+    const sidebar = document.getElementById('sidebar');
+    const sidebarSeta = document.getElementById('sidebarSeta');
+    const modularContent = document.getElementById('modularContent');
+
+    sidebarSeta.addEventListener('click', () => {
+      const expanded = sidebar.classList.toggle('is-expanded');
+      sidebarSeta.classList.toggle('is-flipped');
+      modularContent.style.left = expanded ? '220px' : '52px';
+    });
+
+    // ═══════════════════════════════════════════════════
+    // FILTROS
+    // ═══════════════════════════════════════════════════
+    document.querySelectorAll('.filtro-chip[data-filtro]').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const filtroId = chip.getAttribute('data-filtro');
+        const dropdown = document.getElementById('filtro-' + filtroId);
+        const wasOpen = dropdown.classList.contains('is-open');
+
+        [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
+        menuBtn.setAttribute('aria-expanded', 'false');
+        userBtn.setAttribute('aria-expanded', 'false');
+        lojaBtn.setAttribute('aria-expanded', 'false');
+        produtoBtn.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('is-open');
+        closeFiltros();
+
+        if (!wasOpen) {
+          dropdown.classList.add('is-open');
+          chip.classList.add('is-open');
+          activeFiltroChip = chip;
+          const searchInput = dropdown.querySelector('.filtro-dropdown__search-input');
+          if (searchInput) setTimeout(() => searchInput.focus(), 50);
+        }
+      });
+    });
+
+    document.querySelectorAll('.filtro-dropdown__search-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const query = input.value.toLowerCase();
+        const list = input.closest('.filtro-dropdown').querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('.filtro-dropdown__item').forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(query) ? '' : 'none';
+        });
+      });
+      input.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    document.querySelectorAll('.filtro-dropdown__group-header').forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.stopPropagation();
+        header.classList.toggle('is-collapsed');
+      });
+    });
+
+    document.querySelectorAll('.filtro-dropdown__footer .filtro-dropdown__item input[type="checkbox"]').forEach(selectAllCb => {
+      selectAllCb.addEventListener('change', () => {
+        const dropdown = selectAllCb.closest('.filtro-dropdown');
+        const list = dropdown.querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = selectAllCb.checked; });
+      });
+    });
+
+    document.querySelector('.filtro-chip--clear').addEventListener('click', () => {
+      document.querySelectorAll('.filtro-dropdown input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (activeFiltroChip && !e.target.closest('.filtro-chip-wrapper')) closeFiltros();
+    });
+
+    document.querySelectorAll('.filtro-dropdown').forEach(dd => {
+      dd.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ═══════════════════════════════════════════════════
+    // CABECALHO — COMPOSED BUTTONS
+    // ═══════════════════════════════════════════════════
+    let activeComposedDropdown = null;
+    function closeComposedDropdowns() {
+      document.querySelectorAll('.composed-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      activeComposedDropdown = null;
+    }
+
+    document.querySelectorAll('.composed-btn__drop[data-dropdown]').forEach(drop => {
+      drop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const btn = drop.closest('.composed-btn');
+        const ddId = drop.getAttribute('data-dropdown');
+        const dd = document.getElementById(ddId);
+        const wasOpen = dd.classList.contains('is-open');
+        closeComposedDropdowns();
+        closeFiltros();
+        btn.classList.add('is-selected');
+        if (!wasOpen) { dd.classList.add('is-open'); activeComposedDropdown = dd; }
+      });
+    });
+
+    document.querySelectorAll('.composed-btn__base').forEach(base => {
+      base.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const btn = base.closest('.composed-btn');
+        closeComposedDropdowns();
+        btn.classList.toggle('is-selected');
+      });
+    });
+
+    document.querySelector('.aplicar-btn__drop[data-dropdown]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const ddId = e.currentTarget.getAttribute('data-dropdown');
+      const dd = document.getElementById(ddId);
+      const wasOpen = dd.classList.contains('is-open');
+      closeComposedDropdowns();
+      if (!wasOpen) { dd.classList.add('is-open'); activeComposedDropdown = dd; }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (activeComposedDropdown && !e.target.closest('.composed-btn') && !e.target.closest('.aplicar-btn') && !e.target.closest('.composed-dropdown')) {
+        closeComposedDropdowns();
+      }
+    });
+
+    document.querySelectorAll('.composed-dropdown').forEach(dd => {
+      dd.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ═══════════════════════════════════════════════════
+    // GRID — DATA GENERATION
+    // ═══════════════════════════════════════════════════
+    (function () {
+      const tbody = document.getElementById('gridBody');
+      const nomes = [
+        'SABAO PO BRILHANTE 1,6KG LIMP TOTAL', 'SABAO PO BRILHANTE 800G LIMP TOTAL',
+        'DETERGENTE LIQ YPE 500ML', 'DETERGENTE LIQ YPE 1L COCO',
+        'AMACIANTE COMFORT 2L EXPLOSAO', 'AMACIANTE COMFORT 500ML PURO',
+        'LIMPADOR VEJA MULTIUSO 500ML', 'LIMPADOR VEJA VIDREX 500ML',
+        'DESINFETANTE PINHO SOL 1L', 'DESINFETANTE PINHO SOL 500ML LAV',
+        'ESPONJA SCOTCH-BRITE MULTIUSO', 'ESPONJA SCOTCH-BRITE ANTI ADERENTE',
+        'ALVEJANTE VANISH 450G MULTIACAO', 'ALVEJANTE VANISH LIQ 500ML',
+        'SABAO LIQ OMO 3L LAVAGEM PERF', 'SABAO LIQ OMO 1L SPORT',
+        'AGUA SANITARIA QBOA 1L', 'AGUA SANITARIA QBOA 2L LAVANDA',
+        'LAVA-ROUPAS ARIEL 2KG DOWNY', 'LAVA-ROUPAS ARIEL 1KG ANTIBACT'
+      ];
+      const codigos = ['10007','10012','10045','10078','10102','10115','10200','10215','10300','10312','10400','10412','10500','10512','10600','10612','10700','10712','10800','10812'];
+      const familias = ['1268','1268','2310','2310','3450','3450','4120','4120','5600','5600','6780','6780','7890','7890','8100','8100','9200','9200','1050','1050'];
+      const chipsData = [
+        ['super sensivel','GLOBAL A','LOCAL B','RELEVANCIA'],['GLOBAL A','LOCAL A'],
+        ['super sensivel','LOCAL B','RELEVANCIA'],['GLOBAL B'],
+        ['super sensivel','LOCAL A','RELEVANCIA'],['GLOBAL A'],
+        ['LOCAL B'],['super sensivel','GLOBAL A','RELEVANCIA'],
+        ['LOCAL A'],['GLOBAL B','LOCAL B'],
+        ['super sensivel','RELEVANCIA'],['GLOBAL A'],
+        ['super sensivel','GLOBAL A','LOCAL A'],['LOCAL B'],
+        ['super sensivel','GLOBAL A','RELEVANCIA'],['LOCAL A'],
+        ['GLOBAL B'],['super sensivel','LOCAL B','RELEVANCIA'],
+        ['GLOBAL A','LOCAL A'],['super sensivel','RELEVANCIA']
+      ];
+
+      function rn(min, max, d) { return (Math.random() * (max - min) + min).toFixed(d === undefined ? 2 : d); }
+      function brl(v) { return 'R$ ' + parseFloat(v).toFixed(2).replace('.', ','); }
+
+      for (var i = 0; i < 20; i++) {
+        var chips = '';
+        chipsData[i].forEach(function (c) {
+          if (c === 'super sensivel') chips += '<span class="grid__chip grid__chip--red">super sensivel</span>';
+          else chips += '<span class="grid__chip grid__chip--gray">' + c + '</span>';
+        });
+
+        var loja = Math.ceil(Math.random() * 30);
+        var estUn = Math.floor(Math.random() * 80 + 10);
+        var estDias = Math.floor(Math.random() * 25 + 5);
+        var pmz = rn(1.5, 5);
+        var mo = rn(12, 28, 1);
+        var emb = Math.ceil(Math.random() * 3);
+        var pmc = rn(1.5, 6);
+        var pmcPct = rn(8, 16, 1);
+        var pv = rn(2, 7);
+        var pvMargem = rn(10, 25, 1);
+        var pvComp = rn(90, 115, 1);
+        var pc = rn(2, 8);
+        var ps = rn(2, 7);
+        var psVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.1, 5, 1);
+        var cpiVal = rn(80, 120, 1);
+        var cpiVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.5, 5, 1);
+        var margemVal = rn(15, 30, 1);
+        var margemVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.5, 4, 1);
+
+        var isDown = psVar.trim().charAt(0) === '-';
+        var isCpiDown = cpiVar.trim().charAt(0) === '-';
+        var isMargemDown = margemVar.trim().charAt(0) === '-';
+        var psFormatted = parseFloat(ps).toFixed(2).replace('.', ',');
+
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td style="padding:0 8px"><input type="checkbox" class="grid__check" /></td>' +
+          '<td><div class="grid__cell"><div class="grid__produto-codes"><span class="grid__produto-code">' + codigos[i] + '</span><div class="grid__produto-family"><img src="assets/grid/cod familia.svg" alt=""><span>' + familias[i] + '</span></div></div><div class="grid__produto-name">' + nomes[i] + '</div><div class="grid__produto-chips">' + chips + '</div></div></td>' +
+          '<td>' + loja + '</td>' +
+          '<td><div class="grid__cell"><div class="grid__estoque-line1"><img src="assets/grid/unidades.svg" alt=""><span class="grid__val-main">' + estUn + '</span></div><div class="grid__estoque-line2"><span class="grid__estoque-days">' + estDias + 'd</span><span class="grid__estoque-date">10/02/2025</span></div></div></td>' +
+          '<td>' + brl(pmz) + '</td>' +
+          '<td><div class="grid__cell"><div class="grid__mo-line1"><img src="assets/grid/icon-margem.svg" alt=""><span class="grid__val-main">' + mo + '%</span></div></div></td>' +
+          '<td><div class="grid__cell"><span class="grid__val-main">' + emb + '</span><span class="grid__val-sub" style="text-transform:lowercase">un</span></div></td>' +
+          '<td><div class="grid__cell"><span class="grid__val-main">' + brl(pmc) + '</span><div class="grid__pmc-line2"><span class="grid__pmc-chip">' + pmcPct + '%</span><span class="grid__pmc-date">10/03/23</span></div></div></td>' +
+          '<td><div class="grid__cell"><span class="grid__val-main">' + brl(pv) + '</span><div class="grid__pv-line2"><div class="grid__pv-indicator"><img src="assets/grid/Cifra-precovigente.svg" alt=""><span>' + pvMargem + '%</span></div><div class="grid__pv-sep"></div><div class="grid__pv-indicator"><img src="assets/grid/trofeu-precovigente.svg" alt=""><span>' + pvComp + '%</span></div></div></div></td>' +
+          '<td><div class="grid__cell"><div class="grid__pc-row"><span class="grid__val-main">' + brl(pc) + '</span><span class="grid__pc-avg">x&#772;</span></div><div class="grid__pc-link"><span class="material-icons-outlined">expand_more</span><span>Abrir</span></div></div></td>' +
+          '<td><div class="grid__cell"><div class="grid__form-field grid__form-field--blue"><span class="grid__form-prefix">R$</span><input type="text" class="grid__form-input grid__ps-input" value="' + psFormatted + '" data-original="' + psFormatted + '" /></div><div class="grid__input-sub"><span class="grid__var ' + (isDown ? 'grid__var--down' : 'grid__var--up') + '">' + psVar + '%</span><span class="grid__badge-pill grid__badge-pill--auto grid__ps-status">auto</span></div></div></td>' +
+          '<td><div class="grid__cell"><div class="grid__form-field"><input type="text" class="grid__form-input" value="' + cpiVal + '" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div><div class="grid__input-sub"><span class="grid__var ' + (isCpiDown ? 'grid__var--down' : 'grid__var--up') + '">' + cpiVar + '%</span></div></div></td>' +
+          '<td><div class="grid__cell"><div class="grid__form-field"><input type="text" class="grid__form-input" value="' + margemVal + '" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div><div class="grid__input-sub"><span class="grid__var ' + (isMargemDown ? 'grid__var--down' : 'grid__var--up') + '">' + margemVar + '%</span></div></div></td>' +
+          '<td><div class="grid__cell"><button class="grid__calcular-btn grid__calc-btn">Calcular</button></div></td>' +
+          '<td style="padding:0"><div class="grid__menu-col"><button class="grid__menu-btn">2</button><button class="grid__menu-btn">3</button></div></td>';
+        tbody.appendChild(tr);
+      }
+    })();
+
+    // ═══════════════════════════════════════════════════
+    // GRID — INTERACTIONS
+    // ═══════════════════════════════════════════════════
+    document.getElementById('gridCheckAll').addEventListener('change', function () {
+      document.querySelectorAll('#gridBody input[type="checkbox"]').forEach(cb => { cb.checked = this.checked; });
+    });
+
+    document.querySelectorAll('.grid__sort-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var cur = btn.dataset.sort;
+        var next = cur === 'double' ? 'down' : cur === 'down' ? 'up' : 'double';
+        btn.dataset.sort = next;
+        btn.querySelector('img').src = 'assets/grid/' + next + '.svg';
+      });
+    });
+
+    function closeGridPrefDropdowns() {
+      document.querySelectorAll('.grid__pref-dropdown').forEach(dd => dd.classList.remove('is-open'));
+    }
+
+    document.querySelectorAll('.grid__pref-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var dd = btn.nextElementSibling;
+        if (!dd || !dd.classList.contains('grid__pref-dropdown')) return;
+        var wasOpen = dd.classList.contains('is-open');
+        closeGridPrefDropdowns();
+        closeComposedDropdowns();
+        if (!wasOpen) dd.classList.add('is-open');
+      });
+    });
+
+    document.addEventListener('click', function () { closeGridPrefDropdowns(); });
+
+    document.querySelectorAll('.grid__ps-input').forEach(input => {
+      input.addEventListener('input', function () {
+        var status = this.closest('tr').querySelector('.grid__ps-status');
+        if (!status) return;
+        if (this.value !== this.dataset.original) {
+          status.textContent = 'editado';
+          status.className = 'grid__badge-pill grid__badge-pill--editado grid__ps-status';
+        } else {
+          status.textContent = 'auto';
+          status.className = 'grid__badge-pill grid__badge-pill--auto grid__ps-status';
+        }
+      });
+    });
+
+    document.querySelectorAll('.grid__calc-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        var val = (Math.random() * 800000 + 100000).toFixed(2);
+        var formatted = 'R$ ' + parseInt(val).toLocaleString('pt-BR') + ',' + val.split('.')[1];
+        this.replaceWith(Object.assign(document.createElement('span'), { className: 'grid__val-main', textContent: formatted }));
+      });
+    });
+
+    document.querySelectorAll('.grid__menu-btn').forEach(btn => {
+      btn.addEventListener('click', function () { this.classList.toggle('is-active'); });
+    });
+
+    document.querySelectorAll('#gridPaginationPages .grid__pagination-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        if (this.dataset.page === '...') return;
+        document.querySelectorAll('#gridPaginationPages .grid__pagination-btn').forEach(b => b.classList.remove('is-active'));
+        this.classList.add('is-active');
+      });
+    });
+
+    // ═══════════════════════════════════════════════════
+    // MODULAR DRAG & DROP
+    // ═══════════════════════════════════════════════════
+    (function () {
+      const container = document.getElementById('modularContent');
+      const STORAGE_KEY = 'ipa-modular-layout';
+      const DEFAULT_ORDER = ['title-bar', 'big-numbers', 'filtros', 'cabecalho', 'grid'];
+
+      let draggedModule = null;
+
+      // ── Collapse toggle ──
+      document.querySelectorAll('.module__collapse-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          btn.closest('.module').classList.toggle('is-collapsed');
+          saveLayout();
+        });
+      });
+
+      // ── Lock/Unlock toggle ──
+      const lockBtn = document.getElementById('btnToggleLock');
+      let isLocked = true;
+      container.classList.add('is-locked');
+
+      lockBtn.addEventListener('click', () => {
+        isLocked = !isLocked;
+        container.classList.toggle('is-locked', isLocked);
+        lockBtn.classList.toggle('modular-toolbar__btn--active', !isLocked);
+        lockBtn.querySelector('span:last-child').textContent = isLocked ? 'Editar layout' : 'Bloquear layout';
+
+        // Toggle draggable
+        container.querySelectorAll('.module').forEach(m => {
+          m.setAttribute('draggable', String(!isLocked));
+        });
+      });
+
+      // ── Reset layout ──
+      document.getElementById('btnResetLayout').addEventListener('click', () => {
+        localStorage.removeItem(STORAGE_KEY);
+        applyOrder(DEFAULT_ORDER);
+        container.querySelectorAll('.module.is-collapsed').forEach(m => m.classList.remove('is-collapsed'));
+      });
+
+      // ── Drag start ──
+      container.addEventListener('dragstart', (e) => {
+        const module = e.target.closest('.module');
+        if (!module || isLocked) { e.preventDefault(); return; }
+
+        draggedModule = module;
+        module.classList.add('is-dragging');
+
+        // Custom drag image
+        const ghost = document.createElement('div');
+        ghost.className = 'drag-ghost';
+        ghost.textContent = module.querySelector('.module__title').textContent;
+        document.body.appendChild(ghost);
+        e.dataTransfer.setDragImage(ghost, 0, 0);
+        setTimeout(() => ghost.remove(), 0);
+
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', module.dataset.module);
+      });
+
+      // ── Drag over ──
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+
+        const target = e.target.closest('.module');
+        if (!target || target === draggedModule) return;
+
+        // Clear all indicators
+        container.querySelectorAll('.module').forEach(m => {
+          m.classList.remove('drag-over-above', 'drag-over-below');
+        });
+
+        // Determine if above or below center
+        const rect = target.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+
+        if (e.clientY < midY) {
+          target.classList.add('drag-over-above');
+        } else {
+          target.classList.add('drag-over-below');
+        }
+      });
+
+      // ── Drag leave ──
+      container.addEventListener('dragleave', (e) => {
+        const target = e.target.closest('.module');
+        if (target) {
+          target.classList.remove('drag-over-above', 'drag-over-below');
+        }
+      });
+
+      // ── Drop ──
+      container.addEventListener('drop', (e) => {
+        e.preventDefault();
+
+        const target = e.target.closest('.module');
+        if (!target || !draggedModule || target === draggedModule) return;
+
+        const rect = target.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        const insertBefore = e.clientY < midY;
+
+        if (insertBefore) {
+          container.insertBefore(draggedModule, target);
+        } else {
+          container.insertBefore(draggedModule, target.nextElementSibling);
+        }
+
+        // Clear indicators
+        container.querySelectorAll('.module').forEach(m => {
+          m.classList.remove('drag-over-above', 'drag-over-below');
+        });
+
+        saveLayout();
+      });
+
+      // ── Drag end ──
+      container.addEventListener('dragend', () => {
+        if (draggedModule) {
+          draggedModule.classList.remove('is-dragging');
+          draggedModule = null;
+        }
+        container.querySelectorAll('.module').forEach(m => {
+          m.classList.remove('drag-over-above', 'drag-over-below');
+        });
+      });
+
+      // ── Save layout to localStorage ──
+      function saveLayout() {
+        const order = [];
+        const collapsed = [];
+        container.querySelectorAll('.module').forEach(m => {
+          order.push(m.dataset.module);
+          if (m.classList.contains('is-collapsed')) collapsed.push(m.dataset.module);
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ order, collapsed }));
+      }
+
+      // ── Apply order from array ──
+      function applyOrder(order) {
+        const toolbar = container.querySelector('.modular-toolbar');
+        order.forEach(id => {
+          const module = container.querySelector('[data-module="' + id + '"]');
+          if (module) container.appendChild(module);
+        });
+        // Keep toolbar at the top
+        container.insertBefore(toolbar, container.firstChild);
+      }
+
+      // ── Load saved layout ──
+      function loadLayout() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        try {
+          const data = JSON.parse(saved);
+          if (data.order) applyOrder(data.order);
+          if (data.collapsed) {
+            data.collapsed.forEach(id => {
+              const module = container.querySelector('[data-module="' + id + '"]');
+              if (module) module.classList.add('is-collapsed');
+            });
+          }
+        } catch (e) { /* ignore corrupt data */ }
+      }
+
+      // Init: locked by default, load saved layout
+      container.querySelectorAll('.module').forEach(m => m.setAttribute('draggable', 'false'));
+      loadLayout();
+    })();
+
+    // ═══════════════════════════════════════════════════
+    // BIG NUMBERS PICKER
+    // ═══════════════════════════════════════════════════
+    (function () {
+      const BN_STORAGE_KEY = 'ipa-modular-bncards';
+      const panel = document.getElementById('bnPickerPanel');
+      const grid = document.getElementById('bnPickerGrid');
+      const toggleBtn = document.getElementById('btnBnPicker');
+      const inlineBtn = document.getElementById('btnBnPickerInline');
+
+      const BN_CARDS = [
+        { id: 'total-precos',     name: 'Total de precos' },
+        { id: 'novos-custos',     name: 'Novos custos' },
+        { id: 'precos-sugeridos', name: 'Precos sugeridos' },
+        { id: 'precos-aplicados', name: 'Precos aplicados' },
+        { id: 'competitividade',  name: 'Competitividade projetada' },
+        { id: 'margem-projetada', name: 'Margem projetada' },
+        { id: 'estimativa-lucro', name: 'Estimativa de lucro' }
+      ];
+
+      let visibleCards = BN_CARDS.map(c => c.id);
+
+      function buildPicker() {
+        grid.innerHTML = '';
+        BN_CARDS.forEach(card => {
+          const label = document.createElement('label');
+          label.className = 'col-picker__item';
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.checked = visibleCards.includes(card.id);
+          cb.dataset.bnId = card.id;
+          cb.addEventListener('change', () => {
+            if (cb.checked) {
+              if (!visibleCards.includes(card.id)) visibleCards.push(card.id);
+            } else {
+              visibleCards = visibleCards.filter(i => i !== card.id);
+            }
+            applyVisibility();
+            saveState();
+          });
+          const span = document.createElement('span');
+          span.textContent = card.name;
+          label.appendChild(cb);
+          label.appendChild(span);
+          grid.appendChild(label);
+        });
+      }
+
+      function applyVisibility() {
+        document.querySelectorAll('.bn-card[data-bn]').forEach(card => {
+          const id = card.dataset.bn;
+          card.classList.toggle('is-hidden', !visibleCards.includes(id));
+        });
+      }
+
+      function togglePanel(e) {
+        e.stopPropagation();
+        const isOpen = panel.classList.toggle('is-open');
+        toggleBtn.classList.toggle('is-active', isOpen);
+        inlineBtn.classList.toggle('is-active', isOpen);
+      }
+
+      toggleBtn.addEventListener('click', togglePanel);
+      inlineBtn.addEventListener('click', togglePanel);
+
+      document.getElementById('bnPickerSelectAll').addEventListener('click', () => {
+        visibleCards = BN_CARDS.map(c => c.id);
+        grid.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = true; });
+        applyVisibility();
+        saveState();
+      });
+
+      document.getElementById('bnPickerReset').addEventListener('click', () => {
+        visibleCards = BN_CARDS.map(c => c.id);
+        grid.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = true; });
+        applyVisibility();
+        saveState();
+        localStorage.removeItem(BN_STORAGE_KEY);
+      });
+
+      function saveState() {
+        localStorage.setItem(BN_STORAGE_KEY, JSON.stringify(visibleCards));
+      }
+
+      function loadState() {
+        const saved = localStorage.getItem(BN_STORAGE_KEY);
+        if (!saved) return;
+        try {
+          const data = JSON.parse(saved);
+          if (Array.isArray(data)) visibleCards = data;
+        } catch (e) { /* ignore */ }
+      }
+
+      loadState();
+      buildPicker();
+      applyVisibility();
+    })();
+
+    // ═══════════════════════════════════════════════════
+    // COLUMN PICKER
+    // ═══════════════════════════════════════════════════
+    (function () {
+      const COL_STORAGE_KEY = 'ipa-modular-columns';
+      const panel = document.getElementById('colPickerPanel');
+      const grid = document.getElementById('colPickerGrid');
+      const toggleBtn = document.getElementById('btnColPicker');
+      const table = document.querySelector('.grid__table');
+
+      // Column definitions: index, name, fixed (can't hide)
+      const COLUMNS = [
+        { idx: 0,  name: 'Checkbox',          fixed: true },
+        { idx: 1,  name: 'Produto',            fixed: true },
+        { idx: 2,  name: 'Loja',               fixed: false },
+        { idx: 3,  name: 'Estoque',            fixed: false },
+        { idx: 4,  name: 'PMZ e custos',       fixed: false },
+        { idx: 5,  name: 'Margem Objetiva',    fixed: false },
+        { idx: 6,  name: 'Embalagem',          fixed: false },
+        { idx: 7,  name: 'PMC',                fixed: false },
+        { idx: 8,  name: 'Preco vigente',      fixed: false },
+        { idx: 9,  name: 'Preco concorrente',  fixed: false },
+        { idx: 10, name: 'Preco sugerido',     fixed: false },
+        { idx: 11, name: 'CPI',                fixed: false },
+        { idx: 12, name: 'Margem',             fixed: false },
+        { idx: 13, name: 'Previsao',           fixed: false },
+        { idx: 14, name: 'Menu',               fixed: true }
+      ];
+
+      // Default: all visible
+      let visibleCols = COLUMNS.map(c => c.idx);
+
+      // ── Build picker UI ──
+      function buildPicker() {
+        grid.innerHTML = '';
+        COLUMNS.forEach(col => {
+          if (col.fixed) return; // don't show fixed columns in picker
+          const label = document.createElement('label');
+          label.className = 'col-picker__item';
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.checked = visibleCols.includes(col.idx);
+          cb.dataset.colIdx = col.idx;
+          cb.addEventListener('change', () => {
+            if (cb.checked) {
+              if (!visibleCols.includes(col.idx)) visibleCols.push(col.idx);
+            } else {
+              visibleCols = visibleCols.filter(i => i !== col.idx);
+            }
+            applyColumnVisibility();
+            saveColumns();
+          });
+          const span = document.createElement('span');
+          span.textContent = col.name;
+          label.appendChild(cb);
+          label.appendChild(span);
+          grid.appendChild(label);
+        });
+      }
+
+      // ── Apply visibility to table ──
+      function applyColumnVisibility() {
+        const cols = table.querySelectorAll('colgroup col');
+        const headerCells = table.querySelectorAll('thead th');
+        const rows = table.querySelectorAll('tbody tr');
+
+        COLUMNS.forEach(col => {
+          const visible = visibleCols.includes(col.idx);
+          const display = visible ? '' : 'none';
+
+          // Col
+          if (cols[col.idx]) cols[col.idx].style.display = display;
+          // Header
+          if (headerCells[col.idx]) headerCells[col.idx].style.display = display;
+          // Body cells
+          rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells[col.idx]) cells[col.idx].style.display = display;
+          });
+        });
+      }
+
+      // ── Toggle panel ──
+      const inlineBtn = document.getElementById('btnColPickerInline');
+
+      function toggleColPicker(e) {
+        e.stopPropagation();
+        const isOpen = panel.classList.toggle('is-open');
+        toggleBtn.classList.toggle('is-active', isOpen);
+        inlineBtn.classList.toggle('is-active', isOpen);
+      }
+
+      toggleBtn.addEventListener('click', toggleColPicker);
+      inlineBtn.addEventListener('click', toggleColPicker);
+
+      // ── Select all ──
+      document.getElementById('colPickerSelectAll').addEventListener('click', () => {
+        visibleCols = COLUMNS.map(c => c.idx);
+        grid.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = true; });
+        applyColumnVisibility();
+        saveColumns();
+      });
+
+      // ── Reset ──
+      document.getElementById('colPickerReset').addEventListener('click', () => {
+        visibleCols = COLUMNS.map(c => c.idx);
+        grid.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = true; });
+        applyColumnVisibility();
+        saveColumns();
+        localStorage.removeItem(COL_STORAGE_KEY);
+      });
+
+      // ── Persistence ──
+      function saveColumns() {
+        localStorage.setItem(COL_STORAGE_KEY, JSON.stringify(visibleCols));
+      }
+
+      function loadColumns() {
+        const saved = localStorage.getItem(COL_STORAGE_KEY);
+        if (!saved) return;
+        try {
+          const data = JSON.parse(saved);
+          if (Array.isArray(data)) {
+            // Always include fixed columns
+            visibleCols = data.slice();
+            COLUMNS.filter(c => c.fixed).forEach(c => {
+              if (!visibleCols.includes(c.idx)) visibleCols.push(c.idx);
+            });
+          }
+        } catch (e) { /* ignore */ }
+      }
+
+      // ── Init ──
+      loadColumns();
+      buildPicker();
+      applyColumnVisibility();
+    })();
+  </script>
+
+</body>
+
+</html>

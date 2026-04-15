@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfoPrice Application</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+
+  <link rel="stylesheet" href="tokens.css" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+  <header class="header">
+
+    <!-- Esquerda: botão menu + dropdown de produtos + logo -->
+    <div class="header__left">
+
+      <button class="header__menu-btn" id="menuBtn" aria-label="Abrir menu de produtos" aria-expanded="false" aria-controls="productDropdown">
+        <span class="material-icons-outlined">apps</span>
+      </button>
+
+      <!-- Dropdown de produtos -->
+      <div class="dropdown product-dropdown" id="productDropdown" role="menu">
+
+        <div class="product-dropdown__header">
+          <span class="product-dropdown__title">Produtos</span>
+        </div>
+
+        <div class="product-dropdown__list">
+
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--isa-active">ISA</span>
+            <span class="product-dropdown__item-name">InfoPanel</span>
+          </div>
+
+          <div class="product-dropdown__item" role="menuitem" tabindex="0">
+            <span class="product-tag product-tag--ipa-active">IPA</span>
+            <span class="product-dropdown__item-name">Software de precificação</span>
+          </div>
+
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">IPA</span>
+            <span class="product-dropdown__item-name">
+              Simulador de demanda
+              <span class="material-icons-outlined">lock</span>
+            </span>
+          </div>
+
+          <div class="product-dropdown__item product-dropdown__item--disabled" role="menuitem" aria-disabled="true">
+            <span class="product-tag product-tag--disabled">ISA</span>
+            <span class="product-dropdown__item-name">
+              Monitoramento PDV
+              <span class="material-icons-outlined">lock</span>
+            </span>
+          </div>
+
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+      </div>
+
+      <div class="header__brand">
+        <img class="header__logo" src="assets/logo-principal.svg" alt="InfoPrice" />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificação</span>
+      </div>
+
+    </div>
+
+    <!-- Direita: ajuda + usuário + dropdown de usuário -->
+    <div class="header__right">
+
+      <button class="header__help-btn" aria-label="Ajuda">
+        <span class="material-icons-outlined">help_outline</span>
+      </button>
+
+      <div class="header__user" id="userBtn" role="button" tabindex="0" aria-label="Menu do usuário" aria-expanded="false" aria-controls="userDropdown">
+        <span class="header__user-name">Olá, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+
+      <!-- Dropdown de usuário -->
+      <div class="dropdown user-dropdown" id="userDropdown" role="menu">
+
+        <!-- Identidade -->
+        <div class="user-dropdown__identity">
+          <span class="user-dropdown__name">Marcus Roggero</span>
+          <span class="user-dropdown__email">marcus@infoprice.co</span>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Links principais -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">settings</span>
+            <span class="user-dropdown__item-label">Configurações</span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">person_add</span>
+            <span class="user-dropdown__item-label">
+              Pessoas
+              <span class="user-dropdown__badge">Convidar</span>
+            </span>
+          </div>
+          <div class="user-dropdown__item" role="menuitem" tabindex="0">
+            <span class="material-icons-outlined">help</span>
+            <span class="user-dropdown__item-label">Base de conhecimento</span>
+          </div>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Termos -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Termos de uso e serviços</span>
+          </div>
+        </div>
+
+        <div class="dropdown__divider"></div>
+
+        <!-- Sair -->
+        <div class="user-dropdown__group">
+          <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+            <span class="user-dropdown__item-label">Sair</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- Title Bar -->
+  <section class="title-bar">
+
+    <div class="title-bar__left">
+      <span class="title-bar__heading">Gerenciador de preços</span>
+      <span class="title-bar__badge">Atualizado em 01/07/2023, 13:42</span>
+    </div>
+
+    <div class="title-bar__right">
+
+      <!-- Fixar -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn title-btn--fixar" id="fixarBtn" aria-pressed="false">
+          <svg class="title-btn__icon" width="9" height="12" viewBox="0 0 9 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 0H1.16667C0.845833 0 0.583333 0.2625 0.583333 0.583333C0.583333 0.904167 0.845833 1.16667 1.16667 1.16667H1.75V4.08333C1.75 5.05167 0.968333 5.83333 0 5.83333V7H3.4825V11.0833L4.06583 11.6667L4.64917 11.0833V7H8.16667V5.83333C7.19833 5.83333 6.41667 5.05167 6.41667 4.08333V1.16667H7C7.32083 1.16667 7.58333 0.904167 7.58333 0.583333C7.58333 0.2625 7.32083 0 7 0Z" fill="currentColor" />
+          </svg>
+          <span>Fixar</span>
+        </button>
+        <span class="tooltip tooltip--below">Alternar a exibição do layout fixo</span>
+      </div>
+
+      <!-- Loja -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn" id="lojaBtn" aria-expanded="false" aria-controls="lojaDropdown">
+          <svg class="title-btn__icon" width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.27096 1.16667H9.43762C9.75846 1.16667 10.021 0.904167 10.021 0.583333C10.021 0.2625 9.75846 0 9.43762 0H1.27096C0.950124 0 0.687624 0.2625 0.687624 0.583333C0.687624 0.904167 0.950124 1.16667 1.27096 1.16667ZM10.1143 2.21667C10.0618 1.94833 9.82262 1.75 9.54262 1.75H1.16596C0.885958 1.75 0.646791 1.94833 0.594291 2.21667L0.0109576 5.13333C-0.0590424 5.495 0.215124 5.83333 0.582624 5.83333H0.687624V8.75C0.687624 9.07083 0.950124 9.33333 1.27096 9.33333H5.93762C6.25846 9.33333 6.52096 9.07083 6.52096 8.75V5.83333H8.85429V8.75C8.85429 9.07083 9.11679 9.33333 9.43762 9.33333C9.75846 9.33333 10.021 9.07083 10.021 8.75V5.83333H10.126C10.4935 5.83333 10.7676 5.495 10.6976 5.13333L10.1143 2.21667ZM5.35429 8.16667H1.85429V5.83333H5.35429V8.16667Z" fill="currentColor" />
+          </svg>
+          <span>Loja</span>
+          <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+        </button>
+        <span class="tooltip tooltip--above">Agrupar por</span>
+        <div class="title-dropdown" id="lojaDropdown" role="menu">
+          <div class="title-dropdown__item" role="menuitem">Loja</div>
+          <div class="title-dropdown__item" role="menuitem">Cluster de lojas</div>
+        </div>
+      </div>
+
+      <!-- Produto -->
+      <div class="title-btn-wrapper">
+        <button class="title-btn" id="produtoBtn" aria-expanded="false" aria-controls="produtoDropdown">
+          <svg class="title-btn__icon" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.6667 4.66667V0H7.58333V1.75H4.08333V0H0V4.66667H4.08333V2.91667H5.25V8.75H7.58333V10.5H11.6667V5.83333H7.58333V7.58333H6.41667V2.91667H7.58333V4.66667H11.6667Z" fill="currentColor" />
+          </svg>
+          <span>Produto</span>
+          <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+        </button>
+        <span class="tooltip tooltip--below">Precificar por</span>
+        <div class="title-dropdown" id="produtoDropdown" role="menu">
+          <div class="title-dropdown__item" role="menuitem">Produto</div>
+          <div class="title-dropdown__item" role="menuitem">Família</div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Big Numbers -->
+  <section class="big-numbers">
+    <div class="big-numbers__inner">
+
+      <div class="big-numbers__cards">
+
+        <!-- Card 1: Total de preços -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="3645">3.645</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="3645">3.645</b> do<br>total de preços</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Novos custos -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="236">236</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="236">236</b> de<br>novos custos</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Preços sugeridos -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="1269">1.269</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="1269">1.269</b><br>preços sugeridos</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Preços aplicados -->
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="364">364</span>
+            </div>
+            <span class="bn-card__desc">de <b data-value="364">364</b><br>preços aplicados</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Competitividade -->
+        <div class="bn-card bn-card--blue-auto">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="101.3">101,3%</span>
+              <div class="bn-card__variation bn-card__variation--down">
+                <span class="material-icons-outlined">arrow_downward</span>
+                <span class="bn-card__variation-val" data-value="-0.4">0,4 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Competitividade projetada,<br>era <b data-value="102.3">102,3 %</b></span>
+          </div>
+        </div>
+
+        <!-- Card 6: Margem -->
+        <div class="bn-card bn-card--blue-auto">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="26.3">26,3%</span>
+              <div class="bn-card__variation bn-card__variation--up">
+                <span class="material-icons-outlined">arrow_upward</span>
+                <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Margem projetada,<br>era <b data-value="26.2">26,2 %</b></span>
+          </div>
+        </div>
+
+        <!-- Card 7: Estimativa de lucro (verde) -->
+        <div class="bn-card bn-card--green">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number" data-value="392000">+ R$ 392mil</span>
+              <div class="bn-card__variation bn-card__variation--up">
+                <span class="material-icons-outlined">arrow_upward</span>
+                <span class="bn-card__variation-val" data-value="0.1">0,1 %</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Estimativa de<br>diferença no lucro</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Filtros -->
+  <section class="filtros">
+    <div class="filtros__inner">
+      <div class="filtros__box">
+
+        <!-- Coluna esquerda: chips de filtro -->
+        <div class="filtros__left">
+
+          <!-- Linha 1 -->
+          <div class="filtros__row">
+
+            <!-- Produtos -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="produtos">
+                <span>Produtos</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-produtos">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos…" />
+                  <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313 - LINGUICA SEARA 215G FININHA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314 - SALSICHA PERDIGAO 500G</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125 - ARROZ CAMIL TIPO 1 5KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810 - CAFE PILAO 500G TRAD</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>205417 - FEIJAO CARIOCA KICALDO 1KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>308912 - LEITE INTEGRAL ITALAC 1L</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>412350 - OLEO SOJA LIZA 900ML</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>509876 - ACUCAR UNIAO 1KG</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Família -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="familia">
+                <span>Família</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-familia">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar família…" />
+                  <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026314</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>134810</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>205417</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>308912</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lojas -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="lojas">
+                <span>Lojas</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-lojas">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar lojas…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>1 - Supermercados Nova União</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>2 - Rede BomLar</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>3 - Atacadão Central</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>4 - Mercado Estrela</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>5 - Super Econômico</span></label>
+                </div>
+                <div class="filtro-dropdown__footer">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Selecionar todos</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cluster -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="cluster">
+                <span>Cluster</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-cluster">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar cluster…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 01</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 02</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tipo de loja -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="tipo-loja">
+                <span>Tipo loja</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-tipo-loja">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar tipo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Supermercado</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>Atacado</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status de preço -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="status-preco">
+                <span>Status de preço</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-status-preco">
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Regular</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                  </div>
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Oferta</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>ERP</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>AUTO</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>EDITADO</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segmentação -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="segmentacao">
+                <span>Segmentação</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-segmentacao">
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Sensibilidade InfoPrice</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Super Sensível</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Sensível</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Não Sensível</span></label>
+                  </div>
+                  <div class="filtro-dropdown__group-header">
+                    <span class="filtro-dropdown__group-title">Curva ABC Local</span>
+                    <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+                  </div>
+                  <div class="filtro-dropdown__group-items">
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local A</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local B</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local C</span></label>
+                    <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local D</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Marca -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="marca">
+                <span>Marca</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-marca">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar marca…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fornecedor -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="fornecedor">
+                <span>Fornecedor</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-fornecedor">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar fornecedor…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Linha 2: hierarquia de produto -->
+          <div class="filtros__row">
+
+            <!-- 01 Departamento -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="departamento">
+                <span class="filtro-chip__prefix">01</span>
+                <span>Departamento</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-departamento">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar departamento…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>BEBIDAS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>DROGARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>HIGIENE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>LIMPEZA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>MERCEARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>PERECÍVEIS</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 02 Seção -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="secao">
+                <span class="filtro-chip__prefix">02</span>
+                <span>Seção</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-secao">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar seção…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CARNES</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>COMMODITIES</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>LAVAGEM</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>MEDICAMENTOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>NÃO MEDICAMENTOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>PERFUMARIA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>SUÍNOS</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03 Grupo -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="grupo">
+                <span class="filtro-chip__prefix">03</span>
+                <span>Grupo</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-grupo">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar grupo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>BOVINOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFÉ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS LAGER</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS PURO MALTE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CUIDADOS MÃOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>EMBUTIDOS</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>FEIJÃO</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>HIGIENE INFANTIL</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04 Sub-grupo -->
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" data-filtro="subgrupo">
+                <span class="filtro-chip__prefix">04</span>
+                <span>Sub-grupo</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="filtro-subgrupo">
+                <div class="filtro-dropdown__search">
+                  <span class="material-icons-outlined">search</span>
+                  <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar sub-grupo…" />
+                </div>
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 1KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 2KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ARROZ TRADICIONAL 5KG</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CAFÉ PÓ 500G</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS LAGER LATA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CERVEJAS PURO MALTE LATA</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>CONTRA FILÉ</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>COXÃO MOLE</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" /><span>ESMALTE</span></label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Coluna direita: ações -->
+        <div class="filtros__right">
+
+          <!-- + Filtros -->
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--add" data-filtro="mais-filtros">
+              <span>+ Filtros</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-mais-filtros">
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Filtro MPDV</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Limpar filtros -->
+          <button class="filtro-chip filtro-chip--clear">
+            <span>Limpar filtros</span>
+          </button>
+
+          <!-- Filtros salvos -->
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--action" data-filtro="filtros-salvos">
+              <span>Filtros salvos</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-filtros-salvos">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar filtros salvos…" />
+              </div>
+              <div class="filtro-dropdown__list">
+                <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Cabecalho (toolbar da tabela) -->
+  <section class="cabecalho" id="cabecalhoSection">
+    <div class="cabecalho__inner">
+
+      <!-- Info -->
+      <span class="cabecalho__info">Foram encontrados <b id="totalResultados">20 resultados</b> no total</span>
+      <!-- Botões -->
+      <div class="cabecalho__buttons">
+
+        <!-- 1. Alternar visualização de filtros (selected por padrão, solo base) -->
+        <div class="composed-btn composed-btn--solo is-selected" id="btnFiltrosToggle">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-filtros.svg" alt="Filtros" />
+          </button>
+          <span class="composed-btn__tooltip">Alternar visualização de filtros</span>
+        </div>
+
+        <!-- 2. Filtrar custos alterados -->
+        <div class="composed-btn" id="btnCustos">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-custos.svg" alt="Custos" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-custos">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar custos alterados</span>
+          <div class="composed-dropdown" id="dd-custos">
+            <span class="composed-dropdown__title">Filtrar custos<br>alterados nos últimos</span>
+            <div class="composed-dropdown__row">
+              <input type="number" class="composed-dropdown__input" value="7" min="1" />
+              <span class="composed-dropdown__unit">dias</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Filtrar preços concorrentes -->
+        <div class="composed-btn" id="btnConcorrentes">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-concorrentes.svg" alt="Concorrentes" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-concorrentes">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar preços concorrentes</span>
+          <div class="composed-dropdown" id="dd-concorrentes">
+            <span class="composed-dropdown__title">Filtrar preços concorrentes<br>dos últimos</span>
+            <div class="composed-dropdown__row">
+              <input type="number" class="composed-dropdown__input" value="1" min="1" />
+              <span class="composed-dropdown__unit">dias</span>
+            </div>
+            <div class="composed-dropdown__divider"></div>
+            <span class="composed-dropdown__subtitle">Origem do preço concorrente:</span>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Monitoramento PDV</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--mpdv">MPDV</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Concorrentes diretos</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--infopanel">infopanel</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Preço de mercado</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--infopanel">infopanel</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Pesquisa própria</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--externo">externo</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Filtrar por Alteração de preços -->
+        <div class="composed-btn" id="btnAlteracoes">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-alteracoes.svg" alt="Alterações" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-alteracoes">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar por Alteração de preços</span>
+          <div class="composed-dropdown" id="dd-alteracoes">
+            <span class="composed-dropdown__title">Filtrar preços alterados com variação</span>
+            <div class="composed-dropdown__row">
+              <span class="composed-dropdown__label">Maior ou igual a</span>
+              <input type="text" class="composed-dropdown__input" value="0,0" />
+              <span class="composed-dropdown__unit">%</span>
+            </div>
+            <div class="composed-dropdown__divider"></div>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="alteracoes" />
+              <span>Produtos com aumento de preço</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="alteracoes" />
+              <span>Produtos com redução de preço</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 5. Filtrar por Competitividade -->
+        <div class="composed-btn" id="btnCompetitividade">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/MdEmojiEvents.svg" alt="Competitividade" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-competitividade">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar por Competitividade</span>
+          <div class="composed-dropdown" id="dd-competitividade">
+            <span class="composed-dropdown__title">Filtrar preços com competitividade</span>
+            <div class="composed-dropdown__row">
+              <span class="composed-dropdown__label">Maior ou igual a</span>
+              <input type="text" class="composed-dropdown__input" value="0,0" />
+              <span class="composed-dropdown__unit">%</span>
+            </div>
+            <div class="composed-dropdown__divider"></div>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="competitividade" checked />
+              <span>Preço sugerido</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="competitividade" />
+              <span>Preço vigente</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 6. Filtrar por Margem -->
+        <div class="composed-btn" id="btnMargem">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-margem.svg" alt="Margem" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-margem">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar por Margem</span>
+          <div class="composed-dropdown" id="dd-margem">
+            <span class="composed-dropdown__title">Filtrar preços com margem</span>
+            <div class="composed-dropdown__row">
+              <span class="composed-dropdown__label">Maior ou igual a</span>
+              <input type="text" class="composed-dropdown__input" value="0,0" />
+              <span class="composed-dropdown__unit">%</span>
+            </div>
+            <div class="composed-dropdown__divider"></div>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="margem" checked />
+              <span>Preço sugerido</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="margem" />
+              <span>Preço vigente</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 7. Filtrar limites -->
+        <div class="composed-btn" id="btnLimites">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon limites.svg" alt="Limites" />
+          </button>
+          <button class="composed-btn__drop" data-dropdown="dd-limites">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <span class="composed-btn__tooltip">Filtrar limites</span>
+          <div class="composed-dropdown" id="dd-limites">
+            <label class="composed-dropdown__item">
+              <input type="radio" name="limites" />
+              <span>Somente limites não quebrados</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="limites" />
+              <span>Somente limites quebrados</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 8. Filtrar produtos derivados (solo base, disabled) -->
+        <div class="composed-btn composed-btn--solo" id="btnDerivados">
+          <button class="composed-btn__base">
+            <img src="assets/cabecalho/icon-derivados.svg" alt="Derivados" />
+          </button>
+          <span class="composed-btn__tooltip">Filtrar produtos derivados</span>
+        </div>
+
+        <!-- 9. Aplicar preço (desabilitado por padrão) -->
+        <div class="aplicar-btn" id="aplicarPrecoBtn">
+          <button class="aplicar-btn__main">Aplicar preço</button>
+          <button class="aplicar-btn__drop" data-dropdown="dd-aplicar">
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="composed-dropdown composed-dropdown--right" id="dd-aplicar">
+            <label class="composed-dropdown__item">
+              <input type="radio" name="aplicar" checked />
+              <span>Aplicar preço sugerido</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="aplicar" />
+              <span>Aplicar preço vigente</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Grid (tabela de dados) -->
+  <section class="grid" id="gridSection">
+    <div class="grid__wrapper">
+      <table class="grid__table">
+        <colgroup>
+          <col style="width:40px"> <!-- checkbox -->
+          <col> <!-- produto (flex) -->
+          <col style="width:70px"> <!-- loja -->
+          <col style="width:108px"> <!-- estoque -->
+          <col style="width:90px"> <!-- pmz -->
+          <col style="width:80px"> <!-- margem obj -->
+          <col style="width:50px"> <!-- emb -->
+          <col style="width:110px"> <!-- pmc -->
+          <col style="width:120px"> <!-- preço vigente -->
+          <col style="width:104px"> <!-- preço concorrente -->
+          <col style="width:108px"> <!-- preço sugerido -->
+          <col style="width:108px"> <!-- cpi -->
+          <col style="width:108px"> <!-- margem -->
+          <col style="width:100px"> <!-- previsão -->
+          <col style="width:50px"> <!-- menu -->
+        </colgroup>
+        <thead>
+          <tr>
+            <th style="padding:0 8px"><input type="checkbox" class="grid__check" id="gridCheckAll" /></th>
+            <th>
+              <div class="grid__th-content">
+                <span>Produto</span>
+                <button class="grid__pref-btn" data-pref="produto"><img src="assets/grid/preferences.svg" alt="" /></button>
+                <div class="grid__pref-dropdown" id="pref-produto">
+                  <div class="grid__pref-dropdown__title">Ordenar por</div>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="codigo" /> Código do produto</label>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="descricao" /> Descrição do produto</label>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="familia" /> Código da família</label>
+                </div>
+                <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+              </div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Loja</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Estoque</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>PMZ e<br>custos</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Margem<br>Objetiva</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Emb...</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>PMC</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Preço<br>vigente</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Preço<br>concorrente</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th>
+              <div class="grid__th-content">
+                <span>Preço sugerido</span>
+                <button class="grid__pref-btn" data-pref="preco-sugerido"><img src="assets/grid/preferences.svg" alt="" /></button>
+                <div class="grid__pref-dropdown" id="pref-preco-sugerido">
+                  <div class="grid__pref-dropdown__title">Ordenar por</div>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-preco-sugerido" value="preco" /> Preço sugerido</label>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-preco-sugerido" value="variacao" /> Variação de preço</label>
+                </div>
+                <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+              </div>
+            </th>
+            <th>
+              <div class="grid__th-content">
+                <span>CPI</span>
+                <button class="grid__pref-btn" data-pref="cpi"><img src="assets/grid/preferences.svg" alt="" /></button>
+                <div class="grid__pref-dropdown" id="pref-cpi">
+                  <div class="grid__pref-dropdown__title">Ordenar por</div>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-cpi" value="nova-comp" /> Nova competitividade</label>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-cpi" value="var-comp" /> Variação de competitividade</label>
+                </div>
+                <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+              </div>
+            </th>
+            <th>
+              <div class="grid__th-content">
+                <span>Margem</span>
+                <button class="grid__pref-btn" data-pref="margem"><img src="assets/grid/preferences.svg" alt="" /></button>
+                <div class="grid__pref-dropdown" id="pref-margem">
+                  <div class="grid__pref-dropdown__title">Ordenar por</div>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-margem" value="nova-margem" /> Nova margem</label>
+                  <label class="grid__pref-dropdown__item"><input type="radio" name="pref-margem" value="var-margem" /> Variação de margem</label>
+                </div>
+                <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+              </div>
+            </th>
+            <th>
+              <div class="grid__th-content"><span>Previsão</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="gridBody"></tbody>
+      </table>
+      <!-- Paginação -->
+      <div class="grid__pagination">
+        <div class="grid__pagination-left">
+          <span class="grid__pagination-val">20</span>
+          <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
+          <span class="grid__pagination-label">/ página</span>
+          <span class="grid__pagination-sep"></span>
+          <span class="grid__pagination-label">total: 20</span>
+        </div>
+        <div class="grid__pagination-right">
+          <div class="grid__pagination-nav" style="display:flex">
+            <span class="material-icons-outlined">first_page</span>
+            <span class="material-icons-outlined">chevron_left</span>
+          </div>
+          <div id="gridPaginationPages" style="display:flex">
+            <button class="grid__pagination-btn is-active" data-page="1">1</button>
+            <button class="grid__pagination-btn" data-page="2">2</button>
+            <button class="grid__pagination-btn" data-page="3">3</button>
+            <button class="grid__pagination-btn" data-page="...">...</button>
+            <button class="grid__pagination-btn" data-page="9999">9999</button>
+          </div>
+          <div class="grid__pagination-nav" style="display:flex">
+            <span class="material-icons-outlined">chevron_right</span>
+            <span class="material-icons-outlined">last_page</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sidebar fixa -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar__top">
+
+      <div class="sidebar__item sidebar__item--active">
+        <img src="assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+        <span class="sidebar__tooltip">Gerenciador</span>
+      </div>
+
+      <div class="sidebar__item">
+        <img src="assets/estrategia-symbol.svg" alt="Estratégia" class="sidebar__icon" />
+        <span class="sidebar__label">Estratégia</span>
+        <span class="sidebar__tooltip">Estratégia</span>
+      </div>
+
+      <div class="sidebar__item">
+        <img src="assets/negociacoes-symbol.svg" alt="Negociações" class="sidebar__icon" />
+        <span class="sidebar__label">Negociações Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+        <span class="sidebar__tooltip">Negociações Fornecedor</span>
+      </div>
+
+      <div class="sidebar__item">
+        <img src="assets/extracao-symbol.svg" alt="Extração" class="sidebar__icon" />
+        <span class="sidebar__label">Extração de preços</span>
+        <span class="sidebar__tooltip">Extração de preços</span>
+      </div>
+
+      <div class="sidebar__item">
+        <img src="assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+        <span class="sidebar__tooltip">Precifique com IA</span>
+      </div>
+
+    </div>
+
+    <div class="sidebar__bottom">
+      <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu">
+        <span class="material-icons-outlined">keyboard_arrow_right</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <script>
+    const overlay = document.getElementById('dropdownOverlay');
+
+    // ── Header: dropdown de produtos ──────────────────
+    const menuBtn = document.getElementById('menuBtn');
+    const productDropdown = document.getElementById('productDropdown');
+
+    // ── Header: dropdown de usuário ───────────────────
+    const userBtn = document.getElementById('userBtn');
+    const userDropdown = document.getElementById('userDropdown');
+
+    // ── Title bar ─────────────────────────────────────
+    const fixarBtn = document.getElementById('fixarBtn');
+    const lojaBtn = document.getElementById('lojaBtn');
+    const lojaDropdown = document.getElementById('lojaDropdown');
+    const produtoBtn = document.getElementById('produtoBtn');
+    const produtoDropdown = document.getElementById('produtoDropdown');
+
+    // ── Filtros ───────────────────────────────────────
+    let activeFiltroChip = null;
+
+    function closeFiltros() {
+      document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      document.querySelectorAll('.filtro-chip.is-open').forEach(c => c.classList.remove('is-open'));
+      activeFiltroChip = null;
+    }
+
+    function closeAll() {
+      [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
+      menuBtn.setAttribute('aria-expanded', 'false');
+      userBtn.setAttribute('aria-expanded', 'false');
+      lojaBtn.setAttribute('aria-expanded', 'false');
+      produtoBtn.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('is-open');
+      closeFiltros();
+      closeGridPrefDropdowns();
+    }
+
+    function toggle(dropdown, trigger) {
+      const isOpen = dropdown.classList.contains('is-open');
+      closeAll();
+      if (!isOpen) {
+        dropdown.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        overlay.classList.add('is-open');
+      }
+    }
+
+    // Header dropdowns
+    menuBtn.addEventListener('click', () => toggle(productDropdown, menuBtn));
+    userBtn.addEventListener('click', () => toggle(userDropdown, userBtn));
+    userBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(userDropdown, userBtn); }
+    });
+
+    // Fixar toggle
+    fixarBtn.addEventListener('click', () => {
+      const isActive = fixarBtn.classList.toggle('is-active');
+      fixarBtn.setAttribute('aria-pressed', String(isActive));
+    });
+
+    // Title bar dropdowns
+    lojaBtn.addEventListener('click', () => toggle(lojaDropdown, lojaBtn));
+    produtoBtn.addEventListener('click', () => toggle(produtoDropdown, produtoBtn));
+
+    // Fechar ao clicar em qualquer item de dropdown
+    document.querySelectorAll('.title-dropdown__item, .product-dropdown__item:not(.product-dropdown__item--disabled), .user-dropdown__item').forEach(item => {
+      item.addEventListener('click', closeAll);
+    });
+
+    overlay.addEventListener('click', closeAll);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+    // ── Sidebar expand/collapse ───────────────────────
+    const sidebar = document.getElementById('sidebar');
+    const sidebarSeta = document.getElementById('sidebarSeta');
+    const titleBar = document.querySelector('.title-bar');
+    const bigNumbers = document.querySelector('.big-numbers');
+    const filtros = document.querySelector('.filtros');
+    const cabecalho = document.querySelector('.cabecalho');
+    const gridSection = document.querySelector('.grid');
+
+    sidebarSeta.addEventListener('click', () => {
+      const expanded = sidebar.classList.toggle('is-expanded');
+      sidebarSeta.classList.toggle('is-flipped');
+      const left = expanded ? '220px' : '52px';
+      titleBar.style.left = left;
+      bigNumbers.style.left = left;
+      filtros.style.left = left;
+      cabecalho.style.left = left;
+      gridSection.style.left = left;
+    });
+
+    // ── Filtros: chip toggle ──────────────────────────
+    document.querySelectorAll('.filtro-chip[data-filtro]').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const filtroId = chip.getAttribute('data-filtro');
+        const dropdown = document.getElementById('filtro-' + filtroId);
+        const wasOpen = dropdown.classList.contains('is-open');
+
+        // Close header/title dropdowns
+        [productDropdown, userDropdown, lojaDropdown, produtoDropdown].forEach(d => d.classList.remove('is-open'));
+        menuBtn.setAttribute('aria-expanded', 'false');
+        userBtn.setAttribute('aria-expanded', 'false');
+        lojaBtn.setAttribute('aria-expanded', 'false');
+        produtoBtn.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('is-open');
+
+        // Close other filtro dropdowns
+        closeFiltros();
+
+        if (!wasOpen) {
+          dropdown.classList.add('is-open');
+          chip.classList.add('is-open');
+          activeFiltroChip = chip;
+          // Focus search input if present
+          const searchInput = dropdown.querySelector('.filtro-dropdown__search-input');
+          if (searchInput) setTimeout(() => searchInput.focus(), 50);
+        }
+      });
+    });
+
+    // ── Filtros: search filtering ─────────────────────
+    document.querySelectorAll('.filtro-dropdown__search-input').forEach(input => {
+      input.addEventListener('input', () => {
+        const query = input.value.toLowerCase();
+        const list = input.closest('.filtro-dropdown').querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('.filtro-dropdown__item').forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(query) ? '' : 'none';
+        });
+        // Show/hide empty state
+        const emptyEl = list.querySelector('.filtro-dropdown__empty');
+        if (emptyEl) return; // already has static empty message
+        const visibleItems = list.querySelectorAll('.filtro-dropdown__item:not([style*="display: none"])');
+        let dynamicEmpty = list.querySelector('.filtro-dropdown__empty--dynamic');
+        if (visibleItems.length === 0) {
+          if (!dynamicEmpty) {
+            dynamicEmpty = document.createElement('div');
+            dynamicEmpty.className = 'filtro-dropdown__empty filtro-dropdown__empty--dynamic';
+            dynamicEmpty.textContent = 'Nenhum item encontrado';
+            list.appendChild(dynamicEmpty);
+          }
+          dynamicEmpty.style.display = '';
+        } else if (dynamicEmpty) {
+          dynamicEmpty.style.display = 'none';
+        }
+      });
+
+      // Prevent click on search from closing dropdown
+      input.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ── Filtros: group collapse toggle ────────────────
+    document.querySelectorAll('.filtro-dropdown__group-header').forEach(header => {
+      header.addEventListener('click', (e) => {
+        e.stopPropagation();
+        header.classList.toggle('is-collapsed');
+      });
+    });
+
+    // ── Filtros: "Selecionar todos" (Lojas) ──────────
+    document.querySelectorAll('.filtro-dropdown__footer .filtro-dropdown__item input[type="checkbox"]').forEach(selectAllCb => {
+      selectAllCb.addEventListener('change', () => {
+        const dropdown = selectAllCb.closest('.filtro-dropdown');
+        const list = dropdown.querySelector('.filtro-dropdown__list');
+        list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.checked = selectAllCb.checked;
+        });
+      });
+    });
+
+    // ── Filtros: "Limpar filtros" ─────────────────────
+    document.querySelector('.filtro-chip--clear').addEventListener('click', () => {
+      document.querySelectorAll('.filtro-dropdown input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+    });
+
+    // ── Close filtros on outside click ────────────────
+    document.addEventListener('click', (e) => {
+      if (activeFiltroChip && !e.target.closest('.filtro-chip-wrapper')) {
+        closeFiltros();
+      }
+    });
+
+    // Prevent dropdown content clicks from closing
+    document.querySelectorAll('.filtro-dropdown').forEach(dd => {
+      dd.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ── Cabecalho: composed buttons ──────────────────
+
+    // Close all composed dropdowns
+    let activeComposedDropdown = null;
+    function closeComposedDropdowns() {
+      document.querySelectorAll('.composed-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+      activeComposedDropdown = null;
+    }
+
+    // Drop button → toggle dropdown + select whole button
+    document.querySelectorAll('.composed-btn__drop[data-dropdown]').forEach(drop => {
+      drop.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const btn = drop.closest('.composed-btn');
+        const ddId = drop.getAttribute('data-dropdown');
+        const dd = document.getElementById(ddId);
+        const wasOpen = dd.classList.contains('is-open');
+
+        closeComposedDropdowns();
+        closeFiltros();
+
+        // Select the composed button
+        btn.classList.add('is-selected');
+
+        if (!wasOpen) {
+          dd.classList.add('is-open');
+          activeComposedDropdown = dd;
+        }
+      });
+    });
+
+    // Base button → toggle selected state
+    document.querySelectorAll('.composed-btn__base').forEach(base => {
+      base.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const btn = base.closest('.composed-btn');
+        closeComposedDropdowns();
+
+        // Special behavior: btnFiltrosToggle toggles Filtros visibility
+        if (btn.id === 'btnFiltrosToggle') {
+          const isSelected = btn.classList.toggle('is-selected');
+          const filtrosSection = document.querySelector('.filtros');
+          if (isSelected) {
+            filtrosSection.style.display = '';
+            cabecalho.style.top = '314px';
+            gridSection.style.top = '374px';
+          } else {
+            filtrosSection.style.display = 'none';
+            cabecalho.style.top = '192px';
+            gridSection.style.top = '252px';
+          }
+          return;
+        }
+
+        // Regular toggle
+        btn.classList.toggle('is-selected');
+      });
+    });
+
+    // Aplicar preço drop
+    document.querySelector('.aplicar-btn__drop[data-dropdown]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const ddId = e.currentTarget.getAttribute('data-dropdown');
+      const dd = document.getElementById(ddId);
+      const wasOpen = dd.classList.contains('is-open');
+      closeComposedDropdowns();
+      if (!wasOpen) {
+        dd.classList.add('is-open');
+        activeComposedDropdown = dd;
+      }
+    });
+
+    // Close composed dropdowns on outside click
+    document.addEventListener('click', (e) => {
+      if (activeComposedDropdown && !e.target.closest('.composed-btn') && !e.target.closest('.aplicar-btn') && !e.target.closest('.composed-dropdown')) {
+        closeComposedDropdowns();
+      }
+    });
+
+    // Prevent dropdown inner clicks from closing
+    document.querySelectorAll('.composed-dropdown').forEach(dd => {
+      dd.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // ESC closes composed dropdowns too
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeComposedDropdowns();
+        closeGridPrefDropdowns();
+      }
+    });
+
+    // ── Grid: gerar 20 linhas ─────────────────────────
+    (function () {
+      const tbody = document.getElementById('gridBody');
+      const nomes = [
+        'SABAO PO BRILHANTE 1,6KG LIMP TOTAL', 'SABAO PO BRILHANTE 800G LIMP TOTAL',
+        'DETERGENTE LIQ YPE 500ML', 'DETERGENTE LIQ YPE 1L COCO',
+        'AMACIANTE COMFORT 2L EXPLOSAO', 'AMACIANTE COMFORT 500ML PURO',
+        'LIMPADOR VEJA MULTIUSO 500ML', 'LIMPADOR VEJA VIDREX 500ML',
+        'DESINFETANTE PINHO SOL 1L', 'DESINFETANTE PINHO SOL 500ML LAV',
+        'ESPONJA SCOTCH-BRITE MULTIUSO', 'ESPONJA SCOTCH-BRITE ANTI ADERENTE',
+        'ALVEJANTE VANISH 450G MULTIACAO', 'ALVEJANTE VANISH LIQ 500ML',
+        'SABAO LIQ OMO 3L LAVAGEM PERF', 'SABAO LIQ OMO 1L SPORT',
+        'AGUA SANITARIA QBOA 1L', 'AGUA SANITARIA QBOA 2L LAVANDA',
+        'LAVA-ROUPAS ARIEL 2KG DOWNY', 'LAVA-ROUPAS ARIEL 1KG ANTIBACT'
+      ];
+      const codigos = ['10007', '10012', '10045', '10078', '10102', '10115', '10200', '10215', '10300', '10312', '10400', '10412', '10500', '10512', '10600', '10612', '10700', '10712', '10800', '10812'];
+      const familias = ['1268', '1268', '2310', '2310', '3450', '3450', '4120', '4120', '5600', '5600', '6780', '6780', '7890', '7890', '8100', '8100', '9200', '9200', '1050', '1050'];
+      const chipsData = [
+        ['super sensível', 'GLOBAL A', 'LOCAL B', 'RELEVÂNCIA'],
+        ['GLOBAL A', 'LOCAL A'],
+        ['super sensível', 'LOCAL B', 'RELEVÂNCIA'],
+        ['GLOBAL B'],
+        ['super sensível', 'LOCAL A', 'RELEVÂNCIA'],
+        ['GLOBAL A'],
+        ['LOCAL B'],
+        ['super sensível', 'GLOBAL A', 'RELEVÂNCIA'],
+        ['LOCAL A'],
+        ['GLOBAL B', 'LOCAL B'],
+        ['super sensível', 'RELEVÂNCIA'],
+        ['GLOBAL A'],
+        ['super sensível', 'GLOBAL A', 'LOCAL A'],
+        ['LOCAL B'],
+        ['super sensível', 'GLOBAL A', 'RELEVÂNCIA'],
+        ['LOCAL A'],
+        ['GLOBAL B'],
+        ['super sensível', 'LOCAL B', 'RELEVÂNCIA'],
+        ['GLOBAL A', 'LOCAL A'],
+        ['super sensível', 'RELEVÂNCIA']
+      ];
+
+      function rn(min, max, d) { return (Math.random() * (max - min) + min).toFixed(d === undefined ? 2 : d); }
+      function brl(v) { return 'R$ ' + parseFloat(v).toFixed(2).replace('.', ','); }
+
+      for (var i = 0; i < 20; i++) {
+        var chips = '';
+        chipsData[i].forEach(function (c) {
+          if (c === 'super sensível') chips += '<span class="grid__chip grid__chip--red">super sensível</span>';
+          else chips += '<span class="grid__chip grid__chip--gray">' + c + '</span>';
+        });
+
+        var loja = Math.ceil(Math.random() * 30);
+        var estUn = Math.floor(Math.random() * 80 + 10);
+        var estDias = Math.floor(Math.random() * 25 + 5);
+        var pmz = rn(1.5, 5);
+        var mo = rn(12, 28, 1);
+        var emb = Math.ceil(Math.random() * 3);
+        var pmc = rn(1.5, 6);
+        var pmcPct = rn(8, 16, 1);
+        var pv = rn(2, 7);
+        var pvMargem = rn(10, 25, 1);
+        var pvComp = rn(90, 115, 1);
+        var pc = rn(2, 8);
+        var ps = rn(2, 7);
+        var psVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.1, 5, 1);
+        var cpiVal = rn(80, 120, 1);
+        var cpiVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.5, 5, 1);
+        var margemVal = rn(15, 30, 1);
+        var margemVar = (Math.random() > 0.5 ? '+ ' : '- ') + rn(0.5, 4, 1);
+        var prevVal = rn(100000, 900000);
+
+        var isDown = psVar.trim().charAt(0) === '-';
+        var isCpiDown = cpiVar.trim().charAt(0) === '-';
+        var isMargemDown = margemVar.trim().charAt(0) === '-';
+
+        var psFormatted = parseFloat(ps).toFixed(2).replace('.', ',');
+
+        var tr = document.createElement('tr');
+        tr.innerHTML =
+          // Checkbox
+          '<td style="padding:0 8px"><input type="checkbox" class="grid__check" /></td>' +
+          // Produto
+          '<td><div class="grid__cell">' +
+          '<div class="grid__produto-codes"><span class="grid__produto-code">' + codigos[i] + '</span><div class="grid__produto-family"><img src="assets/grid/cod familia.svg" alt=""><span>' + familias[i] + '</span></div></div>' +
+          '<div class="grid__produto-name">' + nomes[i] + '</div>' +
+          '<div class="grid__produto-chips">' + chips + '</div>' +
+          '</div></td>' +
+          // Loja
+          '<td>' + loja + '</td>' +
+          // Estoque
+          '<td><div class="grid__cell">' +
+          '<div class="grid__estoque-line1"><img src="assets/grid/unidades.svg" alt=""><span class="grid__val-main">' + estUn + '</span></div>' +
+          '<div class="grid__estoque-line2"><span class="grid__estoque-days">' + estDias + 'd</span><span class="grid__estoque-date">10/02/2025</span></div>' +
+          '</div></td>' +
+          // PMZ e custos
+          '<td>' + brl(pmz) + '</td>' +
+          // Margem objetiva
+          '<td><div class="grid__cell"><div class="grid__mo-line1"><img src="assets/grid/icon-margem.svg" alt=""><span class="grid__val-main">' + mo + '%</span></div></div></td>' +
+          // Emb...
+          '<td><div class="grid__cell"><span class="grid__val-main">' + emb + '</span><span class="grid__val-sub" style="text-transform:lowercase">un</span></div></td>' +
+          // PMC
+          '<td><div class="grid__cell">' +
+          '<span class="grid__val-main">' + brl(pmc) + '</span>' +
+          '<div class="grid__pmc-line2"><span class="grid__pmc-chip">' + pmcPct + '%</span><span class="grid__pmc-date">10/03/23</span></div>' +
+          '</div></td>' +
+          // Preço vigente
+          '<td><div class="grid__cell">' +
+          '<span class="grid__val-main">' + brl(pv) + '</span>' +
+          '<div class="grid__pv-line2">' +
+          '<div class="grid__pv-indicator"><img src="assets/grid/Cifra-precovigente.svg" alt=""><span>' + pvMargem + '%</span></div>' +
+          '<div class="grid__pv-sep"></div>' +
+          '<div class="grid__pv-indicator"><img src="assets/grid/trofeu-precovigente.svg" alt=""><span>' + pvComp + '%</span></div>' +
+          '</div>' +
+          '</div></td>' +
+          // Preço concorrente
+          '<td><div class="grid__cell">' +
+          '<div class="grid__pc-row"><span class="grid__val-main">' + brl(pc) + '</span><span class="grid__pc-avg">x̄</span></div>' +
+          '<div class="grid__pc-link"><span class="material-icons-outlined">expand_more</span><span>Abrir</span></div>' +
+          '</div></td>' +
+          // Preço sugerido
+          '<td><div class="grid__cell">' +
+          '<div class="grid__form-field grid__form-field--blue"><span class="grid__form-prefix">R$</span><input type="text" class="grid__form-input grid__ps-input" value="' + psFormatted + '" data-original="' + psFormatted + '" /></div>' +
+          '<div class="grid__input-sub"><span class="grid__var ' + (isDown ? 'grid__var--down' : 'grid__var--up') + '">' + psVar + '%</span><span class="grid__badge-pill grid__badge-pill--auto grid__ps-status">auto</span></div>' +
+          '</div></td>' +
+          // CPI
+          '<td><div class="grid__cell">' +
+          '<div class="grid__form-field"><input type="text" class="grid__form-input" value="' + cpiVal + '" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>' +
+          '<div class="grid__input-sub"><span class="grid__var ' + (isCpiDown ? 'grid__var--down' : 'grid__var--up') + '">' + cpiVar + '%</span></div>' +
+          '</div></td>' +
+          // Margem
+          '<td><div class="grid__cell">' +
+          '<div class="grid__form-field"><input type="text" class="grid__form-input" value="' + margemVal + '" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>' +
+          '<div class="grid__input-sub"><span class="grid__var ' + (isMargemDown ? 'grid__var--down' : 'grid__var--up') + '">' + margemVar + '%</span></div>' +
+          '</div></td>' +
+          // Previsão
+          '<td><div class="grid__cell"><button class="grid__calcular-btn grid__calc-btn">Calcular</button></div></td>' +
+          // Menu preços
+          '<td style="padding:0"><div class="grid__menu-col"><button class="grid__menu-btn">2</button><button class="grid__menu-btn">3</button></div></td>';
+
+        tbody.appendChild(tr);
+      }
+    })();
+
+    // ── Grid: Checkbox select all ─────────────────────
+    document.getElementById('gridCheckAll').addEventListener('change', function () {
+      document.querySelectorAll('#gridBody input[type="checkbox"]').forEach(function (cb) {
+        cb.checked = this.checked;
+      }.bind(this));
+    });
+
+    // ── Grid: Sort (double → down → up → double) ─────
+    document.querySelectorAll('.grid__sort-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var cur = btn.dataset.sort;
+        var next = cur === 'double' ? 'down' : cur === 'down' ? 'up' : 'double';
+        btn.dataset.sort = next;
+        btn.querySelector('img').src = 'assets/grid/' + next + '.svg';
+      });
+    });
+
+    // ── Grid: Preferences dropdown ────────────────────
+    function closeGridPrefDropdowns() {
+      document.querySelectorAll('.grid__pref-dropdown').forEach(function (dd) { dd.classList.remove('is-open'); });
+    }
+
+    document.querySelectorAll('.grid__pref-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var dd = btn.nextElementSibling;
+        if (!dd || !dd.classList.contains('grid__pref-dropdown')) return;
+        var wasOpen = dd.classList.contains('is-open');
+        closeGridPrefDropdowns();
+        closeComposedDropdowns();
+        if (!wasOpen) dd.classList.add('is-open');
+      });
+    });
+
+    document.addEventListener('click', function () { closeGridPrefDropdowns(); });
+
+    // ── Grid: Preço sugerido auto/editado ─────────────
+    document.querySelectorAll('.grid__ps-input').forEach(function (input) {
+      input.addEventListener('input', function () {
+        var status = this.closest('tr').querySelector('.grid__ps-status');
+        if (!status) return;
+        if (this.value !== this.dataset.original) {
+          status.textContent = 'editado';
+          status.className = 'grid__badge-pill grid__badge-pill--editado grid__ps-status';
+        } else {
+          status.textContent = 'auto';
+          status.className = 'grid__badge-pill grid__badge-pill--auto grid__ps-status';
+        }
+      });
+    });
+
+    // ── Grid: Calcular → mostra valor previsão ────────
+    document.querySelectorAll('.grid__calc-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var val = (Math.random() * 800000 + 100000).toFixed(2);
+        var formatted = 'R$ ' + val.replace(/\B(?=(\d{3})+(?!\d))/g, '.').replace('.', ',').replace(',', '.');
+        // Fix: format properly
+        formatted = 'R$ ' + parseInt(val).toLocaleString('pt-BR') + ',' + val.split('.')[1];
+        this.replaceWith(Object.assign(document.createElement('span'), { className: 'grid__val-main', textContent: formatted }));
+      });
+    });
+
+    // ── Grid: Menu preços toggle ──────────────────────
+    document.querySelectorAll('.grid__menu-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { this.classList.toggle('is-active'); });
+    });
+
+    // ── Grid: Pagination ──────────────────────────────
+    document.querySelectorAll('#gridPaginationPages .grid__pagination-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (this.dataset.page === '...') return;
+        document.querySelectorAll('#gridPaginationPages .grid__pagination-btn').forEach(function (b) { b.classList.remove('is-active'); });
+        this.classList.add('is-active');
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
