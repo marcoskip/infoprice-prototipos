@@ -127,7 +127,7 @@
       border: 1px solid var(--color-gray-300);
       border-top: none;
       border-radius: 0 0 8px 8px;
-      overflow: hidden;
+      overflow: visible;
       transition: max-height 300ms ease, opacity 200ms ease;
     }
 
@@ -135,6 +135,17 @@
       max-height: 0 !important;
       opacity: 0;
       overflow: hidden;
+    }
+
+    /* Ensure modules with dropdowns stack above subsequent modules */
+    .module {
+      z-index: 1;
+    }
+
+    .module:has(.filtro-dropdown.is-open),
+    .module:has(.composed-dropdown.is-open),
+    .module:has(.title-dropdown.is-open) {
+      z-index: 100;
     }
 
     /* ── Drag states ── */
