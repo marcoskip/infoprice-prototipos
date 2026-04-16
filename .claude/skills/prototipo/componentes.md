@@ -41,7 +41,7 @@ Barra superior fixa, 52px de altura, full width.
 
     <!-- Logo + nome do produto -->
     <div class="header__brand">
-      <img class="header__logo" src="assets/logo-principal.svg" alt="InfoPrice" />
+      <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
       <div class="header__divider" aria-hidden="true"></div>
       <span class="header__product-name">IPA | Software de Precificacao</span>
     </div>
@@ -122,32 +122,32 @@ Menu lateral colapsavel fixo a esquerda.
   <div class="sidebar__top">
 
     <div class="sidebar__item sidebar__item--active">
-      <img src="assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
       <span class="sidebar__label">Gerenciador</span>
       <span class="sidebar__tooltip">Gerenciador</span>
     </div>
 
     <div class="sidebar__item">
-      <img src="assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
       <span class="sidebar__label">Estrategia</span>
       <span class="sidebar__tooltip">Estrategia</span>
     </div>
 
     <div class="sidebar__item">
-      <img src="assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
       <span class="sidebar__label">Negociacoes Fornecedor</span>
       <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
       <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
     </div>
 
     <div class="sidebar__item">
-      <img src="assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
       <span class="sidebar__label">Extracao de precos</span>
       <span class="sidebar__tooltip">Extracao de precos</span>
     </div>
 
     <div class="sidebar__item">
-      <img src="assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
       <span class="sidebar__label">Precifique com IA</span>
       <span class="sidebar__tooltip">Precifique com IA</span>
     </div>
@@ -167,7 +167,7 @@ Menu lateral colapsavel fixo a esquerda.
 - Colapsado: width 52px / Expandido: width 220px
 - Transicao: 300ms ease
 - Background: `--color-white`, border-right: 1px solid `--color-gray-300`
-- Icones: SVG custom da pasta `assets/`
+- Icones: SVG custom hospedados em `https://marcoskip.github.io/infoprice-prototipos/assets/`
 - Item ativo: background `--color-gray-100`, border-left 2px `--color-blue-400`
 - Tooltips: aparecem apenas no estado colapsado, no hover
 - Labels: aparecem apenas no estado expandido
@@ -392,7 +392,7 @@ Barra de chips pill com dropdowns.
 
 ### Specs
 
-- Position: fixed, top: 188px, left: 52px, right: 0, z-index: 39
+- Position: fixed, top: 188px, left: 52px, right: 0, z-index: 42
 - Padding: 0 16px
 - Inner: background white, border-radius 6px, padding 12px
 - Box: border 1px `--color-gray-300`, border-radius 6px, padding 12px
@@ -417,7 +417,7 @@ Barra de acoes avancadas entre filtros e grid.
     <!-- Toggle filtros -->
     <div class="cabecalho__left">
       <button class="cabecalho__filtros-toggle" id="filtrosToggleBtn">
-        <img src="assets/cabecalho/icon-filtros.svg" alt="" />
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-filtros.svg" alt="" />
         <span>Filtros</span>
       </button>
     </div>
@@ -428,7 +428,7 @@ Barra de acoes avancadas entre filtros e grid.
       <!-- Botao composto: base (icone) + drop (chevron) -->
       <div class="composed-btn" id="btnCustos">
         <button class="composed-btn__base">
-          <img src="assets/cabecalho/icon-custos.svg" alt="Custos" />
+          <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-custos.svg" alt="Custos" />
         </button>
         <button class="composed-btn__drop" data-dropdown="dd-custos">
           <span class="material-icons-outlined">keyboard_arrow_down</span>
@@ -442,7 +442,7 @@ Barra de acoes avancadas entre filtros e grid.
       <!-- Botao solo (sem dropdown) -->
       <div class="composed-btn composed-btn--solo" id="btnDerivados">
         <button class="composed-btn__base">
-          <img src="assets/cabecalho/icon-derivados.svg" alt="Derivados" />
+          <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-derivados.svg" alt="Derivados" />
         </button>
         <span class="composed-btn__tooltip">Filtrar produtos derivados</span>
       </div>
@@ -522,18 +522,18 @@ Tabela de dados com layout fixo.
             <div class="grid__th-content">
               <span>Produto</span>
               <!-- Preferencia de ordenacao (colunas com config) -->
-              <button class="grid__pref-btn" data-pref="produto"><img src="assets/grid/preferences.svg" alt="" /></button>
+              <button class="grid__pref-btn" data-pref="produto"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/preferences.svg" alt="" /></button>
               <div class="grid__pref-dropdown" id="pref-produto">
                 <div class="grid__pref-dropdown__title">Ordenar por</div>
                 <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="codigo" /> Codigo do produto</label>
                 <label class="grid__pref-dropdown__item"><input type="radio" name="pref-produto" value="descricao" /> Descricao do produto</label>
               </div>
               <!-- Sort button -->
-              <button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button>
+              <button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button>
             </div>
           </th>
           <!-- Coluna simples (sem pref) -->
-          <th><div class="grid__th-content"><span>Loja</span><button class="grid__sort-btn" data-sort="double"><img src="assets/grid/double.svg" alt="" /></button></div></th>
+          <th><div class="grid__th-content"><span>Loja</span><button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button></div></th>
           <!-- ... mais colunas -->
         </tr>
       </thead>
@@ -598,7 +598,7 @@ PRODUTOS.forEach(p => {
     <td><input type="checkbox" class="grid__check" /></td>
     <td>
       <div class="grid__product">
-        <img src="assets/grid/cod familia.svg" class="grid__product-fam" />
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod familia.svg" class="grid__product-fam" />
         <div>
           <span class="grid__product-code">${p.cod}</span>
           <span class="grid__product-name">${p.nome}</span>

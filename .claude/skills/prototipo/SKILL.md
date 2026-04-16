@@ -48,13 +48,13 @@ Crie o arquivo `$1.html` na raiz do projeto seguindo rigorosamente estas regras:
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IPA — [Titulo da pagina]</title>
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-  <link rel="stylesheet" href="tokens.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
 </head>
 <body>
   <!-- conteudo -->
@@ -71,7 +71,7 @@ Crie o arquivo `$1.html` na raiz do projeto seguindo rigorosamente estas regras:
 2. **Tokens do DS**: Sempre use as custom properties de `tokens.css` — nunca valores hardcoded para cores, fontes, espacamento, sombras ou border-radius
 3. **Estilos compartilhados**: Importe `styles.css` e reutilize as classes existentes (header, sidebar, title-bar, big-numbers, filtros, grid, etc.). Leia o arquivo `styles.css` para verificar quais classes ja existem antes de criar novas
 4. **Zero dependencias externas**: Apenas HTML, CSS e JavaScript puro. Sem frameworks, sem bibliotecas
-5. **Assets locais**: Use os SVGs da pasta `assets/` (sidebar icons, cabecalho icons, grid icons). Leia a pasta para verificar o que esta disponivel
+5. **Assets remotos**: Use os SVGs hospedados em `https://marcoskip.github.io/infoprice-prototipos/assets/` (sidebar icons, cabecalho icons, grid icons). Consulte o componentes.md para ver os caminhos disponiveis
 6. **Dados ficticios**: Preencha com dados realistas de supermercado/varejo (produtos, precos, lojas). Gere ~20 linhas de dados via JavaScript quando houver tabela
 7. **Semantica e acessibilidade**: Use `role`, `aria-*`, `tabindex` nos elementos interativos
 8. **BEM naming**: Classes CSS seguem BEM (bloco__elemento--modificador)

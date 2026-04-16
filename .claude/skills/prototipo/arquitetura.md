@@ -30,8 +30,8 @@ Todas as secoes usam `position: fixed` com coordenadas absolutas calculadas a pa
 | Sidebar | 52px | 0 | — | calc(100vh - 52px) | 45 |
 | Title Bar | 52px | 52px | 0 | 36px | 42 |
 | Big Numbers | 88px | 52px | 0 | auto (~100px) | 40 |
-| Filtros | 188px | 52px | 0 | auto | 39 |
-| Cabecalho | depende de filtros | 52px | 0 | 40px | 38 |
+| Filtros | 188px | 52px | 0 | auto | 42 |
+| Cabecalho | depende de filtros | 52px | 0 | 40px | 41 |
 | Grid | depende de cabecalho | 52px | 0 | ate bottom: 0 | 1 |
 
 ## Sidebar toggle
