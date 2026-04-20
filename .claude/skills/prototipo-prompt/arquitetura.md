@@ -5,10 +5,10 @@
 Todas as secoes usam `position: fixed` com coordenadas absolutas calculadas a partir do header (52px) e sidebar (52px colapsado / 220px expandido).
 
 **REGRA OBRIGATORIA: Gap de 8px entre secoes**
-Todas as secoes adjacentes devem ter exatamente **8px de espaco** entre si (bottom de uma secao ate o top da proxima). Esta regra se aplica a TODOS os pares de secoes e deve ser respeitada ao calcular posicoes customizadas em paginas que omitem secoes (ex: sem Big Numbers).
+Todas as secoes adjacentes devem ter exatamente **8px de espaco** entre si (bottom de uma secao ate o top da proxima).
 
 **REGRA OBRIGATORIA: Largura consistente entre secoes**
-Todas as secoes de conteudo (Title Bar, Big Numbers, Filtros, Cabecalho, Grid) devem ter SEMPRE a mesma largura visual. O `overflow` do Grid NUNCA deve ficar na secao `.grid` — deve ficar no `.grid__wrapper`, para que a scrollbar fique DENTRO do container branco e nao reduza a largura da secao em relacao as demais:
+Todas as secoes de conteudo devem ter SEMPRE a mesma largura visual. O `overflow` do Grid NUNCA deve ficar na secao `.grid` — deve ficar no `.grid__wrapper`, para que a scrollbar fique DENTRO do container branco e nao reduza a largura da secao em relacao as demais:
 
 ```css
 .grid { overflow: visible; }
@@ -17,16 +17,16 @@ Todas as secoes de conteudo (Title Bar, Big Numbers, Filtros, Cabecalho, Grid) d
 
 ```
 ┌─────────────────────────────────────────────────┐
-│  Header (height: 52px, top: 0)                  │
-├──┬─ 8px gap ────────────────────────────────────┤
-│  │  Title Bar (height: 36px, top: 60px)         │
-│  ├─ 8px gap ────────────────────────────────────┤
-│  │  Big Numbers (height: ~100px, top: 104px)    │
-│S ├─ 8px gap ────────────────────────────────────┤
-│I │  Filtros (toggle, top: 212px)                │
-│D ├─ 8px gap ────────────────────────────────────┤
+│  Header (height: 52px, top: 0, left: 0)        │
+├──┬──────────────────────────────────────────────┤
+│  │  Title Bar (height: 36px, top: 52px)         │
+│  ├──────────────────────────────────────────────┤
+│  │  Big Numbers (height: ~100px, top: 88px)     │
+│S ├──────────────────────────────────────────────┤
+│I │  Filtros (toggle, top: 188px)                │
+│D ├──────────────────────────────────────────────┤
 │E │  Cabecalho (top: ajusta com filtros)         │
-│B ├─ 8px gap ────────────────────────────────────┤
+│B ├──────────────────────────────────────────────┤
 │A │                                              │
 │R │  Grid (preenche o espaco restante)           │
 │  │                                              │
@@ -39,25 +39,11 @@ Todas as secoes de conteudo (Title Bar, Big Numbers, Filtros, Cabecalho, Grid) d
 |---|---|---|---|---|---|
 | Header | 0 | 0 | 0 | 52px | 50 |
 | Sidebar | 52px | 0 | — | calc(100vh - 52px) | 45 |
-| Title Bar | 60px | 52px | 0 | 36px | 42 |
-| Big Numbers | 104px | 52px | 0 | auto (~100px) | 40 |
-| Filtros | 212px | 52px | 0 | auto | 42 |
-| Cabecalho | depende de filtros | 52px | 0 | ~48px | 41 |
+| Title Bar | 52px | 52px | 0 | 36px | 42 |
+| Big Numbers | 88px | 52px | 0 | auto (~100px) | 40 |
+| Filtros | 188px | 52px | 0 | auto | 42 |
+| Cabecalho | depende de filtros | 52px | 0 | 40px | 41 |
 | Grid | depende de cabecalho | 52px | 0 | ate bottom: 0 | 1 |
-
-## Calculo de posicoes customizadas
-
-Quando uma pagina omite uma secao (ex: sem Big Numbers), recalcule os tops mantendo o gap de 8px:
-
-```
-top_proxima_secao = top_secao_anterior + height_secao_anterior + 8
-```
-
-Exemplo sem Big Numbers (title bar com 50px):
-- Title Bar: 60px (52 + 8)
-- Filtros: 118px (60 + 50 + 8)
-- Cabecalho: filtros_bottom + 8
-- Grid: cabecalho_bottom + 8
 
 ## Sidebar toggle
 
@@ -121,11 +107,9 @@ filtrosToggle.addEventListener('click', () => {
   filtrosVisible = !filtrosVisible;
   filtrosSection.style.display = filtrosVisible ? '' : 'none';
 
-  // Recalcula top das secoes abaixo (mantendo gap de 8px)
-  // Com filtros: cabecalho = filtros_bottom + 8, grid = cabecalho_bottom + 8
-  // Sem filtros: cabecalho sobe para onde filtros estava (big-numbers_bottom + 8)
-  const cabecalhoTop = filtrosVisible ? '346px' : '212px';
-  const gridTop = filtrosVisible ? '414px' : '268px';
+  // Recalcula top das secoes abaixo
+  const cabecalhoTop = filtrosVisible ? '288px' : '188px';
+  const gridTop = filtrosVisible ? '328px' : '228px';
   document.querySelector('.cabecalho').style.top = cabecalhoTop;
   document.querySelector('.grid').style.top = gridTop;
 });

@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Negociacao Fornecedor</title>
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
+  <style>
+    /* ── Page-specific: Negociacao Fornecedor ──────────── */
+
+    /* Checkbox: 16px da margem esquerda */
+    .grid__table th:first-child,
+    .grid__table td:first-child {
+      padding-left: 16px;
+    }
+
+    /* Title bar — taller to fit subtitle row */
+    .title-bar {
+      height: auto;
+      min-height: 50px;
+      padding: 6px var(--space-4);
+    }
+    .title-bar__left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .title-bar__top-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .title-bar__bottom-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .title-bar__subtitle {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-600);
+    }
+    .title-bar__link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-400);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .title-bar__link:hover { text-decoration: underline; }
+
+    .title-bar__action-link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-400);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .title-bar__action-link:hover { text-decoration: underline; }
+
+    /* Layout positions — no Big Numbers, 8px gap entre secoes */
+    /* Title bar: 60px (styles.css default, 52 header + 8 gap) */
+    /* Filtros: 60 + ~50 title + 8 gap = 118 */
+    .filtros  { top: 118px; }
+    .cabecalho { top: 248px; }
+    .grid     { top: 304px; overflow: visible; }
+    .grid__wrapper { height: 100%; overflow-y: auto; }
+    .grid__table { border-collapse: collapse; border-spacing: 0; }
+    .grid__table tr,
+    .grid__table th,
+    .grid__table td { border: none !important; outline: none !important; box-shadow: none !important; }
+
+    /* Cabecalho — custom right side */
+    .neg__add-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--color-gray-300);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .neg__add-btn .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-gray-700);
+    }
+    .neg__add-btn:hover { background: var(--color-gray-400); }
+
+    .neg__save-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 16px;
+      background: var(--color-blue-400);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-white);
+      text-transform: uppercase;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+    .neg__save-btn:hover { background: var(--color-blue-500); }
+    .neg__save-btn:disabled {
+      background: var(--color-blue-light-45);
+      cursor: not-allowed;
+    }
+
+    /* LOJAS badge (blue pill on product column) */
+    .neg__lojas-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 4px;
+      border-radius: 3px;
+      background: var(--color-blue-light-15);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-400);
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 14px;
+    }
+
+    /* Days badge (blue variant of estoque-days) */
+    .neg__days-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 4px;
+      border-radius: var(--radius-sm);
+      background: var(--color-blue-light-5);
+      border: 1px solid var(--color-blue-400);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-sm);
+      color: var(--color-blue-400);
+    }
+
+    /* Cluster cell */
+    .neg__cluster-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .neg__cluster-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+      white-space: nowrap;
+    }
+    .neg__cluster-lojas {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 4px;
+      border-radius: 3px;
+      background: var(--color-blue-light-15);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-400);
+      text-transform: uppercase;
+      white-space: nowrap;
+      line-height: 14px;
+    }
+
+    /* Price sub-row (variation + link) */
+    .neg__price-sub {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Info icon (for popover trigger) */
+    .neg__info-btn {
+      display: inline-flex;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .neg__info-btn .material-icons-outlined {
+      font-size: 14px;
+      color: var(--color-gray-500);
+    }
+    .neg__info-btn:hover .material-icons-outlined {
+      color: var(--color-blue-400);
+    }
+
+    /* PIC sub-row */
+    .neg__pic-sub {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .neg__pic-cell { position: relative; }
+
+    /* Link style */
+    .neg__link {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-400);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .neg__link:hover { text-decoration: underline; }
+
+    /* ── Popover (IPA-9159) ───────────────────────────── */
+    .neg__popover {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 230px;
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: 6px;
+      box-shadow: var(--shadow-elevation);
+      z-index: 300;
+      padding: 12px;
+    }
+    .neg__popover.is-open { display: block; }
+
+    .neg__popover-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      margin-bottom: 8px;
+    }
+    .neg__popover-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-700);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    .neg__popover-row span:last-child {
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+    .neg__popover-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0 0;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-400);
+    }
+
+    /* ── Indicador — 5 estados (card com borda) ──────── */
+    .indicador {
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      width: 84px;
+      height: 64px;
+    }
+    .indicador__inner {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      min-width: 1px;
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      line-height: 12px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .indicador--muito-bom .indicador__inner  { background: var(--color-green-light-20); border-color: var(--color-green-light-45); color: var(--color-green-400); }
+    .indicador--bom .indicador__inner        { background: var(--color-green-light-5);  border-color: var(--color-green-light-20); color: var(--color-green-400); }
+    .indicador--regular .indicador__inner    { background: var(--color-orange-light-5); border-color: var(--color-orange-light-15); color: var(--color-orange-400); }
+    .indicador--ruim .indicador__inner       { background: var(--color-red-light-5);    border-color: var(--color-red-light-20);   color: var(--color-red-600); }
+    .indicador--muito-ruim .indicador__inner { background: var(--color-red-light-20);   border-color: var(--color-red-light-45);   color: var(--color-red-600); }
+
+    /* Inputs numericos: mesma largura na mesma linha */
+    .grid__form-field { width: 116px; }
+
+    /* Row grouping — visual separator entre pares de SKU (desativado) */
+  </style>
+</head>
+<body>
+
+<!-- ── Overlay ─────────────────────────────────────────── -->
+<div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+<!-- ── Header ──────────────────────────────────────────── -->
+<header class="header">
+  <div class="header__left">
+    <button class="header__menu-btn" id="menuBtn" aria-label="Abrir menu de produtos" aria-expanded="false">
+      <span class="material-icons-outlined">apps</span>
+    </button>
+    <div class="dropdown product-dropdown" id="productDropdown" role="menu">
+      <div class="product-dropdown__header">
+        <span class="product-dropdown__title">Produtos</span>
+      </div>
+      <div class="product-dropdown__list">
+        <div class="product-dropdown__item" role="menuitem" tabindex="0">
+          <span class="product-tag product-tag--isa-active">ISA</span>
+          <span class="product-dropdown__item-name">InfoPanel</span>
+        </div>
+        <div class="product-dropdown__item" role="menuitem" tabindex="0">
+          <span class="product-tag product-tag--ipa-active">IPA</span>
+          <span class="product-dropdown__item-name">Software de precificacao</span>
+        </div>
+      </div>
+    </div>
+    <div class="header__brand">
+      <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+      <div class="header__divider" aria-hidden="true"></div>
+      <span class="header__product-name">IPA | Software de Precificacao</span>
+    </div>
+  </div>
+  <div class="header__right">
+    <button class="header__help-btn" aria-label="Ajuda">
+      <span class="material-icons-outlined">help_outline</span>
+    </button>
+    <div class="header__user" id="userBtn" role="button" tabindex="0" aria-expanded="false">
+      <span class="header__user-name">Ola, Marcus</span>
+      <span class="material-icons-outlined">keyboard_arrow_down</span>
+    </div>
+    <div class="dropdown user-dropdown" id="userDropdown" role="menu">
+      <div class="user-dropdown__identity">
+        <span class="user-dropdown__name">Marcus Roggero</span>
+        <span class="user-dropdown__email">marcus@infoprice.co</span>
+      </div>
+      <div class="dropdown__divider"></div>
+      <div class="user-dropdown__group">
+        <div class="user-dropdown__item" role="menuitem" tabindex="0">
+          <span class="material-icons-outlined">settings</span>
+          <span class="user-dropdown__item-label">Configuracoes</span>
+        </div>
+        <div class="user-dropdown__item" role="menuitem" tabindex="0">
+          <span class="material-icons-outlined">person_add</span>
+          <span class="user-dropdown__item-label">Pessoas <span class="user-dropdown__badge">Convidar</span></span>
+        </div>
+        <div class="user-dropdown__item" role="menuitem" tabindex="0">
+          <span class="material-icons-outlined">help</span>
+          <span class="user-dropdown__item-label">Base de conhecimento</span>
+        </div>
+      </div>
+      <div class="dropdown__divider"></div>
+      <div class="user-dropdown__group">
+        <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+          <span class="user-dropdown__item-label">Termos de uso e servicos</span>
+        </div>
+      </div>
+      <div class="dropdown__divider"></div>
+      <div class="user-dropdown__group">
+        <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+          <span class="user-dropdown__item-label">Sair</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Sidebar (Negociacoes ativo) ─────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar__top">
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+      <span class="sidebar__label">Gerenciador</span>
+      <span class="sidebar__tooltip">Gerenciador</span>
+    </div>
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
+      <span class="sidebar__label">Estrategia</span>
+      <span class="sidebar__tooltip">Estrategia</span>
+    </div>
+    <div class="sidebar__item sidebar__item--active">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
+      <span class="sidebar__label">Negociacoes Fornecedor</span>
+      <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+      <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
+    </div>
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
+      <span class="sidebar__label">Extracao de precos</span>
+      <span class="sidebar__tooltip">Extracao de precos</span>
+    </div>
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+      <span class="sidebar__label">Precifique com IA</span>
+      <span class="sidebar__tooltip">Precifique com IA</span>
+    </div>
+  </div>
+  <div class="sidebar__bottom">
+    <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu">
+      <span class="material-icons-outlined">keyboard_arrow_right</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ── Title Bar ───────────────────────────────────────── -->
+<section class="title-bar">
+  <div class="title-bar__left">
+    <div class="title-bar__top-row">
+      <span class="title-bar__heading">Negociacao fornecedor</span>
+      <span class="title-bar__badge">ATUALIZADO EM 17/04/2026, 04:05</span>
+    </div>
+    <div class="title-bar__bottom-row">
+      <span class="title-bar__subtitle">Negocie o melhor custo para o seu produto</span>
+      <a class="title-bar__link" href="#" role="link"><span class="material-icons-outlined" style="font-size:14px;vertical-align:middle;margin-right:2px">folder_open</span>Abrir negociacoes salvas</a>
+    </div>
+  </div>
+  <div class="title-bar__right">
+    <a class="title-bar__action-link" href="#" role="link"><span class="material-icons-outlined" style="font-size:14px;vertical-align:middle;margin-right:2px">upload_file</span>Criar negociacao com arquivo</a>
+    <div class="title-btn-wrapper">
+      <button class="title-btn" id="clusterBtn" aria-expanded="false">
+        <svg class="title-btn__icon" width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.27096 1.16667H9.43762C9.75846 1.16667 10.021 0.904167 10.021 0.583333C10.021 0.2625 9.75846 0 9.43762 0H1.27096C0.950124 0 0.687624 0.2625 0.687624 0.583333C0.687624 0.904167 0.950124 1.16667 1.27096 1.16667ZM10.1143 2.21667C10.0618 1.94833 9.82262 1.75 9.54262 1.75H1.16596C0.885958 1.75 0.646791 1.94833 0.594291 2.21667L0.0109576 5.13333C-0.0590424 5.495 0.215124 5.83333 0.582624 5.83333H0.687624V8.75C0.687624 9.07083 0.950124 9.33333 1.27096 9.33333H5.93762C6.25846 9.33333 6.52096 9.07083 6.52096 8.75V5.83333H8.85429V8.75C8.85429 9.07083 9.11679 9.33333 9.43762 9.33333C9.75846 9.33333 10.021 9.07083 10.021 8.75V5.83333H10.126C10.4935 5.83333 10.7676 5.495 10.6976 5.13333L10.1143 2.21667ZM5.35429 8.16667H1.85429V5.83333H5.35429V8.16667Z" fill="currentColor" />
+        </svg>
+        <span>Cluster</span>
+        <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+      </button>
+      <div class="title-dropdown" id="clusterDropdown" role="menu">
+        <div class="title-dropdown__item" role="menuitem">Cluster de lojas</div>
+        <div class="title-dropdown__item" role="menuitem">Loja individual</div>
+      </div>
+    </div>
+    <div class="title-btn-wrapper">
+      <button class="title-btn" id="produtoTitleBtn" aria-expanded="false">
+        <svg class="title-btn__icon" width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.6667 4.66667V0H7.58333V1.75H4.08333V0H0V4.66667H4.08333V2.91667H5.25V8.75H7.58333V10.5H11.6667V5.83333H7.58333V7.58333H6.41667V2.91667H7.58333V4.66667H11.6667Z" fill="currentColor" />
+        </svg>
+        <span>Produto</span>
+        <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+      </button>
+      <div class="title-dropdown" id="produtoTitleDropdown" role="menu">
+        <div class="title-dropdown__item" role="menuitem">Produto</div>
+        <div class="title-dropdown__item" role="menuitem">Familia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Filtros ──────────────────────────────────────────── -->
+<section class="filtros">
+  <div class="filtros__inner">
+    <div class="filtros__box">
+      <div class="filtros__left">
+
+        <!-- Linha 1 (sem numeracao) -->
+        <div class="filtros__row">
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="produtos" aria-expanded="false">
+              <span>Produtos</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-produtos">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos..." />
+                <span class="filtro-dropdown__paste-link">Colar lista</span>
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Arroz Camil 5kg Tipo 1</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cafe Pilao 500g Tradicional</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cerveja Brahma 350ml Lata</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Detergente Ype 500ml Neutro</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Acucar Uniao 1kg Refinado</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Leite Italac 1L Integral</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Oleo Soya 900ml</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Feijao Kicaldo 1kg Carioca</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="familia" aria-expanded="false">
+              <span>Familia</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-familia">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar familia..." />
+                <span class="filtro-dropdown__paste-link">Colar lista</span>
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0101 — Graos e cereais</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0201 — Cafes</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0301 — Bebidas</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0401 — Limpeza</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0501 — Acucar e doces</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>0601 — Laticinios</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="loja" aria-expanded="false">
+              <span>Loja</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-loja">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar loja..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Centro</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Shopping Aricanduva</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Av. Paulista</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Pinheiros</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Tatuape</span></label>
+              </div>
+              <div class="filtro-dropdown__footer">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Selecionar todos</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="cluster" aria-expanded="false">
+              <span>Cluster</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-cluster">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar cluster..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 01 — Capital SP</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 02 — Interior SP</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Cluster 03 — Litoral SP</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="marca" aria-expanded="false">
+              <span>Marca</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-marca">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar marca..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <span class="filtro-dropdown__empty">Nenhum item encontrado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="fornecedor" aria-expanded="false">
+              <span>Fornecedor</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-fornecedor">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar fornecedor..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <span class="filtro-dropdown__empty">Nenhum item encontrado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linha 2 (numerados) -->
+        <div class="filtros__row">
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--numbered" data-filtro="departamento" aria-expanded="false">
+              <span class="filtro-chip__prefix">01</span>
+              <span>Departamento</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-departamento">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar departamento..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>01 — Mercearia</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>02 — Bebidas</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>03 — Limpeza</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>04 — Higiene</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>05 — Laticinios</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--numbered" data-filtro="secao" aria-expanded="false">
+              <span class="filtro-chip__prefix">02</span>
+              <span>Secao</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-secao">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar secao..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>01 — Graos</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>02 — Enlatados</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>03 — Massas</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>04 — Oleos</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--numbered" data-filtro="grupo" aria-expanded="false">
+              <span class="filtro-chip__prefix">03</span>
+              <span>Grupo</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-grupo">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar grupo..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>01 — Arroz</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>02 — Feijao</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>03 — Cafe</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>04 — Acucar</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip filtro-chip--numbered" data-filtro="subgrupo" aria-expanded="false">
+              <span class="filtro-chip__prefix">04</span>
+              <span>Sub-Grupo</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-subgrupo">
+              <div class="filtro-dropdown__search">
+                <span class="material-icons-outlined">search</span>
+                <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar sub-grupo..." />
+              </div>
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>01 — Tipo 1</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>02 — Tipo 2</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>03 — Parboilizado</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="filtros__right">
+        <div class="filtros__right-top">
+          <button class="filtro-chip" id="limparFiltros">Limpar filtros</button>
+        </div>
+        <div class="filtros__right-bottom">
+          <div class="filtro-chip-wrapper">
+            <button class="filtro-chip" data-filtro="filtros-salvos" aria-expanded="false">
+              <span>Filtros salvos</span>
+              <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="filtro-dropdown" id="filtro-filtros-salvos">
+              <div class="filtro-dropdown__list">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Negociacao Ambev Q2</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Negociacao P&G Limpeza</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Revisao Custos Mercearia</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Cabecalho de Resultados ──────────────────────────── -->
+<section class="cabecalho">
+  <div class="cabecalho__inner">
+    <span class="cabecalho__info">Foram encontrados <b id="totalResultados">20</b> resultados no total</span>
+    <div class="cabecalho__buttons">
+      <button class="neg__add-btn" aria-label="Adicionar item">
+        <span class="material-icons-outlined">add</span>
+      </button>
+      <button class="neg__save-btn">Salvar</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Grid ─────────────────────────────────────────────── -->
+<section class="grid" id="gridSection">
+  <div class="grid__wrapper">
+    <table class="grid__table">
+      <colgroup>
+        <col style="width:40px">
+        <col>
+        <col style="width:80px">
+        <col style="width:100px">
+        <col style="width:128px">
+        <col style="width:96px">
+        <col style="width:128px">
+        <col style="width:128px">
+        <col style="width:108px">
+        <col style="width:108px">
+        <col style="width:108px">
+        <col style="width:100px">
+      </colgroup>
+      <thead>
+        <tr>
+          <th><input type="checkbox" class="grid__check" id="gridCheckAll" /></th>
+          <th>
+            <div class="grid__th-content">
+              <span>Produto</span>
+              <button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button>
+            </div>
+          </th>
+          <th><div class="grid__th-content"><span>Loja</span></div></th>
+          <th><div class="grid__th-content"><span>Estoque</span><button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button></div></th>
+          <th><div class="grid__th-content"><span>Margem Obj.</span></div></th>
+          <th><div class="grid__th-content"><span>Custo Atual</span><button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button></div></th>
+          <th><div class="grid__th-content"><span>Novo Custo</span></div></th>
+          <th><div class="grid__th-content"><span>Novo Preco</span></div></th>
+          <th><div class="grid__th-content"><span>Preco Vigente</span><button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button></div></th>
+          <th><div class="grid__th-content"><span>Preco Conc.</span><button class="grid__sort-btn" data-sort="double"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button></div></th>
+          <th><div class="grid__th-content"><span>Preco Ideal</span></div></th>
+          <th><div class="grid__th-content"><span>Ind. Custos</span></div></th>
+        </tr>
+      </thead>
+      <tbody id="gridBody"></tbody>
+    </table>
+
+    <!-- Paginacao -->
+    <div class="grid__pagination">
+      <div class="grid__pagination-left">
+        <span class="grid__pagination-val">20</span>
+        <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
+        <span class="grid__pagination-label">/ pagina</span>
+        <span class="grid__pagination-sep"></span>
+        <span class="grid__pagination-label">total: 20</span>
+      </div>
+      <div class="grid__pagination-right">
+        <div class="grid__pagination-nav">
+          <span class="material-icons-outlined">first_page</span>
+          <span class="material-icons-outlined">chevron_left</span>
+        </div>
+        <div id="gridPaginationPages">
+          <button class="grid__pagination-btn is-active" data-page="1">1</button>
+        </div>
+        <div class="grid__pagination-nav">
+          <span class="material-icons-outlined">chevron_right</span>
+          <span class="material-icons-outlined">last_page</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Interatividade — Negociacao Fornecedor
+   ══════════════════════════════════════════════════════════ */
+
+/* ── closeAll ──────────────────────────────────────────── */
+function closeAll() {
+  document.querySelectorAll('.dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+  document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+  document.querySelectorAll('.filtro-chip.is-open').forEach(c => c.classList.remove('is-open'));
+  document.querySelectorAll('.title-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+  document.querySelectorAll('.neg__popover.is-open').forEach(p => p.classList.remove('is-open'));
+  document.getElementById('dropdownOverlay').classList.remove('is-open');
+  document.querySelectorAll('[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dropdown, .filtro-dropdown, .title-dropdown, .neg__popover, [aria-expanded], .filtro-chip, .filtro-chip-wrapper, .neg__info-btn, .header__menu-btn, .header__user, .title-btn')) {
+    closeAll();
+  }
+});
+
+/* ── Header dropdowns ──────────────────────────────────── */
+const menuBtn = document.getElementById('menuBtn');
+const productDropdown = document.getElementById('productDropdown');
+const userBtn = document.getElementById('userBtn');
+const userDropdown = document.getElementById('userDropdown');
+const overlay = document.getElementById('dropdownOverlay');
+
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = productDropdown.classList.contains('is-open');
+  closeAll();
+  if (!isOpen) {
+    productDropdown.classList.add('is-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    overlay.classList.add('is-open');
+  }
+});
+
+userBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = userDropdown.classList.contains('is-open');
+  closeAll();
+  if (!isOpen) {
+    userDropdown.classList.add('is-open');
+    userBtn.setAttribute('aria-expanded', 'true');
+    overlay.classList.add('is-open');
+  }
+});
+
+overlay.addEventListener('click', () => closeAll());
+
+/* ── Sidebar toggle ────────────────────────────────────── */
+const sidebar = document.getElementById('sidebar');
+const seta = document.getElementById('sidebarSeta');
+let sidebarExpanded = false;
+
+seta.addEventListener('click', () => {
+  sidebarExpanded = !sidebarExpanded;
+  sidebar.classList.toggle('is-expanded', sidebarExpanded);
+  seta.classList.toggle('is-flipped', sidebarExpanded);
+  const newLeft = sidebarExpanded ? '220px' : '52px';
+  document.querySelectorAll('.title-bar, .filtros, .cabecalho, .grid')
+    .forEach(el => el.style.left = newLeft);
+});
+
+/* ── Title bar dropdowns ───────────────────────────────── */
+document.querySelectorAll('.title-btn[aria-expanded]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdown = btn.nextElementSibling?.classList.contains('title-dropdown')
+      ? btn.nextElementSibling
+      : btn.parentElement.querySelector('.title-dropdown');
+    if (!dropdown) return;
+    const isOpen = dropdown.classList.contains('is-open');
+    closeAll();
+    if (!isOpen) {
+      dropdown.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+document.querySelectorAll('.title-dropdown__item').forEach(item => {
+  item.addEventListener('click', (e) => {
+    const wrapper = e.target.closest('.title-btn-wrapper');
+    const btn = wrapper.querySelector('.title-btn');
+    const label = btn.querySelector('span:not(.material-icons-outlined):not(.title-btn__chevron)');
+    if (label) label.textContent = e.target.textContent;
+    closeAll();
+  });
+});
+
+/* ── Filtro chip dropdowns ─────────────────────────────── */
+document.querySelectorAll('.filtro-chip[data-filtro]').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const wrapper = chip.closest('.filtro-chip-wrapper');
+    const dropdown = wrapper ? wrapper.querySelector('.filtro-dropdown') : null;
+    if (!dropdown) return;
+    const isOpen = dropdown.classList.contains('is-open');
+    closeAll();
+    if (!isOpen) {
+      dropdown.classList.add('is-open');
+      chip.classList.add('is-open');
+      chip.setAttribute('aria-expanded', 'true');
+      const input = dropdown.querySelector('.filtro-dropdown__search-input');
+      if (input) setTimeout(() => input.focus(), 50);
+    }
+  });
+});
+
+/* Search within filter dropdowns */
+document.querySelectorAll('.filtro-dropdown__search-input').forEach(input => {
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    const list = input.closest('.filtro-dropdown').querySelector('.filtro-dropdown__list');
+    list.querySelectorAll('.filtro-dropdown__item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(query) ? '' : 'none';
+    });
+  });
+  input.addEventListener('click', (e) => e.stopPropagation());
+});
+
+/* Limpar filtros */
+document.getElementById('limparFiltros').addEventListener('click', () => {
+  document.querySelectorAll('.filtro-dropdown__item input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+  });
+});
+
+/* ── Grid — Checkbox "select all" ──────────────────────── */
+document.getElementById('gridCheckAll').addEventListener('change', function() {
+  document.querySelectorAll('#gridBody .grid__check').forEach(cb => {
+    cb.checked = this.checked;
+  });
+});
+
+/* ── Grid — Data generation ────────────────────────────── */
+const PRODUTOS = [
+  { cod: '1026313', nome: 'ARROZ CAMIL 5KG TIPO 1', familia: '0101', lojas: 12 },
+  { cod: '1026314', nome: 'CAFE PILAO 500G TRADICIONAL', familia: '0201', lojas: 8 },
+  { cod: '1026315', nome: 'CERVEJA BRAHMA 350ML LATA', familia: '0301', lojas: 15 },
+  { cod: '1026316', nome: 'DETERGENTE YPE 500ML NEUTRO', familia: '0401', lojas: 10 },
+  { cod: '1026317', nome: 'ACUCAR UNIAO 1KG REFINADO', familia: '0501', lojas: 9 },
+  { cod: '1026318', nome: 'LEITE ITALAC 1L INTEGRAL', familia: '0601', lojas: 14 },
+  { cod: '1026319', nome: 'OLEO SOYA 900ML', familia: '0701', lojas: 7 },
+  { cod: '1026320', nome: 'FEIJAO KICALDO 1KG CARIOCA', familia: '0801', lojas: 11 },
+  { cod: '1026321', nome: 'MACARRAO BARILLA 500G ESPAGUETE', familia: '0901', lojas: 6 },
+  { cod: '1026322', nome: 'SABAO OMO 1.6KG PO', familia: '1001', lojas: 13 },
+];
+
+const CLUSTERS = [
+  { nome: 'Cluster 01', lojas: 3 },
+  { nome: 'Cluster 02', lojas: 2 },
+];
+const INDICADORES = [
+  { key: 'muito-bom',  html: 'MUITO<br>BOM' },
+  { key: 'bom',        html: 'BOM' },
+  { key: 'regular',    html: 'REGULAR' },
+  { key: 'ruim',       html: 'RUIM' },
+  { key: 'muito-ruim', html: 'MUITO<br>RUIM' },
+];
+
+function rand(min, max) { return (Math.random() * (max - min) + min).toFixed(2); }
+function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function fmtBRL(v) { return parseFloat(v).toFixed(2).replace('.', ','); }
+
+const tbody = document.getElementById('gridBody');
+let rowIdx = 0;
+
+PRODUTOS.forEach((p, pIdx) => {
+  CLUSTERS.forEach((cl, cIdx) => {
+    const estoque    = randInt(5, 200);
+    const dias       = randInt(3, 45);
+    const custoAtual = parseFloat(rand(3, 45));
+    const pmzCusto   = (custoAtual * (1 + Math.random() * 0.15)).toFixed(2);
+    const margemObj  = rand(8, 35);
+    const novoCusto  = (custoAtual * (0.9 + Math.random() * 0.2)).toFixed(2);
+    const novoPreco  = (parseFloat(novoCusto) * (1 + parseFloat(margemObj) / 100)).toFixed(2);
+    const pmzPreco   = (parseFloat(novoPreco) * 1.05).toFixed(2);
+    const precoVig   = (custoAtual * (1.2 + Math.random() * 0.4)).toFixed(2);
+    const pvVar      = ((parseFloat(novoPreco) / parseFloat(precoVig) - 1) * 100).toFixed(1);
+    const precoConc  = (parseFloat(precoVig) * (0.9 + Math.random() * 0.2)).toFixed(2);
+    const pcVar      = ((parseFloat(precoConc) / parseFloat(precoVig) - 1) * 100).toFixed(1);
+    const precoIdeal = (custoAtual * (1 + parseFloat(margemObj) / 100)).toFixed(2);
+    const pmzIdeal   = (parseFloat(precoIdeal) * 1.03).toFixed(2);
+    const indicador  = INDICADORES[randInt(0, 4)];
+
+    /* Popover breakdown */
+    const custoBase = (custoAtual * 0.70).toFixed(2);
+    const ipi       = rand(0, 5);
+    const icms      = rand(7, 18);
+    const pis       = '1.65';
+    const cofins    = '7.60';
+    const frete     = rand(0.20, 2);
+
+    const estoqueDate = `${String(randInt(1,28)).padStart(2,'0')}/0${randInt(1,4)}/2026`;
+    const isGroupLast = cIdx === CLUSTERS.length - 1;
+    const popId = `pop-${pIdx}-${cIdx}`;
+
+    const pvDir = parseFloat(pvVar) >= 0 ? 'up' : 'down';
+    const pcDir = parseFloat(pcVar) >= 0 ? 'up' : 'down';
+
+    const tr = document.createElement('tr');
+    if (isGroupLast) tr.classList.add('neg__group-last');
+
+    tr.innerHTML = `
+      <td><input type="checkbox" class="grid__check" /></td>
+      <td>
+        <div class="grid__cell">
+          <div class="grid__produto-codes">
+            <span class="grid__produto-code">${p.cod}</span>
+            <div class="grid__produto-family">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod familia.svg" alt="" />
+              <span>${p.familia}</span>
+            </div>
+            <span class="neg__lojas-badge">${p.lojas} LOJAS</span>
+          </div>
+          <span class="grid__produto-name">${p.nome}</span>
+        </div>
+      </td>
+      <td>
+        <div class="neg__cluster-cell">
+          <span class="neg__cluster-name">${cl.nome}</span>
+          <span class="neg__cluster-lojas">${cl.lojas} LOJAS</span>
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell">
+          <div class="grid__estoque-line1">
+            <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="">
+            <span class="grid__val-main">${estoque}</span>
+            <span class="neg__days-badge">${dias}d</span>
+          </div>
+          <span class="grid__estoque-date">${estoqueDate}</span>
+        </div>
+      </td>
+      <td>
+        <div class="grid__form-field">
+          <input class="grid__form-input" type="text" value="${fmtBRL(margemObj)}" style="text-align:right" />
+          <span class="grid__form-suffix grid__form-suffix--gray">%</span>
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell">
+          <span class="grid__val-main">R$ ${fmtBRL(custoAtual)}</span>
+          <span class="grid__val-sub">PMZ ${fmtBRL(pmzCusto)}</span>
+        </div>
+      </td>
+      <td>
+        <div class="grid__form-field">
+          <span class="grid__form-prefix">R$</span>
+          <input class="grid__form-input" type="text" value="${fmtBRL(novoCusto)}" />
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell">
+          <div class="grid__form-field">
+            <span class="grid__form-prefix">R$</span>
+            <input class="grid__form-input" type="text" value="${fmtBRL(novoPreco)}" />
+          </div>
+          <span class="grid__val-sub">PMZ ${fmtBRL(pmzPreco)}</span>
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell">
+          <span class="grid__val-main">R$ ${fmtBRL(precoVig)}</span>
+          <div class="neg__price-sub">
+            <span class="grid__var grid__var--${pvDir}">${pvVar}%</span>
+            <a class="neg__link" href="#">Abrir</a>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell">
+          <span class="grid__val-main">R$ ${fmtBRL(precoConc)}</span>
+          <div class="neg__price-sub">
+            <span class="grid__var grid__var--${pcDir}">${pcVar}%</span>
+            <a class="neg__link" href="#">Abrir</a>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="grid__cell neg__pic-cell">
+          <span class="grid__val-main">R$ ${fmtBRL(precoIdeal)}</span>
+          <div class="neg__pic-sub">
+            <span class="grid__val-sub">PMZ ${fmtBRL(pmzIdeal)}</span>
+            <button class="neg__info-btn" data-popover="${popId}" aria-label="Ver detalhamento">
+              <span class="material-icons-outlined">info_outline</span>
+            </button>
+          </div>
+          <div class="neg__popover" id="${popId}">
+            <div class="neg__popover-title">Detalhamento do custo</div>
+            <div class="neg__popover-row"><span>Custo Base</span><span>R$ ${fmtBRL(custoBase)}</span></div>
+            <div class="neg__popover-row"><span>IPI</span><span>${fmtBRL(ipi)}%</span></div>
+            <div class="neg__popover-row"><span>ICMS</span><span>${fmtBRL(icms)}%</span></div>
+            <div class="neg__popover-row"><span>PIS</span><span>${pis}%</span></div>
+            <div class="neg__popover-row"><span>COFINS</span><span>${cofins}%</span></div>
+            <div class="neg__popover-row"><span>Frete</span><span>R$ ${fmtBRL(frete)}</span></div>
+            <div class="neg__popover-total"><span>Total</span><span>R$ ${fmtBRL(precoIdeal)}</span></div>
+          </div>
+        </div>
+      </td>
+      <td><div class="indicador indicador--${indicador.key}"><div class="indicador__inner">${indicador.html}</div></div></td>
+    `;
+
+    tbody.appendChild(tr);
+    rowIdx++;
+  });
+});
+
+/* ── Popover toggle ────────────────────────────────────── */
+document.querySelectorAll('.neg__info-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const popId = btn.getAttribute('data-popover');
+    const popover = document.getElementById(popId);
+    const isOpen = popover.classList.contains('is-open');
+    /* Close all popovers first */
+    document.querySelectorAll('.neg__popover.is-open').forEach(p => p.classList.remove('is-open'));
+    if (!isOpen) popover.classList.add('is-open');
+  });
+});
+
+/* Close popover on outside click */
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.neg__info-btn, .neg__popover')) {
+    document.querySelectorAll('.neg__popover.is-open').forEach(p => p.classList.remove('is-open'));
+  }
+});
+</script>
+
+</body>
+</html>

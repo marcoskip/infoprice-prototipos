@@ -68,7 +68,7 @@ Crie o arquivo `$1.html` na raiz do projeto seguindo rigorosamente estas regras:
 #### Regras obrigatorias
 
 1. **Arquivo unico**: HTML com `<style>` inline (apenas estilos especificos da pagina) e `<script>` inline
-2. **Tokens do DS**: Sempre use as custom properties de `tokens.css` — nunca valores hardcoded para cores, fontes, espacamento, sombras ou border-radius
+2. **Tokens do DS**: Sempre use as custom properties de `tokens.css` — NUNCA use valores hardcoded ou cores de fora do Design System. Isso vale para cores, fontes, espacamento, sombras e border-radius. Se a cor necessaria nao existir nos tokens, pergunte ao usuario se deve adicionar ao tokens.css. Nunca invente cores
 3. **Estilos compartilhados**: Importe `styles.css` e reutilize as classes existentes (header, sidebar, title-bar, big-numbers, filtros, grid, etc.). Leia o arquivo `styles.css` para verificar quais classes ja existem antes de criar novas
 4. **Zero dependencias externas**: Apenas HTML, CSS e JavaScript puro. Sem frameworks, sem bibliotecas
 5. **Assets remotos**: Use os SVGs hospedados em `https://marcoskip.github.io/infoprice-prototipos/assets/` (sidebar icons, cabecalho icons, grid icons). Consulte o componentes.md para ver os caminhos disponiveis

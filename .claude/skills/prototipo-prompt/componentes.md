@@ -235,7 +235,7 @@ Barra de titulo abaixo do header.
 
 ### Specs
 
-- Position: fixed, top: 60px, left: 52px, right: 0, height: 36px
+- Position: fixed, top: 52px, left: 52px, right: 0, height: 36px
 - Background: transparente (mostra gray-50 da pagina)
 - Padding: 0 16px
 - Titulo: 14px semibold, `--color-gray-900`
@@ -336,7 +336,7 @@ Faixa de KPI cards.
 
 ### Specs
 
-- Position: fixed, top: 104px, left: 52px, right: 0, z-index: 40
+- Position: fixed, top: 88px, left: 52px, right: 0, z-index: 40
 - Secao: transparente, padding 4px 16px
 - Inner: background white, border-radius 6px, padding 12px
 - Cards: height 68px, padding 4px 8px, border-radius 6px
@@ -424,7 +424,7 @@ Barra de chips pill com dropdowns.
 
 ### Specs
 
-- Position: fixed, top: 212px, left: 52px, right: 0, z-index: 42
+- Position: fixed, top: 188px, left: 52px, right: 0, z-index: 42
 - Padding: 0 16px
 - Inner: background white, border-radius 6px, padding 12px
 - Box: border 1px `--color-gray-300`, border-radius 6px, padding 12px
@@ -659,38 +659,7 @@ PRODUTOS.forEach(p => {
 
 ---
 
-## 8. Indicador
-
-Componente reutilizavel para exibir status qualitativo em 5 niveis. Sempre que for solicitado um badge com essa qualidade (bom/ruim/regular), use este componente.
-
-### HTML
-
-```html
-<div class="indicador indicador--muito-bom">
-  <div class="indicador__inner">MUITO<br>BOM</div>
-</div>
-```
-
-### Variantes
-
-| Variante | Classe | Background | Border | Texto |
-|---|---|---|---|---|
-| MUITO BOM | `indicador--muito-bom` | `--color-green-light-20` | `--color-green-light-45` | `--color-green-400` |
-| BOM | `indicador--bom` | `--color-green-light-5` | `--color-green-light-20` | `--color-green-400` |
-| REGULAR | `indicador--regular` | `--color-orange-light-5` | `--color-orange-light-15` | `--color-orange-400` |
-| RUIM | `indicador--ruim` | `--color-red-light-5` | `--color-red-light-20` | `--color-red-600` |
-| MUITO RUIM | `indicador--muito-ruim` | `--color-red-light-20` | `--color-red-light-45` | `--color-red-600` |
-
-### Specs
-
-- Container: 84px width, 64px height, padding 4px
-- Inner: flex, height 48px, border-radius 6px, border 1px solid
-- Texto: 12px semibold, line-height 12px, text-align center, uppercase
-- Labels multi-palavra (MUITO BOM, MUITO RUIM) quebram em 2 linhas com `<br>`
-
----
-
-## 9. Botoes primarios (Aplicar, Salvar, Exportar)
+## 8. Botoes primarios (Aplicar, Salvar, Exportar)
 
 Botoes de acao principal da pagina. SEMPRE usar a cor principal da InfoPrice.
 
@@ -711,7 +680,7 @@ Botoes de acao principal da pagina. SEMPRE usar a cor principal da InfoPrice.
 
 ---
 
-## 10. Coluna Estoque (variante com icone)
+## 9. Coluna Estoque (variante com icone)
 
 Sempre que a variante de estoque for utilizada no grid, ela DEVE incluir o icone `unidades.svg` antes do valor numerico.
 
@@ -732,7 +701,7 @@ Sempre que a variante de estoque for utilizada no grid, ela DEVE incluir o icone
 
 ---
 
-## 11. Coluna Cluster (variante com chip de lojas)
+## 10. Coluna Cluster (variante com chip de lojas)
 
 Sempre que um Cluster for exibido no grid, ele DEVE vir acompanhado de um chip indicando o numero de lojas pertencentes ao cluster.
 

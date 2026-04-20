@@ -497,7 +497,7 @@ body {
 /* ── Title Bar ───────────────────────────────────── */
 .title-bar {
   position: fixed;
-  top: 52px;
+  top: 60px;
   left: 52px;
   right: 0;
   height: 36px;
@@ -631,7 +631,7 @@ body {
 /* ── Big Numbers ─────────────────────────────────── */
 .big-numbers {
   position: fixed;
-  top: 88px;
+  top: 104px;
   left: 52px;
   right: 0;
   z-index: 40;
@@ -790,7 +790,7 @@ body {
 /* ── Filtros ──────────────────────────────────────── */
 .filtros {
   position: fixed;
-  top: 188px;
+  top: 212px;
   left: 52px;
   right: 0;
   z-index: 42;
@@ -1047,7 +1047,7 @@ body {
 /* ── Cabecalho (toolbar da tabela) ───────────────── */
 .cabecalho {
   position: fixed;
-  top: 314px;
+  top: 346px;
   left: 52px;
   right: 0;
   z-index: 41;
@@ -1402,7 +1402,7 @@ body {
 /* ── Grid (tabela de dados) ──────────────────────── */
 .grid {
   position: fixed;
-  top: 374px;
+  top: 414px;
   left: 52px;
   right: 0;
   bottom: 0;
@@ -1434,6 +1434,11 @@ body {
 
 .grid__table thead tr:first-child th:last-child {
   border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.grid__table th:first-child,
+.grid__table td:first-child {
+  padding-left: 16px;
 }
 
 .grid__table th {
@@ -1548,7 +1553,6 @@ body {
   padding: 0 6px;
   height: 64px;
   vertical-align: middle;
-  border-bottom: 1px solid var(--color-gray-300);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   color: var(--color-gray-900);
@@ -1595,13 +1599,12 @@ body {
   display: flex;
   gap: 4px;
   align-items: center;
-  height: 20px;
 }
 
 .grid__produto-code {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-lg);
+  line-height: 16px;
   color: var(--color-gray-900);
 }
 
@@ -2047,4 +2050,36 @@ body {
 .grid__pagination-btn:hover:not(.is-active) {
   background: var(--color-gray-100);
 }
+
+/* ── Indicador (5 estados) ──────────────────────────── */
+.indicador {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  width: 84px;
+  height: 64px;
+}
+
+.indicador__inner {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  min-width: 1px;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.indicador--muito-bom .indicador__inner  { background: var(--color-green-light-20); border-color: var(--color-green-light-45); color: var(--color-green-400); }
+.indicador--bom .indicador__inner        { background: var(--color-green-light-5);  border-color: var(--color-green-light-20); color: var(--color-green-400); }
+.indicador--regular .indicador__inner    { background: var(--color-orange-light-5); border-color: var(--color-orange-light-15); color: var(--color-orange-400); }
+.indicador--ruim .indicador__inner       { background: var(--color-red-light-5);    border-color: var(--color-red-light-20);   color: var(--color-red-600); }
+.indicador--muito-ruim .indicador__inner { background: var(--color-red-light-20);   border-color: var(--color-red-light-45);   color: var(--color-red-600); }
 
