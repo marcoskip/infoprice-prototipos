@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(/.claude/skills/prototipo-prompt/**)",
+      "Edit(/.claude/skills/prototipo/**)",
+      "Skill(prototipo-prompt)",
+      "Skill(prototipo-prompt:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\ADMIN\\Desktop\\projeto claude\\.claude\\skills"
+    ]
+  }
+}

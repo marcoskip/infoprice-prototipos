@@ -34,6 +34,7 @@ Tambem use `get_screenshot` para ter referencia visual.
 
 Compare o design recebido com a biblioteca de componentes ja implementados.
 Leia o arquivo de referencia [componentes.md](componentes.md) para entender os componentes disponiveis e suas specs.
+Consulte tambem [referencia-producao.md](referencia-producao.md) — um indice que aponta para 9 arquivos de referencia modulares (ref-tokens, ref-botoes, ref-filtros, ref-tabela, ref-inputs, ref-data-display, ref-navegacao, ref-modais, ref-gerenciador). Leia o indice e depois o arquivo especifico da categoria que precisa. Isso garante fidelidade ao produto real (`app.infoprice.co`).
 
 ### 3. Gerar o arquivo HTML
 

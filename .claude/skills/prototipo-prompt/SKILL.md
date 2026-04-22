@@ -25,7 +25,8 @@ Se a descricao estiver vaga, pergunte detalhes antes de gerar.
 ### 1. Interpretar a descricao
 
 Analise o que o usuario pediu e identifique quais componentes da biblioteca serao necessarios.
-Leia o arquivo de referencia [../prototipo/componentes.md](../prototipo/componentes.md) para conhecer os componentes disponiveis.
+Leia o arquivo de referencia [componentes.md](componentes.md) para conhecer os componentes disponiveis.
+Consulte tambem [referencia-producao.md](referencia-producao.md) — um indice que aponta para 9 arquivos de referencia modulares (ref-tokens, ref-botoes, ref-filtros, ref-tabela, ref-inputs, ref-data-display, ref-navegacao, ref-modais, ref-gerenciador). Leia o indice e depois o arquivo especifico da categoria que precisa. Isso garante fidelidade ao produto real (`app.infoprice.co`).
 
 Componentes que podem ser incluidos:
 - **Header** — sempre incluir (top bar com logo, dropdowns de produtos e usuario)
