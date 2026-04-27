@@ -2083,3 +2083,28 @@ body {
 .indicador--ruim .indicador__inner       { background: var(--color-red-light-5);    border-color: var(--color-red-light-20);   color: var(--color-red-600); }
 .indicador--muito-ruim .indicador__inner { background: var(--color-red-light-20);   border-color: var(--color-red-light-45);   color: var(--color-red-600); }
 
+/* ── Botao primario global (Salvar, Aplicar, Confirmar) ──────────── */
+.neg__save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  background: var(--color-blue-400);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.neg__save-btn:hover { background: var(--color-blue-500); }
+.neg__save-btn:disabled {
+  background: var(--color-blue-light-45);
+  cursor: not-allowed;
+}
+
