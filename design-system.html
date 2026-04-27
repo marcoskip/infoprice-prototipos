@@ -412,10 +412,43 @@
     </div>
 
     <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Form controls</div>
+      <a class="ds__nav-link" href="#switch">Switch</a>
+      <a class="ds__nav-link" href="#radio">Radio</a>
+      <a class="ds__nav-link" href="#checkbox">Checkbox</a>
+    </div>
+
+    <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Feedback</div>
+      <a class="ds__nav-link" href="#message-box">MessageBox</a>
+      <a class="ds__nav-link" href="#toast">Toast</a>
+    </div>
+
+    <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Atoms</div>
+      <a class="ds__nav-link" href="#badge-generic">Badge generico</a>
+      <a class="ds__nav-link" href="#tag-generic">Tag generico</a>
+    </div>
+
+    <div class="ds__nav-section">
       <div class="ds__nav-section-title">Botoes</div>
+      <a class="ds__nav-link" href="#btn-generic">Btn generico</a>
       <a class="ds__nav-link" href="#botoes">Primario & Title</a>
       <a class="ds__nav-link" href="#composed-buttons">Compostos</a>
       <a class="ds__nav-link" href="#aplicar-btn">Aplicar preco</a>
+    </div>
+
+    <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Pickers</div>
+      <a class="ds__nav-link" href="#select-picker">SelectPicker</a>
+      <a class="ds__nav-link" href="#date-picker">DatePicker</a>
+      <a class="ds__nav-link" href="#hour-picker">HourPicker</a>
+    </div>
+
+    <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Overlay</div>
+      <a class="ds__nav-link" href="#modal">Modal</a>
+      <a class="ds__nav-link" href="#context-menu">Context Menu</a>
     </div>
 
     <div class="ds__nav-section">
@@ -437,6 +470,7 @@
       <a class="ds__nav-link" href="#header">Header</a>
       <a class="ds__nav-link" href="#header-dropdowns">Header dropdowns</a>
       <a class="ds__nav-link" href="#sidebar">Sidebar</a>
+      <a class="ds__nav-link" href="#navbar">Navbar (sub-nav)</a>
       <a class="ds__nav-link" href="#cabecalho">Cabecalho</a>
     </div>
 
@@ -705,6 +739,615 @@
 &lt;!-- Variantes --&gt;
 &lt;span class="tooltip tooltip--above"&gt;Aparece acima&lt;/span&gt;
 &lt;span class="tooltip tooltip--below"&gt;Aparece abaixo&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Switch ─────────────────────────────────── -->
+    <section class="ds__section" id="switch">
+      <h2 class="ds__section-title">Switch</h2>
+      <p class="ds__section-desc">
+        Toggle on/off com 3 estados (off, on, half) e 3 tamanhos (small, medium, large).
+        Use para configuracoes booleanas. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-half</code> indica selecao parcial em listas.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados (medium)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <label class="switch">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Off</span>
+          </label>
+          <label class="switch is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">On</span>
+          </label>
+          <label class="switch is-half">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Half</span>
+          </label>
+          <label class="switch is-disabled">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Disabled</span>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="switch is-checked"&gt;
+  &lt;span class="switch__track"&gt;&lt;span class="switch__thumb"&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="switch__label"&gt;On&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Estados: padrao | .is-checked | .is-half | .is-disabled --&gt;
+&lt;!-- Sizes:   .switch--small | (default = medium) | .switch--large --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <label class="switch switch--small is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Small</span>
+          </label>
+          <label class="switch is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Medium</span>
+          </label>
+          <label class="switch switch--large is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Large</span>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="switch switch--small is-checked"&gt; ... &lt;/label&gt;
+&lt;label class="switch is-checked"&gt; ... &lt;/label&gt;
+&lt;label class="switch switch--large is-checked"&gt; ... &lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Radio ──────────────────────────────────── -->
+    <section class="ds__section" id="radio">
+      <h2 class="ds__section-title">Radio</h2>
+      <p class="ds__section-desc">
+        Selecao unica obrigatoria em um grupo. 3 variantes: only radio, radio + label,
+        radio + label + texto complementar. Use sempre quando UMA escolha e obrigatoria —
+        para selecao opcional ou multipla, use Checkbox.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
+          <label class="radio">
+            <input type="radio" name="ds-radio-1" class="radio__input" />
+            <span class="radio__circle"></span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="ds-radio-2" class="radio__input" checked />
+            <span class="radio__circle"></span>
+            <div class="radio__content">
+              <span class="radio__label">Aplicar preco sugerido</span>
+            </div>
+          </label>
+          <label class="radio">
+            <input type="radio" name="ds-radio-3" class="radio__input" />
+            <span class="radio__circle"></span>
+            <div class="radio__content">
+              <span class="radio__label">Aplicar preco vigente</span>
+              <span class="radio__helper">Mantem o preco que ja esta no PDV</span>
+            </div>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Only radio --&gt;
+&lt;label class="radio"&gt;
+  &lt;input type="radio" name="grupo" class="radio__input" /&gt;
+  &lt;span class="radio__circle"&gt;&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio + label --&gt;
+&lt;label class="radio"&gt;
+  &lt;input type="radio" name="grupo" class="radio__input" checked /&gt;
+  &lt;span class="radio__circle"&gt;&lt;/span&gt;
+  &lt;div class="radio__content"&gt;
+    &lt;span class="radio__label"&gt;Texto&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio + label + helper --&gt;
+&lt;div class="radio__content"&gt;
+  &lt;span class="radio__label"&gt;Titulo&lt;/span&gt;
+  &lt;span class="radio__helper"&gt;Texto complementar&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Checkbox ───────────────────────────────── -->
+    <section class="ds__section" id="checkbox">
+      <h2 class="ds__section-title">Checkbox</h2>
+      <p class="ds__section-desc">
+        Selecao multipla ou opcional. 3 estados (off, on, half) e 3 variantes (caixa,
+        + label, + label + complementar). Use Radio para escolha unica obrigatoria.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
+          <label class="checkbox">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Off (default)</span>
+            </div>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" class="checkbox__input" checked />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">On (checked)</span>
+            </div>
+          </label>
+          <label class="checkbox is-half">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Half (indeterminado)</span>
+              <span class="checkbox__helper">Use quando ha selecao parcial em uma lista filha</span>
+            </div>
+          </label>
+          <label class="checkbox is-disabled">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Disabled</span>
+            </div>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" class="checkbox__input" /&gt;
+  &lt;span class="checkbox__box"&gt;&lt;/span&gt;
+  &lt;div class="checkbox__content"&gt;
+    &lt;span class="checkbox__label"&gt;Texto&lt;/span&gt;
+    &lt;span class="checkbox__helper"&gt;Texto complementar&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Estados: padrao | checked (no input) | .is-half | .is-disabled --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MessageBox ─────────────────────────────── -->
+    <section class="ds__section" id="message-box">
+      <h2 class="ds__section-title">MessageBox</h2>
+      <p class="ds__section-desc">
+        Mensagem inline embutida em uma secao da pagina (nao e popup). 4 cores semanticas:
+        info, success, warning, error. Pode ter icone, titulo, corpo e botao de acao.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes semanticas</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
+          <div class="message-box message-box--info">
+            <span class="material-icons-outlined message-box__icon">info</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Informativo</span>
+              <span class="message-box__body">Os precos foram atualizados com base nos custos mais recentes.</span>
+            </div>
+          </div>
+          <div class="message-box message-box--success">
+            <span class="material-icons-outlined message-box__icon">check_circle</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Sucesso</span>
+              <span class="message-box__body">15 produtos foram salvos com sucesso.</span>
+            </div>
+          </div>
+          <div class="message-box message-box--warning">
+            <span class="material-icons-outlined message-box__icon">warning</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Atencao</span>
+              <span class="message-box__body">3 produtos estao com margem abaixo do limite definido.</span>
+              <button class="message-box__action">Ver produtos</button>
+            </div>
+          </div>
+          <div class="message-box message-box--error">
+            <span class="material-icons-outlined message-box__icon">error</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Erro ao salvar</span>
+              <span class="message-box__body">Nao foi possivel salvar 2 produtos. Verifique a conexao e tente novamente.</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="message-box message-box--success"&gt;
+  &lt;span class="material-icons-outlined message-box__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="message-box__content"&gt;
+    &lt;span class="message-box__title"&gt;Sucesso&lt;/span&gt;
+    &lt;span class="message-box__body"&gt;15 produtos salvos.&lt;/span&gt;
+    &lt;button class="message-box__action"&gt;Ver detalhes&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes: --info | --success | --warning | --error --&gt;
+&lt;!-- Icones sugeridos: info | check_circle | warning | error --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Toast ──────────────────────────────────── -->
+    <section class="ds__section" id="toast">
+      <h2 class="ds__section-title">Toast (notificacao popup)</h2>
+      <p class="ds__section-desc">
+        Notificacao flutuante que aparece sobre o conteudo. 4 cores semanticas e 2 temas
+        (long, short). Container fixo no canto. Diferente do MessageBox: Toast e popup,
+        MessageBox e inline.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Long (com titulo, body e acao)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
+          <div class="toast toast--info">
+            <span class="material-icons-outlined toast__icon">info</span>
+            <div class="toast__content">
+              <span class="toast__title">Atualizacao disponivel</span>
+              <span class="toast__body">Uma nova versao do IPA esta pronta para uso.</span>
+              <button class="toast__action">Recarregar</button>
+            </div>
+            <button class="toast__close" aria-label="Fechar">
+              <span class="material-icons-outlined" style="font-size:18px">close</span>
+            </button>
+          </div>
+          <div class="toast toast--success">
+            <span class="material-icons-outlined toast__icon">check_circle</span>
+            <div class="toast__content">
+              <span class="toast__title">Precos aplicados</span>
+              <span class="toast__body">15 produtos foram atualizados no PDV.</span>
+            </div>
+            <button class="toast__close" aria-label="Fechar">
+              <span class="material-icons-outlined" style="font-size:18px">close</span>
+            </button>
+          </div>
+          <div class="toast toast--warning">
+            <span class="material-icons-outlined toast__icon">warning</span>
+            <div class="toast__content">
+              <span class="toast__title">Limite proximo</span>
+              <span class="toast__body">Voce esta a 90% do limite mensal de processamento.</span>
+            </div>
+          </div>
+          <div class="toast toast--error">
+            <span class="material-icons-outlined toast__icon">error</span>
+            <div class="toast__content">
+              <span class="toast__title">Falha na sincronizacao</span>
+              <span class="toast__body">Nao foi possivel sincronizar 3 produtos.</span>
+              <button class="toast__action">Tentar novamente</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Container fixo (1 por pagina, no body) --&gt;
+&lt;div class="toast-container" id="toastContainer"&gt;&lt;/div&gt;
+
+&lt;!-- Toast individual --&gt;
+&lt;div class="toast toast--success"&gt;
+  &lt;span class="material-icons-outlined toast__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="toast__content"&gt;
+    &lt;span class="toast__title"&gt;Titulo&lt;/span&gt;
+    &lt;span class="toast__body"&gt;Mensagem.&lt;/span&gt;
+    &lt;button class="toast__action"&gt;Acao&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button class="toast__close"&gt;
+    &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes: --info | --success | --warning | --error --&gt;
+&lt;!-- Tema:      --long (default) | --short --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Short (so body)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-2);align-items:stretch;padding:var(--space-4)">
+          <div class="toast toast--short toast--success">
+            <span class="material-icons-outlined toast__icon">check_circle</span>
+            <div class="toast__content">
+              <span class="toast__body">Salvo com sucesso</span>
+            </div>
+          </div>
+          <div class="toast toast--short toast--info">
+            <div class="toast__content">
+              <span class="toast__body">Carregando dados...</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="toast toast--short toast--success"&gt;
+  &lt;span class="material-icons-outlined toast__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="toast__content"&gt;
+    &lt;span class="toast__body"&gt;Salvo com sucesso&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Badge generico ─────────────────────────── -->
+    <section class="ds__section" id="badge-generic">
+      <h2 class="ds__section-title">Badge (generico)</h2>
+      <p class="ds__section-desc">
+        Indicador compacto. 2 temas (filled, ghost), 5 cores semanticas, e 2 tamanhos
+        (small, medium). Variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> e o ponto sem texto. Substitui as
+        variantes ad-hoc <code style="font-family:'JetBrains Mono',monospace;font-size:13px">user-dropdown__badge</code> e <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__badge-pill</code> em novos contextos.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Filled — 5 cores</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="badge badge--filled badge--blue">novo</span>
+          <span class="badge badge--filled badge--gray">arquivado</span>
+          <span class="badge badge--filled badge--green">ativo</span>
+          <span class="badge badge--filled badge--orange">pendente</span>
+          <span class="badge badge--filled badge--red">erro</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="badge badge--filled badge--blue"&gt;novo&lt;/span&gt;
+
+&lt;!-- Cores: --blue | --gray | --green | --orange | --red --&gt;
+&lt;!-- Tema:  --filled | --ghost --&gt;
+&lt;!-- Tamanho: padrao (16px) | --medium (20px) --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Ghost + tamanhos + basic</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="badge badge--ghost badge--blue">info</span>
+          <span class="badge badge--ghost badge--green">ok</span>
+          <span class="badge badge--ghost badge--orange">aviso</span>
+          <span class="badge badge--ghost badge--red">erro</span>
+          <span class="badge badge--medium badge--filled badge--blue">medium</span>
+          <span class="badge badge--basic badge--filled badge--red"></span>
+          <span class="badge badge--basic badge--filled badge--green"></span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Ghost --&gt;
+&lt;span class="badge badge--ghost badge--blue"&gt;info&lt;/span&gt;
+
+&lt;!-- Medium size --&gt;
+&lt;span class="badge badge--medium badge--filled badge--blue"&gt;medium&lt;/span&gt;
+
+&lt;!-- Basic (ponto) --&gt;
+&lt;span class="badge badge--basic badge--filled badge--red"&gt;&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Tag generico ───────────────────────────── -->
+    <section class="ds__section" id="tag-generic">
+      <h2 class="ds__section-title">Tag (generico)</h2>
+      <p class="ds__section-desc">
+        Etiqueta com texto sempre presente (e icone opcional). 2 temas, 5 cores, 4 tamanhos
+        (xsmall, small, medium, large). Para indicadores apenas de icone, use Badge.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Filled — 5 cores</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="tag tag--filled tag--blue">Beta</span>
+          <span class="tag tag--filled tag--gray">Arquivado</span>
+          <span class="tag tag--filled tag--green">Ativo</span>
+          <span class="tag tag--filled tag--orange">Pendente</span>
+          <span class="tag tag--filled tag--red">Bloqueado</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="tag tag--filled tag--blue"&gt;Beta&lt;/span&gt;
+
+&lt;!-- Cores: --blue | --gray | --green | --orange | --red --&gt;
+&lt;!-- Tema:  --filled | --ghost --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Ghost + icones + tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="tag tag--ghost tag--blue">
+            <span class="material-icons-outlined tag__icon">info</span>
+            Icon-left
+          </span>
+          <span class="tag tag--ghost tag--green">
+            Icon-right
+            <span class="material-icons-outlined tag__icon">check</span>
+          </span>
+          <span class="tag tag--xsmall tag--filled tag--gray">xsmall</span>
+          <span class="tag tag--filled tag--blue">small</span>
+          <span class="tag tag--medium tag--filled tag--green">medium</span>
+          <span class="tag tag--large tag--filled tag--orange">large</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Icon-left --&gt;
+&lt;span class="tag tag--ghost tag--blue"&gt;
+  &lt;span class="material-icons-outlined tag__icon"&gt;info&lt;/span&gt;
+  Texto
+&lt;/span&gt;
+
+&lt;!-- Icon-right --&gt;
+&lt;span class="tag tag--ghost tag--green"&gt;
+  Texto
+  &lt;span class="material-icons-outlined tag__icon"&gt;check&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- Tamanhos: --xsmall | (default = small) | --medium | --large --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Btn generico (Phase 2) ─────────────────── -->
+    <section class="ds__section" id="btn-generic">
+      <h2 class="ds__section-title">Btn generico</h2>
+      <p class="ds__section-desc">
+        Botao reutilizavel com 3 variantes (primary, secondary, link) e 4 tamanhos (xsmall,
+        small, medium, large). Substitui no longo prazo as classes ad-hoc <code style="font-family:'JetBrains Mono',monospace;font-size:13px">neg__save-btn</code>,
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">title-btn</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__calcular-btn</code> em novos prototipos.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--primary">Primary</button>
+          <button class="btn btn--secondary">Secondary</button>
+          <button class="btn btn--secondary-ghost">Secondary ghost</button>
+          <button class="btn btn--link">Link button</button>
+          <button class="btn btn--primary" disabled>Disabled</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="btn btn--primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn--secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="btn btn--secondary-ghost"&gt;Secondary ghost&lt;/button&gt;
+&lt;button class="btn btn--link"&gt;Link button&lt;/button&gt;
+
+&lt;!-- Variantes: --primary | --secondary | --secondary-ghost | --link --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--primary btn--xsmall">xsmall</button>
+          <button class="btn btn--primary btn--small">small</button>
+          <button class="btn btn--primary">medium</button>
+          <button class="btn btn--primary btn--large">large</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="btn btn--primary btn--xsmall"&gt;xsmall&lt;/button&gt;
+&lt;button class="btn btn--primary btn--small"&gt;small&lt;/button&gt;
+&lt;button class="btn btn--primary"&gt;medium&lt;/button&gt;
+&lt;button class="btn btn--primary btn--large"&gt;large&lt;/button&gt;
+
+&lt;!-- 24px / 28px / 32px (default) / 40px --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com icone</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--primary">
+            <span class="material-icons-outlined">save</span>
+            Salvar
+          </button>
+          <button class="btn btn--secondary">
+            Exportar
+            <span class="material-icons-outlined">file_download</span>
+          </button>
+          <button class="btn btn--link">
+            <span class="material-icons-outlined">add</span>
+            Adicionar
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="btn btn--primary"&gt;
+  &lt;span class="material-icons-outlined"&gt;save&lt;/span&gt;
+  Salvar
+&lt;/button&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -2207,6 +2850,457 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       &lt;span class="material-icons-outlined"&gt;last_page&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SelectPicker ───────────────────────────── -->
+    <section class="ds__section" id="select-picker">
+      <h2 class="ds__section-title">SelectPicker</h2>
+      <p class="ds__section-desc">
+        Combo de input + dropdown com search opcional. Use para selecao unica em listas
+        longas. Para selecao multipla, combine com checkboxes nos itens.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Trigger fechado e aberto</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start;gap:var(--space-6)">
+          <div class="select-picker">
+            <button class="select-picker__trigger">
+              <span class="select-picker__placeholder">Selecione uma loja</span>
+              <span class="material-icons-outlined select-picker__chevron">keyboard_arrow_down</span>
+            </button>
+          </div>
+          <div class="select-picker">
+            <button class="select-picker__trigger is-open">
+              <span>Loja Centro</span>
+              <span class="material-icons-outlined select-picker__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="select-picker__dropdown is-open">
+              <div class="select-picker__search">
+                <input type="text" class="select-picker__search-input" placeholder="Buscar..." />
+              </div>
+              <div class="select-picker__list">
+                <div class="select-picker__item is-selected">Loja Centro</div>
+                <div class="select-picker__item">Loja Zona Sul</div>
+                <div class="select-picker__item">Loja Zona Norte</div>
+                <div class="select-picker__item">Loja Shopping</div>
+                <div class="select-picker__item is-disabled">Loja Bairro (inativa)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="select-picker"&gt;
+  &lt;button class="select-picker__trigger"&gt;
+    &lt;span class="select-picker__placeholder"&gt;Selecione uma loja&lt;/span&gt;
+    &lt;span class="material-icons-outlined select-picker__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="select-picker__dropdown"&gt;
+    &lt;div class="select-picker__search"&gt;
+      &lt;input type="text" class="select-picker__search-input" placeholder="Buscar..." /&gt;
+    &lt;/div&gt;
+    &lt;div class="select-picker__list"&gt;
+      &lt;div class="select-picker__item is-selected"&gt;Item 1&lt;/div&gt;
+      &lt;div class="select-picker__item"&gt;Item 2&lt;/div&gt;
+      &lt;div class="select-picker__item is-disabled"&gt;Item 3&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DatePicker ─────────────────────────────── -->
+    <section class="ds__section" id="date-picker">
+      <h2 class="ds__section-title">DatePicker</h2>
+      <p class="ds__section-desc">
+        Calendario popup com selecao de data unica ou range. Header com nav de mes,
+        weekdays, e grid de dias. Estados: today, selected, range, disabled.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Single date + range</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
+          <div class="date-picker">
+            <div class="date-picker__header">
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_left</span></button>
+              <span class="date-picker__title">Abril 2026</span>
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+            <div class="date-picker__weekdays">
+              <span class="date-picker__weekday">D</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">T</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">S</span>
+            </div>
+            <div class="date-picker__days">
+              <button class="date-picker__day date-picker__day--other-month">29</button>
+              <button class="date-picker__day date-picker__day--other-month">30</button>
+              <button class="date-picker__day date-picker__day--other-month">31</button>
+              <button class="date-picker__day">1</button>
+              <button class="date-picker__day">2</button>
+              <button class="date-picker__day">3</button>
+              <button class="date-picker__day">4</button>
+              <button class="date-picker__day">5</button>
+              <button class="date-picker__day">6</button>
+              <button class="date-picker__day">7</button>
+              <button class="date-picker__day">8</button>
+              <button class="date-picker__day">9</button>
+              <button class="date-picker__day">10</button>
+              <button class="date-picker__day">11</button>
+              <button class="date-picker__day">12</button>
+              <button class="date-picker__day">13</button>
+              <button class="date-picker__day">14</button>
+              <button class="date-picker__day">15</button>
+              <button class="date-picker__day">16</button>
+              <button class="date-picker__day">17</button>
+              <button class="date-picker__day">18</button>
+              <button class="date-picker__day">19</button>
+              <button class="date-picker__day">20</button>
+              <button class="date-picker__day">21</button>
+              <button class="date-picker__day">22</button>
+              <button class="date-picker__day">23</button>
+              <button class="date-picker__day">24</button>
+              <button class="date-picker__day">25</button>
+              <button class="date-picker__day">26</button>
+              <button class="date-picker__day date-picker__day--today">27</button>
+              <button class="date-picker__day date-picker__day--selected">28</button>
+              <button class="date-picker__day">29</button>
+              <button class="date-picker__day">30</button>
+              <button class="date-picker__day date-picker__day--other-month">1</button>
+              <button class="date-picker__day date-picker__day--other-month">2</button>
+            </div>
+          </div>
+
+          <div class="date-picker">
+            <div class="date-picker__header">
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_left</span></button>
+              <span class="date-picker__title">Abril 2026</span>
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+            <div class="date-picker__weekdays">
+              <span class="date-picker__weekday">D</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">T</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">S</span>
+            </div>
+            <div class="date-picker__days">
+              <button class="date-picker__day date-picker__day--other-month">29</button>
+              <button class="date-picker__day date-picker__day--other-month">30</button>
+              <button class="date-picker__day date-picker__day--other-month">31</button>
+              <button class="date-picker__day">1</button>
+              <button class="date-picker__day">2</button>
+              <button class="date-picker__day">3</button>
+              <button class="date-picker__day">4</button>
+              <button class="date-picker__day">5</button>
+              <button class="date-picker__day">6</button>
+              <button class="date-picker__day">7</button>
+              <button class="date-picker__day">8</button>
+              <button class="date-picker__day">9</button>
+              <button class="date-picker__day">10</button>
+              <button class="date-picker__day">11</button>
+              <button class="date-picker__day">12</button>
+              <button class="date-picker__day">13</button>
+              <button class="date-picker__day">14</button>
+              <button class="date-picker__day date-picker__day--selected date-picker__day--range-start">15</button>
+              <button class="date-picker__day date-picker__day--in-range">16</button>
+              <button class="date-picker__day date-picker__day--in-range">17</button>
+              <button class="date-picker__day date-picker__day--in-range">18</button>
+              <button class="date-picker__day date-picker__day--in-range">19</button>
+              <button class="date-picker__day date-picker__day--in-range">20</button>
+              <button class="date-picker__day date-picker__day--in-range">21</button>
+              <button class="date-picker__day date-picker__day--selected date-picker__day--range-end">22</button>
+              <button class="date-picker__day">23</button>
+              <button class="date-picker__day">24</button>
+              <button class="date-picker__day">25</button>
+              <button class="date-picker__day">26</button>
+              <button class="date-picker__day date-picker__day--today">27</button>
+              <button class="date-picker__day">28</button>
+              <button class="date-picker__day">29</button>
+              <button class="date-picker__day">30</button>
+              <button class="date-picker__day date-picker__day--other-month">1</button>
+              <button class="date-picker__day date-picker__day--other-month">2</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="date-picker"&gt;
+  &lt;div class="date-picker__header"&gt;
+    &lt;button class="date-picker__nav"&gt;&lt;span class="material-icons-outlined"&gt;chevron_left&lt;/span&gt;&lt;/button&gt;
+    &lt;span class="date-picker__title"&gt;Abril 2026&lt;/span&gt;
+    &lt;button class="date-picker__nav"&gt;&lt;span class="material-icons-outlined"&gt;chevron_right&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="date-picker__weekdays"&gt;
+    &lt;span class="date-picker__weekday"&gt;D&lt;/span&gt; ... 7 weekdays
+  &lt;/div&gt;
+  &lt;div class="date-picker__days"&gt;
+    &lt;button class="date-picker__day date-picker__day--today"&gt;27&lt;/button&gt;
+    &lt;button class="date-picker__day date-picker__day--selected"&gt;28&lt;/button&gt;
+    &lt;!-- Range: --range-start, --in-range, --range-end --&gt;
+    &lt;!-- Estados: --other-month, --today, --selected, --in-range, --disabled --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HourPicker ─────────────────────────────── -->
+    <section class="ds__section" id="hour-picker">
+      <h2 class="ds__section-title">HourPicker</h2>
+      <p class="ds__section-desc">
+        Selecao de horario com 3 colunas roláveis (hour/minute/second). Use para
+        agendamentos e cortes de horario. Footer com botao de confirmacao.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="hour-picker">
+            <div class="hour-picker__columns">
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">07</button>
+                <button class="hour-picker__cell">08</button>
+                <button class="hour-picker__cell is-selected">09</button>
+                <button class="hour-picker__cell">10</button>
+                <button class="hour-picker__cell">11</button>
+              </div>
+              <span class="hour-picker__separator">:</span>
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">28</button>
+                <button class="hour-picker__cell">29</button>
+                <button class="hour-picker__cell is-selected">30</button>
+                <button class="hour-picker__cell">31</button>
+                <button class="hour-picker__cell">32</button>
+              </div>
+              <span class="hour-picker__separator">:</span>
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">13</button>
+                <button class="hour-picker__cell">14</button>
+                <button class="hour-picker__cell is-selected">15</button>
+                <button class="hour-picker__cell">16</button>
+                <button class="hour-picker__cell">17</button>
+              </div>
+            </div>
+            <div class="hour-picker__footer">
+              <button class="btn btn--primary btn--small">Confirmar</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="hour-picker"&gt;
+  &lt;div class="hour-picker__columns"&gt;
+    &lt;div class="hour-picker__column"&gt;
+      &lt;button class="hour-picker__cell"&gt;07&lt;/button&gt;
+      &lt;button class="hour-picker__cell is-selected"&gt;08&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;span class="hour-picker__separator"&gt;:&lt;/span&gt;
+    &lt;div class="hour-picker__column"&gt; ... &lt;/div&gt;
+    &lt;span class="hour-picker__separator"&gt;:&lt;/span&gt;
+    &lt;div class="hour-picker__column"&gt; ... &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="hour-picker__footer"&gt;
+    &lt;button class="btn btn--primary btn--small"&gt;Confirmar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Modal ──────────────────────────────────── -->
+    <section class="ds__section" id="modal">
+      <h2 class="ds__section-title">Modal</h2>
+      <p class="ds__section-desc">
+        Janela modal sobre backdrop escurecido. 3 tamanhos (small 400px, medium 600px,
+        large 800px). Estrutura: header (titulo + close), body (conteudo), footer (acoes).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura completa</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);background:rgba(0,0,0,0.5);min-height:320px">
+          <div class="modal" style="transform:none">
+            <div class="modal__header">
+              <span class="modal__title">Confirmar acao</span>
+              <button class="modal__close" aria-label="Fechar">
+                <span class="material-icons-outlined">close</span>
+              </button>
+            </div>
+            <div class="modal__body">
+              Voce esta prestes a aplicar 15 precos sugeridos no PDV. Essa acao nao pode ser
+              desfeita. Deseja continuar?
+            </div>
+            <div class="modal__footer">
+              <button class="btn btn--secondary-ghost">Cancelar</button>
+              <button class="btn btn--primary">Confirmar</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="modal-backdrop is-open"&gt;
+  &lt;div class="modal"&gt;
+    &lt;div class="modal__header"&gt;
+      &lt;span class="modal__title"&gt;Confirmar acao&lt;/span&gt;
+      &lt;button class="modal__close" aria-label="Fechar"&gt;
+        &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal__body"&gt;Conteudo...&lt;/div&gt;
+    &lt;div class="modal__footer"&gt;
+      &lt;button class="btn btn--secondary-ghost"&gt;Cancelar&lt;/button&gt;
+      &lt;button class="btn btn--primary"&gt;Confirmar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Tamanhos: .modal--small (400px) | (default 600px) | .modal--large (800px) --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Context Menu ───────────────────────────── -->
+    <section class="ds__section" id="context-menu">
+      <h2 class="ds__section-title">Context Menu</h2>
+      <p class="ds__section-desc">
+        Menu flutuante com lista de acoes. Usado em right-click ou no kebab-menu. Suporta
+        icones, atalhos de teclado, divisores e itens destrutivos (--danger).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="context-menu is-open" style="position:static">
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">edit</span>
+              <span>Editar</span>
+              <span class="context-menu__shortcut">Ctrl+E</span>
+            </button>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">content_copy</span>
+              <span>Duplicar</span>
+              <span class="context-menu__shortcut">Ctrl+D</span>
+            </button>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">file_download</span>
+              <span>Exportar</span>
+            </button>
+            <div class="context-menu__divider"></div>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">archive</span>
+              <span>Arquivar</span>
+            </button>
+            <button class="context-menu__item context-menu__item--danger">
+              <span class="material-icons-outlined">delete</span>
+              <span>Excluir</span>
+              <span class="context-menu__shortcut">Del</span>
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="context-menu"&gt;
+  &lt;button class="context-menu__item"&gt;
+    &lt;span class="material-icons-outlined"&gt;edit&lt;/span&gt;
+    &lt;span&gt;Editar&lt;/span&gt;
+    &lt;span class="context-menu__shortcut"&gt;Ctrl+E&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="context-menu__divider"&gt;&lt;/div&gt;
+  &lt;button class="context-menu__item context-menu__item--danger"&gt;
+    &lt;span class="material-icons-outlined"&gt;delete&lt;/span&gt;
+    &lt;span&gt;Excluir&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Navbar (sub-navegacao) ─────────────────── -->
+    <section class="ds__section" id="navbar">
+      <h2 class="ds__section-title">Navbar (sub-navegacao)</h2>
+      <p class="ds__section-desc">
+        Abas horizontais para sub-navegacao dentro de uma pagina. Diferente do header
+        (global) e da sidebar (modulos): este e contextual a uma pagina/feature.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Abas com icone e estado ativo</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
+          <div class="navbar">
+            <button class="navbar__item is-active">
+              <span class="material-icons-outlined">dashboard</span>
+              Visao geral
+            </button>
+            <button class="navbar__item">
+              <span class="material-icons-outlined">trending_up</span>
+              Vendas
+            </button>
+            <button class="navbar__item">
+              <span class="material-icons-outlined">attach_money</span>
+              Custos
+            </button>
+            <button class="navbar__item">
+              <span class="material-icons-outlined">history</span>
+              Historico
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="navbar"&gt;
+  &lt;button class="navbar__item is-active"&gt;
+    &lt;span class="material-icons-outlined"&gt;dashboard&lt;/span&gt;
+    Visao geral
+  &lt;/button&gt;
+  &lt;button class="navbar__item"&gt;
+    &lt;span class="material-icons-outlined"&gt;trending_up&lt;/span&gt;
+    Vendas
+  &lt;/button&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>
