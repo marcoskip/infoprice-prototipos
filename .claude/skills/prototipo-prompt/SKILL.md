@@ -24,7 +24,7 @@ Quando houver conflito, a de maior prioridade SEMPRE vence:
 
 1. **`styles.css` + `tokens.css`** — VERDADE ABSOLUTA. Toda classe e token vem daqui. Se algo nao existe, NAO invente — crie estilo page-specific no `<style>` ou pergunte ao usuario. Hospedados em `https://marcoskip.github.io/infoprice-prototipos/`.
 
-2. **`design-system.html`** — REFERENCIA PRIMARIA de markup. Pagina viva publicada em `https://marcoskip.github.io/infoprice-prototipos/design-system.html` com preview + codigo de cada componente. Use como referencia visual e copia direta de snippets. Para complementos textuais, consulte [componentes.md](componentes.md) e [../prototipo/arquitetura.md](../prototipo/arquitetura.md).
+2. **`design-system.html`** — REFERENCIA PRIMARIA E CANONICA DE MARKUP. Pagina viva publicada em `https://marcoskip.github.io/infoprice-prototipos/design-system.html` com preview + codigo de cada componente. **TODOS os prototipos novos DEVEM usar esta pagina como referencia.** Copie diretamente os snippets de codigo de la — sao os patterns oficiais e atualizados de cada componente. Para complementos textuais (specs, regras), consulte [componentes.md](componentes.md) e [../prototipo/arquitetura.md](../prototipo/arquitetura.md).
 
 NUNCA consulte outras fontes (ex: codigo React, prototipos antigos, memoria) como verdade — sao secundarias e podem estar desatualizadas.
 

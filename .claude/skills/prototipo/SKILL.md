@@ -33,8 +33,15 @@ Tambem use `get_screenshot` para ter referencia visual.
 ### 2. Analisar os componentes necessarios
 
 Compare o design recebido com a biblioteca de componentes ja implementados.
-Leia o arquivo de referencia [componentes.md](componentes.md) para entender os componentes disponiveis e suas specs.
-Consulte tambem [referencia-producao.md](referencia-producao.md) — um indice que aponta para 9 arquivos de referencia modulares (ref-tokens, ref-botoes, ref-filtros, ref-tabela, ref-inputs, ref-data-display, ref-navegacao, ref-modais, ref-gerenciador). Leia o indice e depois o arquivo especifico da categoria que precisa. Isso garante fidelidade ao produto real (`app.infoprice.co`).
+
+#### Hierarquia de referencias (ordem de prioridade)
+
+Quando houver conflito entre elas, a de maior prioridade SEMPRE vence:
+
+1. **`styles.css` + `tokens.css`** (VERDADE ABSOLUTA) — Classes CSS, tokens, hierarquia DOM. Se uma classe existe aqui, use-a exatamente como definida. Se nao existe, NAO invente — crie com estilo completo no `<style>` ou pergunte ao usuario.
+2. **`design-system.html`** (REFERENCIA PRIMARIA DE MARKUP) — Pagina viva publicada em `https://marcoskip.github.io/infoprice-prototipos/design-system.html` com preview + codigo de cada componente. Use como referencia visual e copia direta de snippets. **TODOS os prototipos novos devem usar esta pagina como referencia canonica.** Para complementos textuais, consulte [componentes.md](componentes.md).
+
+**Regra pratica**: Antes de usar qualquer classe como container estrutural, grep no `styles.css` para confirmar que ela existe. Se nao existir, copie o snippet do `design-system.html` ou pergunte ao usuario.
 
 ### 3. Gerar o arquivo HTML
 
@@ -107,6 +114,56 @@ Apos gerar o arquivo:
 3. Verifique se os caminhos dos assets (SVGs) estao corretos
 4. Verifique se o JavaScript nao tem erros de sintaxe
 5. Confirme que o arquivo funciona standalone (abrir direto no browser)
+
+### 4.5. Validacao de Tokens (Constitution Check)
+
+Rode uma verificacao automatica no HTML gerado para garantir conformidade com o Design System.
+
+**O que verificar:**
+
+1. **Cores** — Busque valores hexadecimais (`#xxx`, `#xxxxxx`) e `rgb()`/`rgba()` no `<style>`. Cada ocorrencia DEVE estar dentro de um `var(--token, fallback)` como fallback, ou ser `#fff`/`#000`/`transparent`. Cores soltas fora de `var()` sao violacao.
+2. **Tipografia** — Verifique que `font-family` sempre usa `'Open Sans', sans-serif` e que `font-size`, `font-weight` e `line-height` usam tokens (`var(--font-size-*)`, `var(--font-weight-*)`, `var(--line-height-*)`).
+3. **Espacamento** — Verifique que `padding`, `margin` e `gap` usam tokens (`var(--space-*)`) ou multiplos de 4px. Valores arbitrarios (ex: `13px`, `7px`) sao suspeitos.
+4. **Sombras e bordas** — Verifique que `box-shadow` usa `var(--shadow-*)` e `border-radius` usa `var(--radius-*)`.
+5. **Cores inline no JS** — Busque cores hardcoded em estilos inline definidos via JavaScript. Devem usar `var(--color-*)`.
+6. **Componentes interativos (regra do grep)** — Antes de escrever QUALQUER classe de componente no HTML (botao, chip, card, link, etc.), rode a ferramenta `Grep` no `styles.css` com o nome exato da classe. Tres possiveis resultados:
+   - **Match `.classe {`** → classe existe, pode usar.
+   - **Sem match** → classe nao existe. Tres opcoes: (a) usar uma classe que existe, (b) criar a classe com estilo completo no `<style>` da pagina, (c) promover para `styles.css` global se for reutilizavel.
+   - **Match em outro arquivo (.html)** → e classe page-specific de outro prototipo, NAO e global. Se quiser usar, replique o estilo no `<style>` da sua pagina ou promova para `styles.css`.
+
+   NUNCA escreva uma classe sem fazer esse grep antes. Assumir que ela existe com base em memoria, em `componentes.md`, ou porque viu em outro prototipo, e violacao garantida — classes inventadas renderizam com estilo default do browser e isso e FAIL. Aplica-se tambem a classes mencionadas como exemplo nas proprias skills (`filtro-chip`, `title-btn`, `neg__save-btn`, etc.) — confirme antes de usar, listas em documentacao podem estar desatualizadas.
+7. **Estrutura HTML (hierarquia DOM)** — Cada secao padrao do layout DEVE seguir a hierarquia de containers definida no `styles.css`. Classes estruturais fora da hierarquia correta perdem o `display: flex`, `gap`, `align-items` etc. e causam sobreposicao ou desalinhamento. Verifique que:
+   - `section.filtros` → `.filtros__inner` → `.filtros__box` → `.filtros__left` (chips) + `.filtros__right` ("Limpar filtros" e filtros-salvos). Se o layout for simplificado (sem `.filtros__box`), os chips e o botao limpar ainda devem estar em containers flex separados — nunca soltos lado a lado dentro de `.filtros__inner`.
+   - `section.cabecalho` → `.cabecalho__inner` → `.cabecalho__info` (contador) + `.cabecalho__buttons` (botoes de acao). NUNCA usar `.cabecalho__left`/`.cabecalho__right` — essas classes nao existem no `styles.css`.
+   - `section.title-bar` → `.title-bar__left` (titulo) + `.title-bar__right` (botoes)
+   - `section.big-numbers` → `.big-numbers__inner` → `.big-numbers__cards` → cards individuais
+   - `section.grid` → `.grid__wrapper` → `table.grid__table`
+   - **Regra geral**: Antes de usar qualquer classe `bloco__elemento` como container estrutural, grep no `styles.css` para confirmar que ela existe e tem layout (display, flex, gap). Se nao existir, use uma que exista ou crie com estilo completo no `<style>`.
+   - Elementos interativos (botoes, chips) NUNCA devem ficar como filhos diretos de `.filtros__inner` ou `.cabecalho` — sempre dentro do sub-container correto.
+
+**Como reportar:**
+
+Gere uma tabela resumo no final do output:
+
+```
+Validacao de Tokens:
+| Verificacao       | Status | Detalhes              |
+|-------------------|--------|-----------------------|
+| Cores             | PASS   | 0 violacoes           |
+| Tipografia        | PASS   | Open Sans + tokens    |
+| Espacamento       | WARN   | 1 valor fora de token |
+| Sombras/Bordas    | PASS   | 0 violacoes           |
+| Cores inline (JS) | PASS   | 0 violacoes           |
+| Componentes       | PASS   | Todos usam classes DS |
+| Estrutura HTML    | PASS   | Hierarquia DOM ok     |
+```
+
+- **PASS**: Nenhuma violacao encontrada
+- **WARN**: Valor fora do padrao mas justificavel (ex: `2px` para border-width)
+- **FAIL**: Violacao clara que precisa ser corrigida
+
+Se houver FAIL: corrija automaticamente antes de reportar ao usuario.
+Se houver WARN: reporte mas nao bloqueie.
 
 ### 5. Informar o usuario
 

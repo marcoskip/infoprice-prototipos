@@ -20,9 +20,14 @@
     }
 
     /* ── Layout: sidebar fixa + main scroll ───────── */
+    :root {
+      --ds-nav-width: 240px;
+      --ds-nav-min: 200px;
+      --ds-nav-max: 480px;
+    }
     .ds__layout {
       display: grid;
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: var(--ds-nav-width) 1fr;
       min-height: 100vh;
     }
 
@@ -31,7 +36,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 240px;
+      width: var(--ds-nav-width);
       height: 100vh;
       background: var(--color-white);
       border-right: 1px solid var(--color-gray-300);
@@ -39,11 +44,85 @@
       overflow-y: auto;
       z-index: 10;
     }
+
+    /* ── Resize handle ──────────────────────────── */
+    .ds__nav-resize {
+      position: fixed;
+      top: 0;
+      left: var(--ds-nav-width);
+      bottom: 0;
+      width: 6px;
+      margin-left: -3px;
+      cursor: col-resize;
+      z-index: 20;
+      background: transparent;
+      transition: background 150ms ease;
+    }
+    .ds__nav-resize::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 32px;
+      background: var(--color-gray-400);
+      border-radius: var(--radius-pill);
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+    .ds__nav-resize:hover::after,
+    .ds__nav-resize.is-active::after {
+      opacity: 1;
+    }
+    .ds__nav-resize:hover,
+    .ds__nav-resize.is-active {
+      background: var(--color-blue-light-15);
+    }
+    .ds__nav-resize.is-active::after {
+      background: var(--color-blue-400);
+    }
+    body.is-resizing-nav {
+      cursor: col-resize !important;
+      user-select: none;
+    }
+    body.is-resizing-nav .ds__nav,
+    body.is-resizing-nav .ds__nav-resize { transition: none; }
     .ds__nav-brand {
       display: flex;
       align-items: center;
       gap: var(--space-2);
-      margin-bottom: var(--space-6);
+      margin-bottom: var(--space-3);
+    }
+    .ds__nav-search {
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    .ds__nav-search .searchbar {
+      width: 100%;
+    }
+    .ds__nav-search-empty {
+      display: none;
+      padding: var(--space-3) var(--space-2);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-600);
+      text-align: center;
+    }
+    .ds__nav-search-empty.is-visible {
+      display: block;
+    }
+    .ds__nav-section.is-hidden {
+      display: none;
+    }
+    .ds__nav-link.is-hidden {
+      display: none;
+    }
+    .ds__nav-link__match {
+      background: var(--color-blue-light-15);
+      color: var(--color-blue-600);
+      padding: 0 2px;
+      border-radius: 2px;
     }
     .ds__nav-logo {
       width: 28px;
@@ -383,6 +462,405 @@
       background: var(--color-blue-light-45);
       cursor: not-allowed;
     }
+
+    /* ── Fallback temporario: Phase 1+2+3+4 ──
+       Remover quando styles.css for atualizado no CDN.
+       Definicoes em styles.css local (raiz do projeto). */
+
+    /* Phase 1 — Switch */
+    .switch { display: inline-flex; align-items: center; gap: var(--space-2); cursor: pointer; user-select: none; }
+    .switch__track { position: relative; width: 32px; height: 18px; background: var(--color-gray-400); border-radius: var(--radius-pill); transition: background 200ms ease; flex-shrink: 0; }
+    .switch__thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: var(--color-white); border-radius: var(--radius-pill); transition: left 200ms ease; }
+    .switch.is-checked .switch__track { background: var(--color-blue-400); }
+    .switch.is-checked .switch__thumb { left: 16px; }
+    .switch.is-half .switch__track { background: var(--color-blue-light-45); }
+    .switch.is-half .switch__thumb { left: 9px; }
+    .switch__label { font-size: var(--font-size-md); font-weight: var(--font-weight-regular); color: var(--color-gray-900); }
+    .switch.is-disabled, .switch[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+    .switch--small .switch__track { width: 24px; height: 14px; }
+    .switch--small .switch__thumb { width: 10px; height: 10px; }
+    .switch--small.is-checked .switch__thumb { left: 12px; }
+    .switch--small.is-half .switch__thumb { left: 7px; }
+    .switch--large .switch__track { width: 40px; height: 22px; }
+    .switch--large .switch__thumb { width: 18px; height: 18px; }
+    .switch--large.is-checked .switch__thumb { left: 20px; }
+    .switch--large.is-half .switch__thumb { left: 11px; }
+
+    /* Phase 1 — Radio */
+    .radio { display: inline-flex; align-items: flex-start; gap: var(--space-2); cursor: pointer; user-select: none; position: relative; }
+    .radio__input { position: absolute; opacity: 0; pointer-events: none; }
+    .radio__circle { width: 16px; height: 16px; border: 2px solid var(--color-gray-500); border-radius: var(--radius-pill); background: var(--color-white); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: border-color 150ms ease; }
+    .radio:hover .radio__circle { border-color: var(--color-blue-400); }
+    .radio__input:checked + .radio__circle { border-color: var(--color-blue-400); }
+    .radio__input:checked + .radio__circle::after { content: ''; width: 8px; height: 8px; background: var(--color-blue-400); border-radius: var(--radius-pill); }
+    .radio__content { display: flex; flex-direction: column; gap: 2px; }
+    .radio__label { font-size: var(--font-size-md); font-weight: var(--font-weight-regular); color: var(--color-gray-900); line-height: var(--line-height-lg); }
+    .radio__helper { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); color: var(--color-gray-600); line-height: var(--line-height-sm); }
+    .radio.is-disabled, .radio[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Phase 1 — Checkbox */
+    .checkbox { display: inline-flex; align-items: flex-start; gap: var(--space-2); cursor: pointer; user-select: none; position: relative; }
+    .checkbox__input { position: absolute; opacity: 0; pointer-events: none; }
+    .checkbox__box { width: 16px; height: 16px; border: 2px solid var(--color-gray-500); border-radius: 3px; background: var(--color-white); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: border-color 150ms ease, background 150ms ease; }
+    .checkbox:hover .checkbox__box { border-color: var(--color-blue-400); }
+    .checkbox__input:checked + .checkbox__box { background: var(--color-blue-400); border-color: var(--color-blue-400); }
+    .checkbox__input:checked + .checkbox__box::after { content: ''; width: 4px; height: 8px; border: solid var(--color-white); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+    .checkbox.is-half .checkbox__box { background: var(--color-blue-400); border-color: var(--color-blue-400); }
+    .checkbox.is-half .checkbox__box::after { content: ''; width: 8px; height: 2px; background: var(--color-white); }
+    .checkbox__content { display: flex; flex-direction: column; gap: 2px; }
+    .checkbox__label { font-size: var(--font-size-md); font-weight: var(--font-weight-regular); color: var(--color-gray-900); line-height: var(--line-height-lg); }
+    .checkbox__helper { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); color: var(--color-gray-600); line-height: var(--line-height-sm); }
+    .checkbox.is-disabled, .checkbox[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
+
+    /* Phase 1 — Badge generico */
+    .badge { display: inline-flex; align-items: center; justify-content: center; padding: 0 6px; border-radius: var(--radius-pill); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); line-height: 16px; height: 16px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px; }
+    .badge--medium { height: 20px; padding: 0 8px; font-size: var(--font-size-sm); line-height: 20px; }
+    .badge--basic { width: 8px; height: 8px; padding: 0; border-radius: var(--radius-pill); }
+    .badge--filled.badge--blue { background: var(--color-blue-400); color: var(--color-white); }
+    .badge--filled.badge--gray { background: var(--color-gray-600); color: var(--color-white); }
+    .badge--filled.badge--green { background: var(--color-green-400); color: var(--color-white); }
+    .badge--filled.badge--orange { background: var(--color-orange-400); color: var(--color-white); }
+    .badge--filled.badge--red { background: var(--color-red-400); color: var(--color-white); }
+    .badge--ghost.badge--blue { background: var(--color-blue-light-15); color: var(--color-blue-600); }
+    .badge--ghost.badge--gray { background: var(--color-gray-200); color: var(--color-gray-800); }
+    .badge--ghost.badge--green { background: var(--color-green-light-15); color: var(--color-green-600); }
+    .badge--ghost.badge--orange { background: var(--color-orange-light-15); color: var(--color-orange-600); }
+    .badge--ghost.badge--red { background: var(--color-red-light-15); color: var(--color-red-600); }
+
+    /* Phase 1 — Tag generico */
+    .tag { display: inline-flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: var(--radius-sm); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); line-height: 20px; height: 20px; white-space: nowrap; }
+    .tag__icon { font-size: 12px; line-height: 1; }
+    .tag--xsmall { height: 16px; padding: 0 6px; font-size: var(--font-size-xs); line-height: 16px; }
+    .tag--medium { height: 24px; padding: 0 10px; font-size: var(--font-size-md); line-height: 24px; }
+    .tag--large { height: 28px; padding: 0 12px; font-size: var(--font-size-md); line-height: 28px; }
+    .tag--filled.tag--blue { background: var(--color-blue-400); color: var(--color-white); }
+    .tag--filled.tag--gray { background: var(--color-gray-600); color: var(--color-white); }
+    .tag--filled.tag--green { background: var(--color-green-400); color: var(--color-white); }
+    .tag--filled.tag--orange { background: var(--color-orange-400); color: var(--color-white); }
+    .tag--filled.tag--red { background: var(--color-red-400); color: var(--color-white); }
+    .tag--ghost.tag--blue { background: var(--color-blue-light-15); color: var(--color-blue-600); border: 1px solid var(--color-blue-light-45); }
+    .tag--ghost.tag--gray { background: var(--color-gray-100); color: var(--color-gray-800); border: 1px solid var(--color-gray-300); }
+    .tag--ghost.tag--green { background: var(--color-green-light-15); color: var(--color-green-600); border: 1px solid var(--color-green-light-45); }
+    .tag--ghost.tag--orange { background: var(--color-orange-light-15); color: var(--color-orange-600); border: 1px solid var(--color-orange-light-45); }
+    .tag--ghost.tag--red { background: var(--color-red-light-15); color: var(--color-red-600); border: 1px solid var(--color-red-light-45); }
+
+    /* Phase 1 — MessageBox */
+    .message-box { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); border-left: 4px solid; background: var(--color-white); }
+    .message-box__icon { flex-shrink: 0; font-size: 20px; margin-top: 1px; }
+    .message-box__content { display: flex; flex-direction: column; gap: var(--space-1); flex: 1; }
+    .message-box__title { font-size: var(--font-size-md); font-weight: var(--font-weight-bold); color: var(--color-gray-900); line-height: var(--line-height-lg); }
+    .message-box__body { font-size: var(--font-size-md); font-weight: var(--font-weight-regular); color: var(--color-gray-800); line-height: var(--line-height-lg); }
+    .message-box__action { background: none; border: none; padding: 0; font-family: var(--font-family-base); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-blue-500); cursor: pointer; text-decoration: underline; margin-top: var(--space-1); align-self: flex-start; }
+    .message-box--info { background: var(--color-blue-light-5); border-left-color: var(--color-blue-400); }
+    .message-box--info .message-box__icon { color: var(--color-blue-500); }
+    .message-box--success { background: var(--color-green-light-5); border-left-color: var(--color-green-400); }
+    .message-box--success .message-box__icon { color: var(--color-green-500); }
+    .message-box--warning { background: var(--color-orange-light-5); border-left-color: var(--color-orange-400); }
+    .message-box--warning .message-box__icon { color: var(--color-orange-500); }
+    .message-box--error { background: var(--color-red-light-5); border-left-color: var(--color-red-400); }
+    .message-box--error .message-box__icon { color: var(--color-red-500); }
+
+    /* Phase 1 — Toast */
+    .toast-container { position: fixed; top: 80px; right: 24px; display: flex; flex-direction: column; gap: var(--space-2); z-index: 9999; pointer-events: none; }
+    .toast { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--color-white); box-shadow: var(--shadow-elevation); min-width: 320px; max-width: 480px; pointer-events: auto; border-left: 4px solid; }
+    .toast--short { padding: var(--space-2) var(--space-3); min-width: 240px; }
+    .toast__icon { flex-shrink: 0; font-size: 20px; }
+    .toast__content { display: flex; flex-direction: column; gap: var(--space-1); flex: 1; }
+    .toast__title { font-size: var(--font-size-md); font-weight: var(--font-weight-bold); color: var(--color-gray-900); line-height: var(--line-height-lg); }
+    .toast__body { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); color: var(--color-gray-700); line-height: var(--line-height-md); }
+    .toast__action { background: none; border: none; padding: 0; font-family: var(--font-family-base); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-blue-500); cursor: pointer; text-decoration: underline; align-self: flex-start; margin-top: var(--space-1); }
+    .toast__close { background: none; border: none; padding: 0; cursor: pointer; color: var(--color-gray-500); font-size: 18px; align-self: flex-start; }
+    .toast__close:hover { color: var(--color-gray-700); }
+    .toast--info { border-left-color: var(--color-blue-400); }
+    .toast--info .toast__icon { color: var(--color-blue-500); }
+    .toast--success { border-left-color: var(--color-green-400); }
+    .toast--success .toast__icon { color: var(--color-green-500); }
+    .toast--warning { border-left-color: var(--color-orange-400); }
+    .toast--warning .toast__icon { color: var(--color-orange-500); }
+    .toast--error { border-left-color: var(--color-red-400); }
+    .toast--error .toast__icon { color: var(--color-red-500); }
+
+    /* Phase 2 — Btn generico */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: none; border-radius: var(--radius-sm); font-family: var(--font-family-base); font-weight: var(--font-weight-bold); cursor: pointer; white-space: nowrap; text-decoration: none; transition: background 150ms ease, color 150ms ease; flex-shrink: 0; }
+    .btn:disabled, .btn.is-disabled { cursor: not-allowed; pointer-events: none; }
+    .btn .material-icons-outlined { font-size: var(--icon-size-md); }
+    .btn--xsmall { height: 24px; padding: 0 var(--space-2); font-size: var(--font-size-sm); }
+    .btn--small { height: 28px; padding: 0 var(--space-3); font-size: var(--font-size-sm); }
+    .btn--medium, .btn { height: 32px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
+    .btn--large { height: 40px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
+    .btn--xsmall .material-icons-outlined, .btn--small .material-icons-outlined { font-size: var(--icon-size-sm); }
+    .btn--primary { background: var(--color-blue-400); color: var(--color-white); }
+    .btn--primary:hover { background: var(--color-blue-500); }
+    .btn--primary:disabled, .btn--primary.is-disabled { background: var(--color-blue-light-45); color: var(--color-white); }
+    .btn--secondary { background: var(--color-gray-200); color: var(--color-gray-800); }
+    .btn--secondary:hover { background: var(--color-gray-300); }
+    .btn--secondary:disabled, .btn--secondary.is-disabled { background: var(--color-gray-100); color: var(--color-gray-500); }
+    .btn--secondary-ghost { background: transparent; color: var(--color-gray-800); border: 1px solid var(--color-gray-300); }
+    .btn--secondary-ghost:hover { background: var(--color-gray-100); border-color: var(--color-gray-400); }
+    .btn--link { background: transparent; color: var(--color-blue-500); padding: 0; height: auto; text-transform: none; font-weight: var(--font-weight-semibold); }
+    .btn--link:hover { color: var(--color-blue-600); text-decoration: underline; }
+    .btn--link:disabled, .btn--link.is-disabled { color: var(--color-gray-500); }
+
+    /* Phase 3 — Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 200ms ease; }
+    .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--color-white); border-radius: var(--radius-md); box-shadow: var(--shadow-elevation); width: 100%; max-width: 600px; max-height: calc(100vh - 80px); display: flex; flex-direction: column; transform: scale(0.96); transition: transform 200ms ease; }
+    .modal-backdrop.is-open .modal { transform: scale(1); }
+    .modal--large { max-width: 800px; }
+    .modal--small { max-width: 400px; }
+    .modal__header { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); border-bottom: 1px solid var(--color-gray-300); flex-shrink: 0; }
+    .modal__title { font-size: var(--font-size-lg); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
+    .modal__close { background: none; border: none; cursor: pointer; color: var(--color-gray-600); display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: var(--radius-sm); }
+    .modal__close:hover { background: var(--color-gray-100); color: var(--color-gray-800); }
+    .modal__body { padding: var(--space-4); overflow-y: auto; flex: 1; font-size: var(--font-size-md); line-height: var(--line-height-lg); color: var(--color-gray-800); }
+    .modal__footer { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-gray-300); flex-shrink: 0; }
+
+    /* Phase 3 — Navbar */
+    .navbar { display: flex; align-items: center; gap: 0; border-bottom: 1px solid var(--color-gray-300); padding: 0 var(--space-4); }
+    .navbar__item { display: flex; align-items: center; gap: 6px; padding: var(--space-3) var(--space-4); font-family: var(--font-family-base); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); cursor: pointer; background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 150ms ease, border-color 150ms ease; white-space: nowrap; }
+    .navbar__item:hover { color: var(--color-blue-500); }
+    .navbar__item.is-active { color: var(--color-blue-500); border-bottom-color: var(--color-blue-500); }
+    .navbar__item .material-icons-outlined { font-size: var(--icon-size-md); }
+
+    /* Phase 3 — SelectPicker */
+    .select-picker { position: relative; display: inline-block; min-width: 200px; }
+    .select-picker__trigger { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 32px; padding: 0 var(--space-3); background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); font-family: var(--font-family-base); font-size: var(--font-size-md); color: var(--color-gray-900); cursor: pointer; transition: border-color 150ms ease; }
+    .select-picker__trigger:hover { border-color: var(--color-gray-500); }
+    .select-picker__trigger.is-open { border-color: var(--color-blue-400); }
+    .select-picker__placeholder { color: var(--color-gray-600); }
+    .select-picker__chevron { font-size: var(--icon-size-md); color: var(--color-gray-600); transition: transform 200ms ease; }
+    .select-picker__trigger.is-open .select-picker__chevron { transform: rotate(180deg); }
+    .select-picker__dropdown { position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; max-height: 280px; overflow-y: auto; background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); box-shadow: var(--shadow-elevation); z-index: 100; display: none; flex-direction: column; }
+    .select-picker__dropdown.is-open { display: flex; }
+    .select-picker__search { padding: var(--space-2); border-bottom: 1px solid var(--color-gray-200); }
+    .select-picker__search-input { width: 100%; height: 28px; padding: 0 var(--space-2); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); font-family: var(--font-family-base); font-size: var(--font-size-sm); outline: none; }
+    .select-picker__search-input:focus { border-color: var(--color-blue-400); }
+    .select-picker__list { padding: 4px 0; }
+    .select-picker__item { display: flex; align-items: center; gap: var(--space-2); padding: 6px var(--space-3); font-size: var(--font-size-md); color: var(--color-gray-900); cursor: pointer; }
+    .select-picker__item:hover { background: var(--color-gray-100); }
+    .select-picker__item.is-selected { background: var(--color-blue-light-10); color: var(--color-blue-600); }
+    .select-picker__item.is-disabled { color: var(--color-gray-500); cursor: not-allowed; }
+    .select-picker__footer { display: flex; align-items: center; justify-content: space-between; padding: var(--space-2) var(--space-3); border-top: 1px solid var(--color-gray-200); gap: var(--space-2); }
+
+    /* Phase 3 — Context Menu */
+    .context-menu { position: absolute; min-width: 200px; background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); box-shadow: var(--shadow-elevation); padding: 4px 0; z-index: 100; display: none; }
+    .context-menu.is-open { display: block; }
+    .context-menu__item { display: flex; align-items: center; gap: var(--space-2); padding: 6px var(--space-3); font-size: var(--font-size-sm); color: var(--color-gray-800); cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-family: var(--font-family-base); }
+    .context-menu__item:hover { background: var(--color-gray-100); }
+    .context-menu__item .material-icons-outlined { font-size: var(--icon-size-md); color: var(--color-gray-600); }
+    .context-menu__item--danger { color: var(--color-red-600); }
+    .context-menu__item--danger:hover { background: var(--color-red-light-5); }
+    .context-menu__item--danger .material-icons-outlined { color: var(--color-red-500); }
+    .context-menu__divider { height: 1px; background: var(--color-gray-200); margin: 4px 0; }
+    .context-menu__shortcut { margin-left: auto; font-size: var(--font-size-xs); color: var(--color-gray-600); font-family: 'JetBrains Mono', monospace; }
+
+    /* Phase 3 — DatePicker */
+    .date-picker { background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); box-shadow: var(--shadow-elevation); padding: var(--space-3); width: 280px; font-family: var(--font-family-base); }
+    .date-picker__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+    .date-picker__nav { background: none; border: none; cursor: pointer; padding: 4px; border-radius: var(--radius-sm); color: var(--color-gray-700); }
+    .date-picker__nav:hover { background: var(--color-gray-100); color: var(--color-gray-900); }
+    .date-picker__title { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); }
+    .date-picker__weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+    .date-picker__weekday { font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); color: var(--color-gray-600); text-align: center; text-transform: uppercase; padding: 4px 0; }
+    .date-picker__days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .date-picker__day { display: flex; align-items: center; justify-content: center; height: 32px; font-size: var(--font-size-sm); color: var(--color-gray-800); cursor: pointer; border-radius: var(--radius-sm); background: none; border: none; font-family: var(--font-family-base); }
+    .date-picker__day:hover { background: var(--color-gray-100); }
+    .date-picker__day--other-month { color: var(--color-gray-400); }
+    .date-picker__day--today { border: 1px solid var(--color-blue-400); font-weight: var(--font-weight-semibold); }
+    .date-picker__day--selected { background: var(--color-blue-400); color: var(--color-white); font-weight: var(--font-weight-semibold); }
+    .date-picker__day--in-range { background: var(--color-blue-light-10); color: var(--color-blue-600); border-radius: 0; }
+    .date-picker__day--range-start { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+    .date-picker__day--range-end { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .date-picker__day--disabled { color: var(--color-gray-400); cursor: not-allowed; }
+
+    /* Phase 3 — HourPicker */
+    .hour-picker { background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); box-shadow: var(--shadow-elevation); padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); width: 220px; font-family: var(--font-family-base); }
+    .hour-picker__columns { display: flex; gap: var(--space-2); align-items: stretch; justify-content: center; }
+    .hour-picker__column { display: flex; flex-direction: column; width: 56px; height: 160px; overflow-y: auto; border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); scroll-snap-type: y mandatory; }
+    .hour-picker__cell { display: flex; align-items: center; justify-content: center; min-height: 32px; font-size: var(--font-size-md); color: var(--color-gray-800); cursor: pointer; scroll-snap-align: center; background: none; border: none; font-family: var(--font-family-base); }
+    .hour-picker__cell:hover { background: var(--color-gray-100); }
+    .hour-picker__cell.is-selected { background: var(--color-blue-400); color: var(--color-white); font-weight: var(--font-weight-semibold); }
+    .hour-picker__separator { display: flex; align-items: center; font-size: var(--font-size-lg); color: var(--color-gray-600); font-weight: var(--font-weight-bold); }
+    .hour-picker__footer { display: flex; justify-content: flex-end; gap: var(--space-2); padding-top: var(--space-2); border-top: 1px solid var(--color-gray-200); }
+
+    /* Phase 4 — Form field */
+    .form-field { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+    .form-field__label { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); }
+    .form-field__required { color: var(--color-red-500); margin-left: 2px; }
+    .form-field__input-wrapper { display: flex; align-items: center; height: 32px; background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); transition: border-color 150ms ease, box-shadow 150ms ease; overflow: hidden; }
+    .form-field__input-wrapper:focus-within { border-color: var(--color-blue-400); box-shadow: var(--shadow-focus); }
+    .form-field__prefix, .form-field__suffix { display: flex; align-items: center; padding: 0 var(--space-3); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); background: var(--color-gray-100); height: 100%; flex-shrink: 0; }
+    .form-field__prefix { border-right: 1px solid var(--color-gray-300); }
+    .form-field__suffix { border-left: 1px solid var(--color-gray-300); }
+    .form-field__input { flex: 1; border: none; outline: none; font-family: var(--font-family-base); font-size: var(--font-size-md); color: var(--color-gray-900); padding: 0 var(--space-3); background: transparent; height: 100%; min-width: 0; }
+    .form-field__input::placeholder { color: var(--color-gray-500); }
+    .form-field__helper { font-size: var(--font-size-xs); font-weight: var(--font-weight-regular); color: var(--color-gray-600); line-height: var(--line-height-sm); }
+    .form-field--small .form-field__input-wrapper { height: 28px; }
+    .form-field--small .form-field__input { font-size: var(--font-size-sm); padding: 0 var(--space-2); }
+    .form-field--large .form-field__input-wrapper { height: 40px; }
+    .form-field--paragraph .form-field__input-wrapper { height: auto; align-items: stretch; }
+    .form-field--paragraph .form-field__input { padding: 8px var(--space-3); min-height: 80px; resize: vertical; line-height: var(--line-height-lg); }
+    .form-field.is-error .form-field__input-wrapper { border-color: var(--color-red-400); }
+    .form-field.is-error .form-field__input-wrapper:focus-within { border-color: var(--color-red-400); box-shadow: 0 0 0 3px var(--color-red-light-15); }
+    .form-field.is-error .form-field__helper { color: var(--color-red-600); }
+    .form-field.is-success .form-field__input-wrapper { border-color: var(--color-green-400); }
+    .form-field.is-disabled .form-field__input-wrapper { background: var(--color-gray-100); cursor: not-allowed; }
+    .form-field.is-disabled .form-field__input, .form-field.is-disabled .form-field__input::placeholder { cursor: not-allowed; color: var(--color-gray-500); }
+
+    /* Phase 4 — Searchbar */
+    .searchbar { position: relative; display: inline-flex; align-items: center; width: 280px; height: 32px; background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); transition: border-color 150ms ease, box-shadow 150ms ease; padding: 0 var(--space-3); gap: var(--space-2); }
+    .searchbar:focus-within { border-color: var(--color-blue-400); box-shadow: var(--shadow-focus); }
+    .searchbar__icon { font-size: var(--icon-size-md); color: var(--color-gray-600); flex-shrink: 0; }
+    .searchbar__input { flex: 1; border: none; outline: none; background: transparent; font-family: var(--font-family-base); font-size: var(--font-size-md); color: var(--color-gray-900); min-width: 0; }
+    .searchbar__input::placeholder { color: var(--color-gray-500); }
+    .searchbar__clear { background: none; border: none; padding: 0; cursor: pointer; color: var(--color-gray-500); display: none; align-items: center; flex-shrink: 0; }
+    .searchbar__clear .material-icons-outlined { font-size: var(--icon-size-md); }
+    .searchbar.has-value .searchbar__clear { display: inline-flex; }
+    .searchbar__clear:hover { color: var(--color-gray-700); }
+    .searchbar--small { height: 28px; }
+    .searchbar--small .searchbar__input { font-size: var(--font-size-sm); }
+    .searchbar--large { height: 40px; }
+    .searchbar__loading { width: 14px; height: 14px; border: 2px solid var(--color-gray-300); border-top-color: var(--color-blue-400); border-radius: var(--radius-pill); animation: searchbar-spin 800ms linear infinite; display: none; flex-shrink: 0; }
+    .searchbar.is-loading .searchbar__loading { display: inline-block; }
+    @keyframes searchbar-spin { to { transform: rotate(360deg); } }
+    .searchbar__dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); box-shadow: var(--shadow-elevation); display: none; z-index: 100; max-height: 280px; overflow-y: auto; padding: 4px 0; }
+    .searchbar__dropdown.is-open { display: block; }
+    .searchbar__suggestion { display: flex; align-items: center; gap: var(--space-2); padding: 6px var(--space-3); font-size: var(--font-size-md); color: var(--color-gray-900); cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-family: var(--font-family-base); }
+    .searchbar__suggestion:hover { background: var(--color-gray-100); }
+    .searchbar__suggestion .material-icons-outlined { font-size: var(--icon-size-md); color: var(--color-gray-600); }
+    .searchbar__suggestion-match { font-weight: var(--font-weight-bold); color: var(--color-blue-600); }
+    .searchbar__suggestion-empty { padding: var(--space-3); font-size: var(--font-size-sm); color: var(--color-gray-600); text-align: center; }
+
+    /* Phase 4 — Nav button */
+    .nav-button { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 var(--space-3); background: transparent; border: none; border-radius: var(--radius-sm); font-family: var(--font-family-base); font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-700); cursor: pointer; transition: background 150ms ease, color 150ms ease; white-space: nowrap; }
+    .nav-button:hover { background: var(--color-gray-200); color: var(--color-gray-900); }
+    .nav-button.is-active { background: var(--color-blue-light-10); color: var(--color-blue-600); }
+    .nav-button.is-active:hover { background: var(--color-blue-light-15); }
+    .nav-button:disabled, .nav-button.is-disabled { color: var(--color-gray-500); cursor: not-allowed; background: transparent; }
+    .nav-button .material-icons-outlined { font-size: var(--icon-size-md); }
+    .nav-button--icon-only { width: 32px; padding: 0; justify-content: center; gap: 0; }
+    .nav-button--small { height: 28px; padding: 0 var(--space-2); font-size: var(--font-size-sm); }
+    .nav-button--small.nav-button--icon-only { width: 28px; padding: 0; }
+    .nav-button--large { height: 40px; padding: 0 var(--space-4); }
+    .nav-button--large.nav-button--icon-only { width: 40px; padding: 0; }
+    /* nav-button--icon-left e --icon-right: marcadores semanticos no HTML, sem CSS */
+
+    /* Logo InfoPrice (Phase 5 — fallback) */
+    .ip-logo { display: inline-flex; align-items: center; height: 32px; color: var(--color-gray-800); }
+    .ip-logo svg { height: 100%; width: auto; display: block; }
+    .ip-logo .ip-logo__main { fill: var(--color-gray-800); }
+    .ip-logo .ip-logo__accent { fill: var(--color-brand-primary); }
+    .ip-logo--mono .ip-logo__main, .ip-logo--mono .ip-logo__accent { fill: currentColor; }
+    .ip-logo--brand  { color: var(--color-brand-primary); }
+    .ip-logo--gray   { color: var(--color-gray-700); }
+    .ip-logo--dark   { color: var(--color-gray-900); }
+    .ip-logo--white  { color: var(--color-white); }
+    .ip-logo--blue   { color: var(--color-blue-400); }
+    .ip-logo--green  { color: var(--color-green-500); }
+    .ip-logo--orange { color: var(--color-orange-500); }
+    .ip-logo--red    { color: var(--color-red-500); }
+    .ip-logo--purple { color: var(--color-purple-500); }
+    .ip-logo--pink   { color: var(--color-pink-500); }
+    .ip-logo--small { height: 20px; }
+    .ip-logo--large { height: 48px; }
+
+    /* Override temporario: filtro-dropdown 280px -> 320px (fica obsoleto apos push) */
+    .filtro-dropdown { width: 320px; }
+    .filtro-dropdown__search-input { min-width: 0; }
+
+    /* Grid — Menu Precos (Phase 6 fallback) */
+    .grid__price-menu { display: flex; flex-direction: column; gap: 2px; padding: 4px; width: 26px; height: 100%; box-sizing: border-box; }
+    .grid__price-menu__btn { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 16px; padding: 2px; background: var(--color-gray-300); border: none; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-family-base); font-size: var(--font-size-xs); font-weight: var(--font-weight-regular); line-height: var(--line-height-btn-xs); color: var(--color-gray-900); transition: background 150ms ease; }
+    .grid__price-menu__btn:hover { background: var(--color-gray-400); }
+    .grid__price-menu__btn--campanha { background: var(--color-blue-light-10); }
+    .grid__price-menu__btn--campanha:hover { background: var(--color-blue-light-15); }
+    .grid__price-menu__btn--campanha .material-icons-outlined { font-size: 14px; color: var(--color-blue-500); }
+
+    /* Grid — Sub-row (Phase 7 fallback) */
+    /* !important para vencer o zebra do CDN antes do push */
+    /* Data row: branco */
+    .grid__table tbody tr.grid__sub-row td {
+      background: var(--color-white) !important;
+      padding: 12px 6px !important;
+      vertical-align: top !important;
+    }
+    .grid__table tbody tr.grid__sub-row td:first-child {
+      padding-left: 16px !important;
+    }
+    /* Mini-header: gray-50, 16px de altura */
+    .grid__table tbody tr.grid__sub-row--header td {
+      padding: 0 6px !important;
+      height: 16px !important;
+      line-height: 16px !important;
+      font-size: var(--font-size-xs) !important;
+      vertical-align: middle !important;
+      border-top: 1px solid var(--color-gray-300) !important;
+      border-bottom: 1px solid var(--color-gray-300) !important;
+      white-space: nowrap !important;
+      background: var(--color-gray-50) !important;
+    }
+    .grid__table tbody tr.grid__sub-row--header { height: 16px !important; }
+    /* Label "Oferta"/"Atacado" centralizado verticalmente */
+    .grid__table tbody tr.grid__sub-row .grid__sub-row__label-cell {
+      vertical-align: middle !important;
+    }
+    .grid__table tbody tr.grid__sub-row--oferta td,
+    .grid__table tbody tr.grid__sub-row--atacado td,
+    .grid__table tbody tr.grid__sub-row--campanha td {
+      border-bottom: 1px solid var(--color-gray-300) !important;
+    }
+    .grid__sub-row__col-label { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); line-height: var(--line-height-sm); color: var(--color-gray-700); white-space: nowrap; }
+    .grid__sub-row__marker-cell { padding-top: 4px !important; padding-bottom: 4px !important; height: 1px; }
+    .grid__sub-row__marker { display: flex; align-items: center; justify-content: center; width: 20px; height: 100%; min-height: 32px; background: var(--color-gray-300); color: var(--color-gray-900); border-radius: var(--radius-sm); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); flex-shrink: 0; }
+    .grid__sub-row--oferta .grid__sub-row__marker { background: var(--color-blue-light-15); color: var(--color-blue-600); }
+    .grid__sub-row--campanha .grid__sub-row__marker { background: var(--color-blue-light-10); color: var(--color-blue-500); }
+    .grid__sub-row__heading { display: block; font-size: var(--font-size-xs); color: var(--color-gray-600); font-weight: var(--font-weight-regular); margin-bottom: 2px; }
+    .grid__sub-row__label { display: block; font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-gray-900); white-space: nowrap; }
+    .grid__sub-row__close { background: none; border: none; cursor: pointer; padding: 4px; border-radius: var(--radius-sm); color: var(--color-blue-500); display: inline-flex; align-items: center; justify-content: center; transition: background 150ms ease, color 150ms ease; }
+    .grid__sub-row__close:hover { background: var(--color-blue-light-10); color: var(--color-blue-600); }
+    .grid__sub-row__close .material-icons-outlined { font-size: 18px; }
+    .grid__badge-pill--desconto { background: var(--color-red-light-15); color: var(--color-red-600); }
+
+    /* Cards de variacao da logo (page-specific) */
+    .ip-logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: var(--space-3);
+    }
+    .ip-logo-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .ip-logo-card__preview {
+      height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4);
+      background: var(--color-gray-50);
+    }
+    .ip-logo-card__preview--dark { background: var(--color-gray-900); }
+    .ip-logo-card__preview--checker {
+      background:
+        repeating-linear-gradient(45deg, transparent, transparent 8px, var(--color-gray-100) 8px, var(--color-gray-100) 9px),
+        var(--color-white);
+    }
+    .ip-logo-card__label {
+      padding: var(--space-2) var(--space-3) 2px;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+    .ip-logo-card__code {
+      padding: 0 var(--space-3) var(--space-3);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-size-xs);
+      color: var(--color-gray-600);
+    }
   </style>
 </head>
 <body>
@@ -396,6 +874,23 @@
       <span class="ds__nav-title">Design System</span>
     </div>
 
+    <div class="ds__nav-search">
+      <div class="searchbar searchbar--small" id="dsSearch">
+        <span class="material-icons-outlined searchbar__icon">search</span>
+        <input
+          type="text"
+          class="searchbar__input"
+          id="dsSearchInput"
+          placeholder="Buscar componente..."
+          aria-label="Buscar no design system"
+        />
+        <button class="searchbar__clear" id="dsSearchClear" aria-label="Limpar busca">
+          <span class="material-icons-outlined">close</span>
+        </button>
+      </div>
+      <div class="ds__nav-search-empty" id="dsSearchEmpty">Nenhum resultado</div>
+    </div>
+
     <div class="ds__nav-section">
       <div class="ds__nav-section-title">Tokens</div>
       <a class="ds__nav-link" href="#cores">Cores</a>
@@ -404,6 +899,11 @@
       <a class="ds__nav-link" href="#radius">Border radius</a>
       <a class="ds__nav-link" href="#sombras">Sombras</a>
       <a class="ds__nav-link" href="#icones">Icones</a>
+    </div>
+
+    <div class="ds__nav-section">
+      <div class="ds__nav-section-title">Marca</div>
+      <a class="ds__nav-link" href="#logo">Logo</a>
     </div>
 
     <div class="ds__nav-section">
@@ -416,6 +916,8 @@
       <a class="ds__nav-link" href="#switch">Switch</a>
       <a class="ds__nav-link" href="#radio">Radio</a>
       <a class="ds__nav-link" href="#checkbox">Checkbox</a>
+      <a class="ds__nav-link" href="#form-field">Form field</a>
+      <a class="ds__nav-link" href="#searchbar">Searchbar</a>
     </div>
 
     <div class="ds__nav-section">
@@ -471,6 +973,7 @@
       <a class="ds__nav-link" href="#header-dropdowns">Header dropdowns</a>
       <a class="ds__nav-link" href="#sidebar">Sidebar</a>
       <a class="ds__nav-link" href="#navbar">Navbar (sub-nav)</a>
+      <a class="ds__nav-link" href="#nav-button">Nav button</a>
       <a class="ds__nav-link" href="#cabecalho">Cabecalho</a>
     </div>
 
@@ -482,6 +985,15 @@
       <a class="ds__nav-link" href="#grid-pagination">Paginacao</a>
     </div>
   </nav>
+
+  <div
+    class="ds__nav-resize"
+    id="dsNavResize"
+    role="separator"
+    aria-orientation="vertical"
+    aria-label="Redimensionar menu lateral"
+    tabindex="0"
+  ></div>
 
   <!-- ── Conteudo principal ──────────────────────── -->
   <main class="ds__main">
@@ -702,6 +1214,155 @@
     <!-- ============================================ -->
     <!-- COMPONENTES                                  -->
     <!-- ============================================ -->
+
+    <!-- ── Logo InfoPrice ─────────────────────────── -->
+    <section class="ds__section" id="logo">
+      <h2 class="ds__section-title">Logo InfoPrice</h2>
+      <p class="ds__section-desc">
+        Logo principal e variacoes monocromaticas em cores da paleta. A versao default
+        (cinza + azul brand) e a oficial. As variantes <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--mono</code> sao para casos onde a logo
+        precisa se adaptar a fundos coloridos, sobre imagens, ou em peças de comunicacao
+        com identidade tematica.
+      </p>
+
+      <div class="ds__subsection">
+        <h3 class="ds__subsection-title">Versao oficial e tamanhos</h3>
+        <div class="ip-logo-grid">
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Default (32px)</span>
+            <span class="ip-logo-card__code">.ip-logo</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--small" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Small (20px)</span>
+            <span class="ip-logo-card__code">.ip-logo.ip-logo--small</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--large" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Large (48px)</span>
+            <span class="ip-logo-card__code">.ip-logo.ip-logo--large</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds__subsection">
+        <h3 class="ds__subsection-title">Mono — neutros</h3>
+        <div class="ip-logo-grid">
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--dark" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Dark</span>
+            <span class="ip-logo-card__code">--mono.--dark</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--gray" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Gray</span>
+            <span class="ip-logo-card__code">--mono.--gray</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview ip-logo-card__preview--dark">
+              <div class="ip-logo ip-logo--mono ip-logo--white" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">White (sobre escuro)</span>
+            <span class="ip-logo-card__code">--mono.--white</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds__subsection">
+        <h3 class="ds__subsection-title">Mono — cores da paleta</h3>
+        <div class="ip-logo-grid">
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--brand" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Brand primary</span>
+            <span class="ip-logo-card__code">--mono.--brand</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--blue" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Blue 400</span>
+            <span class="ip-logo-card__code">--mono.--blue</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--green" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Green</span>
+            <span class="ip-logo-card__code">--mono.--green</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--orange" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Orange</span>
+            <span class="ip-logo-card__code">--mono.--orange</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--red" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Red</span>
+            <span class="ip-logo-card__code">--mono.--red</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--purple" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Purple</span>
+            <span class="ip-logo-card__code">--mono.--purple</span>
+          </div>
+          <div class="ip-logo-card">
+            <div class="ip-logo-card__preview">
+              <div class="ip-logo ip-logo--mono ip-logo--pink" data-logo></div>
+            </div>
+            <span class="ip-logo-card__label">Pink</span>
+            <span class="ip-logo-card__code">--mono.--pink</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Como usar</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-6);align-items:center">
+          <div class="ip-logo" data-logo></div>
+          <div class="ip-logo ip-logo--mono ip-logo--blue" data-logo></div>
+          <div class="ip-logo ip-logo--mono ip-logo--green ip-logo--large" data-logo></div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Versao default (cinza + azul brand) --&gt;
+&lt;div class="ip-logo"&gt;[SVG da logo]&lt;/div&gt;
+
+&lt;!-- Mono em uma cor unica --&gt;
+&lt;div class="ip-logo ip-logo--mono ip-logo--blue"&gt;[SVG]&lt;/div&gt;
+
+&lt;!-- Combinaveis com tamanho --&gt;
+&lt;div class="ip-logo ip-logo--mono ip-logo--green ip-logo--large"&gt;[SVG]&lt;/div&gt;
+
+&lt;!-- Modificadores de cor: --brand --gray --dark --white --blue --green --orange --red --purple --pink --&gt;
+&lt;!-- Tamanhos:              --small (20px) | (default 32px) | --large (48px) --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
 
     <!-- ── Tooltips ───────────────────────────────── -->
     <section class="ds__section" id="tooltips">
@@ -943,6 +1604,302 @@
 &lt;/label&gt;
 
 &lt;!-- Estados: padrao | checked (no input) | .is-half | .is-disabled --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Form field generico ────────────────────── -->
+    <section class="ds__section" id="form-field">
+      <h2 class="ds__section-title">Form field</h2>
+      <p class="ds__section-desc">
+        Input com label, helper text, prefix/suffix opcionais e estados (default, error,
+        success, disabled). Padrao visual derivado do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.grid__form-field</code>, mas standalone com
+        label/helper. 4 sizes: small, medium (default), large, paragraph (textarea).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes basicas</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-4);padding:var(--space-4)">
+          <div class="form-field" style="max-width:320px">
+            <label class="form-field__label">Nome do produto</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" placeholder="Ex: Cerveja Brahma 350ml" />
+            </div>
+          </div>
+
+          <div class="form-field" style="max-width:320px">
+            <label class="form-field__label">Email <span class="form-field__required">*</span></label>
+            <div class="form-field__input-wrapper">
+              <input type="email" class="form-field__input" value="marcos@infoprice.co" />
+            </div>
+            <span class="form-field__helper">Usaremos este email para contato</span>
+          </div>
+
+          <div class="form-field is-error" style="max-width:320px">
+            <label class="form-field__label">Codigo do produto</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" value="ABC-X" />
+            </div>
+            <span class="form-field__helper">Codigo invalido — use formato AAA-000</span>
+          </div>
+
+          <div class="form-field is-disabled" style="max-width:320px">
+            <label class="form-field__label">Loja</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" value="Loja Centro" disabled />
+            </div>
+            <span class="form-field__helper">Nao e possivel alterar a loja deste registro</span>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Basico --&gt;
+&lt;div class="form-field"&gt;
+  &lt;label class="form-field__label"&gt;Nome do produto&lt;/label&gt;
+  &lt;div class="form-field__input-wrapper"&gt;
+    &lt;input type="text" class="form-field__input" placeholder="Ex: ..." /&gt;
+  &lt;/div&gt;
+  &lt;span class="form-field__helper"&gt;Texto de ajuda&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Required --&gt;
+&lt;label class="form-field__label"&gt;Email &lt;span class="form-field__required"&gt;*&lt;/span&gt;&lt;/label&gt;
+
+&lt;!-- Estados: padrao | .is-error | .is-success | .is-disabled --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com prefix e suffix</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-3);padding:var(--space-4)">
+          <div class="form-field" style="max-width:320px">
+            <label class="form-field__label">Preco de venda</label>
+            <div class="form-field__input-wrapper">
+              <span class="form-field__prefix">R$</span>
+              <input type="text" class="form-field__input" value="12,49" />
+            </div>
+          </div>
+          <div class="form-field" style="max-width:320px">
+            <label class="form-field__label">Margem objetiva</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" value="25,3" />
+              <span class="form-field__suffix">%</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="form-field__input-wrapper"&gt;
+  &lt;span class="form-field__prefix"&gt;R$&lt;/span&gt;
+  &lt;input type="text" class="form-field__input" value="12,49" /&gt;
+&lt;/div&gt;
+
+&lt;div class="form-field__input-wrapper"&gt;
+  &lt;input type="text" class="form-field__input" value="25,3" /&gt;
+  &lt;span class="form-field__suffix"&gt;%&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos + paragraph</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-3);padding:var(--space-4)">
+          <div class="form-field form-field--small" style="max-width:320px">
+            <label class="form-field__label">Small (28px)</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" placeholder="Compacto" />
+            </div>
+          </div>
+          <div class="form-field" style="max-width:320px">
+            <label class="form-field__label">Medium (32px - default)</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" placeholder="Padrao" />
+            </div>
+          </div>
+          <div class="form-field form-field--large" style="max-width:320px">
+            <label class="form-field__label">Large (40px)</label>
+            <div class="form-field__input-wrapper">
+              <input type="text" class="form-field__input" placeholder="Confortavel" />
+            </div>
+          </div>
+          <div class="form-field form-field--paragraph" style="max-width:320px">
+            <label class="form-field__label">Paragraph (textarea)</label>
+            <div class="form-field__input-wrapper">
+              <textarea class="form-field__input" placeholder="Descricao do produto..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="form-field form-field--small"&gt; ... &lt;/div&gt;
+&lt;div class="form-field"&gt; ... &lt;/div&gt;             &lt;!-- medium = default --&gt;
+&lt;div class="form-field form-field--large"&gt; ... &lt;/div&gt;
+
+&lt;!-- Paragraph (textarea) --&gt;
+&lt;div class="form-field form-field--paragraph"&gt;
+  &lt;label class="form-field__label"&gt;Descricao&lt;/label&gt;
+  &lt;div class="form-field__input-wrapper"&gt;
+    &lt;textarea class="form-field__input" placeholder="..."&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Searchbar ──────────────────────────────── -->
+    <section class="ds__section" id="searchbar">
+      <h2 class="ds__section-title">Searchbar</h2>
+      <p class="ds__section-desc">
+        Campo de busca standalone com icone, botao clear (aparece quando ha texto), loading
+        e dropdown opcional de sugestoes. Espelha o padrao do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.filtro-dropdown__search</code> mas
+        funciona fora de filtros. 3 sizes (small, medium, large).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3);padding:var(--space-4)">
+          <div class="searchbar">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Buscar produtos..." />
+          </div>
+
+          <div class="searchbar has-value">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="Cerveja Brahma" />
+            <button class="searchbar__clear" aria-label="Limpar">
+              <span class="material-icons-outlined">close</span>
+            </button>
+          </div>
+
+          <div class="searchbar is-loading">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="Buscando..." />
+            <span class="searchbar__loading"></span>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Vazio --&gt;
+&lt;div class="searchbar"&gt;
+  &lt;span class="material-icons-outlined searchbar__icon"&gt;search&lt;/span&gt;
+  &lt;input type="text" class="searchbar__input" placeholder="Buscar..." /&gt;
+&lt;/div&gt;
+
+&lt;!-- Com valor (mostra clear) --&gt;
+&lt;div class="searchbar has-value"&gt;
+  ...
+  &lt;button class="searchbar__clear"&gt;&lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Loading (spinner) --&gt;
+&lt;div class="searchbar is-loading"&gt;
+  ...
+  &lt;span class="searchbar__loading"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com dropdown de sugestoes</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start">
+          <div class="searchbar has-value" style="position:static">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="cerveja" />
+            <button class="searchbar__clear" aria-label="Limpar">
+              <span class="material-icons-outlined">close</span>
+            </button>
+          </div>
+          <div class="searchbar__dropdown is-open" style="position:relative;top:auto;width:280px;margin-top:4px">
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Brahma 350ml</span>
+            </button>
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Heineken Long Neck</span>
+            </button>
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Skol Lata 350ml</span>
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="searchbar"&gt;
+  &lt;span class="material-icons-outlined searchbar__icon"&gt;search&lt;/span&gt;
+  &lt;input type="text" class="searchbar__input" placeholder="Buscar..." /&gt;
+  &lt;div class="searchbar__dropdown"&gt;
+    &lt;button class="searchbar__suggestion"&gt;
+      &lt;span class="material-icons-outlined"&gt;history&lt;/span&gt;
+      &lt;span&gt;
+        &lt;span class="searchbar__suggestion-match"&gt;cerveja&lt;/span&gt; Brahma
+      &lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Quando vazio: &lt;div class="searchbar__suggestion-empty"&gt;Nada encontrado&lt;/div&gt; --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-2)">
+          <div class="searchbar searchbar--small">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Small (28px)" />
+          </div>
+          <div class="searchbar">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Medium (32px - default)" />
+          </div>
+          <div class="searchbar searchbar--large">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Large (40px)" />
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="searchbar searchbar--small"&gt; ... &lt;/div&gt;
+&lt;div class="searchbar"&gt; ... &lt;/div&gt;          &lt;!-- medium = default --&gt;
+&lt;div class="searchbar searchbar--large"&gt; ... &lt;/div&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -2235,31 +3192,56 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       </p>
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Estado colapsado (52px)</span>
+          <span class="ds__component-name">Sidebar completa (clique na seta para expandir)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
           </div>
         </div>
-        <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:0;display:block;height:300px">
-          <aside class="sidebar" style="position:static;height:300px">
+        <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:0;display:block;height:380px">
+          <aside class="sidebar" style="position:static;height:380px">
+
             <div class="sidebar__top">
+
               <div class="sidebar__item sidebar__item--active">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
                 <span class="sidebar__label">Gerenciador</span>
                 <span class="sidebar__tooltip">Gerenciador</span>
               </div>
+
               <div class="sidebar__item">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
                 <span class="sidebar__label">Estrategia</span>
                 <span class="sidebar__tooltip">Estrategia</span>
               </div>
+
               <div class="sidebar__item">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
-                <span class="sidebar__label">Negociacoes</span>
-                <span class="sidebar__tooltip">Negociacoes</span>
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
+                <span class="sidebar__label">Negociacoes Fornecedor</span>
+                <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+                <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
               </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
+                <span class="sidebar__label">Extracao de precos</span>
+                <span class="sidebar__tooltip">Extracao de precos</span>
+              </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+                <span class="sidebar__label">Precifique com IA</span>
+                <span class="sidebar__tooltip">Precifique com IA</span>
+              </div>
+
             </div>
+
+            <div class="sidebar__bottom">
+              <button class="sidebar__seta" aria-label="Expandir menu">
+                <span class="material-icons-outlined">keyboard_arrow_right</span>
+              </button>
+            </div>
+
           </aside>
         </div>
         <div class="ds__component-code" data-code>
@@ -2640,6 +3622,258 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     &lt;span class="grid__val-main"&gt;25%&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Menu Precos (toggle atacado/oferta)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
+          <!-- So preco atacado (2) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+          </div>
+
+          <!-- So preco oferta (3) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Atacado + oferta (2 e 3) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Com campanha + 2 + 3 -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn grid__price-menu__btn--campanha" aria-label="Campanha">
+              <span class="material-icons-outlined">local_offer</span>
+            </button>
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Maximo: 4 segmentos numericos -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+            <button class="grid__price-menu__btn">4</button>
+            <button class="grid__price-menu__btn">5</button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Atacado (2) + oferta (3) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;3&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- So um dos dois (apenas atacado, ou apenas oferta) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Com variante "campanha" (fundo azul + icone local_offer) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn grid__price-menu__btn--campanha" aria-label="Campanha"&gt;
+    &lt;span class="material-icons-outlined"&gt;local_offer&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;3&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Suporta ate 4 segmentos numericos (2, 3, 4, 5) --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Linha complementar (sub-row)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block;overflow-x:auto">
+          <table class="grid__table" style="min-width:1100px">
+            <colgroup>
+              <col style="width:40px">
+              <col>
+              <col style="width:60px">
+              <col style="width:130px">
+              <col style="width:108px">
+              <col style="width:120px">
+              <col style="width:108px">
+              <col style="width:108px">
+              <col style="width:120px">
+              <col style="width:50px">
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th><div class="grid__th-content"><span>Produto</span></div></th>
+                <th><div class="grid__th-content"><span>Emb..</span></div></th>
+                <th><div class="grid__th-content"><span>P. vigente</span></div></th>
+                <th><div class="grid__th-content"><span>P. concorr.</span></div></th>
+                <th><div class="grid__th-content"><span>P. sugerido</span></div></th>
+                <th><div class="grid__th-content"><span>CPI</span></div></th>
+                <th><div class="grid__th-content"><span>Margem</span></div></th>
+                <th><div class="grid__th-content"><span>Desconto</span></div></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Main row -->
+              <tr>
+                <td><input type="checkbox" class="grid__check" /></td>
+                <td>
+                  <div class="grid__produto-codes">
+                    <span class="grid__produto-code">111705</span>
+                  </div>
+                  <div class="grid__produto-name">CETOCON+DIP BETA+NEOMIC 20+0,64+2,5MG/G POM C/30G</div>
+                </td>
+                <td>—</td>
+                <td><span class="grid__val-main">R$ 27,75</span></td>
+                <td><span class="grid__val-main">R$ 29,51</span></td>
+                <td>
+                  <div class="grid__form-field grid__form-field--blue">
+                    <span class="grid__form-prefix">R$</span>
+                    <input type="text" class="grid__form-input" value="29,59" />
+                  </div>
+                  <div class="grid__input-sub">
+                    <span class="grid__var grid__var--up">+6,6%</span>
+                    <span class="grid__badge-pill grid__badge-pill--auto">auto</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="100,3" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+6,2</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="54,6" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--down">-13,3</span></div>
+                </td>
+                <td></td>
+                <td>
+                  <div class="grid__price-menu">
+                    <button class="grid__price-menu__btn" data-toggle-subrow="ds-subrow-demo">3</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Sub-row mini-header -->
+              <tr class="grid__sub-row grid__sub-row--header" id="ds-subrow-demo-header">
+                <td></td>
+                <td><span class="grid__sub-row__heading">Outros precos</span></td>
+                <td><span class="grid__sub-row__col-label">Emb..</span></td>
+                <td><span class="grid__sub-row__col-label">Preco vigente</span></td>
+                <td><span class="grid__sub-row__col-label">Preco concorrente</span></td>
+                <td><span class="grid__sub-row__col-label">Preco sugerido</span></td>
+                <td><span class="grid__sub-row__col-label">CPI</span></td>
+                <td><span class="grid__sub-row__col-label">Margem</span></td>
+                <td><span class="grid__sub-row__col-label">Desconto</span></td>
+                <td></td>
+              </tr>
+
+              <!-- Sub-row: Oferta -->
+              <tr class="grid__sub-row grid__sub-row--oferta" id="ds-subrow-demo">
+                <td class="grid__sub-row__marker-cell"><span class="grid__sub-row__marker">3</span></td>
+                <td class="grid__sub-row__label-cell">
+                  <span class="grid__sub-row__label">Oferta</span>
+                </td>
+                <td>
+                  <span class="grid__val-main">1</span>
+                  <span class="grid__val-sub" style="color:var(--color-gray-600)">UN</span>
+                </td>
+                <td>
+                  <span class="grid__val-main">R$ 27,79</span>
+                  <div class="grid__pv-line2">
+                    <div class="grid__pv-indicator"><span style="color:var(--color-gray-500)">$</span> <span>--%</span></div>
+                    <div class="grid__pv-sep"></div>
+                    <div class="grid__pv-indicator"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" /><span>100,0%</span></div>
+                  </div>
+                </td>
+                <td>
+                  <span class="grid__val-main">R$ 26,49</span>
+                  <div class="grid__pc-link"><span class="material-icons-outlined">expand_more</span><span>Abrir</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field grid__form-field--blue">
+                    <span class="grid__form-prefix">R$</span>
+                    <input type="text" class="grid__form-input" value="26,49" />
+                  </div>
+                  <div class="grid__input-sub">
+                    <span class="grid__var grid__var--down">-4,7%</span>
+                    <span class="grid__badge-pill grid__badge-pill--auto">auto</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="100,0" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+73,5</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="50,7" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+50,7</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="10,5" /><span class="grid__form-suffix grid__form-suffix--gray">% off</span></div>
+                  <div class="grid__input-sub"><span class="grid__badge-pill grid__badge-pill--desconto">DESCONTO</span></div>
+                </td>
+                <td>
+                  <button class="grid__sub-row__close" aria-label="Fechar">
+                    <span class="material-icons-outlined">close</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Linha principal do produto --&gt;
+&lt;tr&gt;...&lt;/tr&gt;
+
+&lt;!-- Linha complementar (oferta), inserida logo apos a principal --&gt;
+&lt;tr class="grid__sub-row grid__sub-row--oferta"&gt;
+  &lt;td&gt;&lt;span class="grid__sub-row__marker"&gt;3&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;
+    &lt;span class="grid__sub-row__heading"&gt;Outros precos&lt;/span&gt;
+    &lt;span class="grid__sub-row__label"&gt;Oferta&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;!-- demais td seguem mesma estrutura do main row --&gt;
+  &lt;td&gt; ... cell de Embalagem ... &lt;/td&gt;
+  &lt;td&gt; ... Preco vigente ... &lt;/td&gt;
+  &lt;td&gt; ... Preco concorrente ... &lt;/td&gt;
+  &lt;td&gt; ... Preco sugerido (form-field) ... &lt;/td&gt;
+  &lt;td&gt; ... CPI ... &lt;/td&gt;
+  &lt;td&gt; ... Margem ... &lt;/td&gt;
+  &lt;td&gt;
+    &lt;!-- Coluna Desconto (especifica do sub-row) --&gt;
+    &lt;div class="grid__form-field"&gt;
+      &lt;input type="text" class="grid__form-input" value="10,5" /&gt;
+      &lt;span class="grid__form-suffix grid__form-suffix--gray"&gt;% off&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="grid__input-sub"&gt;
+      &lt;span class="grid__badge-pill grid__badge-pill--desconto"&gt;DESCONTO&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;button class="grid__sub-row__close" aria-label="Fechar"&gt;
+      &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;!-- Variantes do marker:
+  --oferta   (azul claro, "3")
+  --atacado  (cinza, "2") -- padrao
+  --campanha (azul mais claro, icone local_offer) --&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -3145,52 +4379,72 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Estrutura completa</span>
+          <span class="ds__component-name">Demo interativa</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
           </div>
         </div>
-        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);background:rgba(0,0,0,0.5);min-height:320px">
-          <div class="modal" style="transform:none">
-            <div class="modal__header">
-              <span class="modal__title">Confirmar acao</span>
-              <button class="modal__close" aria-label="Fechar">
-                <span class="material-icons-outlined">close</span>
-              </button>
-            </div>
-            <div class="modal__body">
-              Voce esta prestes a aplicar 15 precos sugeridos no PDV. Essa acao nao pode ser
-              desfeita. Deseja continuar?
-            </div>
-            <div class="modal__footer">
-              <button class="btn btn--secondary-ghost">Cancelar</button>
-              <button class="btn btn--primary">Confirmar</button>
-            </div>
-          </div>
+        <div class="ds__component-preview" data-preview style="padding:var(--space-4)">
+          <button class="btn btn--primary" id="modalDemoOpen">Abrir modal</button>
+          <button class="btn btn--secondary-ghost" id="modalDemoOpenLarge">Abrir modal --large</button>
+          <button class="btn btn--secondary-ghost" id="modalDemoOpenSmall">Abrir modal --small</button>
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;div class="modal-backdrop is-open"&gt;
+          <pre><code>&lt;!-- Markup do modal (fica no body, fora do trigger) --&gt;
+&lt;div class="modal-backdrop" id="myModal"&gt;
   &lt;div class="modal"&gt;
     &lt;div class="modal__header"&gt;
       &lt;span class="modal__title"&gt;Confirmar acao&lt;/span&gt;
-      &lt;button class="modal__close" aria-label="Fechar"&gt;
+      &lt;button class="modal__close" data-modal-close&gt;
         &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
       &lt;/button&gt;
     &lt;/div&gt;
     &lt;div class="modal__body"&gt;Conteudo...&lt;/div&gt;
     &lt;div class="modal__footer"&gt;
-      &lt;button class="btn btn--secondary-ghost"&gt;Cancelar&lt;/button&gt;
+      &lt;button class="btn btn--secondary-ghost" data-modal-close&gt;Cancelar&lt;/button&gt;
       &lt;button class="btn btn--primary"&gt;Confirmar&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
+&lt;!-- JS para abrir/fechar --&gt;
+&lt;script&gt;
+const modal = document.getElementById('myModal');
+document.getElementById('triggerBtn').onclick = () =&gt; modal.classList.add('is-open');
+modal.querySelectorAll('[data-modal-close]').forEach(btn =&gt;
+  btn.onclick = () =&gt; modal.classList.remove('is-open')
+);
+modal.addEventListener('click', e =&gt; {
+  if (e.target === modal) modal.classList.remove('is-open');
+});
+&lt;/script&gt;
+
 &lt;!-- Tamanhos: .modal--small (400px) | (default 600px) | .modal--large (800px) --&gt;</code></pre>
         </div>
       </div>
     </section>
+
+    <!-- Modal real do demo (fica fora dos previews) -->
+    <div class="modal-backdrop" id="modalDemo">
+      <div class="modal" id="modalDemoBox">
+        <div class="modal__header">
+          <span class="modal__title">Confirmar acao</span>
+          <button class="modal__close" data-modal-close aria-label="Fechar">
+            <span class="material-icons-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal__body">
+          Voce esta prestes a aplicar 15 precos sugeridos no PDV. Essa acao nao pode ser
+          desfeita. Deseja continuar?
+        </div>
+        <div class="modal__footer">
+          <button class="btn btn--secondary-ghost" data-modal-close>Cancelar</button>
+          <button class="btn btn--primary" data-modal-close>Confirmar</button>
+        </div>
+      </div>
+    </div>
 
     <!-- ── Context Menu ───────────────────────────── -->
     <section class="ds__section" id="context-menu">
@@ -3252,6 +4506,209 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 &lt;/div&gt;</code></pre>
         </div>
       </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Demo interativa</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-6) var(--space-4);position:relative;min-height:280px">
+          <div style="position:relative;display:inline-block">
+            <button class="nav-button nav-button--icon-only" id="ctxMenuTrigger" aria-label="Mais opcoes" aria-haspopup="true">
+              <span class="material-icons-outlined">more_vert</span>
+            </button>
+            <div class="context-menu" id="ctxMenuDemo" style="top:calc(100% + 4px);right:0">
+              <button class="context-menu__item">
+                <span class="material-icons-outlined">edit</span>
+                <span>Editar</span>
+                <span class="context-menu__shortcut">Ctrl+E</span>
+              </button>
+              <button class="context-menu__item">
+                <span class="material-icons-outlined">content_copy</span>
+                <span>Duplicar</span>
+                <span class="context-menu__shortcut">Ctrl+D</span>
+              </button>
+              <div class="context-menu__divider"></div>
+              <button class="context-menu__item context-menu__item--danger">
+                <span class="material-icons-outlined">delete</span>
+                <span>Excluir</span>
+                <span class="context-menu__shortcut">Del</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Trigger + menu (relative wrapper) --&gt;
+&lt;div style="position:relative"&gt;
+  &lt;button class="nav-button nav-button--icon-only" id="myTrigger"&gt;
+    &lt;span class="material-icons-outlined"&gt;more_vert&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="context-menu" id="myMenu"&gt; ... items ... &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const trigger = document.getElementById('myTrigger');
+const menu = document.getElementById('myMenu');
+trigger.onclick = (e) =&gt; { e.stopPropagation(); menu.classList.toggle('is-open'); };
+document.addEventListener('click', (e) =&gt; {
+  if (!e.target.closest('#myMenu, #myTrigger')) menu.classList.remove('is-open');
+});
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Nav button ─────────────────────────────── -->
+    <section class="ds__section" id="nav-button">
+      <h2 class="ds__section-title">Nav button</h2>
+      <p class="ds__section-desc">
+        Botao de acao usado em areas de navegacao de pagina (cabecalho de feature, barra
+        lateral, breadcrumb). Diferente do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.title-btn</code> (compacto, com chevron de dropdown):
+        nav-button e mais flexivel — suporta texto, icone, icon-only e estado ativo. 3 sizes.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-left (variante padrao)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-left">
+            <span class="material-icons-outlined">home</span>
+            Inicio
+          </button>
+          <button class="nav-button nav-button--icon-left is-active">
+            <span class="material-icons-outlined">dashboard</span>
+            Dashboard
+          </button>
+          <button class="nav-button nav-button--icon-left" disabled>
+            <span class="material-icons-outlined">lock</span>
+            Bloqueado
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--icon-left"&gt;
+  &lt;span class="material-icons-outlined"&gt;home&lt;/span&gt;
+  Inicio
+&lt;/button&gt;
+
+&lt;!-- Estados:    padrao | .is-active | disabled --&gt;
+&lt;!-- Tamanhos:   .nav-button--small | (default) | .nav-button--large --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-right e sem icone</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-right">
+            Proximo
+            <span class="material-icons-outlined">arrow_forward</span>
+          </button>
+          <button class="nav-button nav-button--icon-right is-active">
+            Detalhes
+            <span class="material-icons-outlined">open_in_new</span>
+          </button>
+          <button class="nav-button">
+            Sem icone
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Icon-right: span depois do texto --&gt;
+&lt;button class="nav-button nav-button--icon-right"&gt;
+  Proximo
+  &lt;span class="material-icons-outlined"&gt;arrow_forward&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Sem icone: omitir o span --&gt;
+&lt;button class="nav-button"&gt;Apenas texto&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-only</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-only" aria-label="Voltar">
+            <span class="material-icons-outlined">arrow_back</span>
+          </button>
+          <button class="nav-button nav-button--icon-only is-active" aria-label="Filtros">
+            <span class="material-icons-outlined">filter_list</span>
+          </button>
+          <button class="nav-button nav-button--icon-only" aria-label="Mais opcoes">
+            <span class="material-icons-outlined">more_vert</span>
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--icon-only" aria-label="Voltar"&gt;
+  &lt;span class="material-icons-outlined"&gt;arrow_back&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Sempre incluir aria-label para acessibilidade quando icon-only --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--small">
+            <span class="material-icons-outlined">home</span>
+            Small
+          </button>
+          <button class="nav-button">
+            <span class="material-icons-outlined">home</span>
+            Medium
+          </button>
+          <button class="nav-button nav-button--large">
+            <span class="material-icons-outlined">home</span>
+            Large
+          </button>
+          <button class="nav-button nav-button--small nav-button--icon-only" aria-label="Small">
+            <span class="material-icons-outlined">home</span>
+          </button>
+          <button class="nav-button nav-button--icon-only" aria-label="Medium">
+            <span class="material-icons-outlined">home</span>
+          </button>
+          <button class="nav-button nav-button--large nav-button--icon-only" aria-label="Large">
+            <span class="material-icons-outlined">home</span>
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--small"&gt; ... &lt;/button&gt;
+&lt;button class="nav-button"&gt; ... &lt;/button&gt;          &lt;!-- medium = default --&gt;
+&lt;button class="nav-button nav-button--large"&gt; ... &lt;/button&gt;
+
+&lt;!-- Combinar com --icon-only para botao quadrado --&gt;
+&lt;button class="nav-button nav-button--small nav-button--icon-only"&gt; ... &lt;/button&gt;</code></pre>
+        </div>
+      </div>
     </section>
 
     <!-- ── Navbar (sub-navegacao) ─────────────────── -->
@@ -3310,6 +4767,13 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 </div>
 
 <script>
+/* ── Logo InfoPrice — injeta SVG em todos os [data-logo] ── */
+const IP_LOGO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 156" aria-label="InfoPrice"><g><rect class="ip-logo__main" x="190.93" y="7.14" width="10.55" height="146.71"/><rect class="ip-logo__main" x="0.5" y="7.14" width="18.46" height="146.71"/><rect class="ip-logo__main" x="34.25" y="7.14" width="9.5" height="146.71"/><rect class="ip-logo__main" x="57.47" y="7.14" width="9.5" height="146.71"/><rect class="ip-logo__main" x="156.12" y="7.14" width="9.5" height="146.71"/><rect class="ip-logo__main" x="75.14" y="7.14" width="9.5" height="146.71"/><rect class="ip-logo__main" x="173.79" y="7.14" width="9.5" height="146.71"/><rect class="ip-logo__main" x="92.82" y="7.14" width="9.49" height="146.71"/><rect class="ip-logo__main" x="121.3" y="7.14" width="21.1" height="146.71"/><path class="ip-logo__main" d="M215.91,153.86V7.12h28.43V153.86Z"/><path class="ip-logo__main" d="M363.44,153.86H335.83V93.1q0-13-4.53-19a14.88,14.88,0,0,0-12.57-6,23.65,23.65,0,0,0-8.45,1.65,31.58,31.58,0,0,0-8.14,4.65,38,38,0,0,0-6.9,7.13,28.24,28.24,0,0,0-4.53,9.1v63.24H263.1V45.56H288v20a40.91,40.91,0,0,1,17.31-16.12,55.33,55.33,0,0,1,25.55-5.79q10.1,0,16.48,3.72a26.75,26.75,0,0,1,9.89,9.72,40.7,40.7,0,0,1,4.85,13.64,89.85,89.85,0,0,1,1.33,15.5Z"/><path class="ip-logo__main" d="M384.05,153.86V72.43H369.83V51.35h14.22V44.74q0-20.26,9.68-32T420.11.92a61.23,61.23,0,0,1,26.58,6.41L441.13,28.2a34.77,34.77,0,0,0-7.32-2.79,30.26,30.26,0,0,0-7.72-1.13q-14.43,0-14.43,19.42v7.65H438V72.43H411.66v81.43Z"/><path class="ip-logo__main" d="M489.14,155.92a59.17,59.17,0,0,1-23.7-4.54,53.24,53.24,0,0,1-17.82-12.3,54.2,54.2,0,0,1-11.23-17.88,58.47,58.47,0,0,1-3.91-21.28,59.14,59.14,0,0,1,3.91-21.5,54.16,54.16,0,0,1,11.23-17.87,53.24,53.24,0,0,1,17.82-12.3,59.17,59.17,0,0,1,23.7-4.55,58.36,58.36,0,0,1,23.59,4.55,53.32,53.32,0,0,1,17.72,12.3,54.35,54.35,0,0,1,11.24,17.87,59.35,59.35,0,0,1,3.91,21.5,58.68,58.68,0,0,1-3.91,21.28,55.45,55.45,0,0,1-11.13,17.88,52.13,52.13,0,0,1-17.72,12.3A59.17,59.17,0,0,1,489.14,155.92Zm-28.23-56A37.89,37.89,0,0,0,463.07,113a32.19,32.19,0,0,0,6,10.23,26.86,26.86,0,0,0,9,6.72,27.32,27.32,0,0,0,22.26,0,26.86,26.86,0,0,0,9-6.72,31.93,31.93,0,0,0,6-10.33,38.81,38.81,0,0,0,2.16-13.23,38.17,38.17,0,0,0-2.16-13,32,32,0,0,0-6-10.33,26.29,26.29,0,0,0-20.09-9.1A25.4,25.4,0,0,0,478,69.74a28.13,28.13,0,0,0-9,6.82,32.09,32.09,0,0,0-6,10.34A38.08,38.08,0,0,0,460.91,99.92Z"/><path class="ip-logo__accent" d="M556.32,153.86V7.12h62A41.52,41.52,0,0,1,637,11.36a48.26,48.26,0,0,1,14.73,11.16,52.61,52.61,0,0,1,9.68,15.71,47.24,47.24,0,0,1,3.51,17.67A51,51,0,0,1,661.61,74a50.2,50.2,0,0,1-9.27,15.6,45.61,45.61,0,0,1-14.43,11,41.67,41.67,0,0,1-18.54,4.13H584.75v49.19Zm28.43-74.2h33a16.25,16.25,0,0,0,13.08-6.4q5.26-6.41,5.26-17.36a28.71,28.71,0,0,0-1.65-10,24.36,24.36,0,0,0-4.33-7.54,17.12,17.12,0,0,0-6.28-4.65,18.44,18.44,0,0,0-7.32-1.55H584.75Z"/><path class="ip-logo__accent" d="M737.23,69.54a54.19,54.19,0,0,0-22.46,4.85,28.43,28.43,0,0,0-14.22,14v65.52H672.94V45.56h25.34V68.71a49.21,49.21,0,0,1,6.81-10,52,52,0,0,1,8.44-7.75,39.27,39.27,0,0,1,9.17-5.07,25.26,25.26,0,0,1,9-1.75h3.4a11.64,11.64,0,0,1,2.16.2Z"/><path class="ip-logo__accent" d="M743.62,30.48V3h27.61V30.48Zm0,123.38V45.56h27.61v108.3Z"/><path class="ip-logo__accent" d="M780.29,99.71a59.05,59.05,0,0,1,3.92-21.49,52.49,52.49,0,0,1,11.33-17.78,55.27,55.27,0,0,1,17.93-12.19,59.09,59.09,0,0,1,23.69-4.55q17.73,0,30.19,7.65A48.79,48.79,0,0,1,886,71.4l-27,8.26a24.29,24.29,0,0,0-9.28-9.19A25.79,25.79,0,0,0,837,67.26a26.28,26.28,0,0,0-11.13,2.38,27.36,27.36,0,0,0-9,6.61,30.59,30.59,0,0,0-6,10.23,38.81,38.81,0,0,0-2.16,13.23A37,37,0,0,0,811,112.94a33.24,33.24,0,0,0,6.07,10.33,26.8,26.8,0,0,0,9,6.72A25.79,25.79,0,0,0,837,132.36a26.42,26.42,0,0,0,13.7-3.72,20.86,20.86,0,0,0,8.76-9.09l27,8.27q-5.56,12.39-18.34,20.25t-30.7,7.85a59.17,59.17,0,0,1-23.7-4.54,53.82,53.82,0,0,1-29.36-30.28A58,58,0,0,1,780.29,99.71Z"/><path class="ip-logo__accent" d="M943.29,155.92a59.76,59.76,0,0,1-23.49-4.44,53.08,53.08,0,0,1-29.37-29.86,57.18,57.18,0,0,1-4-21.29,60.48,60.48,0,0,1,3.92-21.8,53.24,53.24,0,0,1,11.33-18,54,54,0,0,1,18-12.3,59.91,59.91,0,0,1,23.8-4.55,58.44,58.44,0,0,1,23.6,4.55,54.45,54.45,0,0,1,17.72,12.19,52,52,0,0,1,11.12,17.78,59.35,59.35,0,0,1,3.82,21.08c0,1.79,0,3.51-.11,5.16a21.58,21.58,0,0,1-.51,4.14H915.67A32.49,32.49,0,0,0,918.76,120a28.2,28.2,0,0,0,6.39,8.48,27.91,27.91,0,0,0,8.86,5.37,29,29,0,0,0,10.31,1.86,31.71,31.71,0,0,0,15.55-4q7.32-4,10-10.64l23.69,6.61q-6,12.4-19.06,20.36T943.29,155.92Zm28-65.3q-1-12.2-9-19.53a27.34,27.34,0,0,0-19.26-7.34,27.62,27.62,0,0,0-10.41,2,27.15,27.15,0,0,0-8.55,5.48A28.48,28.48,0,0,0,918,79.66a29.86,29.86,0,0,0-2.78,11Z"/></g></svg>';
+
+document.querySelectorAll('[data-logo]').forEach(el => {
+  el.innerHTML = IP_LOGO_SVG;
+});
+
 /* ── Color palettes (auto-rendered from tokens) ──────── */
 const PALETTES = {
   brand: [
@@ -3518,6 +4982,610 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-30% 0px -60% 0px' });
 
 sections.forEach(s => observer.observe(s));
+
+/* ── Modal demo ───────────────────────────────────────── */
+(function () {
+  const modal = document.getElementById('modalDemo');
+  const box = document.getElementById('modalDemoBox');
+  if (!modal || !box) return;
+
+  const open = (size) => {
+    box.classList.remove('modal--small', 'modal--large');
+    if (size) box.classList.add('modal--' + size);
+    modal.classList.add('is-open');
+  };
+  const close = () => modal.classList.remove('is-open');
+
+  document.getElementById('modalDemoOpen')?.addEventListener('click', () => open());
+  document.getElementById('modalDemoOpenLarge')?.addEventListener('click', () => open('large'));
+  document.getElementById('modalDemoOpenSmall')?.addEventListener('click', () => open('small'));
+
+  modal.querySelectorAll('[data-modal-close]').forEach(btn => btn.addEventListener('click', close));
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+})();
+
+/* ── Context Menu demo ────────────────────────────────── */
+(function () {
+  const trigger = document.getElementById('ctxMenuTrigger');
+  const menu = document.getElementById('ctxMenuDemo');
+  if (!trigger || !menu) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('is-open');
+  });
+  menu.querySelectorAll('.context-menu__item').forEach(item => {
+    item.addEventListener('click', () => menu.classList.remove('is-open'));
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#ctxMenuDemo, #ctxMenuTrigger')) menu.classList.remove('is-open');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') menu.classList.remove('is-open');
+  });
+})();
+
+/* ── Searchbar: has-value automatico + clear ─────────── */
+document.querySelectorAll('.searchbar').forEach(sb => {
+  if (sb.id === 'dsSearch') return; // o do sidebar tem handler proprio
+  const input = sb.querySelector('.searchbar__input');
+  const clear = sb.querySelector('.searchbar__clear');
+  if (!input) return;
+
+  // Estado inicial baseado em valor existente
+  if (input.value.length > 0) sb.classList.add('has-value');
+
+  input.addEventListener('input', () => {
+    sb.classList.toggle('has-value', input.value.length > 0);
+  });
+
+  if (clear) {
+    clear.addEventListener('click', (e) => {
+      e.stopPropagation();
+      input.value = '';
+      sb.classList.remove('has-value');
+      input.focus();
+    });
+  }
+});
+
+/* ── Filtro chips: trigger abre/fecha dropdown ────────── */
+document.querySelectorAll('.filtro-chip[data-filtro]').forEach(chip => {
+  const wrapper = chip.closest('.filtro-chip-wrapper');
+  if (!wrapper) return;
+  const dropdown = wrapper.querySelector('.filtro-dropdown');
+  if (!dropdown) return;
+
+  chip.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !dropdown.classList.contains('is-open');
+    document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+    document.querySelectorAll('.filtro-chip[aria-expanded="true"]').forEach(c => c.setAttribute('aria-expanded', 'false'));
+    if (willOpen) {
+      dropdown.classList.add('is-open');
+      chip.setAttribute('aria-expanded', 'true');
+      dropdown.querySelector('.filtro-dropdown__search-input')?.focus();
+    }
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.filtro-chip-wrapper, .filtro-dropdown')) {
+    document.querySelectorAll('.filtro-dropdown.is-open').forEach(d => {
+      if (!d.closest('[data-preview]')) d.classList.remove('is-open');
+    });
+    document.querySelectorAll('.filtro-chip[aria-expanded="true"]').forEach(c => {
+      if (!c.closest('[data-preview]')) c.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
+/* ── Filtro dropdown: search filtra itens ─────────────── */
+document.querySelectorAll('.filtro-dropdown__search-input').forEach(input => {
+  input.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const list = e.target.closest('.filtro-dropdown')?.querySelector('.filtro-dropdown__list');
+    if (!list) return;
+    list.querySelectorAll('.filtro-dropdown__item').forEach(item => {
+      item.style.display = item.textContent.toLowerCase().includes(term) ? '' : 'none';
+    });
+  });
+});
+
+/* ── Filtro dropdown: grupos colapsaveis ──────────────── */
+document.querySelectorAll('.filtro-dropdown__group-header').forEach(header => {
+  header.addEventListener('click', () => header.classList.toggle('is-collapsed'));
+});
+
+/* ── Composed buttons drop + Aplicar preço drop ───────── */
+document.querySelectorAll('.composed-btn__drop, .aplicar-btn__drop').forEach(drop => {
+  drop.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdownId = drop.dataset.dropdown;
+    const dropdown = dropdownId ? document.getElementById(dropdownId) : drop.parentElement?.querySelector('.composed-dropdown');
+    if (!dropdown) return;
+    document.querySelectorAll('.composed-dropdown.is-open').forEach(d => {
+      if (d !== dropdown) d.classList.remove('is-open');
+    });
+    dropdown.classList.toggle('is-open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.composed-btn, .aplicar-btn, .composed-dropdown')) {
+    document.querySelectorAll('.composed-dropdown.is-open').forEach(d => {
+      if (!d.closest('[data-preview]')) d.classList.remove('is-open');
+    });
+  }
+});
+
+/* ── Composed btn solo: toggle is-selected ────────────── */
+document.querySelectorAll('.composed-btn--solo').forEach(btn => {
+  btn.addEventListener('click', () => btn.classList.toggle('is-selected'));
+});
+
+/* ── Title-btn dropdown trigger ───────────────────────── */
+document.querySelectorAll('.title-btn').forEach(btn => {
+  const wrapper = btn.closest('.title-btn-wrapper');
+  if (!wrapper) return;
+  const dropdown = wrapper.querySelector('.title-dropdown');
+  if (!dropdown) return;
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !dropdown.classList.contains('is-open');
+    document.querySelectorAll('.title-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+    document.querySelectorAll('.title-btn[aria-expanded="true"]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    if (willOpen) {
+      dropdown.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+document.querySelectorAll('.title-dropdown__item').forEach(item => {
+  item.addEventListener('click', () => {
+    const dd = item.closest('.title-dropdown');
+    dd?.querySelectorAll('.title-dropdown__item--active').forEach(i => i.classList.remove('title-dropdown__item--active'));
+    item.classList.add('title-dropdown__item--active');
+    dd?.classList.remove('is-open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.title-btn-wrapper, .title-dropdown')) {
+    document.querySelectorAll('.title-dropdown.is-open').forEach(d => {
+      if (!d.closest('[data-preview]')) d.classList.remove('is-open');
+    });
+  }
+});
+
+/* ── DatePicker: click no dia seleciona ───────────────── */
+document.querySelectorAll('.date-picker').forEach(picker => {
+  // Detecta se e range picker (tem dias com --in-range)
+  const isRange = !!picker.querySelector('.date-picker__day--in-range');
+  if (isRange) return; // mantem visual estatico para exemplo de range
+
+  const days = picker.querySelectorAll('.date-picker__day:not(.date-picker__day--disabled)');
+  days.forEach(day => {
+    day.addEventListener('click', () => {
+      days.forEach(d => d.classList.remove('date-picker__day--selected'));
+      day.classList.add('date-picker__day--selected');
+    });
+  });
+});
+
+/* ── HourPicker: click na celula seleciona dentro da coluna ── */
+document.querySelectorAll('.hour-picker__column').forEach(col => {
+  const cells = col.querySelectorAll('.hour-picker__cell');
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      cells.forEach(c => c.classList.remove('is-selected'));
+      cell.classList.add('is-selected');
+      cell.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+  });
+});
+
+/* ── Grid pagination: click atualiza is-active ────────── */
+document.querySelectorAll('.grid__pagination-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.parentElement;
+    if (!group) return;
+    group.querySelectorAll('.grid__pagination-btn').forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+  });
+});
+
+/* ── Navbar tabs: click ativa ─────────────────────────── */
+document.querySelectorAll('.navbar').forEach(nav => {
+  const items = nav.querySelectorAll('.navbar__item');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      items.forEach(i => i.classList.remove('is-active'));
+      item.classList.add('is-active');
+    });
+  });
+});
+
+/* ── Sidebar items: click vira ativo ──────────────────── */
+document.querySelectorAll('.sidebar__top').forEach(top => {
+  const items = top.querySelectorAll('.sidebar__item');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      items.forEach(i => i.classList.remove('sidebar__item--active'));
+      item.classList.add('sidebar__item--active');
+    });
+  });
+});
+
+/* ── Sidebar seta: expande/colapsa ────────────────────── */
+document.querySelectorAll('.sidebar__seta').forEach(seta => {
+  seta.addEventListener('click', () => {
+    const sidebar = seta.closest('.sidebar');
+    if (!sidebar) return;
+    sidebar.classList.toggle('is-expanded');
+    seta.classList.toggle('is-flipped');
+  });
+});
+
+/* ── Grid sort buttons: gira o icone ──────────────────── */
+document.querySelectorAll('.grid__sort-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    btn.classList.toggle('is-active');
+  });
+});
+
+/* ── Grid pref buttons: abre dropdown de preferencia ──── */
+document.querySelectorAll('.grid__pref-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const dropdown = btn.parentElement?.querySelector('.grid__pref-dropdown');
+    if (!dropdown) return;
+    document.querySelectorAll('.grid__pref-dropdown.is-open').forEach(d => {
+      if (d !== dropdown) d.classList.remove('is-open');
+    });
+    dropdown.classList.toggle('is-open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.grid__pref-btn, .grid__pref-dropdown')) {
+    document.querySelectorAll('.grid__pref-dropdown.is-open').forEach(d => {
+      if (!d.closest('[data-preview]')) d.classList.remove('is-open');
+    });
+  }
+});
+
+/* ── Grid: select all checkbox ────────────────────────── */
+document.querySelectorAll('input[type="checkbox"].grid__check').forEach(cb => {
+  // Se for o checkbox do thead (geralmente o primeiro), marca/desmarca todos
+  const isHeader = cb.closest('thead');
+  if (!isHeader) return;
+  cb.addEventListener('change', () => {
+    const table = cb.closest('table');
+    table?.querySelectorAll('tbody input[type="checkbox"].grid__check').forEach(child => {
+      child.checked = cb.checked;
+    });
+  });
+});
+
+/* ── Limpar filtros: desmarca todos os checkboxes ─────── */
+document.querySelectorAll('.filtro-chip--clear, [id="limparFiltros"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filtro-dropdown input[type="checkbox"]').forEach(cb => cb.checked = false);
+  });
+});
+
+/* ── Filtro chip "Selecionar todos" no footer ─────────── */
+document.querySelectorAll('.filtro-dropdown__footer .filtro-dropdown__item input[type="checkbox"]').forEach(masterCb => {
+  masterCb.addEventListener('change', () => {
+    const dropdown = masterCb.closest('.filtro-dropdown');
+    dropdown?.querySelectorAll('.filtro-dropdown__list input[type="checkbox"]').forEach(cb => {
+      cb.checked = masterCb.checked;
+    });
+  });
+});
+
+/* ── Toast close button ───────────────────────────────── */
+document.querySelectorAll('.toast__close').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const toast = btn.closest('.toast');
+    if (!toast) return;
+    toast.style.transition = 'opacity 200ms ease, transform 200ms ease';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(20px)';
+    setTimeout(() => { toast.style.display = 'none'; }, 200);
+  });
+});
+
+/* ── SelectPicker ─────────────────────────────────────── */
+document.querySelectorAll('.select-picker').forEach(picker => {
+  const trigger = picker.querySelector('.select-picker__trigger');
+  const dropdown = picker.querySelector('.select-picker__dropdown');
+  if (!trigger || !dropdown) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = !trigger.classList.contains('is-open');
+    // Fecha todos os outros pickers primeiro
+    document.querySelectorAll('.select-picker__trigger.is-open').forEach(t => {
+      t.classList.remove('is-open');
+      t.parentElement?.querySelector('.select-picker__dropdown')?.classList.remove('is-open');
+    });
+    if (willOpen) {
+      trigger.classList.add('is-open');
+      dropdown.classList.add('is-open');
+      dropdown.querySelector('.select-picker__search-input')?.focus();
+    }
+  });
+
+  // Selecao de item
+  picker.querySelectorAll('.select-picker__item').forEach(item => {
+    if (item.classList.contains('is-disabled')) return;
+    item.addEventListener('click', () => {
+      picker.querySelectorAll('.select-picker__item').forEach(i => i.classList.remove('is-selected'));
+      item.classList.add('is-selected');
+
+      // Atualiza label do trigger
+      const placeholder = trigger.querySelector('.select-picker__placeholder');
+      const label = placeholder || trigger.querySelector('span:not(.material-icons-outlined):not(.select-picker__chevron)');
+      if (label) {
+        label.textContent = item.textContent.trim();
+        label.classList.remove('select-picker__placeholder');
+      }
+      trigger.classList.remove('is-open');
+      dropdown.classList.remove('is-open');
+    });
+  });
+});
+
+// Click fora fecha qualquer SelectPicker aberto (excluindo demos estaticos em [data-preview])
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.select-picker')) {
+    document.querySelectorAll('.select-picker__trigger.is-open').forEach(t => {
+      if (!t.closest('[data-preview]')) t.classList.remove('is-open');
+    });
+    document.querySelectorAll('.select-picker__dropdown.is-open').forEach(d => {
+      if (!d.closest('[data-preview]')) d.classList.remove('is-open');
+    });
+  }
+});
+
+/* ── Sub-row: toggle pelo price-menu e close button ──── */
+document.querySelectorAll('[data-toggle-subrow]').forEach(btn => {
+  const targetId = btn.dataset.toggleSubrow;
+  const subRow = document.getElementById(targetId);
+  if (!subRow) return;
+  const headerRow = document.getElementById(targetId + '-header');
+
+  function setVisible(visible) {
+    const display = visible ? '' : 'none';
+    subRow.style.display = display;
+    if (headerRow) headerRow.style.display = display;
+  }
+
+  btn.addEventListener('click', () => {
+    setVisible(subRow.style.display === 'none');
+  });
+
+  // O close button dentro da sub-row fecha (sub-row + header)
+  subRow.querySelectorAll('.grid__sub-row__close').forEach(close => {
+    close.addEventListener('click', () => setVisible(false));
+  });
+});
+
+/* ── Radio: click no marcado desmarca ─────────────────── */
+document.querySelectorAll('.radio').forEach(label => {
+  const input = label.querySelector('.radio__input');
+  if (!input) return;
+
+  // Captura estado no mousedown (antes do navegador processar o click)
+  label.addEventListener('mousedown', () => {
+    label.dataset.wasChecked = input.checked ? '1' : '0';
+  });
+
+  // No click do label: se ja estava marcado, prevent default e desmarca
+  // preventDefault evita que o label re-ative (re-check) o input apos o click
+  label.addEventListener('click', (e) => {
+    if (label.dataset.wasChecked === '1') {
+      e.preventDefault();
+      input.checked = false;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    label.dataset.wasChecked = '';
+  });
+
+  // Acessibilidade: Space/Enter desmarca quando focado e ja marcado
+  input.addEventListener('keydown', (e) => {
+    if ((e.key === ' ' || e.key === 'Enter') && input.checked) {
+      e.preventDefault();
+      input.checked = false;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+});
+
+/* ── Switch interativo ──────────────────────────────── */
+document.querySelectorAll('.switch').forEach(el => {
+  const isDisabled = el.classList.contains('is-disabled') || el.getAttribute('aria-disabled') === 'true';
+
+  // Acessibilidade: torna focavel via teclado e expoe estado para screen readers
+  if (!isDisabled) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'switch');
+    el.setAttribute('aria-checked', el.classList.contains('is-checked') ? 'true' : 'false');
+  }
+
+  function toggle() {
+    if (el.classList.contains('is-disabled')) return;
+    // Half-state vira checked ao primeiro toggle (UX padrao)
+    el.classList.remove('is-half');
+    el.classList.toggle('is-checked');
+    el.setAttribute('aria-checked', el.classList.contains('is-checked') ? 'true' : 'false');
+  }
+
+  el.addEventListener('click', (e) => {
+    // Evita disparar duas vezes quando o click vem de um <input> aninhado
+    if (e.target.tagName !== 'INPUT') toggle();
+  });
+
+  el.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggle();
+    }
+  });
+});
+
+/* ── Resize do sidebar ──────────────────────────────── */
+(function () {
+  const root = document.documentElement;
+  const handle = document.getElementById('dsNavResize');
+  const STORAGE_KEY = 'ds__nav-width';
+  const MIN = 200;
+  const MAX = 480;
+  const DEFAULT = 240;
+
+  // Restaura valor salvo
+  const saved = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+  if (Number.isFinite(saved) && saved >= MIN && saved <= MAX) {
+    root.style.setProperty('--ds-nav-width', saved + 'px');
+  }
+
+  function clamp(v) { return Math.max(MIN, Math.min(MAX, v)); }
+
+  function setWidth(px) {
+    const v = clamp(Math.round(px));
+    root.style.setProperty('--ds-nav-width', v + 'px');
+    localStorage.setItem(STORAGE_KEY, String(v));
+  }
+
+  // Drag com mouse
+  handle.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    handle.classList.add('is-active');
+    document.body.classList.add('is-resizing-nav');
+
+    function onMove(ev) { setWidth(ev.clientX); }
+    function onUp() {
+      handle.classList.remove('is-active');
+      document.body.classList.remove('is-resizing-nav');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+
+  // Duplo-clique reseta para o padrao
+  handle.addEventListener('dblclick', () => setWidth(DEFAULT));
+
+  // Acessibilidade: setas + Home/End com foco no handle
+  handle.addEventListener('keydown', (e) => {
+    const current = parseInt(getComputedStyle(root).getPropertyValue('--ds-nav-width'), 10) || DEFAULT;
+    let next = current;
+    if (e.key === 'ArrowLeft')  next = current - 16;
+    if (e.key === 'ArrowRight') next = current + 16;
+    if (e.key === 'Home')       next = MIN;
+    if (e.key === 'End')        next = MAX;
+    if (next !== current) {
+      e.preventDefault();
+      setWidth(next);
+    }
+  });
+})();
+
+/* ── Search no sidebar ──────────────────────────────── */
+const dsSearch = document.getElementById('dsSearch');
+const dsSearchInput = document.getElementById('dsSearchInput');
+const dsSearchClear = document.getElementById('dsSearchClear');
+const dsSearchEmpty = document.getElementById('dsSearchEmpty');
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Snapshot do texto original de cada link (antes de qualquer highlight)
+document.querySelectorAll('.ds__nav-link').forEach(link => {
+  link.dataset.originalText = link.textContent;
+});
+
+function filterDsNav(term) {
+  const q = term.trim().toLowerCase();
+
+  if (q === '') {
+    // Reset: mostra tudo, restaura textos originais
+    document.querySelectorAll('.ds__nav-link').forEach(link => {
+      link.classList.remove('is-hidden');
+      link.textContent = link.dataset.originalText;
+    });
+    document.querySelectorAll('.ds__nav-section').forEach(s => s.classList.remove('is-hidden'));
+    dsSearchEmpty.classList.remove('is-visible');
+    dsSearch.classList.remove('has-value');
+    return;
+  }
+
+  dsSearch.classList.add('has-value');
+  let totalMatches = 0;
+  const regex = new RegExp(escapeRegex(q), 'gi');
+
+  document.querySelectorAll('.ds__nav-section').forEach(section => {
+    let sectionHasMatch = false;
+
+    section.querySelectorAll('.ds__nav-link').forEach(link => {
+      const text = link.dataset.originalText;
+      const matches = text.toLowerCase().includes(q);
+
+      if (matches) {
+        link.classList.remove('is-hidden');
+        // Highlight do trecho que casou
+        const safe = escapeHtml(text);
+        link.innerHTML = safe.replace(regex, m => '<span class="ds__nav-link__match">' + m + '</span>');
+        sectionHasMatch = true;
+        totalMatches++;
+      } else {
+        link.classList.add('is-hidden');
+        link.textContent = text;
+      }
+    });
+
+    section.classList.toggle('is-hidden', !sectionHasMatch);
+  });
+
+  dsSearchEmpty.classList.toggle('is-visible', totalMatches === 0);
+}
+
+dsSearchInput.addEventListener('input', e => filterDsNav(e.target.value));
+
+dsSearchClear.addEventListener('click', () => {
+  dsSearchInput.value = '';
+  filterDsNav('');
+  dsSearchInput.focus();
+});
+
+// Atalho: tecla "/" foca o campo de busca (estilo GitHub)
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    dsSearchInput.focus();
+  }
+  if (e.key === 'Escape' && document.activeElement === dsSearchInput) {
+    dsSearchInput.value = '';
+    filterDsNav('');
+    dsSearchInput.blur();
+  }
+});
 </script>
 
 </body>
