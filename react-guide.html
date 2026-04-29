@@ -613,16 +613,39 @@ export function Button({
       </div>
 
       <h3 class="rg__h3">Uso — Link</h3>
+      <p class="rg__section-desc" style="margin-top:0">
+        Tipo Link tem comportamento diferente dos outros: <strong>nao usa uppercase</strong>,
+        peso regular (400), sem padding/border, e geralmente acompanha um icone (Material
+        Outlined, ex: <code class="rg__inline-code">open_in_new</code>). Os 4 tamanhos
+        escalonam fonte, line-height, gap e icone juntos.
+      </p>
       <div class="rg__code">
         <div class="rg__code-header">
           <span class="rg__code-lang">jsx</span>
           <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
         </div>
-        <pre><code>// Blue (default)
-&lt;Button type="link"&gt;Saiba mais&lt;/Button&gt;
+        <pre><code>// Blue (default) com icone a esquerda
+&lt;Button type="link"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Saiba mais
+&lt;/Button&gt;
 
-// Gray
-&lt;Button type="link" theme="gray"&gt;Cancelar&lt;/Button&gt;</code></pre>
+// Gray (alternativo neutro)
+&lt;Button type="link" theme="gray"&gt;Cancelar&lt;/Button&gt;
+
+// 4 tamanhos: large (default), medium, small, xsmall
+&lt;Button type="link" size="medium"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Abrir documento
+&lt;/Button&gt;
+
+&lt;Button type="link" size="small" theme="gray"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Detalhes
+&lt;/Button&gt;
+
+// Disabled
+&lt;Button type="link" disabled&gt;Indisponivel&lt;/Button&gt;</code></pre>
       </div>
 
       <h3 class="rg__h3">Tamanhos</h3>
@@ -662,12 +685,87 @@ export function Button({
 &lt;/Button&gt;</code></pre>
       </div>
 
+      <h3 class="rg__h3">Twin button — split (acao + drop)</h3>
+      <p class="rg__section-desc" style="margin-top:0">
+        Twin e um botao "split": a metade esquerda dispara a acao primaria, a direita abre
+        um menu/dropdown. As duas metades sao <code class="rg__inline-code">&lt;button&gt;</code>
+        independentes, divididas por 1px branco. Hover/active afetam apenas a metade que
+        recebe o mouse. Componente <code class="rg__inline-code">&lt;ButtonTwin&gt;</code> abaixo
+        encapsula o markup.
+      </p>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>import clsx from 'clsx';
+
+export function ButtonTwin({
+  size,
+  disabled,
+  onMainClick,
+  onDropClick,
+  dropAriaLabel = 'Mais opcoes',
+  children,
+}) {
+  return (
+    &lt;div className={clsx('btn-twin', size &amp;&amp; `btn-twin--${size}`, disabled &amp;&amp; 'is-disabled')}&gt;
+      &lt;button
+        type="button"
+        className="btn-twin__main"
+        onClick={onMainClick}
+        disabled={disabled}
+      &gt;
+        {children}
+      &lt;/button&gt;
+      &lt;button
+        type="button"
+        className="btn-twin__drop"
+        aria-label={dropAriaLabel}
+        onClick={onDropClick}
+        disabled={disabled}
+      &gt;
+        &lt;span className="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Twin</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Acao primaria + dropdown de variantes
+&lt;ButtonTwin
+  onMainClick={() =&gt; salvar()}
+  onDropClick={() =&gt; setMenuAberto(true)}
+&gt;
+  Salvar
+&lt;/ButtonTwin&gt;
+
+// 4 tamanhos: large (default), medium, small, xsmall
+&lt;ButtonTwin size="medium" onMainClick={...} onDropClick={...}&gt;
+  Exportar
+&lt;/ButtonTwin&gt;
+
+// Disabled (ambas as metades)
+&lt;ButtonTwin disabled&gt;Indisponivel&lt;/ButtonTwin&gt;</code></pre>
+      </div>
+
       <div class="rg__callout rg__callout--info">
         <span class="material-icons-outlined rg__callout__icon">info</span>
         <div class="rg__callout__body">
           <span class="rg__callout__title">Specs do Figma (auto-aplicados via CSS)</span>
-          Tipografia Open Sans Bold UPPERCASE. Border-radius 4px. Transicao de cor:
-          Blue 400 → 600 (hover) → 700 (active). Disabled: opacity 0.4.
+          <strong>Primary &amp; Secondary:</strong> Open Sans Bold UPPERCASE, border-radius 4px.
+          <strong>Link:</strong> Open Sans Regular, sem uppercase, sem padding/border, icone
+          opcional escalonando com o tamanho (20/16/12/10px).
+          <strong>Twin:</strong> usa estilo Primary blue, divisor de 1px branco entre as duas
+          metades; cada metade clicavel separadamente.
+          Transicao de cor: Blue 400 → 600 (hover) → 700 (active); Gray 500 → 600 → 700.
+          Disabled: opacity 0.4.
         </div>
       </div>
     </section>

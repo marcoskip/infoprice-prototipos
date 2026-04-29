@@ -2673,34 +2673,132 @@ body {
   border-color: var(--color-gray-600);
 }
 
-/* ── Type: Link (text-only, sem padding/border) ───────────── */
+/* ── Type: Link (text-only, sem padding/border, com icone opcional) ── */
+/* Especificacoes do Figma: nao-uppercase, font-weight regular, sem fundo/borda. */
 .btn--link {
-  background: transparent;
-  border: none;
   padding: 0;
+  border: none;
+  background: transparent;
+  text-transform: none;
+  font-weight: var(--font-weight-regular);
   color: var(--color-blue-400);
   text-decoration: none;
+  gap: var(--space-2);                                /* 8px — large default */
 }
-.btn--link:hover {
-  color: var(--color-blue-600);
-  text-decoration: underline;
-}
+.btn--link.btn--medium { padding: 0; gap: 6px; }
+.btn--link.btn--small  { padding: 0; gap: var(--space-1); }   /* 4px */
+.btn--link.btn--xsmall { padding: 0; gap: 2px; }
+
+/* Icones acompanham o tamanho do texto */
+.btn--link .material-icons-outlined { font-size: 20px; }
+.btn--link.btn--medium .material-icons-outlined { font-size: 16px; }
+.btn--link.btn--small  .material-icons-outlined { font-size: 12px; }
+.btn--link.btn--xsmall .material-icons-outlined { font-size: 10px; }
+
+/* Estados — Blue (padrao) */
+.btn--link:hover { color: var(--color-blue-600); }
 .btn--link:active,
-.btn--link.is-active {
-  color: var(--color-blue-700);
+.btn--link.is-active { color: var(--color-blue-700); }
+
+/* Link — Gray (neutro) */
+.btn--link.btn--gray { color: var(--color-gray-500); }
+.btn--link.btn--gray:hover { color: var(--color-gray-600); }
+.btn--link.btn--gray:active,
+.btn--link.btn--gray.is-active { color: var(--color-gray-700); }
+
+/* ── Twin button (split: main action + drop trigger) ─────────
+   Dois <button> lado a lado, divididos por 1px branco.
+   Cada metade e clicavel separadamente — main dispara a acao
+   primaria, drop abre um menu/dropdown. Ambas usam estilo
+   primary blue por padrao. ============================ */
+.btn-twin {
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
 }
 
-/* Link — Gray (alternativo neutro) */
-.btn--link.btn--gray {
-  color: var(--color-gray-700);
+.btn-twin__main,
+.btn-twin__drop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-blue-400);
+  color: var(--color-white);
+  border: none;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms ease;
 }
-.btn--link.btn--gray:hover {
-  color: var(--color-gray-800);
+
+.btn-twin__main {
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
+  border-right: 1px solid var(--color-white);
 }
-.btn--link.btn--gray:active,
-.btn--link.btn--gray.is-active {
-  color: var(--color-gray-900);
+.btn-twin__drop {
+  border-top-right-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
 }
+
+/* Estados — cada metade independente (split-button) */
+.btn-twin__main:hover,
+.btn-twin__drop:hover { background: var(--color-blue-600); }
+.btn-twin__main:active,
+.btn-twin__main.is-active,
+.btn-twin__drop:active,
+.btn-twin__drop.is-active { background: var(--color-blue-700); }
+
+/* Disabled — twin inteiro ou metade individual */
+.btn-twin.is-disabled,
+.btn-twin__main:disabled,
+.btn-twin__drop:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Tamanhos (default = large) */
+.btn-twin__main {
+  padding: 10px var(--space-4);                  /* 10/16 */
+  font-size: var(--font-size-lg);                /* 16 */
+  line-height: var(--line-height-xl);            /* 22 */
+}
+.btn-twin__drop {
+  padding: 10px var(--space-2);                  /* 10/8 */
+}
+.btn-twin__drop .material-icons-outlined { font-size: 22px; }
+
+.btn-twin--medium .btn-twin__main {
+  padding: var(--space-2) var(--space-3);        /* 8/12 */
+  font-size: var(--font-size-md);                /* 14 */
+  line-height: var(--line-height-lg);            /* 20 */
+}
+.btn-twin--medium .btn-twin__drop {
+  padding: var(--space-2);                       /* 8/8 */
+}
+.btn-twin--medium .btn-twin__drop .material-icons-outlined { font-size: 20px; }
+
+.btn-twin--small .btn-twin__main {
+  padding: 6px 10px;                             /* 6/10 */
+  font-size: var(--font-size-sm);                /* 12 */
+  line-height: var(--line-height-md);            /* 18 */
+}
+.btn-twin--small .btn-twin__drop {
+  padding: 6px;                                  /* 6/6 */
+}
+.btn-twin--small .btn-twin__drop .material-icons-outlined { font-size: 18px; }
+
+.btn-twin--xsmall .btn-twin__main {
+  padding: var(--space-1) var(--space-2);        /* 4/8 */
+  font-size: var(--font-size-xs);                /* 10 */
+  line-height: var(--line-height-btn-xs);        /* 16 */
+}
+.btn-twin--xsmall .btn-twin__drop {
+  padding: var(--space-1) var(--space-2);        /* 4/8 */
+}
+.btn-twin--xsmall .btn-twin__drop .material-icons-outlined { font-size: 12px; }
 
 /* =============================================================
    Phase 3 — Componentes complexos

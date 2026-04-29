@@ -612,12 +612,40 @@
     .btn--secondary.btn--white:hover { background: var(--color-gray-100); border-color: var(--color-gray-500); }
     .btn--secondary.btn--white:active, .btn--secondary.btn--white.is-active { background: var(--color-gray-200); border-color: var(--color-gray-600); }
     /* Link */
-    .btn--link { background: transparent; border: none; padding: 0; color: var(--color-blue-400); text-decoration: none; }
-    .btn--link:hover { color: var(--color-blue-600); text-decoration: underline; }
+    .btn--link { padding: 0; border: none; background: transparent; text-transform: none; font-weight: var(--font-weight-regular); color: var(--color-blue-400); text-decoration: none; gap: var(--space-2); }
+    .btn--link.btn--medium { padding: 0; gap: 6px; }
+    .btn--link.btn--small  { padding: 0; gap: var(--space-1); }
+    .btn--link.btn--xsmall { padding: 0; gap: 2px; }
+    .btn--link .material-icons-outlined { font-size: 20px; }
+    .btn--link.btn--medium .material-icons-outlined { font-size: 16px; }
+    .btn--link.btn--small  .material-icons-outlined { font-size: 12px; }
+    .btn--link.btn--xsmall .material-icons-outlined { font-size: 10px; }
+    .btn--link:hover { color: var(--color-blue-600); }
     .btn--link:active, .btn--link.is-active { color: var(--color-blue-700); }
-    .btn--link.btn--gray { color: var(--color-gray-700); }
-    .btn--link.btn--gray:hover { color: var(--color-gray-800); }
-    .btn--link.btn--gray:active, .btn--link.btn--gray.is-active { color: var(--color-gray-900); }
+    .btn--link.btn--gray { color: var(--color-gray-500); }
+    .btn--link.btn--gray:hover { color: var(--color-gray-600); }
+    .btn--link.btn--gray:active, .btn--link.btn--gray.is-active { color: var(--color-gray-700); }
+
+    /* Twin button (split: main + drop) */
+    .btn-twin { display: inline-flex; align-items: stretch; flex-shrink: 0; }
+    .btn-twin__main, .btn-twin__drop { display: inline-flex; align-items: center; justify-content: center; background: var(--color-blue-400); color: var(--color-white); border: none; font-family: var(--font-family-base); font-weight: var(--font-weight-bold); text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: background 150ms ease; }
+    .btn-twin__main { border-top-left-radius: var(--radius-sm); border-bottom-left-radius: var(--radius-sm); border-right: 1px solid var(--color-white); }
+    .btn-twin__drop { border-top-right-radius: var(--radius-sm); border-bottom-right-radius: var(--radius-sm); }
+    .btn-twin__main:hover, .btn-twin__drop:hover { background: var(--color-blue-600); }
+    .btn-twin__main:active, .btn-twin__main.is-active, .btn-twin__drop:active, .btn-twin__drop.is-active { background: var(--color-blue-700); }
+    .btn-twin.is-disabled, .btn-twin__main:disabled, .btn-twin__drop:disabled { opacity: 0.4; pointer-events: none; }
+    .btn-twin__main { padding: 10px var(--space-4); font-size: var(--font-size-lg); line-height: var(--line-height-xl); }
+    .btn-twin__drop { padding: 10px var(--space-2); }
+    .btn-twin__drop .material-icons-outlined { font-size: 22px; }
+    .btn-twin--medium .btn-twin__main { padding: var(--space-2) var(--space-3); font-size: var(--font-size-md); line-height: var(--line-height-lg); }
+    .btn-twin--medium .btn-twin__drop { padding: var(--space-2); }
+    .btn-twin--medium .btn-twin__drop .material-icons-outlined { font-size: 20px; }
+    .btn-twin--small .btn-twin__main { padding: 6px 10px; font-size: var(--font-size-sm); line-height: var(--line-height-md); }
+    .btn-twin--small .btn-twin__drop { padding: 6px; }
+    .btn-twin--small .btn-twin__drop .material-icons-outlined { font-size: 18px; }
+    .btn-twin--xsmall .btn-twin__main { padding: var(--space-1) var(--space-2); font-size: var(--font-size-xs); line-height: var(--line-height-btn-xs); }
+    .btn-twin--xsmall .btn-twin__drop { padding: var(--space-1) var(--space-2); }
+    .btn-twin--xsmall .btn-twin__drop .material-icons-outlined { font-size: 12px; }
 
     /* Phase 3 — Modal */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 200ms ease; }
@@ -960,7 +988,7 @@
 
     <div class="ds__nav-section">
       <div class="ds__nav-section-title">Botoes</div>
-      <a class="ds__nav-link" href="#botoes">Botoes (Figma)</a>
+      <a class="ds__nav-link" href="#botoes">Buttons</a>
       <a class="ds__nav-link" href="#composed-buttons">Compostos</a>
       <a class="ds__nav-link" href="#aplicar-btn">Aplicar preco</a>
     </div>
@@ -2310,24 +2338,83 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Link — blue e gray</span>
+          <span class="ds__component-name">Link — blue e gray (com icone, 4 tamanhos)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
           </div>
         </div>
-        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
-          <button class="btn btn--link">Link button</button>
-          <button class="btn btn--link btn--gray">Link gray</button>
-          <button class="btn btn--link" disabled>Disabled</button>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--medium">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--small">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--xsmall">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link btn--gray">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--medium">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--small">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--xsmall">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link" disabled>
+              <span class="material-icons-outlined">open_in_new</span>
+              Disabled
+            </button>
+            <button class="btn btn--link btn--gray" disabled>
+              <span class="material-icons-outlined">open_in_new</span>
+              Disabled
+            </button>
+            <button class="btn btn--link">Sem icone</button>
+            <button class="btn btn--link btn--gray">Sem icone</button>
+          </div>
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;!-- Link blue (default) --&gt;
-&lt;button class="btn btn--link"&gt;Saiba mais&lt;/button&gt;
+          <pre><code>&lt;!-- Link blue (default), icone opcional a esquerda --&gt;
+&lt;button class="btn btn--link"&gt;
+  &lt;span class="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Saiba mais
+&lt;/button&gt;
 
-&lt;!-- Link gray --&gt;
-&lt;button class="btn btn--link btn--gray"&gt;Cancelar&lt;/button&gt;</code></pre>
+&lt;!-- Link gray (alternativo neutro) --&gt;
+&lt;button class="btn btn--link btn--gray"&gt;Cancelar&lt;/button&gt;
+
+&lt;!-- 4 tamanhos: large (default), medium, small, xsmall --&gt;
+&lt;button class="btn btn--link btn--medium"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--link btn--small"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--link btn--xsmall"&gt;...&lt;/button&gt;
+
+&lt;!-- Specs (Open Sans Regular, sem uppercase, sem padding/border) --&gt;
+&lt;!-- Large:  16/22, gap 8px,  icone 20px --&gt;
+&lt;!-- Medium: 14/20, gap 6px,  icone 16px --&gt;
+&lt;!-- Small:  12/18, gap 4px,  icone 12px --&gt;
+&lt;!-- Xsmall: 10/16, gap 2px,  icone 10px --&gt;</code></pre>
         </div>
       </div>
 
@@ -2400,6 +2487,75 @@
   Exportar
   &lt;span class="material-icons-outlined"&gt;file_download&lt;/span&gt;
 &lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Twin — botao split (acao + drop)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div class="btn-twin">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opcoes">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--medium">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opcoes">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--small">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opcoes">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--xsmall">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opcoes">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div class="btn-twin is-disabled">
+              <button class="btn-twin__main" disabled>Disabled</button>
+              <button class="btn-twin__drop" aria-label="Mais opcoes" disabled>
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Twin: acao primaria a esquerda + drop a direita --&gt;
+&lt;div class="btn-twin"&gt;
+  &lt;button class="btn-twin__main" onclick="salvar()"&gt;Salvar&lt;/button&gt;
+  &lt;button class="btn-twin__drop" aria-label="Mais opcoes" onclick="abrirMenu()"&gt;
+    &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 4 tamanhos: large (default), medium, small, xsmall --&gt;
+&lt;div class="btn-twin btn-twin--medium"&gt;...&lt;/div&gt;
+&lt;div class="btn-twin btn-twin--small"&gt;...&lt;/div&gt;
+&lt;div class="btn-twin btn-twin--xsmall"&gt;...&lt;/div&gt;
+
+&lt;!-- Disabled (twin inteiro ou metade individual) --&gt;
+&lt;div class="btn-twin is-disabled"&gt;...&lt;/div&gt;
+
+&lt;!-- Specs --&gt;
+&lt;!-- Cada metade clicavel separadamente — main dispara a acao,  --&gt;
+&lt;!-- drop abre menu/dropdown. Divisor: 1px white solid.         --&gt;
+&lt;!-- Hover/active afetam apenas a metade hovered.               --&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -5559,9 +5715,12 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// Snapshot do texto original de cada link (antes de qualquer highlight)
+// Snapshot do texto original de cada link e de cada titulo de secao (antes de qualquer highlight)
 document.querySelectorAll('.ds__nav-link').forEach(link => {
   link.dataset.originalText = link.textContent;
+});
+document.querySelectorAll('.ds__nav-section-title').forEach(title => {
+  title.dataset.originalText = title.textContent;
 });
 
 function filterDsNav(term) {
@@ -5572,6 +5731,9 @@ function filterDsNav(term) {
     document.querySelectorAll('.ds__nav-link').forEach(link => {
       link.classList.remove('is-hidden');
       link.textContent = link.dataset.originalText;
+    });
+    document.querySelectorAll('.ds__nav-section-title').forEach(title => {
+      title.textContent = title.dataset.originalText;
     });
     document.querySelectorAll('.ds__nav-section').forEach(s => s.classList.remove('is-hidden'));
     dsSearchEmpty.classList.remove('is-visible');
@@ -5584,16 +5746,27 @@ function filterDsNav(term) {
   const regex = new RegExp(escapeRegex(q), 'gi');
 
   document.querySelectorAll('.ds__nav-section').forEach(section => {
-    let sectionHasMatch = false;
+    const titleEl = section.querySelector('.ds__nav-section-title');
+    const titleText = titleEl ? titleEl.dataset.originalText : '';
+    const sectionTitleMatches = titleText.toLowerCase().includes(q);
+    let sectionHasMatch = sectionTitleMatches;
 
+    // Quando o titulo da secao casa, exibe a secao inteira (e destaca os links).
+    // Caso contrario, filtra link a link como antes.
     section.querySelectorAll('.ds__nav-link').forEach(link => {
       const text = link.dataset.originalText;
-      const matches = text.toLowerCase().includes(q);
+      const linkMatches = text.toLowerCase().includes(q);
+      const safe = escapeHtml(text);
 
-      if (matches) {
+      if (sectionTitleMatches) {
         link.classList.remove('is-hidden');
-        // Highlight do trecho que casou
-        const safe = escapeHtml(text);
+        // Se o link tambem casa, destaca; senao restaura texto puro
+        link.innerHTML = linkMatches
+          ? safe.replace(regex, m => '<span class="ds__nav-link__match">' + m + '</span>')
+          : safe;
+        totalMatches++;
+      } else if (linkMatches) {
+        link.classList.remove('is-hidden');
         link.innerHTML = safe.replace(regex, m => '<span class="ds__nav-link__match">' + m + '</span>');
         sectionHasMatch = true;
         totalMatches++;
@@ -5602,6 +5775,14 @@ function filterDsNav(term) {
         link.textContent = text;
       }
     });
+
+    // Highlight no titulo da secao quando ele casa
+    if (titleEl) {
+      const safeTitle = escapeHtml(titleText);
+      titleEl.innerHTML = sectionTitleMatches
+        ? safeTitle.replace(regex, m => '<span class="ds__nav-link__match">' + m + '</span>')
+        : safeTitle;
+    }
 
     section.classList.toggle('is-hidden', !sectionHasMatch);
   });
