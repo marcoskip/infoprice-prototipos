@@ -2512,81 +2512,195 @@ body {
 .toast--error   .toast__icon { color: var(--color-red-500); }
 
 /* =============================================================
-   Phase 2 — Botoes genericos (.btn)
-   3 variantes (primary, secondary, link) x 4 tamanhos (xsmall, small, medium, large)
-   Substitui ad-hoc: neg__save-btn, title-btn, grid__calcular-btn em novos protótipos
+   Botoes — sistema baseado no Figma DS InfoPrice
+   3 tipos: primary, secondary, link
+   4 tamanhos: large (default), medium, small, xsmall
+   4 estados: default, hover, active, disable
+   Tipografia: Open Sans Bold UPPERCASE
    ============================================================= */
 
+/* ── Base ──────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
   font-family: var(--font-family-base);
   font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  transition: background 150ms ease, color 150ms ease;
+  text-align: center;
+  background: transparent;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease;
   flex-shrink: 0;
 }
 .btn:disabled,
 .btn.is-disabled {
   cursor: not-allowed;
+  opacity: 0.4;
   pointer-events: none;
 }
-.btn .material-icons-outlined { font-size: var(--icon-size-md); }
 
-/* Sizes */
-.btn--xsmall { height: 24px; padding: 0 var(--space-2); font-size: var(--font-size-sm); }
-.btn--small  { height: 28px; padding: 0 var(--space-3); font-size: var(--font-size-sm); }
-.btn--medium,
-.btn         { height: 32px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
-.btn--large  { height: 40px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
+/* ── Tamanhos (default = large) ───────────────────────────── */
+.btn,
+.btn--large {
+  padding: 10px var(--space-4);            /* 10/16 */
+  font-size: var(--font-size-lg);          /* 16px */
+  line-height: var(--line-height-xl);      /* 22px */
+  gap: var(--space-3);                     /* 12px */
+}
+.btn--large .material-icons-outlined { font-size: 22px; }
 
-.btn--xsmall .material-icons-outlined,
-.btn--small  .material-icons-outlined { font-size: var(--icon-size-sm); }
+.btn--medium {
+  padding: var(--space-2) var(--space-3);  /* 8/12 */
+  font-size: var(--font-size-md);          /* 14px */
+  line-height: var(--line-height-lg);      /* 20px */
+  gap: 10px;
+}
+.btn--medium .material-icons-outlined { font-size: var(--icon-size-lg); /* 20 */ }
 
-/* Primary (Blue-400) */
+.btn--small {
+  padding: 6px 10px;
+  font-size: var(--font-size-sm);          /* 12px */
+  line-height: var(--line-height-md);      /* 18px */
+  gap: var(--space-2);                     /* 8px */
+}
+.btn--small .material-icons-outlined { font-size: 18px; }
+
+.btn--xsmall {
+  padding: 4px var(--space-2);             /* 4/8 */
+  font-size: var(--font-size-xs);          /* 10px */
+  line-height: var(--line-height-btn-xs);  /* 16px */
+  gap: 6px;
+}
+.btn--xsmall .material-icons-outlined { font-size: 12px; }
+
+/* ── Type: Primary (filled blue por padrao) ───────────────── */
 .btn--primary {
   background: var(--color-blue-400);
   color: var(--color-white);
+  border-color: var(--color-blue-400);
 }
-.btn--primary:hover { background: var(--color-blue-500); }
-.btn--primary:disabled,
-.btn--primary.is-disabled { background: var(--color-blue-light-45); color: var(--color-white); }
-
-/* Secondary (Gray) */
-.btn--secondary {
-  background: var(--color-gray-200);
-  color: var(--color-gray-800);
+.btn--primary:hover {
+  background: var(--color-blue-600);
+  border-color: var(--color-blue-600);
 }
-.btn--secondary:hover { background: var(--color-gray-300); }
-.btn--secondary:disabled,
-.btn--secondary.is-disabled { background: var(--color-gray-100); color: var(--color-gray-500); }
+.btn--primary:active,
+.btn--primary.is-active {
+  background: var(--color-blue-700);
+  border-color: var(--color-blue-700);
+}
 
-/* Secondary ghost (outline) */
-.btn--secondary-ghost {
+/* Primary ghost (transparente + border azul) */
+.btn--primary.btn--ghost {
   background: transparent;
-  color: var(--color-gray-800);
-  border: 1px solid var(--color-gray-300);
+  color: var(--color-blue-400);
+  border-color: var(--color-blue-400);
 }
-.btn--secondary-ghost:hover { background: var(--color-gray-100); border-color: var(--color-gray-400); }
+.btn--primary.btn--ghost:hover {
+  background: transparent;
+  color: var(--color-blue-600);
+  border-color: var(--color-blue-600);
+}
+.btn--primary.btn--ghost:active,
+.btn--primary.btn--ghost.is-active {
+  color: var(--color-blue-700);
+  border-color: var(--color-blue-700);
+}
 
-/* Link (text-only, sem fundo) */
+/* ── Type: Secondary (filled blue padrao + variantes red/gray/white) ── */
+.btn--secondary {
+  background: var(--color-blue-400);
+  color: var(--color-white);
+  border-color: var(--color-blue-400);
+}
+.btn--secondary:hover {
+  background: var(--color-blue-600);
+  border-color: var(--color-blue-600);
+}
+.btn--secondary:active,
+.btn--secondary.is-active {
+  background: var(--color-blue-700);
+  border-color: var(--color-blue-700);
+}
+
+/* Secondary — Red (acoes destrutivas) */
+.btn--secondary.btn--red {
+  background: var(--color-red-400);
+  border-color: var(--color-red-400);
+}
+.btn--secondary.btn--red:hover {
+  background: var(--color-red-600);
+  border-color: var(--color-red-600);
+}
+.btn--secondary.btn--red:active,
+.btn--secondary.btn--red.is-active {
+  background: var(--color-red-700);
+  border-color: var(--color-red-700);
+}
+
+/* Secondary — Gray (neutro forte) */
+.btn--secondary.btn--gray {
+  background: var(--color-gray-700);
+  border-color: var(--color-gray-700);
+}
+.btn--secondary.btn--gray:hover {
+  background: var(--color-gray-800);
+  border-color: var(--color-gray-800);
+}
+.btn--secondary.btn--gray:active,
+.btn--secondary.btn--gray.is-active {
+  background: var(--color-gray-900);
+  border-color: var(--color-gray-900);
+}
+
+/* Secondary — White (fundo branco com border cinza) */
+.btn--secondary.btn--white {
+  background: var(--color-white);
+  color: var(--color-gray-900);
+  border-color: var(--color-gray-400);
+}
+.btn--secondary.btn--white:hover {
+  background: var(--color-gray-100);
+  border-color: var(--color-gray-500);
+}
+.btn--secondary.btn--white:active,
+.btn--secondary.btn--white.is-active {
+  background: var(--color-gray-200);
+  border-color: var(--color-gray-600);
+}
+
+/* ── Type: Link (text-only, sem padding/border) ───────────── */
 .btn--link {
   background: transparent;
-  color: var(--color-blue-500);
+  border: none;
   padding: 0;
-  height: auto;
-  text-transform: none;
-  font-weight: var(--font-weight-semibold);
+  color: var(--color-blue-400);
+  text-decoration: none;
 }
-.btn--link:hover { color: var(--color-blue-600); text-decoration: underline; }
-.btn--link:disabled,
-.btn--link.is-disabled { color: var(--color-gray-500); }
+.btn--link:hover {
+  color: var(--color-blue-600);
+  text-decoration: underline;
+}
+.btn--link:active,
+.btn--link.is-active {
+  color: var(--color-blue-700);
+}
+
+/* Link — Gray (alternativo neutro) */
+.btn--link.btn--gray {
+  color: var(--color-gray-700);
+}
+.btn--link.btn--gray:hover {
+  color: var(--color-gray-800);
+}
+.btn--link.btn--gray:active,
+.btn--link.btn--gray.is-active {
+  color: var(--color-gray-900);
+}
 
 /* =============================================================
    Phase 3 — Componentes complexos

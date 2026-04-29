@@ -580,26 +580,44 @@
     .toast--error { border-left-color: var(--color-red-400); }
     .toast--error .toast__icon { color: var(--color-red-500); }
 
-    /* Phase 2 — Btn generico */
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; border: none; border-radius: var(--radius-sm); font-family: var(--font-family-base); font-weight: var(--font-weight-bold); cursor: pointer; white-space: nowrap; text-decoration: none; transition: background 150ms ease, color 150ms ease; flex-shrink: 0; }
-    .btn:disabled, .btn.is-disabled { cursor: not-allowed; pointer-events: none; }
-    .btn .material-icons-outlined { font-size: var(--icon-size-md); }
-    .btn--xsmall { height: 24px; padding: 0 var(--space-2); font-size: var(--font-size-sm); }
-    .btn--small { height: 28px; padding: 0 var(--space-3); font-size: var(--font-size-sm); }
-    .btn--medium, .btn { height: 32px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
-    .btn--large { height: 40px; padding: 0 var(--space-4); font-size: var(--font-size-md); }
-    .btn--xsmall .material-icons-outlined, .btn--small .material-icons-outlined { font-size: var(--icon-size-sm); }
-    .btn--primary { background: var(--color-blue-400); color: var(--color-white); }
-    .btn--primary:hover { background: var(--color-blue-500); }
-    .btn--primary:disabled, .btn--primary.is-disabled { background: var(--color-blue-light-45); color: var(--color-white); }
-    .btn--secondary { background: var(--color-gray-200); color: var(--color-gray-800); }
-    .btn--secondary:hover { background: var(--color-gray-300); }
-    .btn--secondary:disabled, .btn--secondary.is-disabled { background: var(--color-gray-100); color: var(--color-gray-500); }
-    .btn--secondary-ghost { background: transparent; color: var(--color-gray-800); border: 1px solid var(--color-gray-300); }
-    .btn--secondary-ghost:hover { background: var(--color-gray-100); border-color: var(--color-gray-400); }
-    .btn--link { background: transparent; color: var(--color-blue-500); padding: 0; height: auto; text-transform: none; font-weight: var(--font-weight-semibold); }
+    /* Botoes (Figma DS InfoPrice) — fallback inline */
+    .btn { display: inline-flex; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: var(--radius-sm); font-family: var(--font-family-base); font-weight: var(--font-weight-bold); text-transform: uppercase; cursor: pointer; white-space: nowrap; text-decoration: none; text-align: center; background: transparent; transition: background 150ms ease, color 150ms ease, border-color 150ms ease, opacity 150ms ease; flex-shrink: 0; }
+    .btn:disabled, .btn.is-disabled { cursor: not-allowed; opacity: 0.4; pointer-events: none; }
+    .btn, .btn--large { padding: 10px var(--space-4); font-size: var(--font-size-lg); line-height: var(--line-height-xl); gap: var(--space-3); }
+    .btn--large .material-icons-outlined { font-size: 22px; }
+    .btn--medium { padding: var(--space-2) var(--space-3); font-size: var(--font-size-md); line-height: var(--line-height-lg); gap: 10px; }
+    .btn--medium .material-icons-outlined { font-size: var(--icon-size-lg); }
+    .btn--small { padding: 6px 10px; font-size: var(--font-size-sm); line-height: var(--line-height-md); gap: var(--space-2); }
+    .btn--small .material-icons-outlined { font-size: 18px; }
+    .btn--xsmall { padding: 4px var(--space-2); font-size: var(--font-size-xs); line-height: var(--line-height-btn-xs); gap: 6px; }
+    .btn--xsmall .material-icons-outlined { font-size: 12px; }
+    /* Primary */
+    .btn--primary { background: var(--color-blue-400); color: var(--color-white); border-color: var(--color-blue-400); }
+    .btn--primary:hover { background: var(--color-blue-600); border-color: var(--color-blue-600); }
+    .btn--primary:active, .btn--primary.is-active { background: var(--color-blue-700); border-color: var(--color-blue-700); }
+    .btn--primary.btn--ghost { background: transparent; color: var(--color-blue-400); border-color: var(--color-blue-400); }
+    .btn--primary.btn--ghost:hover { background: transparent; color: var(--color-blue-600); border-color: var(--color-blue-600); }
+    .btn--primary.btn--ghost:active, .btn--primary.btn--ghost.is-active { color: var(--color-blue-700); border-color: var(--color-blue-700); }
+    /* Secondary */
+    .btn--secondary { background: var(--color-blue-400); color: var(--color-white); border-color: var(--color-blue-400); }
+    .btn--secondary:hover { background: var(--color-blue-600); border-color: var(--color-blue-600); }
+    .btn--secondary:active, .btn--secondary.is-active { background: var(--color-blue-700); border-color: var(--color-blue-700); }
+    .btn--secondary.btn--red { background: var(--color-red-400); border-color: var(--color-red-400); }
+    .btn--secondary.btn--red:hover { background: var(--color-red-600); border-color: var(--color-red-600); }
+    .btn--secondary.btn--red:active, .btn--secondary.btn--red.is-active { background: var(--color-red-700); border-color: var(--color-red-700); }
+    .btn--secondary.btn--gray { background: var(--color-gray-700); border-color: var(--color-gray-700); }
+    .btn--secondary.btn--gray:hover { background: var(--color-gray-800); border-color: var(--color-gray-800); }
+    .btn--secondary.btn--gray:active, .btn--secondary.btn--gray.is-active { background: var(--color-gray-900); border-color: var(--color-gray-900); }
+    .btn--secondary.btn--white { background: var(--color-white); color: var(--color-gray-900); border-color: var(--color-gray-400); }
+    .btn--secondary.btn--white:hover { background: var(--color-gray-100); border-color: var(--color-gray-500); }
+    .btn--secondary.btn--white:active, .btn--secondary.btn--white.is-active { background: var(--color-gray-200); border-color: var(--color-gray-600); }
+    /* Link */
+    .btn--link { background: transparent; border: none; padding: 0; color: var(--color-blue-400); text-decoration: none; }
     .btn--link:hover { color: var(--color-blue-600); text-decoration: underline; }
-    .btn--link:disabled, .btn--link.is-disabled { color: var(--color-gray-500); }
+    .btn--link:active, .btn--link.is-active { color: var(--color-blue-700); }
+    .btn--link.btn--gray { color: var(--color-gray-700); }
+    .btn--link.btn--gray:hover { color: var(--color-gray-800); }
+    .btn--link.btn--gray:active, .btn--link.btn--gray.is-active { color: var(--color-gray-900); }
 
     /* Phase 3 — Modal */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 200ms ease; }
@@ -942,8 +960,7 @@
 
     <div class="ds__nav-section">
       <div class="ds__nav-section-title">Botoes</div>
-      <a class="ds__nav-link" href="#btn-generic">Btn generico</a>
-      <a class="ds__nav-link" href="#botoes">Primario & Title</a>
+      <a class="ds__nav-link" href="#botoes">Botoes (Figma)</a>
       <a class="ds__nav-link" href="#composed-buttons">Compostos</a>
       <a class="ds__nav-link" href="#aplicar-btn">Aplicar preco</a>
     </div>
@@ -2226,68 +2243,127 @@
     </section>
 
     <!-- ── Btn generico (Phase 2) ─────────────────── -->
-    <section class="ds__section" id="btn-generic">
-      <h2 class="ds__section-title">Btn generico</h2>
+    <!-- ── Botoes (atualizado a partir do Figma DS InfoPrice) ─── -->
+    <section class="ds__section" id="botoes">
+      <h2 class="ds__section-title">Botoes</h2>
       <p class="ds__section-desc">
-        Botao reutilizavel com 3 variantes (primary, secondary, link) e 4 tamanhos (xsmall,
-        small, medium, large). Substitui no longo prazo as classes ad-hoc <code style="font-family:'JetBrains Mono',monospace;font-size:13px">neg__save-btn</code>,
-        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">title-btn</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__calcular-btn</code> em novos prototipos.
+        Sistema baseado na referencia oficial do Figma. <strong>3 tipos</strong> (primary, secondary, link),
+        cada um com seus temas, em <strong>4 tamanhos</strong> (large default, medium, small, xsmall) e
+        <strong>4 estados</strong> (default, hover, active, disable). Tipografia Open Sans Bold UPPERCASE.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Variantes</span>
+          <span class="ds__component-name">Primary — filled e ghost</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
-          <button class="btn btn--primary">Primary</button>
-          <button class="btn btn--secondary">Secondary</button>
-          <button class="btn btn--secondary-ghost">Secondary ghost</button>
-          <button class="btn btn--link">Link button</button>
+          <button class="btn btn--primary">Filled</button>
+          <button class="btn btn--primary btn--ghost">Ghost</button>
           <button class="btn btn--primary" disabled>Disabled</button>
+          <button class="btn btn--primary btn--ghost" disabled>Disabled ghost</button>
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;button class="btn btn--primary"&gt;Primary&lt;/button&gt;
-&lt;button class="btn btn--secondary"&gt;Secondary&lt;/button&gt;
-&lt;button class="btn btn--secondary-ghost"&gt;Secondary ghost&lt;/button&gt;
-&lt;button class="btn btn--link"&gt;Link button&lt;/button&gt;
+          <pre><code>&lt;!-- Primary filled (default) --&gt;
+&lt;button class="btn btn--primary"&gt;Confirmar&lt;/button&gt;
 
-&lt;!-- Variantes: --primary | --secondary | --secondary-ghost | --link --&gt;</code></pre>
+&lt;!-- Primary ghost (transparente com border azul) --&gt;
+&lt;button class="btn btn--primary btn--ghost"&gt;Cancelar&lt;/button&gt;
+
+&lt;!-- Estados: default | :hover | :active (ou .is-active) | :disabled --&gt;</code></pre>
         </div>
       </div>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Tamanhos</span>
+          <span class="ds__component-name">Secondary — 4 temas (blue, red, gray, white)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
-          <button class="btn btn--primary btn--xsmall">xsmall</button>
-          <button class="btn btn--primary btn--small">small</button>
-          <button class="btn btn--primary">medium</button>
-          <button class="btn btn--primary btn--large">large</button>
+          <button class="btn btn--secondary">Blue</button>
+          <button class="btn btn--secondary btn--red">Red (destrutivo)</button>
+          <button class="btn btn--secondary btn--gray">Gray</button>
+          <button class="btn btn--secondary btn--white">White</button>
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;button class="btn btn--primary btn--xsmall"&gt;xsmall&lt;/button&gt;
-&lt;button class="btn btn--primary btn--small"&gt;small&lt;/button&gt;
-&lt;button class="btn btn--primary"&gt;medium&lt;/button&gt;
-&lt;button class="btn btn--primary btn--large"&gt;large&lt;/button&gt;
+          <pre><code>&lt;!-- Secondary blue (default) --&gt;
+&lt;button class="btn btn--secondary"&gt;Salvar&lt;/button&gt;
 
-&lt;!-- 24px / 28px / 32px (default) / 40px --&gt;</code></pre>
+&lt;!-- Secondary red (acoes destrutivas: Excluir, Cancelar pedido) --&gt;
+&lt;button class="btn btn--secondary btn--red"&gt;Excluir&lt;/button&gt;
+
+&lt;!-- Secondary gray (acao neutra forte) --&gt;
+&lt;button class="btn btn--secondary btn--gray"&gt;Arquivar&lt;/button&gt;
+
+&lt;!-- Secondary white (fundo claro com border cinza) --&gt;
+&lt;button class="btn btn--secondary btn--white"&gt;Cancelar&lt;/button&gt;</code></pre>
         </div>
       </div>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Com icone</span>
+          <span class="ds__component-name">Link — blue e gray</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--link">Link button</button>
+          <button class="btn btn--link btn--gray">Link gray</button>
+          <button class="btn btn--link" disabled>Disabled</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Link blue (default) --&gt;
+&lt;button class="btn btn--link"&gt;Saiba mais&lt;/button&gt;
+
+&lt;!-- Link gray --&gt;
+&lt;button class="btn btn--link btn--gray"&gt;Cancelar&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">4 Tamanhos (large default, medium, small, xsmall)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="align-items:center">
+          <button class="btn btn--primary btn--large">Large 16/22</button>
+          <button class="btn btn--primary btn--medium">Medium 14/20</button>
+          <button class="btn btn--primary btn--small">Small 12/18</button>
+          <button class="btn btn--primary btn--xsmall">Xsmall 10/16</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Large e o padrao se nenhum size for declarado --&gt;
+&lt;button class="btn btn--primary btn--large"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--medium"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--small"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--xsmall"&gt;...&lt;/button&gt;
+
+&lt;!-- Specs (Open Sans Bold UPPERCASE) --&gt;
+&lt;!-- Large:  16px / 22px line-height, padding 10/16 --&gt;
+&lt;!-- Medium: 14px / 20px line-height, padding 8/12   --&gt;
+&lt;!-- Small:  12px / 18px line-height, padding 6/10   --&gt;
+&lt;!-- Xsmall: 10px / 16px line-height, padding 4/8    --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com icone (left, right ou ambos)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
             <button class="ds__tab" data-tab="code">Codigo</button>
@@ -2298,9 +2374,13 @@
             <span class="material-icons-outlined">save</span>
             Salvar
           </button>
-          <button class="btn btn--secondary">
+          <button class="btn btn--secondary btn--white">
             Exportar
             <span class="material-icons-outlined">file_download</span>
+          </button>
+          <button class="btn btn--secondary btn--red">
+            <span class="material-icons-outlined">delete</span>
+            Excluir
           </button>
           <button class="btn btn--link">
             <span class="material-icons-outlined">add</span>
@@ -2309,61 +2389,16 @@
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;button class="btn btn--primary"&gt;
+          <pre><code>&lt;!-- Icone a esquerda --&gt;
+&lt;button class="btn btn--primary"&gt;
   &lt;span class="material-icons-outlined"&gt;save&lt;/span&gt;
   Salvar
-&lt;/button&gt;</code></pre>
-        </div>
-      </div>
-    </section>
+&lt;/button&gt;
 
-    <!-- ── Botoes ─────────────────────────────────── -->
-    <section class="ds__section" id="botoes">
-      <h2 class="ds__section-title">Botoes</h2>
-      <p class="ds__section-desc">
-        Botoes primarios usam Blue-400 como cor principal — nunca verde ou outras cores.
-      </p>
-
-      <div class="ds__component" data-component>
-        <div class="ds__component-header">
-          <span class="ds__component-name">Botao primario</span>
-          <div class="ds__tab-group">
-            <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
-          </div>
-        </div>
-        <div class="ds__component-preview" data-preview>
-          <button class="neg__save-btn">Salvar</button>
-          <button class="neg__save-btn" disabled>Desabilitado</button>
-        </div>
-        <div class="ds__component-code" data-code>
-          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;button class="neg__save-btn"&gt;Salvar&lt;/button&gt;
-&lt;button class="neg__save-btn" disabled&gt;Desabilitado&lt;/button&gt;</code></pre>
-        </div>
-      </div>
-
-      <div class="ds__component" data-component>
-        <div class="ds__component-header">
-          <span class="ds__component-name">Title button (acao da title bar)</span>
-          <div class="ds__tab-group">
-            <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
-          </div>
-        </div>
-        <div class="ds__component-preview" data-preview>
-          <button class="title-btn">
-            <span class="material-icons-outlined" style="font-size:14px">store</span>
-            <span>Loja</span>
-            <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
-          </button>
-        </div>
-        <div class="ds__component-code" data-code>
-          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;button class="title-btn"&gt;
-  &lt;span class="material-icons-outlined"&gt;store&lt;/span&gt;
-  &lt;span&gt;Loja&lt;/span&gt;
-  &lt;span class="material-icons-outlined title-btn__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+&lt;!-- Icone a direita --&gt;
+&lt;button class="btn btn--secondary btn--white"&gt;
+  Exportar
+  &lt;span class="material-icons-outlined"&gt;file_download&lt;/span&gt;
 &lt;/button&gt;</code></pre>
         </div>
       </div>
