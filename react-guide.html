@@ -526,41 +526,149 @@ const Card = styled.div`
     <section class="rg__section" id="botoes">
       <h2 class="rg__section-title">Botoes</h2>
       <p class="rg__section-desc">
-        Use a classe base <code class="rg__inline-code">.btn</code> + variante (<code class="rg__inline-code">--primary</code>,
-        <code class="rg__inline-code">--secondary</code>, <code class="rg__inline-code">--secondary-ghost</code>, <code class="rg__inline-code">--link</code>) +
-        tamanho opcional (<code class="rg__inline-code">--xsmall</code>, <code class="rg__inline-code">--small</code>, <code class="rg__inline-code">--medium</code>,
-        <code class="rg__inline-code">--large</code>).
+        Sistema baseado no Figma DS InfoPrice. <strong>3 tipos</strong> (primary, secondary, link),
+        cada um com seus temas, em 4 tamanhos (large default, medium, small, xsmall) e 4 estados
+        (default, hover, active, disable).
       </p>
 
+      <h3 class="rg__h3">Componente reutilizavel (compatible com todos os tipos/temas/sizes)</h3>
       <div class="rg__code">
         <div class="rg__code-header">
           <span class="rg__code-lang">jsx</span>
           <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
         </div>
-        <pre><code>// Componente reutilizavel
-function Button({ variant = 'primary', size, children, ...props }) {
-  const classes = ['btn', `btn--${variant}`, size && `btn--${size}`]
-    .filter(Boolean)
-    .join(' ');
-  return &lt;button className={classes} {...props}&gt;{children}&lt;/button&gt;;
-}
+        <pre><code>import clsx from 'clsx';
 
-// Uso
-&lt;Button variant="primary"&gt;Salvar&lt;/Button&gt;
-&lt;Button variant="secondary-ghost" size="small"&gt;Cancelar&lt;/Button&gt;
-&lt;Button variant="link" disabled&gt;Esqueci a senha&lt;/Button&gt;</code></pre>
+/**
+ * Button — sistema oficial do DS InfoPrice (baseado no Figma)
+ *
+ * @param type    'primary' | 'secondary' | 'link'   (default: 'primary')
+ * @param theme   tema dependente do type:
+ *                  primary:   undefined | 'ghost'
+ *                  secondary: undefined (=blue) | 'red' | 'gray' | 'white'
+ *                  link:      undefined (=blue) | 'gray'
+ * @param size    'large' (default) | 'medium' | 'small' | 'xsmall'
+ * @param active  forca estado active (alem do :active nativo)
+ */
+export function Button({
+  type = 'primary',
+  theme,
+  size,
+  active,
+  className,
+  children,
+  ...props
+}) {
+  return (
+    &lt;button
+      className={clsx(
+        'btn',
+        `btn--${type}`,
+        theme &amp;&amp; `btn--${theme}`,
+        size &amp;&amp; `btn--${size}`,
+        active &amp;&amp; 'is-active',
+        className
+      )}
+      {...props}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+}</code></pre>
       </div>
 
-      <h3 class="rg__h3">Com icone</h3>
+      <h3 class="rg__h3">Uso — Primary</h3>
       <div class="rg__code">
         <div class="rg__code-header">
           <span class="rg__code-lang">jsx</span>
           <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
         </div>
-        <pre><code>&lt;Button variant="primary"&gt;
+        <pre><code>// Filled (default — CTA principal)
+&lt;Button type="primary"&gt;Confirmar&lt;/Button&gt;
+
+// Ghost (transparente com border azul)
+&lt;Button type="primary" theme="ghost"&gt;Cancelar&lt;/Button&gt;
+
+// Disabled
+&lt;Button type="primary" disabled&gt;Salvar&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Secondary (4 temas)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Blue (default)
+&lt;Button type="secondary"&gt;Salvar&lt;/Button&gt;
+
+// Red — acoes destrutivas (Excluir, Cancelar pedido, etc.)
+&lt;Button type="secondary" theme="red"&gt;Excluir&lt;/Button&gt;
+
+// Gray — neutro forte
+&lt;Button type="secondary" theme="gray"&gt;Arquivar&lt;/Button&gt;
+
+// White — sobre fundo claro (border cinza)
+&lt;Button type="secondary" theme="white"&gt;Cancelar&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Link</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Blue (default)
+&lt;Button type="link"&gt;Saiba mais&lt;/Button&gt;
+
+// Gray
+&lt;Button type="link" theme="gray"&gt;Cancelar&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Tamanhos</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>&lt;Button size="large"&gt;Large 16/22&lt;/Button&gt;     {/* default */}
+&lt;Button size="medium"&gt;Medium 14/20&lt;/Button&gt;
+&lt;Button size="small"&gt;Small 12/18&lt;/Button&gt;
+&lt;Button size="xsmall"&gt;Xsmall 10/16&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Com icone (left, right, ou ambos)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Icone a esquerda
+&lt;Button type="primary"&gt;
   &lt;span className="material-icons-outlined"&gt;save&lt;/span&gt;
   Salvar
+&lt;/Button&gt;
+
+// Icone a direita
+&lt;Button type="secondary" theme="white"&gt;
+  Exportar
+  &lt;span className="material-icons-outlined"&gt;file_download&lt;/span&gt;
+&lt;/Button&gt;
+
+// Acao destrutiva com icone
+&lt;Button type="secondary" theme="red"&gt;
+  &lt;span className="material-icons-outlined"&gt;delete&lt;/span&gt;
+  Excluir
 &lt;/Button&gt;</code></pre>
+      </div>
+
+      <div class="rg__callout rg__callout--info">
+        <span class="material-icons-outlined rg__callout__icon">info</span>
+        <div class="rg__callout__body">
+          <span class="rg__callout__title">Specs do Figma (auto-aplicados via CSS)</span>
+          Tipografia Open Sans Bold UPPERCASE. Border-radius 4px. Transicao de cor:
+          Blue 400 → 600 (hover) → 700 (active). Disabled: opacity 0.4.
+        </div>
       </div>
     </section>
 
