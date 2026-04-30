@@ -328,6 +328,88 @@
       margin-top: var(--space-2);
     }
 
+    /* ── Usage guide: "Quando usar / Quando NÃO usar" ── */
+    .usage-guide {
+      background: var(--color-blue-light-5);
+      border-left: 3px solid var(--color-blue-400);
+      padding: var(--space-3);
+      border-radius: var(--radius-sm);
+      margin: var(--space-3) 0 var(--space-4);
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-900);
+    }
+    .usage-guide strong {
+      color: var(--color-blue-700);
+    }
+
+    /* ── Templates: preview por imagem + link para tela cheia ── */
+    .template-image-card {
+      position: relative;
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: var(--space-3);
+      background: var(--color-gray-50);
+    }
+    .template-image-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .template-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      min-height: 320px;
+      padding: var(--space-6);
+      color: var(--color-gray-600);
+      font-size: var(--font-size-sm);
+      text-align: center;
+      background: repeating-linear-gradient(
+        45deg,
+        var(--color-gray-50),
+        var(--color-gray-50) 10px,
+        var(--color-gray-100) 10px,
+        var(--color-gray-100) 20px
+      );
+    }
+    .template-image-placeholder .material-icons-outlined {
+      font-size: 48px;
+      color: var(--color-gray-500);
+    }
+    .template-fullscreen-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 10px var(--space-4);
+      background: var(--color-blue-400);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 150ms ease;
+      margin-bottom: var(--space-4);
+    }
+    .template-fullscreen-link:hover {
+      background: var(--color-blue-600);
+    }
+    .template-meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-700);
+      margin: var(--space-2) 0 var(--space-4);
+      line-height: var(--line-height-md);
+    }
+    .template-meta strong { color: var(--color-gray-900); }
+    .template-meta a { color: var(--color-blue-400); text-decoration: none; }
+    .template-meta a:hover { text-decoration: underline; }
+
     /* ── Component: preview + code ────────────────── */
     .ds__component {
       background: var(--color-white);
@@ -512,7 +594,7 @@
     .checkbox__helper { font-size: var(--font-size-sm); font-weight: var(--font-weight-regular); color: var(--color-gray-600); line-height: var(--line-height-sm); }
     .checkbox.is-disabled, .checkbox[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; }
 
-    /* Phase 1 — Badge generico */
+    /* Phase 1 — Badge genérico */
     .badge { display: inline-flex; align-items: center; justify-content: center; padding: 0 6px; border-radius: var(--radius-pill); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); line-height: 16px; height: 16px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px; }
     .badge--medium { height: 20px; padding: 0 8px; font-size: var(--font-size-sm); line-height: 20px; }
     .badge--basic { width: 8px; height: 8px; padding: 0; border-radius: var(--radius-pill); }
@@ -527,7 +609,7 @@
     .badge--ghost.badge--orange { background: var(--color-orange-light-15); color: var(--color-orange-600); }
     .badge--ghost.badge--red { background: var(--color-red-light-15); color: var(--color-red-600); }
 
-    /* Phase 1 — Tag generico */
+    /* Phase 1 — Tag genérico */
     .tag { display: inline-flex; align-items: center; gap: 4px; padding: 0 8px; border-radius: var(--radius-sm); font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); line-height: 20px; height: 20px; white-space: nowrap; }
     .tag__icon { font-size: 12px; line-height: 1; }
     .tag--xsmall { height: 16px; padding: 0 6px; font-size: var(--font-size-xs); line-height: 16px; }
@@ -814,7 +896,7 @@
     .filtro-dropdown { width: 320px; }
     .filtro-dropdown__search-input { min-width: 0; }
 
-    /* Grid — Menu Precos (Phase 6 fallback) */
+    /* Grid — Menu Preços (Phase 6 fallback) */
     .grid__price-menu { display: flex; flex-direction: column; gap: 2px; padding: 4px; width: 26px; height: 100%; box-sizing: border-box; }
     .grid__price-menu__btn { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 16px; padding: 2px; background: var(--color-gray-300); border: none; border-radius: var(--radius-sm); cursor: pointer; font-family: var(--font-family-base); font-size: var(--font-size-xs); font-weight: var(--font-weight-regular); line-height: var(--line-height-btn-xs); color: var(--color-gray-900); transition: background 150ms ease; }
     .grid__price-menu__btn:hover { background: var(--color-gray-400); }
@@ -867,7 +949,7 @@
     .grid__sub-row__close .material-icons-outlined { font-size: 18px; }
     .grid__badge-pill--desconto { background: var(--color-red-light-15); color: var(--color-red-600); }
 
-    /* Cards de variacao da logo (page-specific) */
+    /* Cards de variação da logo (page-specific) */
     .ip-logo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -913,8 +995,8 @@
 
 <div class="ds__layout">
 
-  <!-- ── Navegacao lateral ───────────────────────── -->
-  <nav class="ds__nav" aria-label="Navegacao do design system">
+  <!-- ── Navegação lateral ───────────────────────── -->
+  <nav class="ds__nav" aria-label="Navegação do design system">
     <div class="ds__nav-brand">
       <div class="ds__nav-logo">IP</div>
       <span class="ds__nav-title">Design System</span>
@@ -938,21 +1020,6 @@
     </div>
 
     <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Tokens</div>
-      <a class="ds__nav-link" href="#cores">Cores</a>
-      <a class="ds__nav-link" href="#tipografia">Tipografia</a>
-      <a class="ds__nav-link" href="#espacamento">Espacamento</a>
-      <a class="ds__nav-link" href="#radius">Border radius</a>
-      <a class="ds__nav-link" href="#sombras">Sombras</a>
-      <a class="ds__nav-link" href="#icones">Icones</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Marca</div>
-      <a class="ds__nav-link" href="#logo">Logo</a>
-    </div>
-
-    <div class="ds__nav-section">
       <div class="ds__nav-section-title">Para devs</div>
       <a class="ds__nav-link" href="https://marcoskip.github.io/infoprice-prototipos/react-guide.html" target="_blank" style="display:flex;align-items:center;gap:4px">
         Guia React
@@ -961,81 +1028,61 @@
     </div>
 
     <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Foundation</div>
-      <a class="ds__nav-link" href="#tooltips">Tooltips</a>
+      <div class="ds__nav-section-title">Fundamentos</div>
+      <a class="ds__nav-link" href="#cores">Cores</a>
+      <a class="ds__nav-link" href="#tipografia">Tipografia</a>
+      <a class="ds__nav-link" href="#espacamento">Espaçamento</a>
+      <a class="ds__nav-link" href="#radius">Border radius</a>
+      <a class="ds__nav-link" href="#sombras">Sombras</a>
+      <a class="ds__nav-link" href="#icones">Ícones</a>
+      <a class="ds__nav-link" href="#logo">Logo</a>
     </div>
 
     <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Form controls</div>
+      <div class="ds__nav-section-title">Componentes básicos</div>
+      <a class="ds__nav-link" href="#tooltips">Tooltips</a>
       <a class="ds__nav-link" href="#switch">Switch</a>
       <a class="ds__nav-link" href="#radio">Radio</a>
       <a class="ds__nav-link" href="#checkbox">Checkbox</a>
       <a class="ds__nav-link" href="#form-field">Form field</a>
       <a class="ds__nav-link" href="#searchbar">Searchbar</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Feedback</div>
-      <a class="ds__nav-link" href="#message-box">MessageBox</a>
-      <a class="ds__nav-link" href="#toast">Toast</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Atoms</div>
-      <a class="ds__nav-link" href="#badge-generic">Badge generico</a>
-      <a class="ds__nav-link" href="#tag-generic">Tag generico</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Botoes</div>
+      <a class="ds__nav-link" href="#badge-generic">Badge genérico</a>
+      <a class="ds__nav-link" href="#tag-generic">Tag genérico</a>
       <a class="ds__nav-link" href="#botoes">Buttons</a>
-      <a class="ds__nav-link" href="#composed-buttons">Compostos</a>
-      <a class="ds__nav-link" href="#aplicar-btn">Aplicar preco</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Pickers</div>
       <a class="ds__nav-link" href="#select-picker">SelectPicker</a>
       <a class="ds__nav-link" href="#date-picker">DatePicker</a>
       <a class="ds__nav-link" href="#hour-picker">HourPicker</a>
+      <a class="ds__nav-link" href="#nav-button">Nav button</a>
     </div>
 
     <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Overlay</div>
-      <a class="ds__nav-link" href="#modal">Modal</a>
-      <a class="ds__nav-link" href="#context-menu">Context Menu</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Filtros</div>
+      <div class="ds__nav-section-title">Componentes compostos</div>
+      <a class="ds__nav-link" href="#message-box">MessageBox</a>
+      <a class="ds__nav-link" href="#toast">Toast</a>
+      <a class="ds__nav-link" href="#composed-buttons">Botões compostos</a>
+      <a class="ds__nav-link" href="#aplicar-btn">Aplicar preço</a>
       <a class="ds__nav-link" href="#filtro-chips">Filtro chips</a>
       <a class="ds__nav-link" href="#filtro-dropdowns">Filtro dropdowns</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Cards & Status</div>
       <a class="ds__nav-link" href="#big-numbers-card">Big number card</a>
-      <a class="ds__nav-link" href="#indicadores">Indicadores</a>
-    </div>
-
-    <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Layout</div>
+      <a class="ds__nav-link" href="#indicadores">Indicadores de competitividade</a>
+      <a class="ds__nav-link" href="#modal">Modal</a>
+      <a class="ds__nav-link" href="#context-menu">Context Menu</a>
       <a class="ds__nav-link" href="#title-bar">Title bar</a>
       <a class="ds__nav-link" href="#title-dropdown">Title dropdown</a>
       <a class="ds__nav-link" href="#header">Header</a>
       <a class="ds__nav-link" href="#header-dropdowns">Header dropdowns</a>
       <a class="ds__nav-link" href="#sidebar">Sidebar</a>
       <a class="ds__nav-link" href="#navbar">Navbar (sub-nav)</a>
-      <a class="ds__nav-link" href="#nav-button">Nav button</a>
-      <a class="ds__nav-link" href="#cabecalho">Cabecalho</a>
+      <a class="ds__nav-link" href="#cabecalho">Cabeçalho de resultados</a>
+      <a class="ds__nav-link" href="#grid">Tabela básica (Grid)</a>
+      <a class="ds__nav-link" href="#grid-cells">Células especiais (Grid)</a>
+      <a class="ds__nav-link" href="#grid-forms">Inputs e variação (Grid)</a>
+      <a class="ds__nav-link" href="#grid-pagination">Paginação (Grid)</a>
     </div>
 
     <div class="ds__nav-section">
-      <div class="ds__nav-section-title">Grid</div>
-      <a class="ds__nav-link" href="#grid">Tabela basica</a>
-      <a class="ds__nav-link" href="#grid-cells">Celulas especiais</a>
-      <a class="ds__nav-link" href="#grid-forms">Inputs e variacao</a>
-      <a class="ds__nav-link" href="#grid-pagination">Paginacao</a>
+      <div class="ds__nav-section-title">Templates</div>
+      <a class="ds__nav-link" href="#template-listagem">Tela de Listagem</a>
     </div>
   </nav>
 
@@ -1055,10 +1102,10 @@
       <div class="ds__hero-eyebrow">InfoPrice</div>
       <h1 class="ds__hero-title">Design System</h1>
       <p class="ds__hero-subtitle">
-        Referencia unica para tokens e componentes do IPA. Cada token e componente abaixo le
+        Referência única para tokens e componentes do IPA. Cada token e componente abaixo lê
         diretamente de <code style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--color-gray-100);padding:2px 6px;border-radius:4px">tokens.css</code>
         e <code style="font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--color-gray-100);padding:2px 6px;border-radius:4px">styles.css</code>,
-        entao o que voce ve aqui e exatamente o que esta em producao.
+        então o que você vê aqui é exatamente o que está em produção.
       </p>
     </header>
 
@@ -1111,7 +1158,7 @@
       </div>
 
       <div class="ds__subsection">
-        <h3 class="ds__subsection-title">Graficos</h3>
+        <h3 class="ds__subsection-title">Gráficos</h3>
         <div class="ds__color-grid" data-palette="chart"></div>
       </div>
     </section>
@@ -1120,7 +1167,7 @@
     <section class="ds__section" id="tipografia">
       <h2 class="ds__section-title">Tipografia</h2>
       <p class="ds__section-desc">
-        Familia <strong>Open Sans</strong> com 4 pesos (300, 400, 600, 700). Escala de 8px a
+        Família <strong>Open Sans</strong> com 4 pesos (300, 400, 600, 700). Escala de 8px a
         24px para corpo, headings de 20 a 56px.
       </p>
 
@@ -1172,7 +1219,7 @@
 
     <!-- ── Espacamento ────────────────────────────── -->
     <section class="ds__section" id="espacamento">
-      <h2 class="ds__section-title">Espacamento</h2>
+      <h2 class="ds__section-title">Espaçamento</h2>
       <p class="ds__section-desc">
         Escala em multiplos de 4px. Use sempre via token (<code style="font-family:'JetBrains Mono',monospace;font-size:13px">--space-*</code>),
         nunca valores arbitrarios.
@@ -1183,7 +1230,7 @@
     <!-- ── Radius ─────────────────────────────────── -->
     <section class="ds__section" id="radius">
       <h2 class="ds__section-title">Border radius</h2>
-      <p class="ds__section-desc">4 niveis: nenhum, pequeno (4px), medio (8px) e pill (totalmente arredondado).</p>
+      <p class="ds__section-desc">4 níveis: nenhum, pequeno (4px), médio (8px) e pill (totalmente arredondado).</p>
       <div class="ds__sample-grid">
         <div>
           <div class="ds__sample-card" style="border:1px solid var(--color-gray-300);border-radius:var(--radius-none);height:80px"></div>
@@ -1207,7 +1254,7 @@
     <!-- ── Sombras ────────────────────────────────── -->
     <section class="ds__section" id="sombras">
       <h2 class="ds__section-title">Sombras</h2>
-      <p class="ds__section-desc">3 sombras semanticas — elevacao geral, foco de input/botao, hover destacado.</p>
+      <p class="ds__section-desc">3 sombras semânticas — elevação geral, foco de input/botão, hover destacado.</p>
       <div class="ds__sample-grid">
         <div>
           <div class="ds__sample-card" style="box-shadow:var(--shadow-elevation);border-radius:var(--radius-md);height:100px;background:var(--color-white)"></div>
@@ -1226,7 +1273,7 @@
 
     <!-- ── Icones ─────────────────────────────────── -->
     <section class="ds__section" id="icones">
-      <h2 class="ds__section-title">Icones</h2>
+      <h2 class="ds__section-title">Ícones</h2>
       <p class="ds__section-desc">
         Material Icons Outlined e SVGs custom. 5 tamanhos (xs=10, sm=12, md=16, lg=20, xl=24).
       </p>
@@ -1272,14 +1319,14 @@
     <section class="ds__section" id="logo">
       <h2 class="ds__section-title">Logo InfoPrice</h2>
       <p class="ds__section-desc">
-        Logo principal e variacoes monocromaticas em cores da paleta. A versao default
-        (cinza + azul brand) e a oficial. As variantes <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--mono</code> sao para casos onde a logo
-        precisa se adaptar a fundos coloridos, sobre imagens, ou em peças de comunicacao
-        com identidade tematica.
+        Logo principal e variações monocromáticas em cores da paleta. A versão default
+        (cinza + azul brand) é a oficial. As variantes <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--mono</code> são para casos onde a logo
+        precisa se adaptar a fundos coloridos, sobre imagens, ou em peças de comúnicação
+        com identidade temática.
       </p>
 
       <div class="ds__subsection">
-        <h3 class="ds__subsection-title">Versao oficial e tamanhos</h3>
+        <h3 class="ds__subsection-title">Versão oficial e tamanhos</h3>
         <div class="ip-logo-grid">
           <div class="ip-logo-card">
             <div class="ip-logo-card__preview">
@@ -1392,7 +1439,7 @@
           <span class="ds__component-name">Como usar</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-6);align-items:center">
@@ -1405,7 +1452,7 @@
           <pre><code>&lt;!-- Versao default (cinza + azul brand) --&gt;
 &lt;div class="ip-logo"&gt;[SVG da logo]&lt;/div&gt;
 
-&lt;!-- Mono em uma cor unica --&gt;
+&lt;!-- Mono em uma cor única --&gt;
 &lt;div class="ip-logo ip-logo--mono ip-logo--blue"&gt;[SVG]&lt;/div&gt;
 
 &lt;!-- Combinaveis com tamanho --&gt;
@@ -1421,8 +1468,8 @@
     <section class="ds__section" id="tooltips">
       <h2 class="ds__section-title">Tooltips</h2>
       <p class="ds__section-desc">
-        Baloes de ajuda com 2 posicoes (acima/abaixo). Background gray-900, texto branco
-        12px, sem animacao de entrada.
+        Balões de ajuda com 2 posições (acima/abaixo). Background gray-900, texto branco
+        12px, sem animação de entrada.
       </p>
 
       <div class="ds__component" data-component>
@@ -1430,7 +1477,7 @@
           <span class="ds__component-name">Tooltip below e above</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:60px;gap:80px">
@@ -1462,7 +1509,7 @@
       <h2 class="ds__section-title">Switch</h2>
       <p class="ds__section-desc">
         Toggle on/off com 3 estados (off, on, half) e 3 tamanhos (small, medium, large).
-        Use para configuracoes booleanas. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-half</code> indica selecao parcial em listas.
+        Use para configurações booleanas. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-half</code> indica seleção parcial em listas.
       </p>
 
       <div class="ds__component" data-component>
@@ -1470,7 +1517,7 @@
           <span class="ds__component-name">Estados (medium)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -1498,7 +1545,7 @@
   &lt;span class="switch__label"&gt;On&lt;/span&gt;
 &lt;/label&gt;
 
-&lt;!-- Estados: padrao | .is-checked | .is-half | .is-disabled --&gt;
+&lt;!-- Estados: padrão | .is-checked | .is-half | .is-disabled --&gt;
 &lt;!-- Sizes:   .switch--small | (default = medium) | .switch--large --&gt;</code></pre>
         </div>
       </div>
@@ -1508,7 +1555,7 @@
           <span class="ds__component-name">Tamanhos</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -1537,10 +1584,14 @@
     <!-- ── Radio ──────────────────────────────────── -->
     <section class="ds__section" id="radio">
       <h2 class="ds__section-title">Radio</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para UMA escolha obrigatória entre opções pré-definidas mutuamente exclusivas (ex: "Aplicar preço sugerido" vs "Aplicar preço vigente").
+        <br>
+        <strong>Quando NÃO usar:</strong> para escolha opcional ou múltipla, use Checkbox. Para liga/desliga binário em configurações, use Switch.
+      </div>
       <p class="ds__section-desc">
-        Selecao unica obrigatoria em um grupo. 3 variantes: only radio, radio + label,
-        radio + label + texto complementar. Use sempre quando UMA escolha e obrigatoria —
-        para selecao opcional ou multipla, use Checkbox.
+        Seleção única obrigatória em um grupo. 3 variantes: only radio, radio + label,
+        radio + label + texto complementar.
       </p>
 
       <div class="ds__component" data-component>
@@ -1548,7 +1599,7 @@
           <span class="ds__component-name">Variantes</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
@@ -1560,15 +1611,15 @@
             <input type="radio" name="ds-radio-2" class="radio__input" checked />
             <span class="radio__circle"></span>
             <div class="radio__content">
-              <span class="radio__label">Aplicar preco sugerido</span>
+              <span class="radio__label">Aplicar preço sugerido</span>
             </div>
           </label>
           <label class="radio">
             <input type="radio" name="ds-radio-3" class="radio__input" />
             <span class="radio__circle"></span>
             <div class="radio__content">
-              <span class="radio__label">Aplicar preco vigente</span>
-              <span class="radio__helper">Mantem o preco que ja esta no PDV</span>
+              <span class="radio__label">Aplicar preço vigente</span>
+              <span class="radio__helper">Mantém o preço que já está no PDV</span>
             </div>
           </label>
         </div>
@@ -1601,9 +1652,14 @@
     <!-- ── Checkbox ───────────────────────────────── -->
     <section class="ds__section" id="checkbox">
       <h2 class="ds__section-title">Checkbox</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para seleção múltipla independente (várias caixas marcáveis ao mesmo tempo) ou como sim/não opcional (uma única caixa, marcação não obrigatória).
+        <br>
+        <strong>Quando NÃO usar:</strong> para escolha única obrigatória entre opções, use Radio. Para liga/desliga binário em configurações, use Switch.
+      </div>
       <p class="ds__section-desc">
-        Selecao multipla ou opcional. 3 estados (off, on, half) e 3 variantes (caixa,
-        + label, + label + complementar). Use Radio para escolha unica obrigatoria.
+        Seleção múltipla ou opcional. 3 estados (off, on, half) e 3 variantes (caixa,
+        + label, + label + complementar).
       </p>
 
       <div class="ds__component" data-component>
@@ -1611,7 +1667,7 @@
           <span class="ds__component-name">Estados</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
@@ -1634,7 +1690,7 @@
             <span class="checkbox__box"></span>
             <div class="checkbox__content">
               <span class="checkbox__label">Half (indeterminado)</span>
-              <span class="checkbox__helper">Use quando ha selecao parcial em uma lista filha</span>
+              <span class="checkbox__helper">Use quando há seleção parcial em uma lista filha</span>
             </div>
           </label>
           <label class="checkbox is-disabled">
@@ -1656,7 +1712,7 @@
   &lt;/div&gt;
 &lt;/label&gt;
 
-&lt;!-- Estados: padrao | checked (no input) | .is-half | .is-disabled --&gt;</code></pre>
+&lt;!-- Estados: padrão | checked (no input) | .is-half | .is-disabled --&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -1666,16 +1722,16 @@
       <h2 class="ds__section-title">Form field</h2>
       <p class="ds__section-desc">
         Input com label, helper text, prefix/suffix opcionais e estados (default, error,
-        success, disabled). Padrao visual derivado do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.grid__form-field</code>, mas standalone com
+        success, disabled). Padrão visual derivado do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.grid__form-field</code>, mas standalone com
         label/helper. 4 sizes: small, medium (default), large, paragraph (textarea).
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Variantes basicas</span>
+          <span class="ds__component-name">Variantes básicas</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-4);padding:var(--space-4)">
@@ -1695,11 +1751,11 @@
           </div>
 
           <div class="form-field is-error" style="max-width:320px">
-            <label class="form-field__label">Codigo do produto</label>
+            <label class="form-field__label">Código do produto</label>
             <div class="form-field__input-wrapper">
               <input type="text" class="form-field__input" value="ABC-X" />
             </div>
-            <span class="form-field__helper">Codigo invalido — use formato AAA-000</span>
+            <span class="form-field__helper">Código inválido — use formato AAA-000</span>
           </div>
 
           <div class="form-field is-disabled" style="max-width:320px">
@@ -1707,7 +1763,7 @@
             <div class="form-field__input-wrapper">
               <input type="text" class="form-field__input" value="Loja Centro" disabled />
             </div>
-            <span class="form-field__helper">Nao e possivel alterar a loja deste registro</span>
+            <span class="form-field__helper">Não é possível alterar a loja deste registro</span>
           </div>
         </div>
         <div class="ds__component-code" data-code>
@@ -1724,7 +1780,7 @@
 &lt;!-- Required --&gt;
 &lt;label class="form-field__label"&gt;Email &lt;span class="form-field__required"&gt;*&lt;/span&gt;&lt;/label&gt;
 
-&lt;!-- Estados: padrao | .is-error | .is-success | .is-disabled --&gt;</code></pre>
+&lt;!-- Estados: padrão | .is-error | .is-success | .is-disabled --&gt;</code></pre>
         </div>
       </div>
 
@@ -1733,12 +1789,12 @@
           <span class="ds__component-name">Com prefix e suffix</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-3);padding:var(--space-4)">
           <div class="form-field" style="max-width:320px">
-            <label class="form-field__label">Preco de venda</label>
+            <label class="form-field__label">Preço de venda</label>
             <div class="form-field__input-wrapper">
               <span class="form-field__prefix">R$</span>
               <input type="text" class="form-field__input" value="12,49" />
@@ -1771,7 +1827,7 @@
           <span class="ds__component-name">Tamanhos + paragraph</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:stretch;gap:var(--space-3);padding:var(--space-4)">
@@ -1784,7 +1840,7 @@
           <div class="form-field" style="max-width:320px">
             <label class="form-field__label">Medium (32px - default)</label>
             <div class="form-field__input-wrapper">
-              <input type="text" class="form-field__input" placeholder="Padrao" />
+              <input type="text" class="form-field__input" placeholder="Padrão" />
             </div>
           </div>
           <div class="form-field form-field--large" style="max-width:320px">
@@ -1796,7 +1852,7 @@
           <div class="form-field form-field--paragraph" style="max-width:320px">
             <label class="form-field__label">Paragraph (textarea)</label>
             <div class="form-field__input-wrapper">
-              <textarea class="form-field__input" placeholder="Descricao do produto..."></textarea>
+              <textarea class="form-field__input" placeholder="Descrição do produto..."></textarea>
             </div>
           </div>
         </div>
@@ -1821,8 +1877,8 @@
     <section class="ds__section" id="searchbar">
       <h2 class="ds__section-title">Searchbar</h2>
       <p class="ds__section-desc">
-        Campo de busca standalone com icone, botao clear (aparece quando ha texto), loading
-        e dropdown opcional de sugestoes. Espelha o padrao do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.filtro-dropdown__search</code> mas
+        Campo de busca standalone com ícone, botão clear (aparece quando há texto), loading
+        e dropdown opcional de sugestões. Espelha o padrão do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.filtro-dropdown__search</code> mas
         funciona fora de filtros. 3 sizes (small, medium, large).
       </p>
 
@@ -1831,7 +1887,7 @@
           <span class="ds__component-name">Estados</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3);padding:var(--space-4)">
@@ -1878,10 +1934,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Com dropdown de sugestoes</span>
+          <span class="ds__component-name">Com dropdown de sugestões</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start">
@@ -1931,7 +1987,7 @@
           <span class="ds__component-name">Tamanhos</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-2)">
@@ -1960,17 +2016,22 @@
     <!-- ── MessageBox ─────────────────────────────── -->
     <section class="ds__section" id="message-box">
       <h2 class="ds__section-title">MessageBox</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para mensagens INLINE embutidas no conteúdo da página, que precisam ficar visíveis até o usuário ler ou agir (validação de formulário, aviso contextual numa área, instrução persistente).
+        <br>
+        <strong>Quando NÃO usar:</strong> para confirmações temporárias de ação (ex: "Salvo com sucesso"). Use Toast — ele aparece sobre o conteúdo, some sozinho e não compete com a leitura.
+      </div>
       <p class="ds__section-desc">
-        Mensagem inline embutida em uma secao da pagina (nao e popup). 4 cores semanticas:
-        info, success, warning, error. Pode ter icone, titulo, corpo e botao de acao.
+        Mensagem inline embutida em uma seção da página (não é popup). 4 cores semânticas:
+        info, success, warning, error. Pode ter ícone, título, corpo e botão de ação.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Variantes semanticas</span>
+          <span class="ds__component-name">Variantes semânticas</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
@@ -1978,7 +2039,7 @@
             <span class="material-icons-outlined message-box__icon">info</span>
             <div class="message-box__content">
               <span class="message-box__title">Informativo</span>
-              <span class="message-box__body">Os precos foram atualizados com base nos custos mais recentes.</span>
+              <span class="message-box__body">Os preços foram atualizados com base nos custos mais recentes.</span>
             </div>
           </div>
           <div class="message-box message-box--success">
@@ -1991,8 +2052,8 @@
           <div class="message-box message-box--warning">
             <span class="material-icons-outlined message-box__icon">warning</span>
             <div class="message-box__content">
-              <span class="message-box__title">Atencao</span>
-              <span class="message-box__body">3 produtos estao com margem abaixo do limite definido.</span>
+              <span class="message-box__title">Atenção</span>
+              <span class="message-box__body">3 produtos estão com margem abaixo do limite definido.</span>
               <button class="message-box__action">Ver produtos</button>
             </div>
           </div>
@@ -2000,7 +2061,7 @@
             <span class="material-icons-outlined message-box__icon">error</span>
             <div class="message-box__content">
               <span class="message-box__title">Erro ao salvar</span>
-              <span class="message-box__body">Nao foi possivel salvar 2 produtos. Verifique a conexao e tente novamente.</span>
+              <span class="message-box__body">Não foi possível salvar 2 produtos. Verifique a conexão e tente novamente.</span>
             </div>
           </div>
         </div>
@@ -2023,27 +2084,31 @@
 
     <!-- ── Toast ──────────────────────────────────── -->
     <section class="ds__section" id="toast">
-      <h2 class="ds__section-title">Toast (notificacao popup)</h2>
+      <h2 class="ds__section-title">Toast (notificação popup)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para feedback temporário e flutuante de uma ação que acabou de acontecer (sucesso, erro, sincronização). Aparece no canto, some sozinho.
+        <br>
+        <strong>Quando NÃO usar:</strong> para mensagens que precisam permanecer visíveis ou que são parte do conteúdo da página (validação, aviso contextual, orientação). Use MessageBox — ele é inline e persiste.
+      </div>
       <p class="ds__section-desc">
-        Notificacao flutuante que aparece sobre o conteudo. 4 cores semanticas e 2 temas
-        (long, short). Container fixo no canto. Diferente do MessageBox: Toast e popup,
-        MessageBox e inline.
+        Notificação flutuante que aparece sobre o conteúdo. 4 cores semânticas e 2 temas
+        (long, short). Container fixo no canto.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Long (com titulo, body e acao)</span>
+          <span class="ds__component-name">Long (com título, body e ação)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
           <div class="toast toast--info">
             <span class="material-icons-outlined toast__icon">info</span>
             <div class="toast__content">
-              <span class="toast__title">Atualizacao disponivel</span>
-              <span class="toast__body">Uma nova versao do IPA esta pronta para uso.</span>
+              <span class="toast__title">Atualização disponível</span>
+              <span class="toast__body">Uma nova versão do IPA está pronta para uso.</span>
               <button class="toast__action">Recarregar</button>
             </div>
             <button class="toast__close" aria-label="Fechar">
@@ -2053,7 +2118,7 @@
           <div class="toast toast--success">
             <span class="material-icons-outlined toast__icon">check_circle</span>
             <div class="toast__content">
-              <span class="toast__title">Precos aplicados</span>
+              <span class="toast__title">Preços aplicados</span>
               <span class="toast__body">15 produtos foram atualizados no PDV.</span>
             </div>
             <button class="toast__close" aria-label="Fechar">
@@ -2064,14 +2129,14 @@
             <span class="material-icons-outlined toast__icon">warning</span>
             <div class="toast__content">
               <span class="toast__title">Limite proximo</span>
-              <span class="toast__body">Voce esta a 90% do limite mensal de processamento.</span>
+              <span class="toast__body">Você está a 90% do limite mensal de processamento.</span>
             </div>
           </div>
           <div class="toast toast--error">
             <span class="material-icons-outlined toast__icon">error</span>
             <div class="toast__content">
-              <span class="toast__title">Falha na sincronizacao</span>
-              <span class="toast__body">Nao foi possivel sincronizar 3 produtos.</span>
+              <span class="toast__title">Falha na sincronização</span>
+              <span class="toast__body">Não foi possível sincronizar 3 produtos.</span>
               <button class="toast__action">Tentar novamente</button>
             </div>
           </div>
@@ -2101,10 +2166,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Short (so body)</span>
+          <span class="ds__component-name">Short (só body)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-2);align-items:stretch;padding:var(--space-4)">
@@ -2132,12 +2197,17 @@
       </div>
     </section>
 
-    <!-- ── Badge generico ─────────────────────────── -->
+    <!-- ── Badge genérico ─────────────────────────── -->
     <section class="ds__section" id="badge-generic">
-      <h2 class="ds__section-title">Badge (generico)</h2>
+      <h2 class="ds__section-title">Badge (genérico)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> indicador compacto e genérico — sempre que precisar de um marcador visual curto, com ou sem texto (a variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> é só o ponto).
+        <br>
+        <strong>Quando NÃO usar:</strong> se precisa de texto sempre presente, use Tag. Para classificar qualidade nos 5 níveis padrão do IPA, use Indicadores de competitividade.
+      </div>
       <p class="ds__section-desc">
-        Indicador compacto. 2 temas (filled, ghost), 5 cores semanticas, e 2 tamanhos
-        (small, medium). Variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> e o ponto sem texto. Substitui as
+        Indicador compacto. 2 temas (filled, ghost), 5 cores semânticas, e 2 tamanhos
+        (small, medium). Variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> é o ponto sem texto. Substitui as
         variantes ad-hoc <code style="font-family:'JetBrains Mono',monospace;font-size:13px">user-dropdown__badge</code> e <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__badge-pill</code> em novos contextos.
       </p>
 
@@ -2146,7 +2216,7 @@
           <span class="ds__component-name">Filled — 5 cores</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2162,7 +2232,7 @@
 
 &lt;!-- Cores: --blue | --gray | --green | --orange | --red --&gt;
 &lt;!-- Tema:  --filled | --ghost --&gt;
-&lt;!-- Tamanho: padrao (16px) | --medium (20px) --&gt;</code></pre>
+&lt;!-- Tamanho: padrão (16px) | --medium (20px) --&gt;</code></pre>
         </div>
       </div>
 
@@ -2171,7 +2241,7 @@
           <span class="ds__component-name">Ghost + tamanhos + basic</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2197,12 +2267,17 @@
       </div>
     </section>
 
-    <!-- ── Tag generico ───────────────────────────── -->
+    <!-- ── Tag genérico ───────────────────────────── -->
     <section class="ds__section" id="tag-generic">
-      <h2 class="ds__section-title">Tag (generico)</h2>
+      <h2 class="ds__section-title">Tag (genérico)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> etiqueta descritiva com texto obrigatório (e ícone opcional) — para rotular categorias, atributos nominais ou status com nome.
+        <br>
+        <strong>Quando NÃO usar:</strong> se for só um marcador visual sem texto (ponto colorido ou ícone isolado), use Badge.
+      </div>
       <p class="ds__section-desc">
-        Etiqueta com texto sempre presente (e icone opcional). 2 temas, 5 cores, 4 tamanhos
-        (xsmall, small, medium, large). Para indicadores apenas de icone, use Badge.
+        Etiqueta com texto sempre presente (e ícone opcional). 2 temas, 5 cores, 4 tamanhos
+        (xsmall, small, medium, large). Para indicadores apenas de ícone, use Badge.
       </p>
 
       <div class="ds__component" data-component>
@@ -2210,7 +2285,7 @@
           <span class="ds__component-name">Filled — 5 cores</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2231,10 +2306,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Ghost + icones + tamanhos</span>
+          <span class="ds__component-name">Ghost + ícones + tamanhos</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2273,9 +2348,14 @@
     <!-- ── Btn generico (Phase 2) ─────────────────── -->
     <!-- ── Botoes (atualizado a partir do Figma DS InfoPrice) ─── -->
     <section class="ds__section" id="botoes">
-      <h2 class="ds__section-title">Botoes</h2>
+      <h2 class="ds__section-title">Botões</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> ações principais e secundárias do conteúdo da página (Salvar, Cancelar, Excluir, Saiba mais). 3 tipos: primary (ação principal), secondary (alternativa ou destrutiva), link (textual sem moldura).
+        <br>
+        <strong>Quando NÃO usar:</strong> para botão com dropdown anexado, use Twin button. Para toolbar de ícones no Cabeçalho de resultados, use Botões compostos. Para áreas de navegação estrutural, use Nav button. Para chips em filtros, use Filtro chips.
+      </div>
       <p class="ds__section-desc">
-        Sistema baseado na referencia oficial do Figma. <strong>3 tipos</strong> (primary, secondary, link),
+        Sistema baseado na referência oficial do Figma. <strong>3 tipos</strong> (primary, secondary, link),
         cada um com seus temas, em <strong>4 tamanhos</strong> (large default, medium, small, xsmall) e
         <strong>4 estados</strong> (default, hover, active, disable). Tipografia Open Sans Bold UPPERCASE.
       </p>
@@ -2285,7 +2365,7 @@
           <span class="ds__component-name">Primary — filled e ghost</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2311,7 +2391,7 @@
           <span class="ds__component-name">Secondary — 4 temas (blue, red, gray, white)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2325,10 +2405,10 @@
           <pre><code>&lt;!-- Secondary blue (default) --&gt;
 &lt;button class="btn btn--secondary"&gt;Salvar&lt;/button&gt;
 
-&lt;!-- Secondary red (acoes destrutivas: Excluir, Cancelar pedido) --&gt;
+&lt;!-- Secondary red (ações destrutivas: Excluir, Cancelar pedido) --&gt;
 &lt;button class="btn btn--secondary btn--red"&gt;Excluir&lt;/button&gt;
 
-&lt;!-- Secondary gray (acao neutra forte) --&gt;
+&lt;!-- Secondary gray (ação neutra forte) --&gt;
 &lt;button class="btn btn--secondary btn--gray"&gt;Arquivar&lt;/button&gt;
 
 &lt;!-- Secondary white (fundo claro com border cinza) --&gt;
@@ -2338,10 +2418,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Link — blue e gray (com icone, 4 tamanhos)</span>
+          <span class="ds__component-name">Link — blue e gray (com ícone, 4 tamanhos)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
@@ -2390,8 +2470,8 @@
               <span class="material-icons-outlined">open_in_new</span>
               Disabled
             </button>
-            <button class="btn btn--link">Sem icone</button>
-            <button class="btn btn--link btn--gray">Sem icone</button>
+            <button class="btn btn--link">Sem ícone</button>
+            <button class="btn btn--link btn--gray">Sem ícone</button>
           </div>
         </div>
         <div class="ds__component-code" data-code>
@@ -2423,7 +2503,7 @@
           <span class="ds__component-name">4 Tamanhos (large default, medium, small, xsmall)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="align-items:center">
@@ -2434,7 +2514,7 @@
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;!-- Large e o padrao se nenhum size for declarado --&gt;
+          <pre><code>&lt;!-- Large e o padrão se nenhum size for declarado --&gt;
 &lt;button class="btn btn--primary btn--large"&gt;...&lt;/button&gt;
 &lt;button class="btn btn--primary btn--medium"&gt;...&lt;/button&gt;
 &lt;button class="btn btn--primary btn--small"&gt;...&lt;/button&gt;
@@ -2450,10 +2530,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Com icone (left, right ou ambos)</span>
+          <span class="ds__component-name">Com ícone (left, right ou ambos)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2492,35 +2572,35 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Twin — botao split (acao + drop)</span>
+          <span class="ds__component-name">Twin — botão split (ação + drop)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
           <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
             <div class="btn-twin">
               <button class="btn-twin__main">Button title</button>
-              <button class="btn-twin__drop" aria-label="Mais opcoes">
+              <button class="btn-twin__drop" aria-label="Mais opções">
                 <span class="material-icons-outlined">keyboard_arrow_down</span>
               </button>
             </div>
             <div class="btn-twin btn-twin--medium">
               <button class="btn-twin__main">Button title</button>
-              <button class="btn-twin__drop" aria-label="Mais opcoes">
+              <button class="btn-twin__drop" aria-label="Mais opções">
                 <span class="material-icons-outlined">keyboard_arrow_down</span>
               </button>
             </div>
             <div class="btn-twin btn-twin--small">
               <button class="btn-twin__main">Button title</button>
-              <button class="btn-twin__drop" aria-label="Mais opcoes">
+              <button class="btn-twin__drop" aria-label="Mais opções">
                 <span class="material-icons-outlined">keyboard_arrow_down</span>
               </button>
             </div>
             <div class="btn-twin btn-twin--xsmall">
               <button class="btn-twin__main">Button title</button>
-              <button class="btn-twin__drop" aria-label="Mais opcoes">
+              <button class="btn-twin__drop" aria-label="Mais opções">
                 <span class="material-icons-outlined">keyboard_arrow_down</span>
               </button>
             </div>
@@ -2528,7 +2608,7 @@
           <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
             <div class="btn-twin is-disabled">
               <button class="btn-twin__main" disabled>Disabled</button>
-              <button class="btn-twin__drop" aria-label="Mais opcoes" disabled>
+              <button class="btn-twin__drop" aria-label="Mais opções" disabled>
                 <span class="material-icons-outlined">keyboard_arrow_down</span>
               </button>
             </div>
@@ -2536,10 +2616,10 @@
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
-          <pre><code>&lt;!-- Twin: acao primaria a esquerda + drop a direita --&gt;
+          <pre><code>&lt;!-- Twin: ação primaria a esquerda + drop a direita --&gt;
 &lt;div class="btn-twin"&gt;
   &lt;button class="btn-twin__main" onclick="salvar()"&gt;Salvar&lt;/button&gt;
-  &lt;button class="btn-twin__drop" aria-label="Mais opcoes" onclick="abrirMenu()"&gt;
+  &lt;button class="btn-twin__drop" aria-label="Mais opções" onclick="abrirMenu()"&gt;
     &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
   &lt;/button&gt;
 &lt;/div&gt;
@@ -2553,18 +2633,29 @@
 &lt;div class="btn-twin is-disabled"&gt;...&lt;/div&gt;
 
 &lt;!-- Specs --&gt;
-&lt;!-- Cada metade clicavel separadamente — main dispara a acao,  --&gt;
+&lt;!-- Cada metade clicavel separadamente — main dispara a ação,  --&gt;
 &lt;!-- drop abre menu/dropdown. Divisor: 1px white solid.         --&gt;
 &lt;!-- Hover/active afetam apenas a metade hovered.               --&gt;</code></pre>
         </div>
+      </div>
+
+      <div class="usage-guide">
+        <strong>Quando usar Twin button:</strong> para uma ação primary blue com dropdown anexado para variações da ação (ex: Salvar + escolher modo). Split em duas metades clicáveis: main (ação) + drop (abre menu).
+        <br>
+        <strong>Quando NÃO usar:</strong> para a ação "Aplicar preço" use o componente Aplicar preço (verde, especializado). Para botão simples sem dropdown, use Button. Para toolbar icon-only, use Botões compostos.
       </div>
     </section>
 
     <!-- ── Botoes compostos ───────────────────────── -->
     <section class="ds__section" id="composed-buttons">
-      <h2 class="ds__section-title">Botoes compostos</h2>
+      <h2 class="ds__section-title">Botões compostos</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE no Cabeçalho de resultados, como botão icon-only de toolbar com dropdown opcional (variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--solo</code> remove o drop). Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-selected</code> indica filtro ativo.
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do Cabeçalho de resultados. Para botão com texto e dropdown em outros contextos, use Twin button. Para ações principais da página, use Button.
+      </div>
       <p class="ds__section-desc">
-        Botoes do cabecalho com base (icone) + drop (chevron) que abre dropdown. Variante
+        Botões do cabeçalho com base (ícone) + drop (chevron) que abre dropdown. Variante
         <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--solo</code> remove o drop. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-selected</code> destaca em azul.
       </p>
 
@@ -2573,7 +2664,7 @@
           <span class="ds__component-name">Variantes (base+drop, solo, selected)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview style="background:var(--color-white);padding:var(--space-4)">
@@ -2620,15 +2711,15 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Composed dropdown — input numerico</span>
+          <span class="ds__component-name">Composed dropdown — input numérico</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
           <div class="composed-dropdown" style="position:static;display:flex">
-            <span class="composed-dropdown__title">Filtrar custos<br>alterados nos ultimos</span>
+            <span class="composed-dropdown__title">Filtrar custos<br>alterados nos últimos</span>
             <div class="composed-dropdown__row">
               <input type="number" class="composed-dropdown__input" value="7" min="1" />
               <span class="composed-dropdown__unit">dias</span>
@@ -2638,7 +2729,7 @@
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
           <pre><code>&lt;div class="composed-dropdown"&gt;
-  &lt;span class="composed-dropdown__title"&gt;Filtrar custos&lt;br&gt;alterados nos ultimos&lt;/span&gt;
+  &lt;span class="composed-dropdown__title"&gt;Filtrar custos&lt;br&gt;alterados nos últimos&lt;/span&gt;
   &lt;div class="composed-dropdown__row"&gt;
     &lt;input type="number" class="composed-dropdown__input" value="7" min="1" /&gt;
     &lt;span class="composed-dropdown__unit"&gt;dias&lt;/span&gt;
@@ -2652,12 +2743,12 @@
           <span class="ds__component-name">Composed dropdown — radio + input</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
           <div class="composed-dropdown" style="position:static;display:flex">
-            <span class="composed-dropdown__title">Filtrar precos com margem</span>
+            <span class="composed-dropdown__title">Filtrar preços com margem</span>
             <div class="composed-dropdown__row">
               <span class="composed-dropdown__label">Maior ou igual a</span>
               <input type="text" class="composed-dropdown__input" value="0,0" />
@@ -2666,18 +2757,18 @@
             <div class="composed-dropdown__divider"></div>
             <label class="composed-dropdown__item">
               <input type="radio" name="ds-margem" checked />
-              <span>Preco sugerido</span>
+              <span>Preço sugerido</span>
             </label>
             <label class="composed-dropdown__item">
               <input type="radio" name="ds-margem" />
-              <span>Preco vigente</span>
+              <span>Preço vigente</span>
             </label>
           </div>
         </div>
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
           <pre><code>&lt;div class="composed-dropdown"&gt;
-  &lt;span class="composed-dropdown__title"&gt;Filtrar precos com margem&lt;/span&gt;
+  &lt;span class="composed-dropdown__title"&gt;Filtrar preços com margem&lt;/span&gt;
   &lt;div class="composed-dropdown__row"&gt;
     &lt;span class="composed-dropdown__label"&gt;Maior ou igual a&lt;/span&gt;
     &lt;input type="text" class="composed-dropdown__input" value="0,0" /&gt;
@@ -2686,7 +2777,7 @@
   &lt;div class="composed-dropdown__divider"&gt;&lt;/div&gt;
   &lt;label class="composed-dropdown__item"&gt;
     &lt;input type="radio" name="margem" checked /&gt;
-    &lt;span&gt;Preco sugerido&lt;/span&gt;
+    &lt;span&gt;Preço sugerido&lt;/span&gt;
   &lt;/label&gt;
 &lt;/div&gt;</code></pre>
         </div>
@@ -2697,12 +2788,12 @@
           <span class="ds__component-name">Composed dropdown — checkbox + tag colorida</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
           <div class="composed-dropdown" style="position:static;display:flex">
-            <span class="composed-dropdown__subtitle">Origem do preco concorrente:</span>
+            <span class="composed-dropdown__subtitle">Origem do preço concorrente:</span>
             <label class="composed-dropdown__item">
               <input type="checkbox" checked />
               <span>Monitoramento PDV</span>
@@ -2715,7 +2806,7 @@
             </label>
             <label class="composed-dropdown__item">
               <input type="checkbox" checked />
-              <span>Pesquisa propria</span>
+              <span>Pesquisa própria</span>
               <span class="composed-dropdown__tag composed-dropdown__tag--externo">externo</span>
             </label>
           </div>
@@ -2728,7 +2819,7 @@
   &lt;span class="composed-dropdown__tag composed-dropdown__tag--mpdv"&gt;MPDV&lt;/span&gt;
 &lt;/label&gt;
 
-&lt;!-- Tags disponiveis --&gt;
+&lt;!-- Tags disponíveis --&gt;
 &lt;span class="composed-dropdown__tag composed-dropdown__tag--mpdv"&gt;MPDV&lt;/span&gt;
 &lt;span class="composed-dropdown__tag composed-dropdown__tag--infopanel"&gt;infopanel&lt;/span&gt;
 &lt;span class="composed-dropdown__tag composed-dropdown__tag--externo"&gt;externo&lt;/span&gt;</code></pre>
@@ -2736,11 +2827,16 @@
       </div>
     </section>
 
-    <!-- ── Aplicar preco ──────────────────────────── -->
+    <!-- ── Aplicar preço ──────────────────────────── -->
     <section class="ds__section" id="aplicar-btn">
-      <h2 class="ds__section-title">Aplicar preco</h2>
+      <h2 class="ds__section-title">Aplicar preço</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> EXCLUSIVAMENTE para a ação "Aplicar preço" no Cabeçalho de resultados. Botão verde de destaque com chevron pra escolher a variante (sugerido vs vigente).
+        <br>
+        <strong>Quando NÃO usar:</strong> para qualquer outra ação — é um componente especializado dessa função única do IPA. Para botão genérico com dropdown, use Twin button.
+      </div>
       <p class="ds__section-desc">
-        Botao verde de destaque. Estrutura: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">aplicar-btn__main</code> (acao) +
+        Botão verde de destaque. Estrutura: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">aplicar-btn__main</code> (ação) +
         <code style="font-family:'JetBrains Mono',monospace;font-size:13px">aplicar-btn__drop</code> (chevron com radio de variantes).
       </p>
 
@@ -2749,12 +2845,12 @@
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview" data-preview>
           <div class="aplicar-btn is-active">
-            <button class="aplicar-btn__main">Aplicar preco</button>
+            <button class="aplicar-btn__main">Aplicar preço</button>
             <button class="aplicar-btn__drop">
               <span class="material-icons-outlined">keyboard_arrow_down</span>
             </button>
@@ -2763,14 +2859,14 @@
         <div class="ds__component-code" data-code>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
           <pre><code>&lt;div class="aplicar-btn is-active"&gt;
-  &lt;button class="aplicar-btn__main"&gt;Aplicar preco&lt;/button&gt;
+  &lt;button class="aplicar-btn__main"&gt;Aplicar preço&lt;/button&gt;
   &lt;button class="aplicar-btn__drop" data-dropdown="dd-aplicar"&gt;
     &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
   &lt;/button&gt;
   &lt;div class="composed-dropdown composed-dropdown--right" id="dd-aplicar"&gt;
     &lt;label class="composed-dropdown__item"&gt;
       &lt;input type="radio" name="aplicar" checked /&gt;
-      &lt;span&gt;Aplicar preco sugerido&lt;/span&gt;
+      &lt;span&gt;Aplicar preço sugerido&lt;/span&gt;
     &lt;/label&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -2781,8 +2877,13 @@
     <!-- ── Filtro chips ───────────────────────────── -->
     <section class="ds__section" id="filtro-chips">
       <h2 class="ds__section-title">Filtro chips</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE na seção de filtros do IPA, como pill button que abre um dropdown de filtro ou age como toggle (ex: "+ Filtros", "Limpar").
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do contexto de filtros. Para ações da página, use Button. Para áreas de navegação, use Nav button.
+      </div>
       <p class="ds__section-desc">
-        Pill buttons usados na secao de filtros. Variantes: simples, com chevron (dropdown),
+        Pill buttons usados na seção de filtros. Variantes: simples, com chevron (dropdown),
         numerado, e variant clear (limpar filtros).
       </p>
 
@@ -2791,7 +2892,7 @@
           <span class="ds__component-name">Variantes</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -2831,18 +2932,23 @@
     <!-- ── Filtro dropdowns ───────────────────────── -->
     <section class="ds__section" id="filtro-dropdowns">
       <h2 class="ds__section-title">Filtro dropdowns</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> como conteúdo dos chips de filtro do IPA, para filtrar listas/grids. Escolha um dos 5 padrões documentados (search+checkbox, colar lista, selecionar todos, grupos colapsáveis, empty state).
+        <br>
+        <strong>Quando NÃO usar:</strong> para selecionar um valor único num formulário ou campo de entrada fora do contexto de filtros, use SelectPicker.
+      </div>
       <p class="ds__section-desc">
-        Conteudos dos chips de filtro. Existem 5 padroes documentados: search+checkbox,
-        search com "Colar lista", search com "Selecionar todos", grupos colapsaveis e
+        Conteúdos dos chips de filtro. Existem 5 padrões documentados: search+checkbox,
+        search com "Colar lista", search com "Selecionar todos", grupos colapsáveis e
         empty state.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Padrao 1: search + checkbox</span>
+          <span class="ds__component-name">Padrão 1: search + checkbox</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -2876,10 +2982,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Padrao 2: search + "Colar lista de codigos"</span>
+          <span class="ds__component-name">Padrão 2: search + "Colar lista de códigos"</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -2887,7 +2993,7 @@
             <div class="filtro-dropdown__search">
               <span class="material-icons-outlined">search</span>
               <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos..." />
-              <span class="filtro-dropdown__paste-link">Colar lista de codigos</span>
+              <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
             </div>
             <div class="filtro-dropdown__list">
               <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313 - LINGUICA SEARA 215G</span></label>
@@ -2900,17 +3006,17 @@
           <pre><code>&lt;div class="filtro-dropdown__search"&gt;
   &lt;span class="material-icons-outlined"&gt;search&lt;/span&gt;
   &lt;input type="text" class="filtro-dropdown__search-input" placeholder="Buscar..." /&gt;
-  &lt;span class="filtro-dropdown__paste-link"&gt;Colar lista de codigos&lt;/span&gt;
+  &lt;span class="filtro-dropdown__paste-link"&gt;Colar lista de códigos&lt;/span&gt;
 &lt;/div&gt;</code></pre>
         </div>
       </div>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Padrao 3: footer "Selecionar todos"</span>
+          <span class="ds__component-name">Padrão 3: footer "Selecionar todos"</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -2944,10 +3050,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Padrao 4: grupos colapsaveis</span>
+          <span class="ds__component-name">Padrão 4: grupos colapsáveis</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -2960,7 +3066,7 @@
               <div class="filtro-dropdown__group-items">
                 <label class="filtro-dropdown__item"><input type="checkbox" /><span>Super Sensivel</span></label>
                 <label class="filtro-dropdown__item"><input type="checkbox" /><span>Sensivel</span></label>
-                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Nao Sensivel</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Não Sensível</span></label>
               </div>
               <div class="filtro-dropdown__group-header is-collapsed">
                 <span class="filtro-dropdown__group-title">Curva ABC Local</span>
@@ -2991,10 +3097,10 @@
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Padrao 5: empty state</span>
+          <span class="ds__component-name">Padrão 5: empty state</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
@@ -3030,7 +3136,7 @@
           <span class="ds__component-name">3 variantes</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -3039,7 +3145,7 @@
               <div class="bn-card__top">
                 <span class="bn-card__number">3.645</span>
               </div>
-              <span class="bn-card__desc">de <b>3.645</b> do<br>total de precos</span>
+              <span class="bn-card__desc">de <b>3.645</b> do<br>total de preços</span>
             </div>
           </div>
           <div class="bn-card bn-card--blue-auto">
@@ -3063,7 +3169,7 @@
                   <span class="bn-card__variation-val">0,1%</span>
                 </div>
               </div>
-              <span class="bn-card__desc">Estimativa de<br>diferenca no lucro</span>
+              <span class="bn-card__desc">Estimativa de<br>diferença no lucro</span>
             </div>
           </div>
         </div>
@@ -3079,7 +3185,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- Azul auto + variacao down --&gt;
+&lt;!-- Azul auto + variação down --&gt;
 &lt;div class="bn-card bn-card--blue-auto"&gt;
   &lt;div class="bn-card__body"&gt;
     &lt;div class="bn-card__top"&gt;
@@ -3093,7 +3199,7 @@
   &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;!-- Verde + variacao up --&gt;
+&lt;!-- Verde + variação up --&gt;
 &lt;div class="bn-card bn-card--green"&gt; ... &lt;/div&gt;</code></pre>
         </div>
       </div>
@@ -3102,17 +3208,22 @@
     <!-- ── Indicadores ────────────────────────────── -->
     <section class="ds__section" id="indicadores">
       <h2 class="ds__section-title">Indicadores de competitividade</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE para classificar qualidade/competitividade nos 5 níveis padrão do IPA (muito-bom, bom, regular, ruim, muito-ruim) com semântica e cores fixas.
+        <br>
+        <strong>Quando NÃO usar:</strong> para qualquer outro tipo de marcador semântico (status livre, contagem, categoria), use Badge ou Tag — o componente Indicadores tem semântica fechada e não deve ser reaproveitado.
+      </div>
       <p class="ds__section-desc">
-        Badges semanticos com 5 niveis (muito-bom, bom, regular, ruim, muito-ruim).
+        Badges semanticos com 5 níveis (muito-bom, bom, regular, ruim, muito-ruim).
         Cores derivadas dos tokens light de verde, laranja e vermelho.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">5 niveis</span>
+          <span class="ds__component-name">5 níveis</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -3142,7 +3253,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="title-bar">
       <h2 class="ds__section-title">Title bar</h2>
       <p class="ds__section-desc">
-        Barra de titulo da pagina, com badge de "ultima atualizacao" e botoes de acao.
+        Barra de título da página, com badge de "última atualização" e botões de ação.
       </p>
 
       <div class="ds__component" data-component>
@@ -3150,13 +3261,13 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="display:block;padding:0">
           <section class="title-bar" style="position:static;left:0;right:0">
             <div class="title-bar__left">
-              <span class="title-bar__heading">Gerenciador de precos</span>
+              <span class="title-bar__heading">Gerenciador de preços</span>
               <span class="title-bar__badge">Atualizado em 25/04/2026, 13:42</span>
             </div>
             <div class="title-bar__right">
@@ -3172,7 +3283,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
           <pre><code>&lt;section class="title-bar"&gt;
   &lt;div class="title-bar__left"&gt;
-    &lt;span class="title-bar__heading"&gt;Gerenciador de precos&lt;/span&gt;
+    &lt;span class="title-bar__heading"&gt;Gerenciador de preços&lt;/span&gt;
     &lt;span class="title-bar__badge"&gt;Atualizado em 25/04/2026, 13:42&lt;/span&gt;
   &lt;/div&gt;
   &lt;div class="title-bar__right"&gt;
@@ -3187,7 +3298,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="title-dropdown">
       <h2 class="ds__section-title">Title dropdown</h2>
       <p class="ds__section-desc">
-        Dropdown que abre dos botoes da title bar. Border 1px gray-300, shadow-elevation,
+        Dropdown que abre dos botões da title bar. Border 1px gray-300, shadow-elevation,
         item ativo em azul.
       </p>
 
@@ -3196,7 +3307,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -3219,15 +3330,15 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="header">
       <h2 class="ds__section-title">Header</h2>
       <p class="ds__section-desc">
-        Barra superior fixa, 52px de altura. Contem botao de menu de produtos (azul),
-        logo, divisor e nome do produto. A direita: ajuda e dropdown de usuario.
+        Barra superior fixa, 52px de altura. Contém botão de menu de produtos (azul),
+        logo, divisor e nome do produto. À direita: ajuda e dropdown de usuário.
       </p>
       <div class="ds__component" data-component>
         <div class="ds__component-header">
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
@@ -3237,7 +3348,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
               <div class="header__brand">
                 <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
                 <div class="header__divider"></div>
-                <span class="header__product-name">IPA | Software de Precificacao</span>
+                <span class="header__product-name">IPA | Software de Precificação</span>
               </div>
             </div>
             <div class="header__right">
@@ -3259,7 +3370,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     &lt;div class="header__brand"&gt;
       &lt;img class="header__logo" src="..." alt="InfoPrice" /&gt;
       &lt;div class="header__divider"&gt;&lt;/div&gt;
-      &lt;span class="header__product-name"&gt;IPA | Software de Precificacao&lt;/span&gt;
+      &lt;span class="header__product-name"&gt;IPA | Software de Precificação&lt;/span&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="header__right"&gt;
@@ -3275,8 +3386,8 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="header-dropdowns">
       <h2 class="ds__section-title">Header dropdowns</h2>
       <p class="ds__section-desc">
-        Dois dropdowns do header: produtos (acessado pelo menu quadrado azul) e usuario.
-        Width 280px, radius 0 0 6px 6px no produto, radius padrao no usuario.
+        Dois dropdowns do header: produtos (acessado pelo menu quadrado azul) e usuário.
+        Width 280px, radius 0 0 6px 6px no produto, radius padrão no usuário.
       </p>
 
       <div class="ds__component" data-component>
@@ -3284,7 +3395,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Product dropdown</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -3299,7 +3410,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
               </div>
               <div class="product-dropdown__item">
                 <span class="product-tag product-tag--ipa-active">IPA</span>
-                <span class="product-dropdown__item-name">Software de precificacao</span>
+                <span class="product-dropdown__item-name">Software de precificação</span>
               </div>
               <div class="product-dropdown__item product-dropdown__item--disabled">
                 <span class="product-tag product-tag--disabled">DSP</span>
@@ -3317,7 +3428,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
   &lt;div class="product-dropdown__list"&gt;
     &lt;div class="product-dropdown__item"&gt;
       &lt;span class="product-tag product-tag--ipa-active"&gt;IPA&lt;/span&gt;
-      &lt;span class="product-dropdown__item-name"&gt;Software de precificacao&lt;/span&gt;
+      &lt;span class="product-dropdown__item-name"&gt;Software de precificação&lt;/span&gt;
     &lt;/div&gt;
     &lt;!-- Variantes de tag --&gt;
     &lt;!-- product-tag--isa-active, --ipa-active, --disabled --&gt;
@@ -3331,7 +3442,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">User dropdown</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
@@ -3344,7 +3455,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
             <div class="user-dropdown__group">
               <div class="user-dropdown__item">
                 <span class="material-icons-outlined">settings</span>
-                <span class="user-dropdown__item-label">Configuracoes</span>
+                <span class="user-dropdown__item-label">Configurações</span>
               </div>
               <div class="user-dropdown__item">
                 <span class="material-icons-outlined">person_add</span>
@@ -3370,7 +3481,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
   &lt;div class="user-dropdown__group"&gt;
     &lt;div class="user-dropdown__item"&gt;
       &lt;span class="material-icons-outlined"&gt;settings&lt;/span&gt;
-      &lt;span class="user-dropdown__item-label"&gt;Configuracoes&lt;/span&gt;
+      &lt;span class="user-dropdown__item-label"&gt;Configurações&lt;/span&gt;
     &lt;/div&gt;
     &lt;!-- Item com badge --&gt;
     &lt;span class="user-dropdown__badge"&gt;Convidar&lt;/span&gt;
@@ -3386,7 +3497,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="sidebar">
       <h2 class="ds__section-title">Sidebar</h2>
       <p class="ds__section-desc">
-        Menu lateral colapsavel — 52px (colapsado) ↔ 220px (expandido). Sempre 5 modulos
+        Menu lateral colapsavel — 52px (colapsado) ↔ 220px (expandido). Sempre 5 módulos
         do IPA. Tooltips no estado colapsado, labels no expandido.
       </p>
       <div class="ds__component" data-component>
@@ -3394,7 +3505,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Sidebar completa (clique na seta para expandir)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:0;display:block;height:380px">
@@ -3409,22 +3520,22 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
               </div>
 
               <div class="sidebar__item">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
-                <span class="sidebar__label">Estrategia</span>
-                <span class="sidebar__tooltip">Estrategia</span>
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estratégia" class="sidebar__icon" />
+                <span class="sidebar__label">Estratégia</span>
+                <span class="sidebar__tooltip">Estratégia</span>
               </div>
 
               <div class="sidebar__item">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
-                <span class="sidebar__label">Negociacoes Fornecedor</span>
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociações" class="sidebar__icon" />
+                <span class="sidebar__label">Negociações Fornecedor</span>
                 <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
-                <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
+                <span class="sidebar__tooltip">Negociações Fornecedor</span>
               </div>
 
               <div class="sidebar__item">
-                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
-                <span class="sidebar__label">Extracao de precos</span>
-                <span class="sidebar__tooltip">Extracao de precos</span>
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extração" class="sidebar__icon" />
+                <span class="sidebar__label">Extração de preços</span>
+                <span class="sidebar__tooltip">Extração de preços</span>
               </div>
 
               <div class="sidebar__item">
@@ -3466,19 +3577,19 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
     <!-- ── Cabecalho ──────────────────────────────── -->
     <section class="ds__section" id="cabecalho">
-      <h2 class="ds__section-title">Cabecalho de resultados</h2>
+      <h2 class="ds__section-title">Cabeçalho de resultados</h2>
       <p class="ds__section-desc">
-        Barra entre filtros e grid. Estrutura obrigatoria: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__inner</code>
+        Barra entre filtros e grid. Estrutura obrigatória: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__inner</code>
         com <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__info</code> (esquerda) +
         <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__buttons</code> (direita).
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Estrutura basica</span>
+          <span class="ds__component-name">Estrutura básica</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
@@ -3512,7 +3623,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Com select-all e divider</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
@@ -3549,10 +3660,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       </p>
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Tabela basica</span>
+          <span class="ds__component-name">Tabela básica</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
@@ -3570,7 +3681,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
                     <th><input type="checkbox" class="grid__check" /></th>
                     <th><div class="grid__th-content"><span>Produto</span></div></th>
                     <th><div class="grid__th-content"><span>Custo</span></div></th>
-                    <th><div class="grid__th-content"><span>Preco</span></div></th>
+                    <th><div class="grid__th-content"><span>Preço</span></div></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -3617,17 +3728,17 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="grid-cells">
       <h2 class="ds__section-title">Grid — celulas especiais</h2>
       <p class="ds__section-desc">
-        Variantes de celula com estrutura propria: produto (codigo + familia + chips),
-        estoque (com icone unidades), PMC, preco vigente (com indicadores), preco
+        Variantes de célula com estrutura própria: produto (código + família + chips),
+        estoque (com ícone unidades), PMC, preço vigente (com indicadores), preço
         concorrente, margem objetiva.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula Produto</span>
+          <span class="ds__component-name">Célula Produto</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3663,12 +3774,18 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
         </div>
       </div>
 
+      <div class="usage-guide">
+        <strong>Quando usar grid__chip:</strong> SOMENTE dentro de uma célula Produto do grid, para marcar atributos do produto (ex: "super sensível", nome de cluster).
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do grid. Em qualquer outro contexto (header, filtros, modais, toolbars), use Badge ou Tag — o <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__chip</code> é um componente interno do grid, não tem garantia de funcionar fora dele.
+      </div>
+
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula Estoque (com icone unidades)</span>
+          <span class="ds__component-name">Célula Estoque (com ícone unidades)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3698,10 +3815,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula PMC</span>
+          <span class="ds__component-name">Célula PMC</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3725,10 +3842,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula Preco vigente (com 2 indicadores)</span>
+          <span class="ds__component-name">Célula Preço vigente (com 2 indicadores)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3766,10 +3883,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula Preco concorrente</span>
+          <span class="ds__component-name">Célula Preço concorrente</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3799,10 +3916,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Celula Margem objetiva</span>
+          <span class="ds__component-name">Célula Margem objetiva</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
@@ -3825,10 +3942,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       </div>
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Menu Precos (toggle atacado/oferta)</span>
+          <span class="ds__component-name">Menu Preços (toggle atacado/oferta)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
@@ -3896,7 +4013,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Linha complementar (sub-row)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block;overflow-x:auto">
@@ -3969,11 +4086,11 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
               <!-- Sub-row mini-header -->
               <tr class="grid__sub-row grid__sub-row--header" id="ds-subrow-demo-header">
                 <td></td>
-                <td><span class="grid__sub-row__heading">Outros precos</span></td>
+                <td><span class="grid__sub-row__heading">Outros preços</span></td>
                 <td><span class="grid__sub-row__col-label">Emb..</span></td>
-                <td><span class="grid__sub-row__col-label">Preco vigente</span></td>
-                <td><span class="grid__sub-row__col-label">Preco concorrente</span></td>
-                <td><span class="grid__sub-row__col-label">Preco sugerido</span></td>
+                <td><span class="grid__sub-row__col-label">Preço vigente</span></td>
+                <td><span class="grid__sub-row__col-label">Preço concorrente</span></td>
+                <td><span class="grid__sub-row__col-label">Preço sugerido</span></td>
                 <td><span class="grid__sub-row__col-label">CPI</span></td>
                 <td><span class="grid__sub-row__col-label">Margem</span></td>
                 <td><span class="grid__sub-row__col-label">Desconto</span></td>
@@ -4042,18 +4159,18 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 &lt;tr class="grid__sub-row grid__sub-row--oferta"&gt;
   &lt;td&gt;&lt;span class="grid__sub-row__marker"&gt;3&lt;/span&gt;&lt;/td&gt;
   &lt;td&gt;
-    &lt;span class="grid__sub-row__heading"&gt;Outros precos&lt;/span&gt;
+    &lt;span class="grid__sub-row__heading"&gt;Outros preços&lt;/span&gt;
     &lt;span class="grid__sub-row__label"&gt;Oferta&lt;/span&gt;
   &lt;/td&gt;
   &lt;!-- demais td seguem mesma estrutura do main row --&gt;
   &lt;td&gt; ... cell de Embalagem ... &lt;/td&gt;
-  &lt;td&gt; ... Preco vigente ... &lt;/td&gt;
-  &lt;td&gt; ... Preco concorrente ... &lt;/td&gt;
-  &lt;td&gt; ... Preco sugerido (form-field) ... &lt;/td&gt;
+  &lt;td&gt; ... Preço vigente ... &lt;/td&gt;
+  &lt;td&gt; ... Preço concorrente ... &lt;/td&gt;
+  &lt;td&gt; ... Preço sugerido (form-field) ... &lt;/td&gt;
   &lt;td&gt; ... CPI ... &lt;/td&gt;
   &lt;td&gt; ... Margem ... &lt;/td&gt;
   &lt;td&gt;
-    &lt;!-- Coluna Desconto (especifica do sub-row) --&gt;
+    &lt;!-- Coluna Desconto (específica do sub-row) --&gt;
     &lt;div class="grid__form-field"&gt;
       &lt;input type="text" class="grid__form-input" value="10,5" /&gt;
       &lt;span class="grid__form-suffix grid__form-suffix--gray"&gt;% off&lt;/span&gt;
@@ -4071,26 +4188,26 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
 &lt;!-- Variantes do marker:
   --oferta   (azul claro, "3")
-  --atacado  (cinza, "2") -- padrao
+  --atacado  (cinza, "2") -- padrão
   --campanha (azul mais claro, icone local_offer) --&gt;</code></pre>
         </div>
       </div>
     </section>
 
-    <!-- ── Grid: forms, variacao, badges, calcular ───── -->
+    <!-- ── Grid: forms, variação, badges, calcular ───── -->
     <section class="ds__section" id="grid-forms">
-      <h2 class="ds__section-title">Grid — inputs, variacao e badges</h2>
+      <h2 class="ds__section-title">Grid — inputs, variação e badges</h2>
       <p class="ds__section-desc">
-        Inputs editaveis com prefix/suffix (R$, %), chips de variacao up/down, badges de
-        status (auto/editado), botao "Calcular" (link), botoes de sort e preferencia.
+        Inputs editaveis com prefix/suffix (R$, %), chips de variação up/down, badges de
+        status (auto/editado), botão "Calcular" (link), botões de sort e preferência.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Form fields (input numerico)</span>
+          <span class="ds__component-name">Form fields (input numérico)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4);gap:var(--space-3)">
@@ -4128,10 +4245,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Variacao up/down</span>
+          <span class="ds__component-name">Variação up/down</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4150,7 +4267,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Badge pill (auto / editado)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4166,10 +4283,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Botao Calcular (link)</span>
+          <span class="ds__component-name">Botão Calcular (link)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview" data-preview>
@@ -4183,10 +4300,10 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Sort + preferencia (header da coluna)</span>
+          <span class="ds__component-name">Sort + preferência (header da coluna)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);background:var(--color-gray-100)">
@@ -4200,7 +4317,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
           <pre><code>&lt;div class="grid__th-content"&gt;
   &lt;span&gt;Produto&lt;/span&gt;
-  &lt;!-- Botao de preferencia (apenas em colunas que ofereçam) --&gt;
+  &lt;!-- Botao de preferência (apenas em colunas que ofereçam) --&gt;
   &lt;button class="grid__pref-btn" data-pref="produto"&gt;
     &lt;img src="assets/grid/preferences.svg" alt="" /&gt;
   &lt;/button&gt;
@@ -4219,12 +4336,12 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       </div>
     </section>
 
-    <!-- ── Grid: paginacao ────────────────────────── -->
+    <!-- ── Grid: paginação ────────────────────────── -->
     <section class="ds__section" id="grid-pagination">
-      <h2 class="ds__section-title">Grid — paginacao</h2>
+      <h2 class="ds__section-title">Grid — paginação</h2>
       <p class="ds__section-desc">
-        Barra inferior do grid. Esquerda mostra itens por pagina + total, direita mostra
-        navegacao + botoes de pagina. Pagina ativa em azul.
+        Barra inferior do grid. Esquerda mostra itens por página + total, direita mostra
+        navegação + botões de página. Página ativa em azul.
       </p>
 
       <div class="ds__component" data-component>
@@ -4232,7 +4349,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
@@ -4240,7 +4357,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
             <div class="grid__pagination-left">
               <span class="grid__pagination-val">20</span>
               <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
-              <span class="grid__pagination-label">/ pagina</span>
+              <span class="grid__pagination-label">/ página</span>
               <span class="grid__pagination-sep"></span>
               <span class="grid__pagination-label">total: 9999</span>
             </div>
@@ -4291,9 +4408,14 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <!-- ── SelectPicker ───────────────────────────── -->
     <section class="ds__section" id="select-picker">
       <h2 class="ds__section-title">SelectPicker</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> combo standalone de input + dropdown para escolher um valor dentro de uma lista (formulário, campo de entrada, contexto editorial). Suporta search.
+        <br>
+        <strong>Quando NÃO usar:</strong> para filtrar listas ou grids no contexto de filtros do IPA, use Filtro dropdowns — eles seguem 5 padrões específicos de filtragem.
+      </div>
       <p class="ds__section-desc">
-        Combo de input + dropdown com search opcional. Use para selecao unica em listas
-        longas. Para selecao multipla, combine com checkboxes nos itens.
+        Combo de input + dropdown com search opcional. Use para seleção única em listas
+        longas. Para seleção múltipla, combine com checkboxes nos itens.
       </p>
 
       <div class="ds__component" data-component>
@@ -4301,7 +4423,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Trigger fechado e aberto</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start;gap:var(--space-6)">
@@ -4356,7 +4478,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="date-picker">
       <h2 class="ds__section-title">DatePicker</h2>
       <p class="ds__section-desc">
-        Calendario popup com selecao de data unica ou range. Header com nav de mes,
+        Calendário popup com seleção de data única ou range. Header com nav de mês,
         weekdays, e grid de dias. Estados: today, selected, range, disabled.
       </p>
 
@@ -4365,7 +4487,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Single date + range</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
@@ -4503,8 +4625,8 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
     <section class="ds__section" id="hour-picker">
       <h2 class="ds__section-title">HourPicker</h2>
       <p class="ds__section-desc">
-        Selecao de horario com 3 colunas roláveis (hour/minute/second). Use para
-        agendamentos e cortes de horario. Footer com botao de confirmacao.
+        Seleção de horário com 3 colunas roláveis (hour/minute/second). Use para
+        agendamentos e cortes de horário. Footer com botão de confirmação.
       </p>
 
       <div class="ds__component" data-component>
@@ -4512,7 +4634,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
@@ -4573,7 +4695,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
       <h2 class="ds__section-title">Modal</h2>
       <p class="ds__section-desc">
         Janela modal sobre backdrop escurecido. 3 tamanhos (small 400px, medium 600px,
-        large 800px). Estrutura: header (titulo + close), body (conteudo), footer (acoes).
+        large 800px). Estrutura: header (título + close), body (conteúdo), footer (ações).
       </p>
 
       <div class="ds__component" data-component>
@@ -4581,7 +4703,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
           <span class="ds__component-name">Demo interativa</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview" data-preview style="padding:var(--space-4)">
@@ -4595,7 +4717,7 @@ indicador--muito-ruim (vermelho escuro)</code></pre>
 &lt;div class="modal-backdrop" id="myModal"&gt;
   &lt;div class="modal"&gt;
     &lt;div class="modal__header"&gt;
-      &lt;span class="modal__title"&gt;Confirmar acao&lt;/span&gt;
+      &lt;span class="modal__title"&gt;Confirmar ação&lt;/span&gt;
       &lt;button class="modal__close" data-modal-close&gt;
         &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
       &lt;/button&gt;
@@ -4629,13 +4751,13 @@ modal.addEventListener('click', e =&gt; {
     <div class="modal-backdrop" id="modalDemo">
       <div class="modal" id="modalDemoBox">
         <div class="modal__header">
-          <span class="modal__title">Confirmar acao</span>
+          <span class="modal__title">Confirmar ação</span>
           <button class="modal__close" data-modal-close aria-label="Fechar">
             <span class="material-icons-outlined">close</span>
           </button>
         </div>
         <div class="modal__body">
-          Voce esta prestes a aplicar 15 precos sugeridos no PDV. Essa acao nao pode ser
+          Você está prestes a aplicar 15 preços sugeridos no PDV. Essa ação não pode ser
           desfeita. Deseja continuar?
         </div>
         <div class="modal__footer">
@@ -4649,8 +4771,8 @@ modal.addEventListener('click', e =&gt; {
     <section class="ds__section" id="context-menu">
       <h2 class="ds__section-title">Context Menu</h2>
       <p class="ds__section-desc">
-        Menu flutuante com lista de acoes. Usado em right-click ou no kebab-menu. Suporta
-        icones, atalhos de teclado, divisores e itens destrutivos (--danger).
+        Menu flutuante com lista de ações. Usado em right-click ou no kebab-menu. Suporta
+        ícones, atalhos de teclado, divisores e itens destrutivos (--danger).
       </p>
 
       <div class="ds__component" data-component>
@@ -4658,7 +4780,7 @@ modal.addEventListener('click', e =&gt; {
           <span class="ds__component-name">Estrutura</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
@@ -4711,12 +4833,12 @@ modal.addEventListener('click', e =&gt; {
           <span class="ds__component-name">Demo interativa</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-6) var(--space-4);position:relative;min-height:280px">
           <div style="position:relative;display:inline-block">
-            <button class="nav-button nav-button--icon-only" id="ctxMenuTrigger" aria-label="Mais opcoes" aria-haspopup="true">
+            <button class="nav-button nav-button--icon-only" id="ctxMenuTrigger" aria-label="Mais opções" aria-haspopup="true">
               <span class="material-icons-outlined">more_vert</span>
             </button>
             <div class="context-menu" id="ctxMenuDemo" style="top:calc(100% + 4px);right:0">
@@ -4764,18 +4886,23 @@ document.addEventListener('click', (e) =&gt; {
     <!-- ── Nav button ─────────────────────────────── -->
     <section class="ds__section" id="nav-button">
       <h2 class="ds__section-title">Nav button</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> em áreas de navegação ESTRUTURAL da página (cabeçalho de feature, sub-nav, breadcrumb, barra lateral). Suporta texto, ícone, icon-only e estado ativo.
+        <br>
+        <strong>Quando NÃO usar:</strong> para ações principais do conteúdo (Salvar, Cancelar), use Button. Para botões compactos com chevron na Title bar, use <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.title-btn</code>. Para toolbar do Cabeçalho de resultados, use Botões compostos.
+      </div>
       <p class="ds__section-desc">
-        Botao de acao usado em areas de navegacao de pagina (cabecalho de feature, barra
+        Botão de ação usado em áreas de navegação de página (cabeçalho de feature, barra
         lateral, breadcrumb). Diferente do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.title-btn</code> (compacto, com chevron de dropdown):
-        nav-button e mais flexivel — suporta texto, icone, icon-only e estado ativo. 3 sizes.
+        nav-button é mais flexível — suporta texto, ícone, icon-only e estado ativo. 3 sizes.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Icon-left (variante padrao)</span>
+          <span class="ds__component-name">Icon-left (variante padrão)</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4799,17 +4926,17 @@ document.addEventListener('click', (e) =&gt; {
   Inicio
 &lt;/button&gt;
 
-&lt;!-- Estados:    padrao | .is-active | disabled --&gt;
+&lt;!-- Estados:    padrão | .is-active | disabled --&gt;
 &lt;!-- Tamanhos:   .nav-button--small | (default) | .nav-button--large --&gt;</code></pre>
         </div>
       </div>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Icon-right e sem icone</span>
+          <span class="ds__component-name">Icon-right e sem ícone</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4822,7 +4949,7 @@ document.addEventListener('click', (e) =&gt; {
             <span class="material-icons-outlined">open_in_new</span>
           </button>
           <button class="nav-button">
-            Sem icone
+            Sem ícone
           </button>
         </div>
         <div class="ds__component-code" data-code>
@@ -4833,7 +4960,7 @@ document.addEventListener('click', (e) =&gt; {
   &lt;span class="material-icons-outlined"&gt;arrow_forward&lt;/span&gt;
 &lt;/button&gt;
 
-&lt;!-- Sem icone: omitir o span --&gt;
+&lt;!-- Sem ícone: omitir o span --&gt;
 &lt;button class="nav-button"&gt;Apenas texto&lt;/button&gt;</code></pre>
         </div>
       </div>
@@ -4843,7 +4970,7 @@ document.addEventListener('click', (e) =&gt; {
           <span class="ds__component-name">Icon-only</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4853,7 +4980,7 @@ document.addEventListener('click', (e) =&gt; {
           <button class="nav-button nav-button--icon-only is-active" aria-label="Filtros">
             <span class="material-icons-outlined">filter_list</span>
           </button>
-          <button class="nav-button nav-button--icon-only" aria-label="Mais opcoes">
+          <button class="nav-button nav-button--icon-only" aria-label="Mais opções">
             <span class="material-icons-outlined">more_vert</span>
           </button>
         </div>
@@ -4872,7 +4999,7 @@ document.addEventListener('click', (e) =&gt; {
           <span class="ds__component-name">Tamanhos</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--align-left" data-preview>
@@ -4910,27 +5037,27 @@ document.addEventListener('click', (e) =&gt; {
       </div>
     </section>
 
-    <!-- ── Navbar (sub-navegacao) ─────────────────── -->
+    <!-- ── Navbar (sub-navegação) ─────────────────── -->
     <section class="ds__section" id="navbar">
-      <h2 class="ds__section-title">Navbar (sub-navegacao)</h2>
+      <h2 class="ds__section-title">Navbar (sub-navegação)</h2>
       <p class="ds__section-desc">
-        Abas horizontais para sub-navegacao dentro de uma pagina. Diferente do header
-        (global) e da sidebar (modulos): este e contextual a uma pagina/feature.
+        Abas horizontais para sub-navegação dentro de uma página. Diferente do header
+        (global) e da sidebar (módulos): este é contextual a uma página/feature.
       </p>
 
       <div class="ds__component" data-component>
         <div class="ds__component-header">
-          <span class="ds__component-name">Abas com icone e estado ativo</span>
+          <span class="ds__component-name">Abas com ícone e estado ativo</span>
           <div class="ds__tab-group">
             <button class="ds__tab is-active" data-tab="preview">Preview</button>
-            <button class="ds__tab" data-tab="code">Codigo</button>
+            <button class="ds__tab" data-tab="code">Código</button>
           </div>
         </div>
         <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
           <div class="navbar">
             <button class="navbar__item is-active">
               <span class="material-icons-outlined">dashboard</span>
-              Visao geral
+              Visão geral
             </button>
             <button class="navbar__item">
               <span class="material-icons-outlined">trending_up</span>
@@ -4951,13 +5078,463 @@ document.addEventListener('click', (e) =&gt; {
           <pre><code>&lt;div class="navbar"&gt;
   &lt;button class="navbar__item is-active"&gt;
     &lt;span class="material-icons-outlined"&gt;dashboard&lt;/span&gt;
-    Visao geral
+    Visão geral
   &lt;/button&gt;
   &lt;button class="navbar__item"&gt;
     &lt;span class="material-icons-outlined"&gt;trending_up&lt;/span&gt;
     Vendas
   &lt;/button&gt;
 &lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Templates: introdução ──────────────────── -->
+    <section class="ds__section" id="templates-intro">
+      <h2 class="ds__section-title">Templates</h2>
+      <p class="ds__section-desc">
+        Templates são esqueletos de páginas inteiras, montadas a partir dos componentes do DS. Use-os como ponto de partida para novas telas, ajustando conteúdo e variações conforme a necessidade.
+      </p>
+    </section>
+
+    <!-- ── Template: Tela de Listagem ─────────────── -->
+    <section class="ds__section" id="template-listagem">
+      <h2 class="ds__section-title">Tela de Listagem</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para qualquer tela de listagem de itens com filtros, KPIs no topo, ações em massa e tabela de resultados (gerenciador de preços, listagem de negociações, lista de produtos, etc.).
+        <br>
+        <strong>Quando NÃO usar:</strong> para tela de detalhe/edição de um único item, use o template Detalhe. Para tela de KPIs sem listagem grande, use o template Dashboard.
+      </div>
+      <p class="ds__section-desc">
+        Exemplo: <strong>Gerenciador de Preços</strong>. Combina Header, Sidebar, Title bar, Big Numbers, Filtros, Cabeçalho de resultados, Grid (com células especiais) e Paginação.
+      </p>
+      <p class="template-meta">
+        <strong>Componentes do DS usados:</strong>
+        <a href="#header">Header</a> ·
+        <a href="#sidebar">Sidebar</a> ·
+        <a href="#title-bar">Title bar</a> ·
+        <a href="#big-numbers-card">Big number card</a> ·
+        <a href="#filtro-chips">Filtro chips</a> ·
+        <a href="#filtro-dropdowns">Filtro dropdowns</a> ·
+        <a href="#cabecalho">Cabeçalho de resultados</a> ·
+        <a href="#composed-buttons">Botões compostos</a> ·
+        <a href="#aplicar-btn">Aplicar preço</a> ·
+        <a href="#grid">Grid</a> ·
+        <a href="#grid-cells">Células especiais</a> ·
+        <a href="#grid-pagination">Paginação</a>
+      </p>
+
+      <div class="template-image-card">
+        <img src="assets/templates/listagem.png" alt="Tela de Listagem — Gerenciador de Preços" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <div class="template-image-placeholder" style="display:none">
+          <span class="material-icons-outlined">image</span>
+          <div><strong>Preview indisponível.</strong> Abra a tela em tamanho real pelo link abaixo.</div>
+        </div>
+      </div>
+      <a class="template-fullscreen-link" href="templates/listagem.html" target="_blank" rel="noopener">
+        <span class="material-icons-outlined">open_in_new</span>
+        Abrir em tamanho real
+      </a>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Código</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="display:none">
+          <!-- preview substituído por imagem acima -->
+          <div style="display:none">
+
+              <!-- Header -->
+              <header class="header">
+                <div class="header__left">
+                  <button class="header__menu-btn" aria-label="Menu de produtos"><span class="material-icons-outlined">apps</span></button>
+                  <div class="header__brand">
+                    <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+                    <div class="header__divider" aria-hidden="true"></div>
+                    <span class="header__product-name">IPA | Software de Precificação</span>
+                  </div>
+                </div>
+                <div class="header__right">
+                  <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+                  <div class="header__user">
+                    <span class="header__user-name">Olá, Marcus</span>
+                    <span class="material-icons-outlined">keyboard_arrow_down</span>
+                  </div>
+                </div>
+              </header>
+
+              <!-- Sidebar (expandida) -->
+              <aside class="sidebar is-expanded">
+                <div class="sidebar__top">
+                  <div class="sidebar__item sidebar__item--active">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Gerenciador</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Estratégia</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Negociações Fornecedor</span>
+                    <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Extração de preços</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Precifique com IA</span>
+                  </div>
+                </div>
+                <div class="sidebar__bottom">
+                  <button class="sidebar__seta is-flipped" aria-label="Recolher menu"><span class="material-icons-outlined">keyboard_arrow_right</span></button>
+                </div>
+              </aside>
+
+              <!-- Title bar -->
+              <section class="title-bar">
+                <div class="title-bar__left">
+                  <span class="title-bar__heading">Gerenciador de preços</span>
+                  <span class="title-bar__badge">Atualizado em 25/04/2026, 13:42</span>
+                </div>
+                <div class="title-bar__right">
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">push_pin</span>
+                    <span>Fixar</span>
+                  </button>
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">store</span>
+                    <span>Loja</span>
+                    <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+                  </button>
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">account_tree</span>
+                    <span>Produto</span>
+                    <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+                  </button>
+                </div>
+              </section>
+
+              <!-- Big Numbers -->
+              <section class="big-numbers">
+                <div class="big-numbers__inner">
+                  <div class="big-numbers__cards">
+                    <div class="bn-card bn-card--blue">
+                      <div class="bn-card__body">
+                        <div class="bn-card__top"><span class="bn-card__number">3.645</span></div>
+                        <span class="bn-card__desc">de <b>3.645</b> do<br>total de preços</span>
+                      </div>
+                    </div>
+                    <div class="bn-card bn-card--blue-auto">
+                      <div class="bn-card__body">
+                        <div class="bn-card__top">
+                          <span class="bn-card__number">101,3%</span>
+                          <div class="bn-card__variation bn-card__variation--down">
+                            <span class="material-icons-outlined">arrow_downward</span>
+                            <span class="bn-card__variation-val">0,4%</span>
+                          </div>
+                        </div>
+                        <span class="bn-card__desc">Competitividade,<br>era <b>102,3%</b></span>
+                      </div>
+                    </div>
+                    <div class="bn-card bn-card--green">
+                      <div class="bn-card__body">
+                        <div class="bn-card__top">
+                          <span class="bn-card__number">+ R$ 392mil</span>
+                          <div class="bn-card__variation bn-card__variation--up">
+                            <span class="material-icons-outlined">arrow_upward</span>
+                            <span class="bn-card__variation-val">0,1%</span>
+                          </div>
+                        </div>
+                        <span class="bn-card__desc">Estimativa de<br>diferença no lucro</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Filtros -->
+              <section class="filtros">
+                <div class="filtros__inner">
+                  <div class="filtros__box">
+                    <div class="filtros__left">
+                      <button class="filtro-chip"><span>Família</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                      <button class="filtro-chip"><span>Marca</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                      <button class="filtro-chip"><span>Loja</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                      <button class="filtro-chip"><span>Sensibilidade</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+                      <button class="filtro-chip">+ Filtros</button>
+                    </div>
+                    <div class="filtros__right">
+                      <button class="filtro-chip filtro-chip--clear">Limpar filtros</button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Cabeçalho de resultados -->
+              <section class="cabecalho">
+                <div class="cabecalho__inner">
+                  <span class="cabecalho__info">Foram encontrados <b>3.645</b> resultados no total</span>
+                  <div class="cabecalho__buttons">
+                    <div class="composed-btn">
+                      <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-custos.svg" alt="" /></button>
+                      <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                    </div>
+                    <div class="composed-btn">
+                      <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-concorrentes.svg" alt="" /></button>
+                      <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                    </div>
+                    <div class="composed-btn">
+                      <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-margem.svg" alt="" /></button>
+                      <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                    </div>
+                    <div class="composed-btn composed-btn--solo">
+                      <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-derivados.svg" alt="" /></button>
+                    </div>
+                    <div class="aplicar-btn is-active">
+                      <button class="aplicar-btn__main">Aplicar preço</button>
+                      <button class="aplicar-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Grid -->
+              <section class="grid">
+                <div class="grid__wrapper">
+                  <table class="grid__table">
+                    <colgroup>
+                      <col style="width:40px" />
+                      <col style="width:280px" />
+                      <col style="width:90px" />
+                      <col style="width:100px" />
+                      <col style="width:140px" />
+                      <col style="width:140px" />
+                      <col style="width:120px" />
+                      <col style="width:140px" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" class="grid__check" /></th>
+                        <th><div class="grid__th-content"><span>Produto</span></div></th>
+                        <th><div class="grid__th-content"><span>Estoque</span></div></th>
+                        <th><div class="grid__th-content"><span>PMC</span></div></th>
+                        <th><div class="grid__th-content"><span>Preço vigente</span></div></th>
+                        <th><div class="grid__th-content"><span>Preço concorrente</span></div></th>
+                        <th><div class="grid__th-content"><span>Margem</span></div></th>
+                        <th><div class="grid__th-content"><span>Preço sugerido</span></div></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1026313</span></div>
+                          <div class="grid__produto-name">LINGUIÇA SEARA 215G FININHA</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--red">super sensível</span><span class="grid__chip grid__chip--gray">Local A</span></div>
+                        </td>
+                        <td><span class="grid__val-main">42</span></td>
+                        <td><span class="grid__val-main">R$ 8,99</span></td>
+                        <td><span class="grid__val-main">R$ 7,49</span></td>
+                        <td><span class="grid__val-main">R$ 7,29</span></td>
+                        <td><span class="grid__val-main">22,1%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 7,59" /></td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1026314</span></div>
+                          <div class="grid__produto-name">SALSICHA PERDIGÃO 500G</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local B</span></div>
+                        </td>
+                        <td><span class="grid__val-main">28</span></td>
+                        <td><span class="grid__val-main">R$ 12,49</span></td>
+                        <td><span class="grid__val-main">R$ 10,90</span></td>
+                        <td><span class="grid__val-main">R$ 11,15</span></td>
+                        <td><span class="grid__val-main">18,5%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 10,90" /></td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1042108</span></div>
+                          <div class="grid__produto-name">ARROZ TIO JOÃO TIPO 1 5KG</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--red">super sensível</span></div>
+                        </td>
+                        <td><span class="grid__val-main">15</span></td>
+                        <td><span class="grid__val-main">R$ 32,90</span></td>
+                        <td><span class="grid__val-main">R$ 28,50</span></td>
+                        <td><span class="grid__val-main">R$ 27,90</span></td>
+                        <td><span class="grid__val-main">15,3%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 28,90" /></td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1031245</span></div>
+                          <div class="grid__produto-name">FEIJÃO CARIOCA CAMIL 1KG</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local A</span></div>
+                        </td>
+                        <td><span class="grid__val-main">36</span></td>
+                        <td><span class="grid__val-main">R$ 8,49</span></td>
+                        <td><span class="grid__val-main">R$ 7,29</span></td>
+                        <td><span class="grid__val-main">R$ 7,49</span></td>
+                        <td><span class="grid__val-main">19,8%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 7,49" /></td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1019887</span></div>
+                          <div class="grid__produto-name">LEITE INTEGRAL ITAMBÉ 1L</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local C</span></div>
+                        </td>
+                        <td><span class="grid__val-main">120</span></td>
+                        <td><span class="grid__val-main">R$ 6,29</span></td>
+                        <td><span class="grid__val-main">R$ 5,49</span></td>
+                        <td><span class="grid__val-main">R$ 5,29</span></td>
+                        <td><span class="grid__val-main">21,2%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 5,49" /></td>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" class="grid__check" /></td>
+                        <td>
+                          <div class="grid__produto-codes"><span class="grid__produto-code">1054320</span></div>
+                          <div class="grid__produto-name">ÓLEO DE SOJA SOYA 900ML</div>
+                          <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local A</span></div>
+                        </td>
+                        <td><span class="grid__val-main">85</span></td>
+                        <td><span class="grid__val-main">R$ 9,99</span></td>
+                        <td><span class="grid__val-main">R$ 8,49</span></td>
+                        <td><span class="grid__val-main">R$ 8,29</span></td>
+                        <td><span class="grid__val-main">17,4%</span></td>
+                        <td><input type="text" class="grid__form-field" value="R$ 8,49" /></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!-- Paginação -->
+                  <div class="grid__pagination">
+                    <div class="grid__pagination-left">
+                      <span class="grid__pagination-label">Itens por página:</span>
+                      <button class="grid__pagination-perpage">50 <span class="material-icons-outlined">keyboard_arrow_down</span></button>
+                      <span class="grid__pagination-info">1–50 de 3.645</span>
+                    </div>
+                    <div class="grid__pagination-right">
+                      <div class="grid__pagination-nav">
+                        <span class="material-icons-outlined">first_page</span>
+                        <span class="material-icons-outlined">chevron_left</span>
+                      </div>
+                      <button class="grid__pagination-btn is-active">1</button>
+                      <button class="grid__pagination-btn">2</button>
+                      <button class="grid__pagination-btn">3</button>
+                      <button class="grid__pagination-btn">...</button>
+                      <button class="grid__pagination-btn">73</button>
+                      <div class="grid__pagination-nav">
+                        <span class="material-icons-outlined">chevron_right</span>
+                        <span class="material-icons-outlined">last_page</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- ESQUELETO da Tela de Listagem (Gerenciador de Preços) --&gt;
+&lt;!-- Estrutura: Header + Sidebar + Title bar + Big Numbers + Filtros --&gt;
+&lt;!--            + Cabeçalho de resultados + Grid + Paginação        --&gt;
+
+&lt;header class="header"&gt;
+  &lt;div class="header__left"&gt;...&lt;/div&gt;
+  &lt;div class="header__right"&gt;...&lt;/div&gt;
+&lt;/header&gt;
+
+&lt;aside class="sidebar is-expanded"&gt;
+  &lt;div class="sidebar__top"&gt;
+    &lt;div class="sidebar__item sidebar__item--active"&gt;...&lt;/div&gt;
+    &lt;div class="sidebar__item"&gt;...&lt;/div&gt;
+    &lt;!-- + 3 itens (Estratégia, Negociações, Extração, IA) --&gt;
+  &lt;/div&gt;
+  &lt;div class="sidebar__bottom"&gt;
+    &lt;button class="sidebar__seta"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;section class="title-bar"&gt;
+  &lt;div class="title-bar__left"&gt;
+    &lt;span class="title-bar__heading"&gt;Gerenciador de preços&lt;/span&gt;
+    &lt;span class="title-bar__badge"&gt;Atualizado em ...&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="title-bar__right"&gt;
+    &lt;!-- title-btn: Fixar / Loja / Produto --&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="big-numbers"&gt;
+  &lt;div class="big-numbers__inner"&gt;
+    &lt;div class="big-numbers__cards"&gt;
+      &lt;div class="bn-card bn-card--blue"&gt;...&lt;/div&gt;
+      &lt;div class="bn-card bn-card--blue-auto"&gt;...&lt;/div&gt;
+      &lt;div class="bn-card bn-card--green"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="filtros"&gt;
+  &lt;div class="filtros__inner"&gt;
+    &lt;div class="filtros__box"&gt;
+      &lt;div class="filtros__left"&gt;
+        &lt;!-- filtro-chip: Família / Marca / Loja / Sensibilidade / +Filtros --&gt;
+      &lt;/div&gt;
+      &lt;div class="filtros__right"&gt;
+        &lt;button class="filtro-chip filtro-chip--clear"&gt;Limpar filtros&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="cabecalho"&gt;
+  &lt;div class="cabecalho__inner"&gt;
+    &lt;span class="cabecalho__info"&gt;Foram encontrados &lt;b&gt;3.645&lt;/b&gt; resultados&lt;/span&gt;
+    &lt;div class="cabecalho__buttons"&gt;
+      &lt;!-- composed-btn: Custos / Concorrentes / Margem / Derivados (solo) --&gt;
+      &lt;div class="aplicar-btn"&gt;
+        &lt;button class="aplicar-btn__main"&gt;Aplicar preço&lt;/button&gt;
+        &lt;button class="aplicar-btn__drop"&gt;...&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="grid"&gt;
+  &lt;div class="grid__wrapper"&gt;
+    &lt;table class="grid__table"&gt;
+      &lt;colgroup&gt;...&lt;/colgroup&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;!-- colunas --&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;input type="checkbox" class="grid__check" /&gt;&lt;/td&gt;
+          &lt;td&gt;
+            &lt;div class="grid__produto-codes"&gt;...&lt;/div&gt;
+            &lt;div class="grid__produto-name"&gt;...&lt;/div&gt;
+            &lt;div class="grid__produto-chips"&gt;...&lt;/div&gt;
+          &lt;/td&gt;
+          &lt;!-- + colunas: estoque, PMC, preços, margem, sugerido --&gt;
+        &lt;/tr&gt;
+        &lt;!-- + N linhas --&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class="grid__pagination"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
         </div>
       </div>
     </section>
@@ -5229,7 +5806,7 @@ sections.forEach(s => observer.observe(s));
 
 /* ── Searchbar: has-value automatico + clear ─────────── */
 document.querySelectorAll('.searchbar').forEach(sb => {
-  if (sb.id === 'dsSearch') return; // o do sidebar tem handler proprio
+  if (sb.id === 'dsSearch') return; // o do sidebar tem handler próprio
   const input = sb.querySelector('.searchbar__input');
   const clear = sb.querySelector('.searchbar__clear');
   if (!input) return;
@@ -5439,7 +6016,7 @@ document.querySelectorAll('.grid__sort-btn').forEach(btn => {
   });
 });
 
-/* ── Grid pref buttons: abre dropdown de preferencia ──── */
+/* ── Grid pref buttons: abre dropdown de preferência ──── */
 document.querySelectorAll('.grid__pref-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -5523,7 +6100,7 @@ document.querySelectorAll('.select-picker').forEach(picker => {
     }
   });
 
-  // Selecao de item
+  // Seleção de item
   picker.querySelectorAll('.select-picker__item').forEach(item => {
     if (item.classList.contains('is-disabled')) return;
     item.addEventListener('click', () => {
@@ -5588,7 +6165,7 @@ document.querySelectorAll('.radio').forEach(label => {
     label.dataset.wasChecked = input.checked ? '1' : '0';
   });
 
-  // No click do label: se ja estava marcado, prevent default e desmarca
+  // No click do label: se já estava marcado, prevent default e desmarca
   // preventDefault evita que o label re-ative (re-check) o input apos o click
   label.addEventListener('click', (e) => {
     if (label.dataset.wasChecked === '1') {
@@ -5599,7 +6176,7 @@ document.querySelectorAll('.radio').forEach(label => {
     label.dataset.wasChecked = '';
   });
 
-  // Acessibilidade: Space/Enter desmarca quando focado e ja marcado
+  // Acessibilidade: Space/Enter desmarca quando focado e já marcado
   input.addEventListener('keydown', (e) => {
     if ((e.key === ' ' || e.key === 'Enter') && input.checked) {
       e.preventDefault();
@@ -5622,7 +6199,7 @@ document.querySelectorAll('.switch').forEach(el => {
 
   function toggle() {
     if (el.classList.contains('is-disabled')) return;
-    // Half-state vira checked ao primeiro toggle (UX padrao)
+    // Half-state vira checked ao primeiro toggle (UX padrão)
     el.classList.remove('is-half');
     el.classList.toggle('is-checked');
     el.setAttribute('aria-checked', el.classList.contains('is-checked') ? 'true' : 'false');
@@ -5681,7 +6258,7 @@ document.querySelectorAll('.switch').forEach(el => {
     document.addEventListener('mouseup', onUp);
   });
 
-  // Duplo-clique reseta para o padrao
+  // Duplo-clique reseta para o padrão
   handle.addEventListener('dblclick', () => setWidth(DEFAULT));
 
   // Acessibilidade: setas + Home/End com foco no handle
@@ -5715,7 +6292,7 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// Snapshot do texto original de cada link e de cada titulo de secao (antes de qualquer highlight)
+// Snapshot do texto original de cada link e de cada título de seção (antes de qualquer highlight)
 document.querySelectorAll('.ds__nav-link').forEach(link => {
   link.dataset.originalText = link.textContent;
 });
@@ -5751,7 +6328,7 @@ function filterDsNav(term) {
     const sectionTitleMatches = titleText.toLowerCase().includes(q);
     let sectionHasMatch = sectionTitleMatches;
 
-    // Quando o titulo da secao casa, exibe a secao inteira (e destaca os links).
+    // Quando o título da seção casa, exibe a seção inteira (e destaca os links).
     // Caso contrario, filtra link a link como antes.
     section.querySelectorAll('.ds__nav-link').forEach(link => {
       const text = link.dataset.originalText;
@@ -5760,7 +6337,7 @@ function filterDsNav(term) {
 
       if (sectionTitleMatches) {
         link.classList.remove('is-hidden');
-        // Se o link tambem casa, destaca; senao restaura texto puro
+        // Se o link também casa, destaca; senão restaura texto puro
         link.innerHTML = linkMatches
           ? safe.replace(regex, m => '<span class="ds__nav-link__match">' + m + '</span>')
           : safe;
@@ -5776,7 +6353,7 @@ function filterDsNav(term) {
       }
     });
 
-    // Highlight no titulo da secao quando ele casa
+    // Highlight no título da seção quando ele casa
     if (titleEl) {
       const safeTitle = escapeHtml(titleText);
       titleEl.innerHTML = sectionTitleMatches

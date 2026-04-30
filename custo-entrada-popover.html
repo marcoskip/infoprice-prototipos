@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Custo de Entrada (Popover)</title>
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
+  <style>
+    /* ── Page-specific: Custo de Entrada Popover ──────── */
+
+    .grid__table th:first-child,
+    .grid__table td:first-child {
+      padding-left: 16px;
+    }
+
+    /* Title bar */
+    .title-bar {
+      height: auto;
+      min-height: 50px;
+      padding: 6px var(--space-4);
+    }
+    .title-bar__left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .title-bar__top-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .title-bar__bottom-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .title-bar__subtitle {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-600);
+    }
+
+    /* Layout positions */
+    .filtros   { top: 118px; }
+    .cabecalho { top: 168px; }
+    .grid      { top: 224px; overflow: visible; }
+    .grid__wrapper { height: 100%; overflow-y: auto; }
+    .grid__table { border-collapse: collapse; border-spacing: 0; }
+    .grid__table tr,
+    .grid__table th,
+    .grid__table td { border: none !important; outline: none !important; box-shadow: none !important; }
+
+    /* ── Custo cell — clicável ────────────────────────── */
+    .ce__custo-cell {
+      position: relative;
+    }
+    .ce__custo-trigger {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: background 150ms;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-blue-400);
+    }
+    .ce__custo-trigger:hover {
+      background: var(--color-blue-light-5);
+    }
+    .ce__custo-trigger .material-icons-outlined {
+      font-size: 14px;
+      color: var(--color-gray-500);
+    }
+    .ce__custo-trigger--active {
+      background: var(--color-blue-light-10);
+    }
+
+    /* ── Popover de Custo de Entrada ─────────────────── */
+    .ce__popover {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      background: #fff;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-elevation);
+      z-index: 400;
+      padding: 0;
+      animation: cePopoverIn 180ms ease-out;
+    }
+    .ce__popover.is-open { display: block; }
+
+    @keyframes cePopoverIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* Caret / seta do popover */
+    .ce__popover::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 2px;
+      transform: translateX(-50%) rotate(45deg);
+      box-shadow: -1px -1px 2px rgba(0,0,0,0.06);
+    }
+
+    .ce__popover-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) var(--space-4) var(--space-2);
+    }
+    .ce__popover-title {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+    }
+    .ce__popover-code {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-500);
+    }
+
+    /* Input section */
+    .ce__input-section {
+      padding: 0 var(--space-4) var(--space-3);
+    }
+    .ce__input-label {
+      display: block;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-600);
+      margin-bottom: var(--space-1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .ce__input-group {
+      display: flex;
+      align-items: stretch;
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .ce__input-group:focus-within {
+      border-color: var(--color-blue-400);
+      box-shadow: 0 0 0 2px var(--color-blue-light-45);
+    }
+    .ce__input-prefix {
+      display: flex;
+      align-items: center;
+      padding: 0 var(--space-2) 0 var(--space-3);
+      background: var(--color-gray-100);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-600);
+      border-right: 1px solid var(--color-gray-300);
+      user-select: none;
+    }
+    .ce__input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 8px var(--space-3);
+      font-family: 'Open Sans', sans-serif;
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      background: transparent;
+      text-align: right;
+      min-width: 0;
+    }
+    .ce__input::placeholder {
+      color: var(--color-gray-400);
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* Tax breakdown */
+    .ce__tax-section {
+      margin: 0 var(--space-4);
+      padding: var(--space-3);
+      background: var(--color-gray-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-gray-200);
+    }
+    .ce__tax-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .ce__tax-table th {
+      text-align: left;
+      font-size: var(--font-size-2xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-500);
+      padding-bottom: var(--space-1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .ce__tax-table th:nth-child(2),
+    .ce__tax-table th:nth-child(3) {
+      text-align: right;
+    }
+    .ce__tax-table td {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-700);
+      padding: 3px 0;
+    }
+    .ce__tax-table td:nth-child(2),
+    .ce__tax-table td:nth-child(3) {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .ce__tax-type {
+      font-size: 9px;
+      color: var(--color-gray-400);
+      margin-left: 2px;
+    }
+    .ce__tax-total-row td {
+      padding-top: var(--space-2);
+      border-top: 1px solid var(--color-gray-200);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+
+    .ce__no-tax {
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-500);
+      text-align: center;
+      padding: var(--space-2) 0;
+    }
+
+    /* Result section */
+    .ce__result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+      margin-top: var(--space-2);
+      border-top: 1px solid var(--color-gray-200);
+    }
+    .ce__result-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-700);
+    }
+    .ce__result-value {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-400);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Error message */
+    .ce__error {
+      display: none;
+      margin: 0 var(--space-4) var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      background: var(--color-red-light-5);
+      border: 1px solid var(--color-red-light-20);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-red-600);
+    }
+    .ce__error.is-visible { display: flex; align-items: center; gap: var(--space-1); }
+    .ce__error .material-icons-outlined { font-size: 14px; }
+
+    /* Actions */
+    .ce__actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4) var(--space-3);
+    }
+    .ce__btn {
+      font-family: 'Open Sans', sans-serif;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 6px 16px;
+      cursor: pointer;
+      transition: background 150ms, opacity 150ms;
+    }
+    .ce__btn--cancel {
+      background: transparent;
+      color: var(--color-gray-600);
+    }
+    .ce__btn--cancel:hover {
+      background: var(--color-gray-100);
+    }
+    .ce__btn--confirm {
+      background: var(--color-blue-400);
+      color: #fff;
+    }
+    .ce__btn--confirm:hover {
+      background: var(--color-brand-primary);
+    }
+    .ce__btn--confirm:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .ce__btn--confirm .ce__spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: ceSpin 600ms linear infinite;
+      margin-right: var(--space-1);
+      vertical-align: middle;
+    }
+    @keyframes ceSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Row highlight when popover is open */
+    .ce__row--active {
+      background: var(--color-blue-light-5) !important;
+    }
+
+    /* Badge styles */
+    .neg__lojas-badge {
+      display: inline-block;
+      padding: 0 6px;
+      background: var(--color-blue-light-15);
+      color: var(--color-blue-400);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-2xs);
+      font-weight: var(--font-weight-semibold);
+      line-height: 18px;
+      white-space: nowrap;
+    }
+    .neg__days-badge {
+      display: inline-block;
+      padding: 0 6px;
+      background: var(--color-blue-light-5);
+      border: 1px solid var(--color-blue-light-15);
+      color: var(--color-blue-400);
+      border-radius: var(--radius-pill);
+      font-size: var(--font-size-2xs);
+      font-weight: var(--font-weight-semibold);
+      line-height: 16px;
+    }
+
+    /* Dirty indicator (edited, not saved) */
+    .ce__dirty-dot {
+      display: none;
+      width: 6px;
+      height: 6px;
+      background: var(--color-orange-400);
+      border-radius: 50%;
+      margin-left: 4px;
+    }
+    .ce__custo-trigger--dirty .ce__dirty-dot {
+      display: inline-block;
+    }
+
+    /* Transition on table update */
+    @keyframes ceFlash {
+      0%   { background: var(--color-green-light-20); }
+      100% { background: transparent; }
+    }
+    .ce__row--flash {
+      animation: ceFlash 800ms ease-out;
+    }
+
+    /* Cabecalho buttons */
+    .neg__save-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 6px 16px;
+      background: var(--color-blue-400);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Open Sans', sans-serif;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+    }
+    .neg__save-btn:hover { background: var(--color-brand-primary); }
+
+    .grid__form-field { width: 116px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Overlay ─────────────────────────────────────────── -->
+<div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+<!-- ── Header ──────────────────────────────────────────── -->
+<header class="header">
+  <div class="header__left">
+    <button class="header__menu-btn" id="menuBtn" aria-label="Abrir menu de produtos" aria-expanded="false">
+      <span class="material-icons-outlined">apps</span>
+    </button>
+    <div class="dropdown product-dropdown" id="productDropdown" role="menu">
+      <div class="product-dropdown__header">
+        <span class="product-dropdown__title">Produtos</span>
+      </div>
+      <div class="product-dropdown__list">
+        <div class="product-dropdown__item" role="menuitem" tabindex="0">
+          <span class="product-tag product-tag--isa-active">ISA</span>
+          <span class="product-dropdown__item-name">InfoPanel</span>
+        </div>
+        <div class="product-dropdown__item" role="menuitem" tabindex="0">
+          <span class="product-tag product-tag--ipa-active">IPA</span>
+          <span class="product-dropdown__item-name">Software de precificacao</span>
+        </div>
+      </div>
+    </div>
+    <div class="header__brand">
+      <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+      <div class="header__divider" aria-hidden="true"></div>
+      <span class="header__product-name">IPA | Software de Precificacao</span>
+    </div>
+  </div>
+  <div class="header__right">
+    <button class="header__help-btn" aria-label="Ajuda">
+      <span class="material-icons-outlined">help_outline</span>
+    </button>
+    <div class="header__user" id="userBtn" role="button" tabindex="0" aria-expanded="false">
+      <span class="header__user-name">Ola, Marcos</span>
+      <span class="material-icons-outlined">keyboard_arrow_down</span>
+    </div>
+    <div class="dropdown user-dropdown" id="userDropdown" role="menu">
+      <div class="user-dropdown__identity">
+        <span class="user-dropdown__name">Marcos Keller</span>
+        <span class="user-dropdown__email">marcos.keller@infoprice.co</span>
+      </div>
+      <div class="dropdown__divider"></div>
+      <div class="user-dropdown__group">
+        <div class="user-dropdown__item" role="menuitem" tabindex="0">
+          <span class="material-icons-outlined">settings</span>
+          <span class="user-dropdown__item-label">Configuracoes</span>
+        </div>
+      </div>
+      <div class="dropdown__divider"></div>
+      <div class="user-dropdown__group">
+        <div class="user-dropdown__item user-dropdown__item--text-only" role="menuitem" tabindex="0">
+          <span class="user-dropdown__item-label">Sair</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Sidebar ────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar__top">
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+      <span class="sidebar__label">Gerenciador</span>
+      <span class="sidebar__tooltip">Gerenciador</span>
+    </div>
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estrategia" class="sidebar__icon" />
+      <span class="sidebar__label">Estrategia</span>
+      <span class="sidebar__tooltip">Estrategia</span>
+    </div>
+    <div class="sidebar__item sidebar__item--active">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociacoes" class="sidebar__icon" />
+      <span class="sidebar__label">Negociacoes Fornecedor</span>
+      <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+      <span class="sidebar__tooltip">Negociacoes Fornecedor</span>
+    </div>
+    <div class="sidebar__item">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extracao" class="sidebar__icon" />
+      <span class="sidebar__label">Extracao de precos</span>
+      <span class="sidebar__tooltip">Extracao de precos</span>
+    </div>
+  </div>
+  <div class="sidebar__bottom">
+    <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu">
+      <span class="material-icons-outlined">keyboard_arrow_right</span>
+    </button>
+  </div>
+</aside>
+
+<!-- ── Title Bar ──────────────────────────────────────── -->
+<section class="title-bar">
+  <div class="title-bar__left">
+    <div class="title-bar__top-row">
+      <span class="title-bar__heading">Negociacao fornecedor</span>
+      <span class="title-bar__badge">ATUALIZADO EM 22/04/2026, 09:15</span>
+    </div>
+    <div class="title-bar__bottom-row">
+      <span class="title-bar__subtitle">Clique na coluna "Custo de Entrada" para editar com calculo automatico de impostos</span>
+    </div>
+  </div>
+  <div class="title-bar__right">
+    <button class="neg__save-btn">
+      <span class="material-icons-outlined" style="font-size:16px">save</span>
+      Salvar negociacao
+    </button>
+  </div>
+</section>
+
+<!-- ── Filtros (simplified) ───────────────────────────── -->
+<section class="filtros">
+  <div class="filtros__inner">
+    <div class="filtros__box">
+      <div class="filtros__left">
+        <div class="filtro-chip-wrapper">
+          <button class="filtro-chip">Fornecedor: Ambev<span class="material-icons-outlined filtro-chip__icon">keyboard_arrow_down</span></button>
+        </div>
+        <div class="filtro-chip-wrapper">
+          <button class="filtro-chip">Categoria: Bebidas<span class="material-icons-outlined filtro-chip__icon">keyboard_arrow_down</span></button>
+        </div>
+      </div>
+      <div class="filtros__right">
+        <button class="filtro-chip" id="limparFiltros">Limpar filtros</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Cabecalho ──────────────────────────────────────── -->
+<section class="cabecalho">
+  <div class="cabecalho__inner">
+    <span class="cabecalho__info"><b id="gridCount">10</b> produtos encontrados</span>
+    <div class="cabecalho__buttons">
+      <button class="filtro-chip">
+        <span class="material-icons-outlined" style="font-size:16px">file_download</span>
+        Exportar
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Grid ───────────────────────────────────────────── -->
+<section class="grid">
+  <div class="grid__wrapper">
+    <table class="grid__table" style="table-layout:fixed; width:100%;">
+      <colgroup>
+        <col style="width:40px" />
+        <col style="width:250px" />
+        <col style="width:80px" />
+        <col style="width:80px" />
+        <col style="width:110px" />
+        <col style="width:130px" />
+        <col style="width:160px" />
+        <col style="width:110px" />
+        <col style="width:110px" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="gridCheckAll" /></th>
+          <th>Produto</th>
+          <th>Estoque</th>
+          <th>Margem %</th>
+          <th>Custo Atual</th>
+          <th class="grid__th--highlight">Custo de Entrada</th>
+          <th>Preco Vigente</th>
+          <th>Preco Concorrente</th>
+          <th>Novo Preco</th>
+        </tr>
+      </thead>
+      <tbody id="gridBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+/* ── Header dropdowns ──────────────────────────────────── */
+function closeAll() {
+  document.querySelectorAll('.dropdown.is-open').forEach(d => d.classList.remove('is-open'));
+  document.querySelectorAll('.ce__popover.is-open').forEach(p => p.classList.remove('is-open'));
+  document.querySelectorAll('.ce__row--active').forEach(r => r.classList.remove('ce__row--active'));
+  document.querySelectorAll('.ce__custo-trigger--active').forEach(t => t.classList.remove('ce__custo-trigger--active'));
+  document.getElementById('dropdownOverlay').classList.remove('is-open');
+  document.querySelectorAll('[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dropdown, .ce__popover, .ce__custo-trigger, [aria-expanded], .filtro-chip-wrapper, .header__menu-btn, .header__user')) {
+    closeAll();
+  }
+});
+
+document.getElementById('menuBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  closeAll();
+  document.getElementById('productDropdown').classList.toggle('is-open');
+  this.setAttribute('aria-expanded', document.getElementById('productDropdown').classList.contains('is-open'));
+});
+
+document.getElementById('userBtn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  closeAll();
+  document.getElementById('userDropdown').classList.toggle('is-open');
+  this.setAttribute('aria-expanded', document.getElementById('userDropdown').classList.contains('is-open'));
+});
+
+/* ── Sidebar toggle ────────────────────────────────────── */
+document.getElementById('sidebarSeta').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('is-expanded');
+});
+
+/* ── Select all ────────────────────────────────────────── */
+document.getElementById('gridCheckAll').addEventListener('change', function() {
+  document.querySelectorAll('#gridBody .grid__check').forEach(cb => { cb.checked = this.checked; });
+});
+
+/* ── Data ──────────────────────────────────────────────── */
+const PRODUTOS = [
+  { cod: '1026313', nome: 'ARROZ CAMIL 5KG TIPO 1', lojas: 12, icms: 18, pis: 1.65, cofins: 7.6 },
+  { cod: '1026314', nome: 'CAFE PILAO 500G TRADICIONAL', lojas: 8, icms: 12, pis: 1.65, cofins: 7.6 },
+  { cod: '1026315', nome: 'CERVEJA BRAHMA 350ML LATA', lojas: 15, icms: 25, pis: 2.1, cofins: 9.65 },
+  { cod: '1026316', nome: 'DETERGENTE YPE 500ML NEUTRO', lojas: 10, icms: 18, pis: 1.65, cofins: 7.6 },
+  { cod: '1026317', nome: 'ACUCAR UNIAO 1KG REFINADO', lojas: 9, icms: 7, pis: 1.65, cofins: 7.6 },
+  { cod: '1026318', nome: 'LEITE ITALAC 1L INTEGRAL', lojas: 14, icms: 0, pis: 0, cofins: 0 },
+  { cod: '1026319', nome: 'OLEO SOYA 900ML', lojas: 7, icms: 12, pis: 1.65, cofins: 7.6 },
+  { cod: '1026320', nome: 'FEIJAO KICALDO 1KG CARIOCA', lojas: 11, icms: 7, pis: 1.65, cofins: 7.6 },
+  { cod: '1026321', nome: 'MACARRAO BARILLA 500G ESPAGUETE', lojas: 6, icms: 18, pis: 1.65, cofins: 7.6 },
+  { cod: '1026322', nome: 'SABAO OMO 1.6KG PO', lojas: 13, icms: 18, pis: 1.65, cofins: 7.6 },
+];
+
+function rand(min, max) { return (Math.random() * (max - min) + min).toFixed(2); }
+function randInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function fmtBRL(v) { return parseFloat(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+const tbody = document.getElementById('gridBody');
+
+PRODUTOS.forEach((p, idx) => {
+  const estoque    = randInt(5, 200);
+  const dias       = randInt(3, 45);
+  const custoAtual = parseFloat(rand(3, 45));
+  const margemObj  = rand(8, 35);
+  const precoVig   = (custoAtual * (1.2 + Math.random() * 0.4)).toFixed(2);
+  const precoConc  = (parseFloat(precoVig) * (0.9 + Math.random() * 0.2)).toFixed(2);
+  const novoPreco  = (custoAtual * (1 + parseFloat(margemObj) / 100)).toFixed(2);
+
+  const tr = document.createElement('tr');
+  tr.setAttribute('data-idx', idx);
+
+  tr.innerHTML = `
+    <td><input type="checkbox" class="grid__check" /></td>
+    <td>
+      <div class="grid__cell">
+        <div class="grid__produto-codes">
+          <span class="grid__produto-code">${p.cod}</span>
+          <span class="neg__lojas-badge">${p.lojas} LOJAS</span>
+        </div>
+        <span class="grid__produto-name">${p.nome}</span>
+      </div>
+    </td>
+    <td>
+      <div class="grid__cell">
+        <div class="grid__estoque-line1">
+          <span class="grid__val-main">${estoque}</span>
+          <span class="neg__days-badge">${dias}d</span>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="grid__form-field">
+        <input class="grid__form-input" type="text" value="${fmtBRL(margemObj)}" style="text-align:right" />
+        <span class="grid__form-suffix grid__form-suffix--gray">%</span>
+      </div>
+    </td>
+    <td>
+      <div class="grid__cell">
+        <span class="grid__val-main">R$ ${fmtBRL(custoAtual)}</span>
+      </div>
+    </td>
+    <td class="ce__custo-cell">
+      <div class="ce__custo-trigger" data-idx="${idx}" data-custo="${custoAtual.toFixed(2)}">
+        <span class="ce__custo-value">Editar</span>
+        <span class="material-icons-outlined">edit</span>
+        <span class="ce__dirty-dot"></span>
+      </div>
+      <div class="ce__popover" id="cePop-${idx}">
+        <div class="ce__popover-header">
+          <span class="ce__popover-title">Custo de Entrada</span>
+          <span class="ce__popover-code">${p.cod}</span>
+        </div>
+        <div class="ce__input-section">
+          <label class="ce__input-label">Custo Bruto</label>
+          <div class="ce__input-group">
+            <span class="ce__input-prefix">R$</span>
+            <input class="ce__input" type="text" placeholder="0,00" data-idx="${idx}" />
+          </div>
+        </div>
+        <div class="ce__tax-section" id="ceTax-${idx}">
+          <!-- Filled by JS -->
+        </div>
+        <div class="ce__error" id="ceError-${idx}">
+          <span class="material-icons-outlined">error_outline</span>
+          <span class="ce__error-text"></span>
+        </div>
+        <div class="ce__result" id="ceResult-${idx}">
+          <span class="ce__result-label">Custo de Entrada</span>
+          <span class="ce__result-value">R$ 0,00</span>
+        </div>
+        <div class="ce__actions">
+          <button class="ce__btn ce__btn--cancel" data-idx="${idx}">Cancelar</button>
+          <button class="ce__btn ce__btn--confirm" data-idx="${idx}" disabled>Confirmar</button>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="grid__cell">
+        <span class="grid__val-main">R$ ${fmtBRL(precoVig)}</span>
+      </div>
+    </td>
+    <td>
+      <div class="grid__cell">
+        <span class="grid__val-main">R$ ${fmtBRL(precoConc)}</span>
+      </div>
+    </td>
+    <td>
+      <div class="grid__form-field">
+        <span class="grid__form-prefix">R$</span>
+        <input class="grid__form-input" type="text" value="${fmtBRL(novoPreco)}" />
+      </div>
+    </td>
+  `;
+
+  tbody.appendChild(tr);
+});
+
+/* ── Tax calculation engine ────────────────────────────── */
+function calcTaxes(grossCost, product) {
+  const taxes = [
+    { name: 'ICMS', rate: product.icms, type: 'deductible' },
+    { name: 'PIS',  rate: product.pis,  type: 'deductible' },
+    { name: 'COFINS', rate: product.cofins, type: 'deductible' },
+  ];
+
+  const calculated = taxes.map(t => ({
+    ...t,
+    amount: +(grossCost * t.rate / 100).toFixed(2),
+  }));
+
+  const totalDeductible = calculated.filter(t => t.type === 'deductible').reduce((s, t) => s + t.amount, 0);
+  const totalCumulative = calculated.filter(t => t.type === 'cumulative').reduce((s, t) => s + t.amount, 0);
+  const totalTaxes = +(totalDeductible + totalCumulative).toFixed(2);
+  const entryCost = +(grossCost - totalDeductible + totalCumulative).toFixed(2);
+
+  return { taxes: calculated, totalTaxes, entryCost };
+}
+
+function renderTaxSection(idx, grossCost, product) {
+  const taxEl = document.getElementById(`ceTax-${idx}`);
+  const resultEl = document.getElementById(`ceResult-${idx}`);
+  const errorEl = document.getElementById(`ceError-${idx}`);
+  const confirmBtn = document.querySelector(`.ce__btn--confirm[data-idx="${idx}"]`);
+
+  errorEl.classList.remove('is-visible');
+
+  if (!grossCost || grossCost <= 0) {
+    if (grossCost < 0) {
+      errorEl.querySelector('.ce__error-text').textContent = 'Valor nao pode ser negativo';
+      errorEl.classList.add('is-visible');
+    }
+    taxEl.innerHTML = '<div class="ce__no-tax">Digite um valor para calcular</div>';
+    resultEl.querySelector('.ce__result-value').textContent = 'R$ 0,00';
+    confirmBtn.disabled = true;
+    return;
+  }
+
+  const hasTaxes = product.icms > 0 || product.pis > 0 || product.cofins > 0;
+
+  if (!hasTaxes) {
+    taxEl.innerHTML = '<div class="ce__no-tax">Sem impostos aplicaveis — custo de entrada igual ao custo bruto</div>';
+    resultEl.querySelector('.ce__result-value').textContent = `R$ ${fmtBRL(grossCost)}`;
+    confirmBtn.disabled = false;
+    return;
+  }
+
+  const { taxes, totalTaxes, entryCost } = calcTaxes(grossCost, product);
+
+  taxEl.innerHTML = `
+    <table class="ce__tax-table">
+      <thead>
+        <tr><th>Imposto</th><th>Aliquota</th><th>Valor</th></tr>
+      </thead>
+      <tbody>
+        ${taxes.map(t => `
+          <tr>
+            <td>${t.name} <span class="ce__tax-type">(${t.type === 'deductible' ? '−' : '+'})</span></td>
+            <td>${t.rate.toFixed(2)}%</td>
+            <td>R$ ${fmtBRL(t.amount)}</td>
+          </tr>
+        `).join('')}
+        <tr class="ce__tax-total-row">
+          <td>Total impostos</td>
+          <td></td>
+          <td>R$ ${fmtBRL(totalTaxes)}</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+  resultEl.querySelector('.ce__result-value').textContent = `R$ ${fmtBRL(entryCost)}`;
+  confirmBtn.disabled = false;
+}
+
+/* ── Popover logic ─────────────────────────────────────── */
+let activePopoverIdx = null;
+
+function openPopover(idx) {
+  if (activePopoverIdx !== null && activePopoverIdx !== idx) {
+    closePopover(activePopoverIdx, false);
+  }
+
+  activePopoverIdx = idx;
+  const product = PRODUTOS[idx];
+  const trigger = document.querySelector(`.ce__custo-trigger[data-idx="${idx}"]`);
+  const popover = document.getElementById(`cePop-${idx}`);
+  const input   = popover.querySelector('.ce__input');
+  const row     = trigger.closest('tr');
+
+  const currentGross = parseFloat(trigger.getAttribute('data-custo'));
+  input.value = fmtBRL(currentGross);
+
+  trigger.classList.add('ce__custo-trigger--active');
+  row.classList.add('ce__row--active');
+  popover.classList.add('is-open');
+
+  renderTaxSection(idx, currentGross, product);
+
+  setTimeout(() => { input.focus(); input.select(); }, 50);
+}
+
+function closePopover(idx, discard = true) {
+  const popover = document.getElementById(`cePop-${idx}`);
+  const trigger = document.querySelector(`.ce__custo-trigger[data-idx="${idx}"]`);
+  const row     = trigger.closest('tr');
+  const errorEl = document.getElementById(`ceError-${idx}`);
+
+  popover.classList.remove('is-open');
+  trigger.classList.remove('ce__custo-trigger--active');
+  row.classList.remove('ce__row--active');
+  errorEl.classList.remove('is-visible');
+
+  if (activePopoverIdx === idx) activePopoverIdx = null;
+}
+
+function confirmPopover(idx) {
+  const product = PRODUTOS[idx];
+  const popover = document.getElementById(`cePop-${idx}`);
+  const input   = popover.querySelector('.ce__input');
+  const trigger = document.querySelector(`.ce__custo-trigger[data-idx="${idx}"]`);
+  const row     = trigger.closest('tr');
+  const confirmBtn = popover.querySelector('.ce__btn--confirm');
+
+  const parsed = parseFloat(input.value.replace(/\./g, '').replace(',', '.'));
+  if (isNaN(parsed) || parsed <= 0) return;
+
+  const hasTaxes = product.icms > 0 || product.pis > 0 || product.cofins > 0;
+  const entryCost = hasTaxes ? calcTaxes(parsed, product).entryCost : parsed;
+
+  /* Simulate save with spinner */
+  confirmBtn.disabled = true;
+  confirmBtn.innerHTML = '<span class="ce__spinner"></span>Salvando...';
+
+  setTimeout(() => {
+    trigger.setAttribute('data-custo', parsed.toFixed(2));
+
+    trigger.querySelector('.ce__custo-value').textContent = `R$ ${fmtBRL(entryCost)}`;
+    trigger.querySelector('.ce__custo-value').style.color = `var(--color-gray-900)`;
+    trigger.querySelector('.ce__custo-value').style.fontWeight = `var(--font-weight-semibold)`;
+    trigger.querySelector('.material-icons-outlined').textContent = 'edit';
+    trigger.classList.remove('ce__custo-trigger--dirty');
+
+    confirmBtn.innerHTML = 'Confirmar';
+    confirmBtn.disabled = false;
+
+    closePopover(idx, false);
+
+    row.classList.add('ce__row--flash');
+    setTimeout(() => row.classList.remove('ce__row--flash'), 800);
+  }, 600);
+}
+
+/* ── Event delegation ──────────────────────────────────── */
+document.addEventListener('click', (e) => {
+  const trigger = e.target.closest('.ce__custo-trigger');
+  if (trigger) {
+    e.stopPropagation();
+    openPopover(parseInt(trigger.getAttribute('data-idx')));
+    return;
+  }
+
+  const cancelBtn = e.target.closest('.ce__btn--cancel');
+  if (cancelBtn) {
+    e.stopPropagation();
+    closePopover(parseInt(cancelBtn.getAttribute('data-idx')));
+    return;
+  }
+
+  const confirmBtn = e.target.closest('.ce__btn--confirm');
+  if (confirmBtn && !confirmBtn.disabled) {
+    e.stopPropagation();
+    confirmPopover(parseInt(confirmBtn.getAttribute('data-idx')));
+    return;
+  }
+});
+
+/* Input handling — real-time tax recalculation */
+document.addEventListener('input', (e) => {
+  if (!e.target.classList.contains('ce__input')) return;
+  const idx = parseInt(e.target.getAttribute('data-idx'));
+  const product = PRODUTOS[idx];
+  const trigger = document.querySelector(`.ce__custo-trigger[data-idx="${idx}"]`);
+
+  const cleaned = e.target.value.replace(/[^\d.,]/g, '');
+  e.target.value = cleaned;
+
+  const parsed = parseFloat(cleaned.replace(/\./g, '').replace(',', '.'));
+  renderTaxSection(idx, isNaN(parsed) ? 0 : parsed, product);
+
+  trigger.classList.add('ce__custo-trigger--dirty');
+});
+
+/* Keyboard: Enter to confirm, Escape to cancel */
+document.addEventListener('keydown', (e) => {
+  if (activePopoverIdx === null) return;
+
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const confirmBtn = document.querySelector(`.ce__btn--confirm[data-idx="${activePopoverIdx}"]`);
+    if (confirmBtn && !confirmBtn.disabled) confirmPopover(activePopoverIdx);
+  }
+
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closePopover(activePopoverIdx);
+  }
+});
+
+/* Click outside popover to close */
+document.addEventListener('mousedown', (e) => {
+  if (activePopoverIdx === null) return;
+  if (!e.target.closest('.ce__popover, .ce__custo-trigger')) {
+    closePopover(activePopoverIdx);
+  }
+});
+</script>
+
+</body>
+</html>

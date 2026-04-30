@@ -1,0 +1,18 @@
+# Local Claude Code settings (per-machine)
+.claude/settings.local.json
+
+# MCP config (contem API keys — nao commitar)
+.mcp.json
+
+# Repos clonados dentro do projeto (sao repos independentes, nao submodulos)
+dsbridge-phase2/
+ipa-all-products-engine/
+ipa-app/
+ipa-parameter-engine/
+
+# Documentos internos
+DSBridge - Marcos Keller e Gabriel Dante.pdf
+
+# Sistema
+.DS_Store
+Thumbs.db

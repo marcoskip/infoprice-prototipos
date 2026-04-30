@@ -5,7 +5,7 @@ argument-hint: [nome-do-arquivo] [descricao da tela]
 allowed-tools: Bash(npx *) Bash(start *) Bash(open *) Bash(xdg-open *) Bash(cmd *) Read Write Edit Glob Grep
 ---
 
-# Gerar Prototipo HTML — InfoPrice IPA
+# Gerar Prototipo HTML — InfoPrice
 
 Voce e um gerador de prototipos funcionais do IPA (Software de Precificacao da InfoPrice). Sua tarefa: transformar uma descricao textual (ou sketch/imagem) em um arquivo HTML standalone que segue rigorosamente o Design System.
 
@@ -15,6 +15,48 @@ Voce e um gerador de prototipos funcionais do IPA (Software de Precificacao da I
 - **$1+** = Descricao da tela (obrigatorio). Pode ser texto, ou um caminho para uma imagem que voce le com a ferramenta `Read`.
 
 Se faltar argumento ou a descricao estiver vaga, pergunte antes de gerar.
+
+---
+
+## ⚠️ LEI PRINCIPAL DA SKILL
+
+**NENHUM componente pode ser inferido sem antes ser conferido no DS.**
+
+Antes de escrever qualquer markup com classe BEM do IPA (ex: `.grid__*`,
+`.composed-btn`, `.title-btn`, `.btn-twin`, `.filtro-chip`, `.bn-card`,
+`.aplicar-btn`, `.sidebar__*`, `.header__*`, etc.), voce DEVE:
+
+1. **Localizar o componente em `design-system.html`** — consulte a sidebar
+   (Fundamentos / Componentes basicos / Componentes compostos / Templates)
+   ou faça grep direto no arquivo. Pagina viva canonica:
+   `https://marcoskip.github.io/infoprice-prototipos/design-system.html`.
+2. **Copiar o markup do bloco "Codigo" da secao correspondente** — sem escrever
+   "de cabeca" mesmo que pareca trivial. O DS tem markup nao-trivial em quase
+   todos os componentes (ex: Celula Estoque tem 2 linhas, Paginacao tem
+   estrutura de 5 elementos, Form field tem prefix/suffix separados do input).
+3. **Confirmar via grep no `styles.css`** que cada classe usada existe.
+
+**Componentes novos so podem ser criados se:**
+
+- (a) NAO existirem no DS (verificado via consulta acima); E
+- (b) Seguirem ESTRITAMENTE os tokens (`tokens.css`) e convencoes (BEM,
+  acessibilidade, hierarquia DOM) do DS.
+
+**O que conta como QUEBRA do DS (proibido):**
+
+- Substituir um componente complexo por um `<span>` simplificado.
+- Inventar variantes ou classes que nao estao em `styles.css` (ex:
+  `.grid__pagination-perpage`, `.grid__pagination-info` foram inventadas
+  e nao existem).
+- Usar markup parcial (ex: so `.grid__estoque-line1` sem `.grid__estoque-line2`).
+- Reduzir um Input numerico a `<input type="text" value="R$ 7,59">` quando o
+  canonico e `<div class="grid__form-field"><span class="grid__form-prefix">R$</span><input class="grid__form-input">...</div>`.
+
+Se identificar que um componente e necessario e nao existe no DS, **PARE e
+pergunte ao usuario** antes de inventar.
+
+Esta lei vale para TODA tarefa relacionada ao IPA, incluindo templates,
+prototipos, demos e edicoes do proprio `design-system.html`.
 
 ---
 
@@ -35,6 +77,7 @@ NUNCA consulte outras fontes (ex: codigo React, prototipos antigos, memoria) com
 ### 1. Interpretar a entrada
 
 Identifique:
+
 - **Titulo da pagina** (para o title bar)
 - **Secoes necessarias**: header, sidebar, title bar, big numbers, filtros, cabecalho, grid. Header e sidebar SEMPRE incluir.
 - **KPIs** (big numbers): nome, valor, tipo (azul fixo, azul auto, verde), variacao
@@ -47,6 +90,7 @@ Se a entrada e uma imagem (sketch), use `Read` para visualizar e identificar blo
 ### 2. Mapear componentes do DS
 
 Para cada componente identificado:
+
 1. Consulte `design-system.html` para ver o markup de referencia (preview + snippet)
 2. Anote as classes que vai usar
 3. **PARE — execute o passo 3 antes de escrever qualquer codigo**
@@ -71,24 +115,40 @@ NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lu
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPA — [Titulo da pagina]</title>
-  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
-  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
-</head>
-<body>
-  <!-- conteudo -->
-  <script>
-    // interatividade
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPA — [Titulo da pagina]</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://marcoskip.github.io/infoprice-prototipos/tokens.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://marcoskip.github.io/infoprice-prototipos/styles.css"
+    />
+  </head>
+  <body>
+    <!-- conteudo -->
+    <script>
+      // interatividade
+    </script>
+  </body>
 </html>
 ```
 
@@ -106,13 +166,13 @@ NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lu
 
 Cada secao padrao tem uma estrutura especifica no `styles.css`. Sair dessa hierarquia quebra o flexbox e gera sobreposicao:
 
-| Secao | Hierarquia esperada |
-|---|---|
-| `.filtros` | `.filtros__inner` → `.filtros__box` → `.filtros__left` (chips) + `.filtros__right` (limpar/salvos) |
-| `.cabecalho` | `.cabecalho__inner` → `.cabecalho__info` + `.cabecalho__buttons` |
-| `.title-bar` | `.title-bar__left` (titulo) + `.title-bar__right` (acoes) |
-| `.big-numbers` | `.big-numbers__inner` → `.big-numbers__cards` → cards |
-| `.grid` | `.grid__wrapper` → `table.grid__table` |
+| Secao          | Hierarquia esperada                                                                                |
+| -------------- | -------------------------------------------------------------------------------------------------- |
+| `.filtros`     | `.filtros__inner` → `.filtros__box` → `.filtros__left` (chips) + `.filtros__right` (limpar/salvos) |
+| `.cabecalho`   | `.cabecalho__inner` → `.cabecalho__info` + `.cabecalho__buttons`                                   |
+| `.title-bar`   | `.title-bar__left` (titulo) + `.title-bar__right` (acoes)                                          |
+| `.big-numbers` | `.big-numbers__inner` → `.big-numbers__cards` → cards                                              |
+| `.grid`        | `.grid__wrapper` → `table.grid__table`                                                             |
 
 CLASSES QUE NAO EXISTEM (nunca usar): `.cabecalho__left`, `.cabecalho__right`, `.cabecalho__count`, `.cabecalho__filtros-toggle`. Confirme via grep antes de qualquer container estrutural.
 
@@ -133,8 +193,13 @@ largura visual. O `overflow` do Grid NUNCA deve ficar em `.grid` — vai em
 reduza a largura da secao em relacao as demais:
 
 ```css
-.grid { overflow: visible; }
-.grid__wrapper { height: 100%; overflow-y: auto; }
+.grid {
+  overflow: visible;
+}
+.grid__wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
 ```
 
 ```
@@ -157,23 +222,25 @@ reduza a largura da secao em relacao as demais:
 
 **Coordenadas por secao:**
 
-| Secao | top | left | right | height | z-index |
-|---|---|---|---|---|---|
-| Header | 0 | 0 | 0 | 52px | 50 |
-| Sidebar | 52px | 0 | — | calc(100vh - 52px) | 45 |
-| Title Bar | 60px | 52px | 0 | 36px | 42 |
-| Big Numbers | 104px | 52px | 0 | auto (~100px) | 40 |
-| Filtros | 212px | 52px | 0 | auto | 42 |
-| Cabecalho | depende de filtros | 52px | 0 | ~48px | 41 |
-| Grid | depende de cabecalho | 52px | 0 | ate bottom: 0 | 1 |
+| Secao       | top                  | left | right | height             | z-index |
+| ----------- | -------------------- | ---- | ----- | ------------------ | ------- |
+| Header      | 0                    | 0    | 0     | 52px               | 50      |
+| Sidebar     | 52px                 | 0    | —     | calc(100vh - 52px) | 45      |
+| Title Bar   | 60px                 | 52px | 0     | 36px               | 42      |
+| Big Numbers | 104px                | 52px | 0     | auto (~100px)      | 40      |
+| Filtros     | 212px                | 52px | 0     | auto               | 42      |
+| Cabecalho   | depende de filtros   | 52px | 0     | ~48px              | 41      |
+| Grid        | depende de cabecalho | 52px | 0     | ate bottom: 0      | 1       |
 
 **Calculo de posicoes customizadas:**
 Quando uma pagina omite uma secao, recalcule mantendo o gap de 8px:
+
 ```
 top_proxima_secao = top_secao_anterior + height_secao_anterior + 8
 ```
 
 Exemplo sem Big Numbers (title bar com 50px):
+
 - Title Bar: 60px (52 + 8)
 - Filtros: 118px (60 + 50 + 8)
 - Cabecalho: filtros_bottom + 8
@@ -184,25 +251,44 @@ Alterna entre 52px (colapsado) e 220px (expandido). Ao alternar, TODAS as secoes
 abaixo do header devem atualizar `left`:
 
 ```javascript
-const sidebar = document.getElementById('sidebar');
-const seta = document.getElementById('sidebarSeta');
+const sidebar = document.getElementById("sidebar");
+const seta = document.getElementById("sidebarSeta");
 let sidebarExpanded = false;
 
-seta.addEventListener('click', () => {
+seta.addEventListener("click", () => {
   sidebarExpanded = !sidebarExpanded;
-  sidebar.classList.toggle('is-expanded', sidebarExpanded);
-  seta.classList.toggle('is-flipped', sidebarExpanded);
-  const newLeft = sidebarExpanded ? '220px' : '52px';
-  document.querySelectorAll('.title-bar, .big-numbers, .filtros, .cabecalho, .grid')
-    .forEach(el => el.style.left = newLeft);
+  sidebar.classList.toggle("is-expanded", sidebarExpanded);
+  seta.classList.toggle("is-flipped", sidebarExpanded);
+  const newLeft = sidebarExpanded ? "220px" : "52px";
+  document
+    .querySelectorAll(".title-bar, .big-numbers, .filtros, .cabecalho, .grid")
+    .forEach((el) => (el.style.left = newLeft));
 });
 ```
 
 CSS de transicao:
+
 ```css
-.sidebar { position: fixed; top: 52px; left: 0; width: 52px; height: calc(100vh - 52px); transition: width 300ms ease; z-index: 45; overflow: hidden; }
-.sidebar.is-expanded { width: 220px; }
-.title-bar, .big-numbers, .filtros, .cabecalho, .grid { transition: left 300ms ease; }
+.sidebar {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  width: 52px;
+  height: calc(100vh - 52px);
+  transition: width 300ms ease;
+  z-index: 45;
+  overflow: hidden;
+}
+.sidebar.is-expanded {
+  width: 220px;
+}
+.title-bar,
+.big-numbers,
+.filtros,
+.cabecalho,
+.grid {
+  transition: left 300ms ease;
+}
 ```
 
 **Filtros toggle:**
@@ -210,15 +296,19 @@ O botao no Cabecalho mostra/oculta a secao Filtros. Ao ocultar, secoes abaixo
 sobem para preencher o espaco (mantendo gap de 8px).
 
 ```javascript
-const filtrosSection = document.querySelector('.filtros');
-const filtrosToggle = document.getElementById('filtrosToggleBtn');
+const filtrosSection = document.querySelector(".filtros");
+const filtrosToggle = document.getElementById("filtrosToggleBtn");
 let filtrosVisible = true;
 
-filtrosToggle.addEventListener('click', () => {
+filtrosToggle.addEventListener("click", () => {
   filtrosVisible = !filtrosVisible;
-  filtrosSection.style.display = filtrosVisible ? '' : 'none';
-  document.querySelector('.cabecalho').style.top = filtrosVisible ? '346px' : '212px';
-  document.querySelector('.grid').style.top = filtrosVisible ? '414px' : '268px';
+  filtrosSection.style.display = filtrosVisible ? "" : "none";
+  document.querySelector(".cabecalho").style.top = filtrosVisible
+    ? "346px"
+    : "212px";
+  document.querySelector(".grid").style.top = filtrosVisible
+    ? "414px"
+    : "268px";
 });
 ```
 
@@ -228,9 +318,21 @@ Header usa overlay que escurece fundo quando dropdown abre:
 ```html
 <div class="dropdown-overlay" id="dropdownOverlay"></div>
 ```
+
 ```css
-.dropdown-overlay { position: fixed; inset: 52px 0 0 0; background: rgba(0,0,0,0.18); z-index: 49; opacity: 0; pointer-events: none; transition: opacity 140ms ease; }
-.dropdown-overlay.is-open { opacity: 1; pointer-events: auto; }
+.dropdown-overlay {
+  position: fixed;
+  inset: 52px 0 0 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 49;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease;
+}
+.dropdown-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
 ```
 
 **Padrao closeAll:**
@@ -238,19 +340,43 @@ Toda pagina deve ter funcao `closeAll()` que fecha todos os dropdowns:
 
 ```javascript
 function closeAll() {
-  document.querySelectorAll('.dropdown.is-open, .filtro-dropdown.is-open, .filtro-chip.is-open, .composed-dropdown.is-open, .grid__pref-dropdown.is-open').forEach(d => d.classList.remove('is-open'));
-  document.getElementById('dropdownOverlay').classList.remove('is-open');
-  document.querySelectorAll('[aria-expanded="true"]').forEach(el => el.setAttribute('aria-expanded', 'false'));
+  document
+    .querySelectorAll(
+      ".dropdown.is-open, .filtro-dropdown.is-open, .filtro-chip.is-open, .composed-dropdown.is-open, .grid__pref-dropdown.is-open",
+    )
+    .forEach((d) => d.classList.remove("is-open"));
+  document.getElementById("dropdownOverlay").classList.remove("is-open");
+  document
+    .querySelectorAll('[aria-expanded="true"]')
+    .forEach((el) => el.setAttribute("aria-expanded", "false"));
 }
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.dropdown, .filtro-dropdown, .composed-dropdown, .grid__pref-dropdown, [aria-expanded], .filtro-chip, .composed-btn')) closeAll();
+document.addEventListener("click", (e) => {
+  if (
+    !e.target.closest(
+      ".dropdown, .filtro-dropdown, .composed-dropdown, .grid__pref-dropdown, [aria-expanded], .filtro-chip, .composed-btn",
+    )
+  )
+    closeAll();
 });
 ```
 
 **Body reset:**
+
 ```css
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-family-base); background: var(--color-gray-50); display: flex; align-items: flex-start; min-height: 100vh; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: var(--font-family-base);
+  background: var(--color-gray-50);
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}
 ```
 
 #### Convencoes do IPA (conhecimento de dominio)
@@ -259,12 +385,14 @@ Este e o "como o IPA usa o DS" — orientacoes que vao alem do markup canonico
 do `design-system.html`. Aplicar sempre que pertinente.
 
 **Identidade default (header e usuario):**
+
 - Logo: `https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg`
 - Nome do produto: `IPA | Software de Precificacao`
 - Nome do usuario logado: `Ola, Marcus` (display) / `Marcus Roggero` + `marcus@infoprice.co` (no dropdown)
 
 **Itens default do Sidebar (5 itens fixos, nesta ordem):**
-1. Gerenciador (`gerenciador-symbol.svg`) — *normalmente o ativo*
+
+1. Gerenciador (`gerenciador-symbol.svg`) — _normalmente o ativo_
 2. Estrategia (`estrategia-symbol.svg`)
 3. Negociacoes Fornecedor (`negociacoes-symbol.svg`) + chevron-right
 4. Extracao de precos (`extracao-symbol.svg`)
@@ -274,20 +402,25 @@ Todos os assets em `https://marcoskip.github.io/infoprice-prototipos/assets/`.
 
 **Title Bar — mapa de icones por funcao semantica:**
 
-| Funcao do botao | Icone | Tipo |
-|---|---|---|
-| Fixar / pin layout | Pino (pin) | SVG inline (`title-btn__icon`, `fill="currentColor"`) |
-| Agrupar por loja / cluster | Loja (store) | SVG inline |
-| Agrupar por produto / familia | Hierarquia (tree) | SVG inline |
+| Funcao do botao               | Icone             | Tipo                                                  |
+| ----------------------------- | ----------------- | ----------------------------------------------------- |
+| Fixar / pin layout            | Pino (pin)        | SVG inline (`title-btn__icon`, `fill="currentColor"`) |
+| Agrupar por loja / cluster    | Loja (store)      | SVG inline                                            |
+| Agrupar por produto / familia | Hierarquia (tree) | SVG inline                                            |
 
 Regras:
+
 - Agrupamento por **loja/cluster** → SEMPRE icone de **loja**
 - Agrupamento por **produto/familia** → SEMPRE icone de **hierarquia**
 - Toggle (fixar) → icone especifico da funcao
 - Links de acao (`title-bar__action-link`) usam **Material Icons Outlined** a 14px:
   ```html
   <a class="title-bar__action-link" href="#">
-    <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle;margin-right:2px">upload_file</span>
+    <span
+      class="material-icons-outlined"
+      style="font-size:14px;vertical-align:middle;margin-right:2px"
+      >upload_file</span
+    >
     Criar negociacao com arquivo
   </a>
   ```
@@ -295,65 +428,182 @@ Regras:
 
 **Cabecalho — botoes compostos disponiveis:**
 
-| ID | Icone (assets/cabecalho/) | Tooltip | Dropdown |
-|---|---|---|---|
-| filtrosToggle | `icon-filtros.svg` | — | Toggle visibilidade filtros |
-| btnCustos | `icon-custos.svg` | Filtrar novos custos | Input numerico (N dias) |
-| btnConcorrentes | `icon-concorrentes.svg` | Filtrar precos concorrentes | Checkbox + input |
-| btnAlteracoes | `icon-alteracoes.svg` | Filtrar por Alteracao | Radio + input % |
-| btnCompetitividade | `MdEmojiEvents.svg` | Filtrar por Competitividade | Radio + input % |
-| btnMargem | `icon-margem.svg` | Filtrar por Margem | Radio + input % |
-| btnLimites | `icon limites.svg` | Filtrar limites | Radio (quebrados/nao) |
-| btnDerivados | `icon-derivados.svg` | Filtrar produtos derivados | Solo (sem dropdown) |
-| aplicarPreco | — | — | Radio (sugerido/vigente) |
+| ID                 | Icone (assets/cabecalho/) | Tooltip                     | Dropdown                    |
+| ------------------ | ------------------------- | --------------------------- | --------------------------- |
+| filtrosToggle      | `icon-filtros.svg`        | —                           | Toggle visibilidade filtros |
+| btnCustos          | `icon-custos.svg`         | Filtrar novos custos        | Input numerico (N dias)     |
+| btnConcorrentes    | `icon-concorrentes.svg`   | Filtrar precos concorrentes | Checkbox + input            |
+| btnAlteracoes      | `icon-alteracoes.svg`     | Filtrar por Alteracao       | Radio + input %             |
+| btnCompetitividade | `MdEmojiEvents.svg`       | Filtrar por Competitividade | Radio + input %             |
+| btnMargem          | `icon-margem.svg`         | Filtrar por Margem          | Radio + input %             |
+| btnLimites         | `icon limites.svg`        | Filtrar limites             | Radio (quebrados/nao)       |
+| btnDerivados       | `icon-derivados.svg`      | Filtrar produtos derivados  | Solo (sem dropdown)         |
+| aplicarPreco       | —                         | —                           | Radio (sugerido/vigente)    |
 
 Use `composed-btn--solo` quando nao houver dropdown (ex: btnDerivados).
 
 **Filtros — 6 tipos de dropdown:**
 
-| Tipo | Estrutura |
-|---|---|
-| Search + checkbox | search input + lista de checkboxes (padrao) |
-| Search + "Colar lista" | search + link "Colar lista de codigos" + checkboxes (Produtos, Familia) |
-| Search + "Selecionar todos" | search + checkboxes + footer com "Selecionar todos" (Lojas) |
-| Grupos colapsaveis | headers clicaveis que expandem grupos (Status, Segmentacao) |
-| Search + vazio | search + "Nenhum item encontrado" (Marca, Fornecedor) |
-| Checkbox simples | apenas checkboxes sem search (+ Filtros) |
+| Tipo                        | Estrutura                                                               |
+| --------------------------- | ----------------------------------------------------------------------- |
+| Search + checkbox           | search input + lista de checkboxes (padrao)                             |
+| Search + "Colar lista"      | search + link "Colar lista de codigos" + checkboxes (Produtos, Familia) |
+| Search + "Selecionar todos" | search + checkboxes + footer com "Selecionar todos" (Lojas)             |
+| Grupos colapsaveis          | headers clicaveis que expandem grupos (Status, Segmentacao)             |
+| Search + vazio              | search + "Nenhum item encontrado" (Marca, Fornecedor)                   |
+| Checkbox simples            | apenas checkboxes sem search (+ Filtros)                                |
 
 **Grid — regras finas (alem do markup canonico):**
+
 - `table-layout: fixed` com `<colgroup>` para larguras
 - Header: background `--color-gray-100`, texto 10px bold uppercase `--color-gray-700`
-- Linhas: padding-left 16px obrigatorio (primeira celula). Hover background `--color-gray-50`.
+- Linhas: padding-left 16px obrigatorio (primeira celula) **E** padding-right 16px obrigatorio (ultima celula) — simetria de respiro entre conteudo e borda do grid. Hover background `--color-gray-50`.
 - **NUNCA** usar `border-bottom` ou `border-top` entre linhas. As unicas bordas permitidas sao a do `.grid__wrapper` ao redor da tabela e o `border-bottom` do `<th>` separando header do body.
 - Checkbox: SEMPRE 16px da margem esquerda (via padding-left da primeira celula, nunca inline style)
-- **REGRA: inputs numericos na mesma linha = 116px de largura** (`.grid__form-field { width: 116px; }`). Colunas com inputs >= 128px (116 + 6 padding cada lado).
+- **REGRA: inputs numericos do grid devem ser uniformes:**
+  - **Quando ha mais de um input numerico na MESMA linha**, todos devem ter o
+    **mesmo tamanho de largura**.
+  - **Largura preferencial: 116px** (`.grid__form-field { width: 116px }`).
+  - **Coluna do `<colgroup>`** que contem o input deve ter **>= 128px**
+    (116 + 6px padding em cada lado da celula). Ideal: usar exatamente
+    `<col style="width:128px" />` para que o input com `width: 100%` (canonico
+    do CSS) caia naturalmente em ~116px.
+  - Se 1 input precisar ser maior por contexto especifico (ex: nome longo),
+    promova TODOS os inputs daquela linha para o mesmo tamanho maior — nunca
+    deixar inputs de tamanhos diferentes lado a lado.
+  - Esta regra cobre tanto a tabela principal quanto sub-rows ou linhas
+    complementares.
+
+- **REGRA CRITICA: distribuicao de largura no `<colgroup>`** (relacionada a
+  inputs e a qualquer coluna com width fixo):
+  - O grid usa `table-layout: fixed`. Se a soma dos `<col style="width:Xpx">`
+    for **menor** que a largura real da tabela, o navegador distribui o espaco
+    sobrando **proporcionalmente entre TODAS as colunas** — quebrando os
+    tamanhos fixos (input de 116px vira 200px+, etc).
+  - **Solucao**: na coluna principal (geralmente "Produto", que tem nome longo
+    e suporta espaco variavel), **NAO definir width** no `<col>`:
+    ```html
+    <colgroup>
+      <col style="width:40px" />     <!-- checkbox -->
+      <col />                        <!-- Produto (flexivel — absorve extra) -->
+      <col style="width:90px" />     <!-- Estoque -->
+      <col style="width:128px" />    <!-- Preco sugerido (input) -->
+      ...
+    </colgroup>
+    ```
+  - A coluna sem width vira "flexivel" e absorve TODO o espaco extra,
+    preservando os tamanhos fixos das demais (incluindo as de inputs).
+  - Padrao oficial do DS, vide `#grid-cells > Linha complementar (sub-row)`.
 - Paginacao: height 40px, fundo branco, border-top 1px `--color-gray-200`. Pagina ativa: background `--color-blue-400`, texto branco, border-radius 4px.
 
 **Indicador (status qualitativo em 5 niveis):**
 Sempre que precisar de badge "bom/ruim/regular", usar este componente.
 
-| Variante | Classe | BG / Border / Texto |
-|---|---|---|
-| MUITO BOM | `indicador--muito-bom` | green-light-20 / green-light-45 / green-400 |
-| BOM | `indicador--bom` | green-light-5 / green-light-20 / green-400 |
-| REGULAR | `indicador--regular` | orange-light-5 / orange-light-15 / orange-400 |
-| RUIM | `indicador--ruim` | red-light-5 / red-light-20 / red-600 |
-| MUITO RUIM | `indicador--muito-ruim` | red-light-20 / red-light-45 / red-600 |
+| Variante   | Classe                  | BG / Border / Texto                           |
+| ---------- | ----------------------- | --------------------------------------------- |
+| MUITO BOM  | `indicador--muito-bom`  | green-light-20 / green-light-45 / green-400   |
+| BOM        | `indicador--bom`        | green-light-5 / green-light-20 / green-400    |
+| REGULAR    | `indicador--regular`    | orange-light-5 / orange-light-15 / orange-400 |
+| RUIM       | `indicador--ruim`       | red-light-5 / red-light-20 / red-600          |
+| MUITO RUIM | `indicador--muito-ruim` | red-light-20 / red-light-45 / red-600         |
 
 Labels multi-palavra quebram em 2 linhas com `<br>` (ex: `MUITO<br>BOM`).
 
-**Variantes obrigatorias do Grid:**
+**Markup canonico OBRIGATORIO de cada celula do grid:**
 
-- **Coluna Estoque**: SEMPRE incluir o icone `unidades.svg` ANTES do valor.
+Cada coluna do grid IPA tem markup proprio e nao-trivial. **Sempre que precisar
+montar uma celula, copiar o markup da seu tipo abaixo — nao reduzir a um simples
+`<span>val</span>`.** A fonte canonica visual viva esta em `#grid-cells` do
+`design-system.html`; em caso de duvida, consulta-la antes de escrever.
+
+- **Celula Estoque** (2 linhas): icone `unidades.svg` + valor; chip de dias + data.
   ```html
-  <div class="grid__estoque-line1">
-    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="">
-    <span class="grid__val-main">${valor}</span>
-  </div>
+  <td>
+    <div class="grid__estoque-line1">
+      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+      <span class="grid__val-main">${valor}</span>
+    </div>
+    <div class="grid__estoque-line2">
+      <span class="grid__estoque-days">${dias}d</span>
+      <span class="grid__estoque-date">${data}</span>
+    </div>
+  </td>
   ```
-  Path: `assets/grid/unidades.svg` (relativo) ou URL absoluta do GitHub Pages.
 
-- **Coluna Cluster**: SEMPRE acompanhada de chip indicando numero de lojas.
+- **Celula PMC** (2 linhas): valor + chip de margem + data.
+  ```html
+  <td>
+    <span class="grid__val-main">${valor}</span>
+    <div class="grid__pmc-line2">
+      <span class="grid__pmc-chip">${margem}%</span>
+      <span class="grid__pmc-date">${data}</span>
+    </div>
+  </td>
+  ```
+
+- **Celula Preco vigente** (2 linhas): valor + 2 indicadores (Cifra + Trofeu) com separador.
+  ```html
+  <td>
+    <span class="grid__val-main">${valor}</span>
+    <div class="grid__pv-line2">
+      <div class="grid__pv-indicator">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+        <span>${cifra}%</span>
+      </div>
+      <div class="grid__pv-sep"></div>
+      <div class="grid__pv-indicator">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+        <span>${trofeu}%</span>
+      </div>
+    </div>
+  </td>
+  ```
+
+- **Celula Preco concorrente** (2 linhas): row com valor + media x&#x0304; + link "Abrir".
+  ```html
+  <td>
+    <div class="grid__pc-row">
+      <span class="grid__val-main">${valor}</span>
+      <span class="grid__pc-avg">x&#x0304;</span>
+    </div>
+    <div class="grid__pc-link">
+      <span class="material-icons-outlined">expand_more</span>
+      <span>Abrir</span>
+    </div>
+  </td>
+  ```
+
+- **Celula Margem objetiva** (1 linha): icone margem + valor.
+  ```html
+  <td>
+    <div class="grid__cell">
+      <div class="grid__mo-line1">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+        <span class="grid__val-main">${valor}%</span>
+      </div>
+    </div>
+  </td>
+  ```
+
+- **Celula Produto** (3 linhas): codigo + familia opcional, nome, chips de atributos.
+  ```html
+  <td>
+    <div class="grid__produto-codes">
+      <span class="grid__produto-code">${cod}</span>
+      <div class="grid__produto-family">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod-familia.svg" alt="" />
+        <span>${familia}</span>
+      </div>
+    </div>
+    <div class="grid__produto-name">${nome}</div>
+    <div class="grid__produto-chips">
+      <span class="grid__chip grid__chip--red">${atributo critico}</span>
+      <span class="grid__chip grid__chip--gray">${atributo neutro}</span>
+    </div>
+  </td>
+  ```
+
+- **Celula Cluster** (quando a coluna for "Cluster"): nome + chip de N LOJAS.
   ```html
   <td>
     <div class="neg__cluster-cell">
@@ -362,15 +612,69 @@ Labels multi-palavra quebram em 2 linhas com `<br>` (ex: `MUITO<br>BOM`).
     </div>
   </td>
   ```
-  Layout: nome em cima, chip embaixo (flex-direction: column). Chip usa cores blue (background `--color-blue-light-15`, texto `--color-blue-400`, uppercase).
+  Chip usa background `--color-blue-light-15`, texto `--color-blue-400`, uppercase.
+
+- **Menu Precos (atacado/oferta/campanha)** quando aplicavel: usar `.grid__price-menu`
+  com botoes numericos (2, 3, 4, 5) ou variante `--campanha`. Ver markup em `#grid-cells`.
+
+- **Input numerico do grid (Form field)**: usar wrapper com prefix/suffix separado.
+  ```html
+  <!-- Com prefix R$ (border azul = focado/editavel) -->
+  <div class="grid__form-field grid__form-field--blue">
+    <span class="grid__form-prefix">R$</span>
+    <input type="text" class="grid__form-input" value="12,49" />
+  </div>
+
+  <!-- Com suffix % cinza -->
+  <div class="grid__form-field">
+    <input type="text" class="grid__form-input" value="25,3" />
+    <span class="grid__form-suffix grid__form-suffix--gray">%</span>
+  </div>
+  ```
+  Variantes de field: `--blue`, `--red`. Variantes de suffix: `--gray`, `--red`.
+  **NUNCA** colocar o prefixo dentro do `value` do input.
+
+- **Paginacao do grid**: estrutura completa com 2 lados (esquerda + direita).
+  ```html
+  <div class="grid__pagination">
+    <div class="grid__pagination-left">
+      <span class="grid__pagination-val">${perPage}</span>
+      <span class="material-icons-outlined">expand_less</span>
+      <span class="grid__pagination-label">/ pagina</span>
+      <span class="grid__pagination-sep"></span>
+      <span class="grid__pagination-label">total: ${total}</span>
+    </div>
+    <div class="grid__pagination-right">
+      <div class="grid__pagination-nav">
+        <span class="material-icons-outlined">first_page</span>
+        <span class="material-icons-outlined">chevron_left</span>
+      </div>
+      <button class="grid__pagination-btn is-active">1</button>
+      <button class="grid__pagination-btn">2</button>
+      <button class="grid__pagination-btn">...</button>
+      <button class="grid__pagination-btn">${last}</button>
+      <div class="grid__pagination-nav">
+        <span class="material-icons-outlined">chevron_right</span>
+        <span class="material-icons-outlined">last_page</span>
+      </div>
+    </div>
+  </div>
+  ```
+  Classes que **NAO existem** (nao usar): `grid__pagination-perpage`,
+  `grid__pagination-info`. Use as do markup acima.
+
+**REGRA META:** Reduzir uma celula complexa a `<span class="grid__val-main">val</span>`
+e considerada quebra do DS — vale para qualquer template, prototipo ou demo, mesmo
+fora do contexto da skill. Se a coluna do header diz "Estoque", "PMC", "Preco vigente"
+etc., usar o markup canonico correspondente acima.
 
 **Geracao de dados ficticios (varejo/supermercado):**
 Use ~20 produtos realistas para popular tabelas. Padrao:
 
 ```javascript
 const PRODUTOS = [
-  { cod: '1026313', nome: 'LINGUICA SEARA 215G FININHA', familia: '2631' },
-  { cod: '1026314', nome: 'SALSICHA PERDIGAO 500G', familia: '2631' },
+  { cod: "1026313", nome: "LINGUICA SEARA 215G FININHA", familia: "2631" },
+  { cod: "1026314", nome: "SALSICHA PERDIGAO 500G", familia: "2631" },
   // ... ~20 produtos de supermercado (laticinios, embutidos, mercearia, hortifruti)
 ];
 
@@ -378,9 +682,9 @@ function randomBetween(min, max) {
   return (Math.random() * (max - min) + min).toFixed(2);
 }
 
-const tbody = document.getElementById('gridBody');
-PRODUTOS.forEach(p => {
-  const tr = document.createElement('tr');
+const tbody = document.getElementById("gridBody");
+PRODUTOS.forEach((p) => {
+  const tr = document.createElement("tr");
   tr.innerHTML = `
     <td><input type="checkbox" class="grid__check" /></td>
     <td>
@@ -402,10 +706,10 @@ PRODUTOS.forEach(p => {
 **Botoes primarios da pagina (Aplicar/Salvar/Exportar):**
 SEMPRE usar a cor principal da InfoPrice:
 
-| Estado | Background |
-|---|---|
-| Habilitado | `--color-blue-400` |
-| Hover | `--color-blue-500` |
+| Estado       | Background              |
+| ------------ | ----------------------- |
+| Habilitado   | `--color-blue-400`      |
+| Hover        | `--color-blue-500`      |
 | Desabilitado | `--color-blue-light-45` |
 
 NUNCA usar verde ou outra cor para botao primario — a cor principal e sempre Blue-400.
@@ -424,15 +728,15 @@ NUNCA usar verde ou outra cor para botao primario — a cor principal e sempre B
 
 Apos gerar, rode as 7 verificacoes:
 
-| # | Verificacao | Como rodar |
-|---|---|---|
-| 1 | **Cores** | Grep por hex (`#xxx`/`#xxxxxx`) e `rgb(...)` no `<style>`. Cada um deve estar em `var(--token, fallback)`. Excecao: `#fff`, `#000`, `transparent` |
-| 2 | **Tipografia** | `font-family` deve ser `'Open Sans', sans-serif`. `font-size`/`font-weight`/`line-height` devem usar tokens |
-| 3 | **Espacamento** | `padding/margin/gap` devem usar `var(--space-*)` ou multiplos de 4px |
-| 4 | **Sombras/bordas** | `box-shadow` usa `var(--shadow-*)`. `border-radius` usa `var(--radius-*)` |
-| 5 | **Cores inline JS** | Grep cores hardcoded em `style.X = ...` e `style="..."` em template strings |
-| 6 | **Componentes (grep)** | Para cada classe usada, grep no `styles.css`. Sem match = inventou ou copiou de page-specific = FAIL. Vale tambem para classes mencionadas em `componentes.md` ou design-system — confie no styles.css, nao na documentacao |
-| 7 | **Estrutura HTML** | Validar hierarquia da tabela acima. Elementos interativos NUNCA como filhos diretos de `.filtros__inner` ou `.cabecalho` — sempre dentro do sub-container correto |
+| #   | Verificacao            | Como rodar                                                                                                                                                                                                                  |
+| --- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Cores**              | Grep por hex (`#xxx`/`#xxxxxx`) e `rgb(...)` no `<style>`. Cada um deve estar em `var(--token, fallback)`. Excecao: `#fff`, `#000`, `transparent`                                                                           |
+| 2   | **Tipografia**         | `font-family` deve ser `'Open Sans', sans-serif`. `font-size`/`font-weight`/`line-height` devem usar tokens                                                                                                                 |
+| 3   | **Espacamento**        | `padding/margin/gap` devem usar `var(--space-*)` ou multiplos de 4px                                                                                                                                                        |
+| 4   | **Sombras/bordas**     | `box-shadow` usa `var(--shadow-*)`. `border-radius` usa `var(--radius-*)`                                                                                                                                                   |
+| 5   | **Cores inline JS**    | Grep cores hardcoded em `style.X = ...` e `style="..."` em template strings                                                                                                                                                 |
+| 6   | **Componentes (grep)** | Para cada classe usada, grep no `styles.css`. Sem match = inventou ou copiou de page-specific = FAIL. Vale tambem para classes mencionadas em `componentes.md` ou design-system — confie no styles.css, nao na documentacao |
+| 7   | **Estrutura HTML**     | Validar hierarquia da tabela acima. Elementos interativos NUNCA como filhos diretos de `.filtros__inner` ou `.cabecalho` — sempre dentro do sub-container correto                                                           |
 
 Reporte em tabela:
 
@@ -477,6 +781,7 @@ informando que ele precisa abrir o arquivo manualmente.
 ### 7. Informar o usuario
 
 Ao finalizar:
+
 - Confirmar que o protótipo ja foi aberto no navegador
 - Caminho do arquivo criado (caso ele queira reabrir depois)
 - Componentes incluidos

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Gerenciador de Preços (Template)</title>
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__left">
+      <button class="header__menu-btn" aria-label="Menu de produtos"><span class="material-icons-outlined">apps</span></button>
+      <div class="header__brand">
+        <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificação</span>
+      </div>
+    </div>
+    <div class="header__right">
+      <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+      <div class="header__user">
+        <span class="header__user-name">Olá, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar (expandida) -->
+  <aside class="sidebar is-expanded" id="sidebar">
+    <div class="sidebar__top">
+      <div class="sidebar__item sidebar__item--active">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Estratégia</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Negociações Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Extração de preços</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+      </div>
+    </div>
+    <div class="sidebar__bottom">
+      <button class="sidebar__seta is-flipped" id="sidebarSeta" aria-label="Recolher menu"><span class="material-icons-outlined">keyboard_arrow_right</span></button>
+    </div>
+  </aside>
+
+  <!-- Title bar -->
+  <section class="title-bar">
+    <div class="title-bar__left">
+      <span class="title-bar__heading">Gerenciador de preços</span>
+      <span class="title-bar__badge">Atualizado em 25/04/2026, 13:42</span>
+    </div>
+    <div class="title-bar__right">
+      <button class="title-btn">
+        <span class="material-icons-outlined" style="font-size:14px">push_pin</span>
+        <span>Fixar</span>
+      </button>
+      <button class="title-btn">
+        <span class="material-icons-outlined" style="font-size:14px">store</span>
+        <span>Loja</span>
+        <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+      </button>
+      <button class="title-btn">
+        <span class="material-icons-outlined" style="font-size:14px">account_tree</span>
+        <span>Produto</span>
+        <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Big Numbers -->
+  <section class="big-numbers">
+    <div class="big-numbers__inner">
+      <div class="big-numbers__cards">
+        <div class="bn-card bn-card--blue">
+          <div class="bn-card__body">
+            <div class="bn-card__top"><span class="bn-card__number">3.645</span></div>
+            <span class="bn-card__desc">de <b>3.645</b> do<br>total de preços</span>
+          </div>
+        </div>
+        <div class="bn-card bn-card--blue-auto">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number">101,3%</span>
+              <div class="bn-card__variation bn-card__variation--down">
+                <span class="material-icons-outlined">arrow_downward</span>
+                <span class="bn-card__variation-val">0,4%</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Competitividade,<br>era <b>102,3%</b></span>
+          </div>
+        </div>
+        <div class="bn-card bn-card--green">
+          <div class="bn-card__body">
+            <div class="bn-card__top">
+              <span class="bn-card__number">+ R$ 392mil</span>
+              <div class="bn-card__variation bn-card__variation--up">
+                <span class="material-icons-outlined">arrow_upward</span>
+                <span class="bn-card__variation-val">0,1%</span>
+              </div>
+            </div>
+            <span class="bn-card__desc">Estimativa de<br>diferença no lucro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtros -->
+  <section class="filtros">
+    <div class="filtros__inner">
+      <div class="filtros__box">
+        <div class="filtros__left">
+          <div class="filtros__row">
+            <button class="filtro-chip"><span>Família</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+            <button class="filtro-chip"><span>Marca</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+            <button class="filtro-chip"><span>Loja</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+            <button class="filtro-chip"><span>Sensibilidade</span><span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span></button>
+            <button class="filtro-chip">+ Filtros</button>
+          </div>
+        </div>
+        <div class="filtros__right">
+          <button class="filtro-chip filtro-chip--clear">Limpar filtros</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cabeçalho de resultados -->
+  <section class="cabecalho">
+    <div class="cabecalho__inner">
+      <span class="cabecalho__info">Foram encontrados <b>3.645</b> resultados no total</span>
+      <div class="cabecalho__buttons">
+        <div class="composed-btn">
+          <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-custos.svg" alt="" /></button>
+          <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+        </div>
+        <div class="composed-btn">
+          <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-concorrentes.svg" alt="" /></button>
+          <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+        </div>
+        <div class="composed-btn">
+          <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-margem.svg" alt="" /></button>
+          <button class="composed-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+        </div>
+        <div class="composed-btn composed-btn--solo">
+          <button class="composed-btn__base"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-derivados.svg" alt="" /></button>
+        </div>
+        <div class="aplicar-btn is-active">
+          <button class="aplicar-btn__main">Aplicar preço</button>
+          <button class="aplicar-btn__drop"><span class="material-icons-outlined">keyboard_arrow_down</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="grid">
+    <div class="grid__wrapper">
+      <table class="grid__table">
+        <colgroup>
+          <col style="width:40px" />
+          <col />
+          <col style="width:90px" />
+          <col style="width:100px" />
+          <col style="width:140px" />
+          <col style="width:140px" />
+          <col style="width:120px" />
+          <col style="width:128px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="grid__check" /></th>
+            <th><div class="grid__th-content"><span>Produto</span></div></th>
+            <th><div class="grid__th-content"><span>Estoque</span></div></th>
+            <th><div class="grid__th-content"><span>PMC</span></div></th>
+            <th><div class="grid__th-content"><span>Preço vigente</span></div></th>
+            <th><div class="grid__th-content"><span>Preço concorrente</span></div></th>
+            <th><div class="grid__th-content"><span>Margem</span></div></th>
+            <th><div class="grid__th-content"><span>Preço sugerido</span></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1026313</span></div>
+              <div class="grid__produto-name">LINGUIÇA SEARA 215G FININHA</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--red">super sensível</span><span class="grid__chip grid__chip--gray">Local A</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">42</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">14d</span>
+                <span class="grid__estoque-date">10/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 8,99</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">22%</span>
+                <span class="grid__pmc-date">12/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 7,49</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>32%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>98%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 7,29</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">22,1%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="7,59" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1026314</span></div>
+              <div class="grid__produto-name">SALSICHA PERDIGÃO 500G</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local B</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">28</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">9d</span>
+                <span class="grid__estoque-date">04/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 12,49</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">19%</span>
+                <span class="grid__pmc-date">08/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 10,90</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>28%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>102%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 11,15</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">18,5%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="10,90" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1042108</span></div>
+              <div class="grid__produto-name">ARROZ TIO JOÃO TIPO 1 5KG</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--red">super sensível</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">15</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">5d</span>
+                <span class="grid__estoque-date">30/04/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 32,90</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">15%</span>
+                <span class="grid__pmc-date">15/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 28,50</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>21%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>95%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 27,90</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">15,3%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="28,90" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1031245</span></div>
+              <div class="grid__produto-name">FEIJÃO CARIOCA CAMIL 1KG</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local A</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">36</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">22d</span>
+                <span class="grid__estoque-date">17/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 8,49</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">20%</span>
+                <span class="grid__pmc-date">10/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 7,29</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>30%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>100%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 7,49</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">19,8%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="7,49" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1019887</span></div>
+              <div class="grid__produto-name">LEITE INTEGRAL ITAMBÉ 1L</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local C</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">120</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">3d</span>
+                <span class="grid__estoque-date">28/04/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 6,29</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">21%</span>
+                <span class="grid__pmc-date">18/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 5,49</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>34%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>104%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 5,29</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">21,2%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="5,49" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1054320</span></div>
+              <div class="grid__produto-name">ÓLEO DE SOJA SOYA 900ML</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local A</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">85</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">18d</span>
+                <span class="grid__estoque-date">13/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 9,99</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">17%</span>
+                <span class="grid__pmc-date">05/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 8,49</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>26%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>97%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 8,29</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">17,4%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="8,49" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1078541</span></div>
+              <div class="grid__produto-name">CAFÉ PILÃO TRADICIONAL 500G</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--red">super sensível</span><span class="grid__chip grid__chip--gray">Local B</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">62</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">12d</span>
+                <span class="grid__estoque-date">07/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 18,90</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">20%</span>
+                <span class="grid__pmc-date">11/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 16,49</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>29%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>99%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 16,29</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">20,1%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="16,49" />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" class="grid__check" /></td>
+            <td>
+              <div class="grid__produto-codes"><span class="grid__produto-code">1063117</span></div>
+              <div class="grid__produto-name">AÇÚCAR REFINADO UNIÃO 1KG</div>
+              <div class="grid__produto-chips"><span class="grid__chip grid__chip--gray">Local A</span></div>
+            </td>
+            <td>
+              <div class="grid__estoque-line1">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+                <span class="grid__val-main">98</span>
+              </div>
+              <div class="grid__estoque-line2">
+                <span class="grid__estoque-days">26d</span>
+                <span class="grid__estoque-date">21/05/2026</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 5,49</span>
+              <div class="grid__pmc-line2">
+                <span class="grid__pmc-chip">16%</span>
+                <span class="grid__pmc-date">02/04/26</span>
+              </div>
+            </td>
+            <td>
+              <span class="grid__val-main">R$ 4,69</span>
+              <div class="grid__pv-line2">
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                  <span>24%</span>
+                </div>
+                <div class="grid__pv-sep"></div>
+                <div class="grid__pv-indicator">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                  <span>96%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__pc-row">
+                <span class="grid__val-main">R$ 4,79</span>
+                <span class="grid__pc-avg">x&#x0304;</span>
+              </div>
+              <div class="grid__pc-link">
+                <span class="material-icons-outlined">expand_more</span>
+                <span>Abrir</span>
+              </div>
+            </td>
+            <td>
+              <div class="grid__cell">
+                <div class="grid__mo-line1">
+                  <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+                  <span class="grid__val-main">16,8%</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="grid__form-field grid__form-field--blue">
+                <span class="grid__form-prefix">R$</span>
+                <input type="text" class="grid__form-input" value="4,79" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Paginação -->
+      <div class="grid__pagination">
+        <div class="grid__pagination-left">
+          <span class="grid__pagination-val">50</span>
+          <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
+          <span class="grid__pagination-label">/ página</span>
+          <span class="grid__pagination-sep"></span>
+          <span class="grid__pagination-label">total: 3.645</span>
+        </div>
+        <div class="grid__pagination-right">
+          <div class="grid__pagination-nav">
+            <span class="material-icons-outlined">first_page</span>
+            <span class="material-icons-outlined">chevron_left</span>
+          </div>
+          <button class="grid__pagination-btn is-active">1</button>
+          <button class="grid__pagination-btn">2</button>
+          <button class="grid__pagination-btn">3</button>
+          <button class="grid__pagination-btn">...</button>
+          <button class="grid__pagination-btn">73</button>
+          <div class="grid__pagination-nav">
+            <span class="material-icons-outlined">chevron_right</span>
+            <span class="material-icons-outlined">last_page</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Sidebar inicia expandida — alinhar lefts das seções abaixo do header com 220px
+    document.querySelectorAll('.title-bar, .big-numbers, .filtros, .cabecalho, .grid')
+      .forEach(el => el.style.left = '220px');
+
+    // Toggle de expandir/recolher sidebar (interatividade visual mínima)
+    const sidebar = document.getElementById('sidebar');
+    const seta = document.getElementById('sidebarSeta');
+    let expanded = true;
+    seta.addEventListener('click', () => {
+      expanded = !expanded;
+      sidebar.classList.toggle('is-expanded', expanded);
+      seta.classList.toggle('is-flipped', expanded);
+      const newLeft = expanded ? '220px' : '52px';
+      document.querySelectorAll('.title-bar, .big-numbers, .filtros, .cabecalho, .grid')
+        .forEach(el => el.style.left = newLeft);
+    });
+  </script>
+</body>
+</html>
