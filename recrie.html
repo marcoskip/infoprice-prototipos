@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Fornecedores</title>
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-50);
+      min-height: 100vh;
+    }
+
+    /* Sem Big Numbers — tops recalculados a partir do title-bar (60+36+8=104) */
+    .filtros   { top: 104px; }
+    .cabecalho { top: 238px; }
+    .grid      { top: 306px; }
+
+    /* Sidebar item ativo (gap do DS — markup --active e canonico mas sem regra global) */
+    .sidebar__item--active {
+      background: var(--color-blue-light-5);
+      color: var(--color-blue-400);
+    }
+    .sidebar__item--active .sidebar__icon { filter: brightness(0) saturate(100%) invert(38%) sepia(91%) saturate(1542%) hue-rotate(195deg) brightness(96%) contrast(91%); }
+
+    /* Search standalone dentro do filtros__row */
+    .filtros .searchbar { width: 320px; }
+
+    /* Celulas page-specific (componentes nao existentes no DS — option C: sem avatar) */
+    .grid__empresa-name {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+    .grid__rep-name {
+      display: block;
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-md);
+    }
+    .grid__rep-email {
+      display: block;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-600);
+      line-height: var(--line-height-sm);
+    }
+    .grid__rep-empty {
+      color: var(--color-gray-500);
+      font-weight: var(--font-weight-regular);
+    }
+    .grid__neg-count {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+    }
+    .grid__last-activity {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-700);
+    }
+
+    /* Botao Exportar (ghost cinza claro) — usa .btn do DS, page-specific apenas para o tamanho menor */
+    .cabecalho__export.btn--small .material-icons-outlined { font-size: 16px; }
+
+    /* Kebab dropdown (reposicionado via JS, position fixed) */
+    #kebabDropdown {
+      position: fixed;
+      min-width: 200px;
+    }
+    #kebabDropdown .grid__pref-dropdown__item {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__left">
+      <button class="header__menu-btn" aria-label="Menu de produtos"><span class="material-icons-outlined">apps</span></button>
+      <div class="header__brand">
+        <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificação</span>
+      </div>
+    </div>
+    <div class="header__right">
+      <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+      <div class="header__user">
+        <span class="header__user-name">Olá, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar (colapsado) — Negociacoes Fornecedor ativo -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__top">
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Estratégia</span>
+      </div>
+      <div class="sidebar__item sidebar__item--active">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Negociações Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Extração de preços</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+      </div>
+    </div>
+    <div class="sidebar__bottom">
+      <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu"><span class="material-icons-outlined">keyboard_arrow_right</span></button>
+    </div>
+  </aside>
+
+  <!-- Title bar -->
+  <section class="title-bar">
+    <div class="title-bar__left">
+      <span class="title-bar__heading">Fornecedores</span>
+    </div>
+    <div class="title-bar__right">
+      <button class="btn btn--small btn--primary">
+        <span class="material-icons-outlined">add</span>
+        <span>Convidar fornecedor</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Filtros: searchbar + 2 dropdowns -->
+  <section class="filtros">
+    <div class="filtros__inner">
+      <div class="filtros__box">
+        <div class="filtros__left">
+          <div class="filtros__row">
+            <div class="searchbar" id="searchbar">
+              <span class="material-icons-outlined searchbar__icon">search</span>
+              <input type="text" class="searchbar__input" placeholder="Buscar por nome ou CNPJ..." />
+              <button class="searchbar__clear" aria-label="Limpar"><span class="material-icons-outlined">close</span></button>
+            </div>
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" id="chipStatus" aria-expanded="false">
+                <span class="filtro-chip__prefix">Status:</span><span id="chipStatusLabel">Todos</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="dropStatus">
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="checkbox" data-filter="status" value="ativo" /><span>Ativo</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" data-filter="status" value="pendente" /><span>Convite pendente</span></label>
+                  <label class="filtro-dropdown__item"><input type="checkbox" data-filter="status" value="inativo" /><span>Inativo</span></label>
+                </div>
+              </div>
+            </div>
+            <div class="filtro-chip-wrapper">
+              <button class="filtro-chip" id="chipUltima" aria-expanded="false">
+                <span id="chipUltimaLabel">Última negociação</span>
+                <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+              </button>
+              <div class="filtro-dropdown" id="dropUltima">
+                <div class="filtro-dropdown__list">
+                  <label class="filtro-dropdown__item"><input type="radio" name="ultima" value="hoje" /><span>Hoje</span></label>
+                  <label class="filtro-dropdown__item"><input type="radio" name="ultima" value="7d" /><span>Últimos 7 dias</span></label>
+                  <label class="filtro-dropdown__item"><input type="radio" name="ultima" value="30d" /><span>Últimos 30 dias</span></label>
+                  <label class="filtro-dropdown__item"><input type="radio" name="ultima" value="3m" /><span>Últimos 3 meses</span></label>
+                  <label class="filtro-dropdown__item"><input type="radio" name="ultima" value="antigo" /><span>Mais antigo</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cabecalho: contador + Exportar -->
+  <section class="cabecalho">
+    <div class="cabecalho__inner">
+      <span class="cabecalho__info"><b>20</b> fornecedores · <b>11</b> ativos · <b>5</b> convites pendentes</span>
+      <div class="cabecalho__buttons">
+        <button class="btn btn--small btn--secondary btn--white cabecalho__export">
+          <span class="material-icons-outlined">file_download</span>
+          <span>Exportar</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="grid">
+    <div class="grid__wrapper">
+      <table class="grid__table">
+        <colgroup>
+          <col style="width:40px" />
+          <col />
+          <col style="width:160px" />
+          <col style="width:240px" />
+          <col style="width:160px" />
+          <col style="width:120px" />
+          <col style="width:160px" />
+          <col style="width:96px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th><input type="checkbox" class="grid__check" id="checkAll" aria-label="Selecionar todos" /></th>
+            <th><div class="grid__th-content"><span>Empresa</span></div></th>
+            <th><div class="grid__th-content"><span>CNPJ</span></div></th>
+            <th><div class="grid__th-content"><span>Representante</span></div></th>
+            <th><div class="grid__th-content"><span>Status</span></div></th>
+            <th><div class="grid__th-content"><span>Negociações</span></div></th>
+            <th><div class="grid__th-content"><span>Última ativ.</span></div></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="gridBody"></tbody>
+      </table>
+
+      <div class="grid__pagination">
+        <div class="grid__pagination-left">
+          <span class="grid__pagination-val">20</span>
+          <span class="material-icons-outlined">expand_less</span>
+          <span class="grid__pagination-label">/ página</span>
+          <span class="grid__pagination-sep"></span>
+          <span class="grid__pagination-label">total: 20</span>
+        </div>
+        <div class="grid__pagination-right">
+          <div class="grid__pagination-nav">
+            <span class="material-icons-outlined">first_page</span>
+            <span class="material-icons-outlined">chevron_left</span>
+          </div>
+          <button class="grid__pagination-btn is-active">1</button>
+          <div class="grid__pagination-nav">
+            <span class="material-icons-outlined">chevron_right</span>
+            <span class="material-icons-outlined">last_page</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kebab dropdown compartilhado (reposicionado via JS) -->
+  <div class="grid__pref-dropdown" id="kebabDropdown" role="menu">
+    <div class="grid__pref-dropdown__item" data-action="ver">
+      <span class="material-icons-outlined" style="font-size:16px">visibility</span>
+      <span>Ver detalhes</span>
+    </div>
+    <div class="grid__pref-dropdown__item" data-action="editar">
+      <span class="material-icons-outlined" style="font-size:16px">edit</span>
+      <span>Editar fornecedor</span>
+    </div>
+    <div class="grid__pref-dropdown__item" data-action="convidar">
+      <span class="material-icons-outlined" style="font-size:16px">send</span>
+      <span>Nova negociação</span>
+    </div>
+    <div class="grid__pref-dropdown__item" data-action="historico">
+      <span class="material-icons-outlined" style="font-size:16px">history</span>
+      <span>Histórico</span>
+    </div>
+    <div class="grid__pref-dropdown__item" data-action="desativar" style="color: var(--color-red-600);">
+      <span class="material-icons-outlined" style="font-size:16px">block</span>
+      <span>Desativar</span>
+    </div>
+  </div>
+
+  <div class="dropdown-overlay" id="dropdownOverlay"></div>
+
+  <script>
+    const FORNECEDORES = [
+      { empresa: 'Coca-Cola FEMSA',   cnpj: '16.670.085/0001-55', repNome: 'Ricardo Lima',     repEmail: 'ricardo.lima@cocacola.com.br',    status: 'ativo',     negociacoes: 3, ultima: 'há 2 dias' },
+      { empresa: 'Unilever Brasil',   cnpj: '61.068.276/0001-02', repNome: 'Patrícia Moura',   repEmail: 'patricia.moura@unilever.com',     status: 'ativo',     negociacoes: 1, ultima: 'há 5 dias' },
+      { empresa: 'Nestlé Brasil',     cnpj: '60.409.075/0001-52', repNome: 'João Fernandes',   repEmail: 'joao.fernandes@nestle.com.br',    status: 'pendente',  negociacoes: 0, ultima: 'enviado há 3 dias' },
+      { empresa: 'M. Dias Branco',    cnpj: '07.206.816/0001-15', repNome: 'Ana Souza',        repEmail: 'ana.souza@mdiasbranco.com.br',    status: 'ativo',     negociacoes: 2, ultima: 'há 1 semana' },
+      { empresa: 'BRF S/A',           cnpj: '01.838.723/0001-27', repNome: '',                 repEmail: '',                                status: 'pendente',  negociacoes: 0, ultima: 'enviado hoje' },
+      { empresa: 'Pif Paf',           cnpj: '19.791.896/0001-10', repNome: 'Carlos Mendes',    repEmail: 'carlos.mendes@pifpaf.com.br',     status: 'inativo',   negociacoes: 0, ultima: 'há 3 meses' },
+      { empresa: 'Ambev',             cnpj: '02.808.708/0001-07', repNome: 'Luísa Reis',       repEmail: 'luisa.reis@ambev.com.br',         status: 'ativo',     negociacoes: 4, ultima: 'há 1 dia' },
+      { empresa: 'Seara Alimentos',   cnpj: '02.914.460/0001-50', repNome: 'Bruno Tavares',    repEmail: 'bruno.tavares@seara.com.br',      status: 'ativo',     negociacoes: 2, ultima: 'há 4 dias' },
+      { empresa: 'JBS Foods',         cnpj: '02.916.265/0001-60', repNome: 'Camila Rocha',     repEmail: 'camila.rocha@jbs.com.br',         status: 'pendente',  negociacoes: 0, ultima: 'enviado há 1 dia' },
+      { empresa: 'Perdigão',          cnpj: '16.439.708/0001-30', repNome: 'Eduardo Lima',     repEmail: 'eduardo.lima@perdigao.com.br',    status: 'inativo',   negociacoes: 1, ultima: 'há 2 meses' },
+      { empresa: 'Sadia',             cnpj: '20.730.099/0001-94', repNome: 'Marina Pires',     repEmail: 'marina.pires@sadia.com.br',       status: 'ativo',     negociacoes: 5, ultima: 'há 6 horas' },
+      { empresa: 'Marilan',           cnpj: '50.726.600/0001-20', repNome: 'Renato Alves',     repEmail: 'renato.alves@marilan.com.br',     status: 'ativo',     negociacoes: 1, ultima: 'há 2 semanas' },
+      { empresa: 'Friboi',            cnpj: '02.916.265/0050-31', repNome: 'Tiago Martins',    repEmail: 'tiago.martins@friboi.com.br',     status: 'ativo',     negociacoes: 2, ultima: 'há 3 dias' },
+      { empresa: 'Aurora Alimentos',  cnpj: '83.018.945/0001-77', repNome: 'Beatriz Costa',    repEmail: 'beatriz.costa@aurora.com.br',     status: 'pendente',  negociacoes: 0, ultima: 'enviado há 2 dias' },
+      { empresa: 'Vigor',             cnpj: '13.324.184/0001-97', repNome: 'Felipe Cardoso',   repEmail: 'felipe.cardoso@vigor.com.br',     status: 'ativo',     negociacoes: 3, ultima: 'há 1 dia' },
+      { empresa: 'Itambé',            cnpj: '63.453.598/0001-14', repNome: 'Mariana Oliveira', repEmail: 'mariana.oliveira@itambe.com.br',  status: 'inativo',   negociacoes: 0, ultima: 'há 5 meses' },
+      { empresa: 'Camil Alimentos',   cnpj: '64.904.295/0001-03', repNome: 'Diego Ramos',      repEmail: 'diego.ramos@camil.com.br',        status: 'ativo',     negociacoes: 1, ultima: 'há 1 mês' },
+      { empresa: 'Heinz Brasil',      cnpj: '13.575.928/0001-30', repNome: 'Letícia Almeida',  repEmail: 'leticia.almeida@heinz.com.br',    status: 'pendente',  negociacoes: 0, ultima: 'enviado há 4 dias' },
+      { empresa: 'Tirol Laticínios',  cnpj: '83.026.401/0001-09', repNome: 'Roberta Pinheiro', repEmail: 'roberta.pinheiro@tirol.com.br',   status: 'ativo',     negociacoes: 2, ultima: 'há 6 dias' },
+      { empresa: 'Bauducco',          cnpj: '60.394.475/0001-26', repNome: 'Henrique Moraes',  repEmail: 'henrique.moraes@bauducco.com.br', status: 'ativo',     negociacoes: 4, ultima: 'há 2 dias' }
+    ];
+
+    const STATUS_BADGE = {
+      ativo:    { cls: 'badge--filled badge--green',  label: 'Ativo' },
+      pendente: { cls: 'badge--filled badge--orange', label: 'Convite pendente' },
+      inativo:  { cls: 'badge--filled badge--gray',   label: 'Inativo' }
+    };
+
+    // Estado de filtros
+    const filterState = {
+      status: new Set(),       // valores marcados em "Status"
+      ultima: null,            // valor unico em "Ultima negociacao"
+      search: ''
+    };
+
+    function matchUltima(f) {
+      if (!filterState.ultima) return true;
+      const u = f.ultima.toLowerCase();
+      switch (filterState.ultima) {
+        case 'hoje':   return u.includes('hoje') || u.includes('horas');
+        case '7d':     return u.includes('horas') || u.includes('hoje') || /há \d+ dia/.test(u) || u.includes('1 semana') || /enviado.*\d+ dia/.test(u);
+        case '30d':    return !u.includes('mês') && !u.includes('mes') && !u.includes('meses');
+        case '3m':     return !u.includes('5 meses') && !u.includes('6 meses') && !u.includes('7 meses');
+        case 'antigo': return u.includes('mês') || u.includes('meses');
+      }
+      return true;
+    }
+
+    function applyFilters() {
+      const s = filterState.search.toLowerCase().trim();
+      return FORNECEDORES.filter(f => {
+        if (filterState.status.size > 0 && !filterState.status.has(f.status)) return false;
+        if (!matchUltima(f)) return false;
+        if (s && !f.empresa.toLowerCase().includes(s) && !f.cnpj.includes(s)) return false;
+        return true;
+      });
+    }
+
+    function renderGrid() {
+      const tbody = document.getElementById('gridBody');
+      const list = applyFilters();
+      tbody.innerHTML = list.map((f, i) => {
+        const badge = STATUS_BADGE[f.status];
+        const repBlock = f.repNome
+          ? `<span class="grid__rep-name">${f.repNome}</span>
+             <span class="grid__rep-email">${f.repEmail}</span>`
+          : `<span class="grid__rep-empty">—</span>`;
+        return `<tr>
+          <td><input type="checkbox" class="grid__check" data-row-check aria-label="Selecionar ${f.empresa}" /></td>
+          <td><span class="grid__empresa-name">${f.empresa}</span></td>
+          <td>${f.cnpj}</td>
+          <td>${repBlock}</td>
+          <td><span class="badge ${badge.cls}">${badge.label}</span></td>
+          <td><span class="grid__neg-count">${f.negociacoes}</span></td>
+          <td><span class="grid__last-activity">${f.ultima}</span></td>
+          <td>
+            <button class="btn btn--link btn--small" data-kebab>
+              <span>Ações</span>
+              <span class="material-icons-outlined">keyboard_arrow_down</span>
+            </button>
+          </td>
+        </tr>`;
+      }).join('');
+      // Atualiza contador no cabecalho
+      const ativos    = list.filter(f => f.status === 'ativo').length;
+      const pendentes = list.filter(f => f.status === 'pendente').length;
+      document.querySelector('.cabecalho__info').innerHTML =
+        `<b>${list.length}</b> fornecedores · <b>${ativos}</b> ativos · <b>${pendentes}</b> convites pendentes`;
+      // Reset master checkbox
+      document.getElementById('checkAll').checked = false;
+      document.getElementById('checkAll').indeterminate = false;
+    }
+    renderGrid();
+
+    // closeAll padrao
+    function closeAll() {
+      document.querySelectorAll('.filtro-dropdown.is-open, .filtro-chip.is-open, .composed-dropdown.is-open, .grid__pref-dropdown.is-open')
+        .forEach(d => d.classList.remove('is-open'));
+      document.getElementById('dropdownOverlay').classList.remove('is-open');
+      document.querySelectorAll('[aria-expanded="true"]')
+        .forEach(el => el.setAttribute('aria-expanded', 'false'));
+    }
+
+    // Filtro dropdown — Status (multi-checkbox)
+    const chipStatus = document.getElementById('chipStatus');
+    const dropStatus = document.getElementById('dropStatus');
+    const labelStatus = document.getElementById('chipStatusLabel');
+
+    chipStatus.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = dropStatus.classList.contains('is-open');
+      closeAll();
+      if (!wasOpen) {
+        dropStatus.classList.add('is-open');
+        chipStatus.classList.add('is-open');
+        chipStatus.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    dropStatus.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        if (cb.checked) filterState.status.add(cb.value);
+        else filterState.status.delete(cb.value);
+
+        const labels = { ativo: 'Ativo', pendente: 'Convite pendente', inativo: 'Inativo' };
+        if (filterState.status.size === 0) {
+          labelStatus.textContent = 'Todos';
+        } else if (filterState.status.size === 1) {
+          labelStatus.textContent = labels[[...filterState.status][0]];
+        } else {
+          labelStatus.textContent = `${filterState.status.size} selecionados`;
+        }
+        renderGrid();
+      });
+    });
+
+    // Filtro dropdown — Ultima negociacao (radio single-select)
+    const chipUltima = document.getElementById('chipUltima');
+    const dropUltima = document.getElementById('dropUltima');
+    const labelUltima = document.getElementById('chipUltimaLabel');
+
+    chipUltima.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = dropUltima.classList.contains('is-open');
+      closeAll();
+      if (!wasOpen) {
+        dropUltima.classList.add('is-open');
+        chipUltima.classList.add('is-open');
+        chipUltima.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    dropUltima.querySelectorAll('input[type="radio"]').forEach(rb => {
+      rb.addEventListener('change', () => {
+        const labels = { hoje: 'Hoje', '7d': 'Últimos 7 dias', '30d': 'Últimos 30 dias', '3m': 'Últimos 3 meses', antigo: 'Mais antigo' };
+        filterState.ultima = rb.value;
+        labelUltima.textContent = labels[rb.value];
+        renderGrid();
+      });
+    });
+
+    // Master checkbox no header
+    const checkAll = document.getElementById('checkAll');
+    checkAll.addEventListener('change', () => {
+      document.querySelectorAll('[data-row-check]').forEach(cb => cb.checked = checkAll.checked);
+    });
+    document.getElementById('gridBody').addEventListener('change', (e) => {
+      if (!e.target.matches('[data-row-check]')) return;
+      const all = document.querySelectorAll('[data-row-check]');
+      const checked = document.querySelectorAll('[data-row-check]:checked');
+      checkAll.checked = checked.length === all.length && all.length > 0;
+      checkAll.indeterminate = checked.length > 0 && checked.length < all.length;
+    });
+
+    // Kebab dropdown — abre proximo ao botao clicado
+    const kebab = document.getElementById('kebabDropdown');
+    document.getElementById('gridBody').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-kebab]');
+      if (!btn) return;
+      e.stopPropagation();
+      const wasOpen = kebab.classList.contains('is-open');
+      closeAll();
+      if (!wasOpen) {
+        const r = btn.getBoundingClientRect();
+        const dropW = 200;
+        // Alinha a direita do botao para nao sair da viewport
+        kebab.style.top = `${r.bottom + 4}px`;
+        kebab.style.left = `${Math.max(8, r.right - dropW)}px`;
+        kebab.classList.add('is-open');
+      }
+    });
+    kebab.addEventListener('click', (e) => {
+      const item = e.target.closest('[data-action]');
+      if (!item) return;
+      // Acao ficticia — log + fecha
+      console.log('Acao kebab:', item.dataset.action);
+      closeAll();
+    });
+
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const seta = document.getElementById('sidebarSeta');
+    let sidebarExpanded = false;
+
+    seta.addEventListener('click', () => {
+      sidebarExpanded = !sidebarExpanded;
+      sidebar.classList.toggle('is-expanded', sidebarExpanded);
+      seta.classList.toggle('is-flipped', sidebarExpanded);
+      const newLeft = sidebarExpanded ? '220px' : '52px';
+      document.querySelectorAll('.title-bar, .filtros, .cabecalho, .grid')
+        .forEach(el => el.style.left = newLeft);
+    });
+
+    // Searchbar — toggle clear + filtro
+    const searchbar = document.getElementById('searchbar');
+    const searchInput = searchbar.querySelector('.searchbar__input');
+    const searchClear = searchbar.querySelector('.searchbar__clear');
+    searchInput.addEventListener('input', () => {
+      searchbar.classList.toggle('has-value', searchInput.value !== '');
+      filterState.search = searchInput.value;
+      renderGrid();
+    });
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchbar.classList.remove('has-value');
+      filterState.search = '';
+      renderGrid();
+      searchInput.focus();
+    });
+
+    // Click fora fecha tudo
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.filtro-dropdown, .filtro-chip, .grid__pref-dropdown, [data-kebab]')) {
+        closeAll();
+      }
+    });
+  </script>
+</body>
+</html>
