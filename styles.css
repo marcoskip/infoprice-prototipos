@@ -1442,6 +1442,11 @@ body {
   padding-left: 16px;
 }
 
+.grid__table th:last-child,
+.grid__table td:last-child {
+  padding-right: 16px;
+}
+
 .grid__table th {
   height: 46px;
   padding: 0 4px;
