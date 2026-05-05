@@ -108,8 +108,33 @@ Para cada componente identificado no Passo 1:
 
 1. `Glob ${DS_PATH}/components/*/<id>/` para descobrir a categoria
 2. Verifique se existe `${DS_PATH}/components/<cat>/<id>/<id>.react.tsx`
-3. **Se existe** → marque `STRATEGY=lookup` (usar React canonico)
+3. **Se existe** → marque `STRATEGY=lookup` (usar React canonico, importar via path)
 4. **Se nao existe** → marque `STRATEGY=convert` (auto-conversao HTML→JSX)
+
+**Componentes com `.react.tsx` canonico ja escritos** (atualize esta lista
+conforme novos forem promovidos pra Fase 3):
+
+| Componente              | Path                                                                         | API resumida                                                                       |
+| ----------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `modal`                 | `components/compound/modal/modal.react.tsx`                                  | `<Modal isOpen onClose title size footer>...</Modal>`                              |
+| `toast`                 | `components/compound/toast/toast.react.tsx`                                  | `<ToastContainer />` + `toast.success({...})` API global                           |
+| `header-dropdowns`      | `components/compound/header-dropdowns/header-dropdowns.react.tsx`            | `useHeaderDropdowns()` hook + `<ProductDropdown>` + `<UserDropdown>`               |
+| `select-picker`         | `components/basic/select-picker/select-picker.react.tsx`                     | `<SelectPicker options value onChange searchable multiple />`                       |
+| `date-picker`           | `components/basic/date-picker/date-picker.react.tsx`                         | `<DatePicker mode="single|range" value onChange />`                                 |
+
+Para esses, o handoff deve **importar** o componente em vez de re-converter o HTML:
+
+```tsx
+import Modal from '@ds/components/compound/modal/modal.react';
+// ou path relativo ao seu projeto, ex:
+// import Modal from '../../design-system/components/compound/modal/modal.react';
+
+<Modal isOpen={open} onClose={() => setOpen(false)} title="Confirmar">
+  Conteudo...
+</Modal>
+```
+
+Componentes nao listados acima caem no `STRATEGY=convert`.
 
 ### 3. Conversao HTML → JSX (regras mecanicas)
 
