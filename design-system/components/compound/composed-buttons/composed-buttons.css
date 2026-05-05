@@ -1,0 +1,246 @@
+/* ── Composed button (Base + Drop) ───────────────── */
+.composed-btn {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.composed-btn__base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-gray-300);
+  border: none;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+}
+
+.composed-btn__base:hover {
+  background: var(--color-gray-400);
+}
+
+.composed-btn__base img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(90%);
+}
+
+.composed-btn__base:hover img {
+  filter: brightness(0) saturate(100%) invert(30%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(75%) contrast(90%);
+}
+
+.composed-btn__drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 36px;
+  background: var(--color-gray-300);
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.composed-btn__drop:hover {
+  background: var(--color-gray-400);
+}
+
+.composed-btn__drop .material-icons-outlined {
+  font-size: 18px;
+  color: var(--color-gray-600);
+}
+
+.composed-btn__drop:hover .material-icons-outlined {
+  color: var(--color-gray-700);
+}
+
+/* Selected state */
+.composed-btn.is-selected .composed-btn__base {
+  background: var(--color-blue-light-5);
+}
+
+.composed-btn.is-selected .composed-btn__base img {
+  filter: brightness(0) saturate(100%) invert(22%) sepia(85%) saturate(2500%) hue-rotate(210deg) brightness(90%) contrast(95%);
+}
+
+.composed-btn.is-selected .composed-btn__drop {
+  background: var(--color-blue-light-5);
+}
+
+.composed-btn.is-selected .composed-btn__drop .material-icons-outlined {
+  color: var(--color-blue-700);
+}
+
+/* Hover on selected */
+.composed-btn.is-selected .composed-btn__base:hover {
+  background: var(--color-blue-light-15);
+}
+
+.composed-btn.is-selected .composed-btn__drop:hover {
+  background: var(--color-blue-light-15);
+}
+
+/* Disabled state */
+.composed-btn.is-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* No-drop variant (solo base, no dropdown) */
+.composed-btn--solo .composed-btn__base {
+  border-radius: 4px;
+}
+
+
+/* ── Composed button tooltip ──────────────────────── */
+.composed-btn__tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-gray-900);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  white-space: nowrap;
+  padding: 4px var(--space-2);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 300;
+  display: none;
+}
+
+.composed-btn:hover .composed-btn__tooltip {
+  display: block;
+}
+
+
+/* ── Composed button dropdown ─────────────────────── */
+.composed-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 240px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: 6px;
+  box-shadow: var(--shadow-elevation);
+  z-index: 300;
+  display: none;
+  flex-direction: column;
+  padding: 12px;
+  gap: 10px;
+}
+
+.composed-dropdown.is-open {
+  display: flex;
+}
+
+/* Right-aligned dropdown (for buttons near the right edge) */
+.composed-dropdown--right {
+  left: auto;
+  right: 0;
+}
+
+.composed-dropdown__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  line-height: var(--line-height-md);
+}
+
+.composed-dropdown__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.composed-dropdown__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+}
+
+.composed-dropdown__input {
+  width: 50px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-900);
+  text-align: center;
+}
+
+.composed-dropdown__input:focus {
+  outline: none;
+  border-color: var(--color-blue-400);
+}
+
+.composed-dropdown__unit {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+}
+
+.composed-dropdown__divider {
+  height: 1px;
+  background: var(--color-gray-300);
+}
+
+.composed-dropdown__subtitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Checkbox / radio items in dropdown */
+.composed-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-900);
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.composed-dropdown__item input[type="checkbox"],
+.composed-dropdown__item input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-blue-500);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.composed-dropdown__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.composed-dropdown__tag--mpdv {
+  background: #e8f5e9;
+  color: var(--color-green-500);
+}
+
+.composed-dropdown__tag--infopanel {
+  background: var(--color-blue-light-15);
+  color: var(--color-blue-700);
+}
+
+.composed-dropdown__tag--externo {
+  background: #fff3e0;
+  color: #e65100;
+}

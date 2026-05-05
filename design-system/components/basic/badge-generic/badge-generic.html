@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Badge (genérico) — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="badge-generic">
+<h2 class="ds__section-title">Badge (genérico)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> indicador compacto e genérico — sempre que precisar de um marcador visual curto, com ou sem texto (a variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> é só o ponto).
+        <br>
+        <strong>Quando NÃO usar:</strong> se precisa de texto sempre presente, use Tag. Para classificar qualidade nos 5 níveis padrão do IPA, use Indicadores de competitividade.
+      </div>
+      <p class="ds__section-desc">
+        Indicador compacto. 2 temas (filled, ghost), 5 cores semânticas, e 2 tamanhos
+        (small, medium). Variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.badge--basic</code> é o ponto sem texto. Substitui as
+        variantes ad-hoc <code style="font-family:'JetBrains Mono',monospace;font-size:13px">user-dropdown__badge</code> e <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__badge-pill</code> em novos contextos.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Filled — 5 cores</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="badge badge--filled badge--blue">novo</span>
+          <span class="badge badge--filled badge--gray">arquivado</span>
+          <span class="badge badge--filled badge--green">ativo</span>
+          <span class="badge badge--filled badge--orange">pendente</span>
+          <span class="badge badge--filled badge--red">erro</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="badge badge--filled badge--blue"&gt;novo&lt;/span&gt;
+
+&lt;!-- Cores: --blue | --gray | --green | --orange | --red --&gt;
+&lt;!-- Tema:  --filled | --ghost --&gt;
+&lt;!-- Tamanho: padrão (16px) | --medium (20px) --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Ghost + tamanhos + basic</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="badge badge--ghost badge--blue">info</span>
+          <span class="badge badge--ghost badge--green">ok</span>
+          <span class="badge badge--ghost badge--orange">aviso</span>
+          <span class="badge badge--ghost badge--red">erro</span>
+          <span class="badge badge--medium badge--filled badge--blue">medium</span>
+          <span class="badge badge--basic badge--filled badge--red"></span>
+          <span class="badge badge--basic badge--filled badge--green"></span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Ghost --&gt;
+&lt;span class="badge badge--ghost badge--blue"&gt;info&lt;/span&gt;
+
+&lt;!-- Medium size --&gt;
+&lt;span class="badge badge--medium badge--filled badge--blue"&gt;medium&lt;/span&gt;
+
+&lt;!-- Basic (ponto) --&gt;
+&lt;span class="badge badge--basic badge--filled badge--red"&gt;&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Header dropdowns — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="header-dropdowns">
+<h2 class="ds__section-title">Header dropdowns</h2>
+      <p class="ds__section-desc">
+        Dois dropdowns do header: produtos (acessado pelo menu quadrado azul) e usuário.
+        Width 280px, radius 0 0 6px 6px no produto, radius padrão no usuário.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Product dropdown</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="dropdown product-dropdown is-open" style="position:static">
+            <div class="product-dropdown__header">
+              <span class="product-dropdown__title">Produtos</span>
+            </div>
+            <div class="product-dropdown__list">
+              <div class="product-dropdown__item">
+                <span class="product-tag product-tag--isa-active">ISA</span>
+                <span class="product-dropdown__item-name">InfoPanel</span>
+              </div>
+              <div class="product-dropdown__item">
+                <span class="product-tag product-tag--ipa-active">IPA</span>
+                <span class="product-dropdown__item-name">Software de precificação</span>
+              </div>
+              <div class="product-dropdown__item product-dropdown__item--disabled">
+                <span class="product-tag product-tag--disabled">DSP</span>
+                <span class="product-dropdown__item-name">Demand Sensing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="dropdown product-dropdown" id="productDropdown"&gt;
+  &lt;div class="product-dropdown__header"&gt;
+    &lt;span class="product-dropdown__title"&gt;Produtos&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="product-dropdown__list"&gt;
+    &lt;div class="product-dropdown__item"&gt;
+      &lt;span class="product-tag product-tag--ipa-active"&gt;IPA&lt;/span&gt;
+      &lt;span class="product-dropdown__item-name"&gt;Software de precificação&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- Variantes de tag --&gt;
+    &lt;!-- product-tag--isa-active, --ipa-active, --disabled --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">User dropdown</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="dropdown user-dropdown is-open" style="position:static">
+            <div class="user-dropdown__identity">
+              <span class="user-dropdown__name">Marcos Keller</span>
+              <span class="user-dropdown__email">marcos.keller@infoprice.co</span>
+            </div>
+            <div class="dropdown__divider"></div>
+            <div class="user-dropdown__group">
+              <div class="user-dropdown__item">
+                <span class="material-icons-outlined">settings</span>
+                <span class="user-dropdown__item-label">Configurações</span>
+              </div>
+              <div class="user-dropdown__item">
+                <span class="material-icons-outlined">person_add</span>
+                <span class="user-dropdown__item-label">Pessoas <span class="user-dropdown__badge">Convidar</span></span>
+              </div>
+            </div>
+            <div class="dropdown__divider"></div>
+            <div class="user-dropdown__group">
+              <div class="user-dropdown__item user-dropdown__item--text-only">
+                <span class="user-dropdown__item-label">Sair</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="dropdown user-dropdown" id="userDropdown"&gt;
+  &lt;div class="user-dropdown__identity"&gt;
+    &lt;span class="user-dropdown__name"&gt;Marcos Keller&lt;/span&gt;
+    &lt;span class="user-dropdown__email"&gt;marcos@infoprice.co&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="dropdown__divider"&gt;&lt;/div&gt;
+  &lt;div class="user-dropdown__group"&gt;
+    &lt;div class="user-dropdown__item"&gt;
+      &lt;span class="material-icons-outlined"&gt;settings&lt;/span&gt;
+      &lt;span class="user-dropdown__item-label"&gt;Configurações&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- Item com badge --&gt;
+    &lt;span class="user-dropdown__badge"&gt;Convidar&lt;/span&gt;
+    &lt;!-- Item text-only --&gt;
+    &lt;div class="user-dropdown__item user-dropdown__item--text-only"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

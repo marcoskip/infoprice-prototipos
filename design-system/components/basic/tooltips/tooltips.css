@@ -1,0 +1,41 @@
+/* ── Tooltips ────────────────────────────────────── */
+.tooltip {
+  position: absolute;
+  background: var(--color-gray-900);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  white-space: nowrap;
+  padding: 4px var(--space-2);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 200;
+  display: none;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--below {
+  top: calc(100% + 4px);
+}
+
+.tooltip--above {
+  bottom: calc(100% + 4px);
+}
+
+.title-btn-wrapper:hover .tooltip {
+  display: block;
+}
+
+/* Overlay para fechar ao clicar fora */
+.dropdown-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+}
+
+.dropdown-overlay.is-open {
+  display: block;
+}

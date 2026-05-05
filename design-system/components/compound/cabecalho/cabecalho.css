@@ -1,0 +1,61 @@
+/* ── Cabecalho (toolbar da tabela) ───────────────── */
+.cabecalho {
+  position: fixed;
+  top: 346px;
+  left: 52px;
+  right: 0;
+  z-index: 41;
+  padding: 4px var(--space-4) 0;
+  transition: left 300ms ease;
+}
+
+.cabecalho__inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-white);
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.cabecalho__info {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cabecalho__info b {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+}
+
+.cabecalho__select-all {
+  font-size: var(--font-size-sm);
+  color: var(--color-blue-400);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-family-base);
+  white-space: nowrap;
+  padding: 0;
+}
+
+.cabecalho__select-all:hover {
+  text-decoration: underline;
+}
+
+.cabecalho__buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.cabecalho__divider {
+  width: 1px;
+  height: 36px;
+  background: var(--color-gray-300);
+  flex-shrink: 0;
+}

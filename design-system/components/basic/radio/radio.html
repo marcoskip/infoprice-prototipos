@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Radio — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="radio">
+<h2 class="ds__section-title">Radio</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para UMA escolha obrigatória entre opções pré-definidas mutuamente exclusivas (ex: "Aplicar preço sugerido" vs "Aplicar preço vigente").
+        <br>
+        <strong>Quando NÃO usar:</strong> para escolha opcional ou múltipla, use Checkbox. Para liga/desliga binário em configurações, use Switch.
+      </div>
+      <p class="ds__section-desc">
+        Seleção única obrigatória em um grupo. 3 variantes: only radio, radio + label,
+        radio + label + texto complementar.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
+          <label class="radio">
+            <input type="radio" name="ds-radio-1" class="radio__input" />
+            <span class="radio__circle"></span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="ds-radio-2" class="radio__input" checked />
+            <span class="radio__circle"></span>
+            <div class="radio__content">
+              <span class="radio__label">Aplicar preço sugerido</span>
+            </div>
+          </label>
+          <label class="radio">
+            <input type="radio" name="ds-radio-3" class="radio__input" />
+            <span class="radio__circle"></span>
+            <div class="radio__content">
+              <span class="radio__label">Aplicar preço vigente</span>
+              <span class="radio__helper">Mantém o preço que já está no PDV</span>
+            </div>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Only radio --&gt;
+&lt;label class="radio"&gt;
+  &lt;input type="radio" name="grupo" class="radio__input" /&gt;
+  &lt;span class="radio__circle"&gt;&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio + label --&gt;
+&lt;label class="radio"&gt;
+  &lt;input type="radio" name="grupo" class="radio__input" checked /&gt;
+  &lt;span class="radio__circle"&gt;&lt;/span&gt;
+  &lt;div class="radio__content"&gt;
+    &lt;span class="radio__label"&gt;Texto&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Radio + label + helper --&gt;
+&lt;div class="radio__content"&gt;
+  &lt;span class="radio__label"&gt;Titulo&lt;/span&gt;
+  &lt;span class="radio__helper"&gt;Texto complementar&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

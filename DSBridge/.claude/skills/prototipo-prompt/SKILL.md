@@ -2,7 +2,7 @@
 name: prototipo-prompt
 description: Gera um prototipo HTML interativo do IPA InfoPrice a partir de uma descricao textual ou sketch/wireframe (imagem), seguindo o Design System publicado. Valida classes via grep antes de escrever.
 argument-hint: [nome-do-arquivo] [descricao da tela]
-allowed-tools: Bash(npx *) Bash(start *) Bash(open *) Bash(xdg-open *) Bash(cmd *) Read Write Edit Glob Grep
+allowed-tools: Bash(npx *) Bash(start *) Bash(open *) Bash(xdg-open *) Bash(cmd *) Bash(curl *) Bash(mkdir *) Bash(test *) Bash(if *) Read Write Edit Glob Grep
 ---
 
 # Gerar Prototipo HTML — InfoPrice
@@ -26,19 +26,16 @@ Antes de escrever qualquer markup com classe BEM do IPA (ex: `.grid__*`,
 `.composed-btn`, `.title-btn`, `.btn-twin`, `.filtro-chip`, `.bn-card`,
 `.aplicar-btn`, `.sidebar__*`, `.header__*`, etc.), voce DEVE:
 
-1. **Localizar o componente** — primeiro verifique o `MODE` do DS (Passo 0
-   do Fluxo). Em `MODE=new`, cada componente tem seu proprio arquivo
-   `${DS_PATH}/components/<cat>/<id>/<id>.html`. Em `MODE=legacy`, consulte
-   a sidebar do `design-system.html` monolitico (Fundamentos / Componentes
-   basicos / Componentes compostos / Templates).
-2. **Copiar o markup canonico** — sem escrever "de cabeca" mesmo que pareca
-   trivial. O DS tem markup nao-trivial em quase todos os componentes (ex:
-   Celula Estoque tem 2 linhas, Paginacao tem estrutura de 5 elementos,
-   Form field tem prefix/suffix separados do input).
-3. **Confirmar via grep no styles** — em `MODE=new`, grep
-   `${DS_PATH}/dist/styles.css` (bundle) ou
-   `${DS_PATH}/components/<cat>/<id>/<id>.css` (componente especifico).
-   Em `MODE=legacy`, grep `${DS_PATH}/styles.css`.
+1. **Localizar o componente em `${DS_PATH}/design-system.html`** — consulte a sidebar
+   (Fundamentos / Componentes basicos / Componentes compostos / Templates)
+   ou faça grep direto no arquivo. Pagina viva canonica:
+   `https://infoprice.github.io/produto-ux/DSBridge/design-system.html`.
+   `DS_PATH` é resolvido no **Passo 0** do Fluxo (abaixo).
+2. **Copiar o markup do bloco "Codigo" da secao correspondente** — sem escrever
+   "de cabeca" mesmo que pareca trivial. O DS tem markup nao-trivial em quase
+   todos os componentes (ex: Celula Estoque tem 2 linhas, Paginacao tem
+   estrutura de 5 elementos, Form field tem prefix/suffix separados do input).
+3. **Confirmar via grep no `${DS_PATH}/styles.css`** que cada classe usada existe.
 
 **Componentes novos so podem ser criados se:**
 
@@ -68,26 +65,9 @@ prototipos, demos e edicoes do proprio `design-system.html`.
 
 Quando houver conflito, a de maior prioridade SEMPRE vence:
 
-1. **CSS** (verdade absoluta para classes e tokens):
-   - **NEW mode**: `${DS_PATH}/components/<cat>/<id>/<id>.css` (fonte por componente) +
-     `${DS_PATH}/dist/styles.css` (bundle) + `${DS_PATH}/dist/tokens.css`
-   - **LEGACY mode**: `${DS_PATH}/styles.css` + `${DS_PATH}/tokens.css`
+1. **`styles.css` + `tokens.css`** — VERDADE ABSOLUTA. Toda classe e token vem daqui. Se algo nao existe, NAO invente — crie estilo page-specific no `<style>` ou pergunte ao usuario. Acessados via `${DS_PATH}` (Passo 0 do Fluxo). Hospedados em `https://infoprice.github.io/produto-ux/DSBridge/`.
 
-   Se uma classe nao existe, NAO invente — crie estilo page-specific no `<style>` ou
-   pergunte ao usuario.
-
-2. **HTML canonico** (markup de cada componente):
-   - **NEW mode**: `${DS_PATH}/components/<cat>/<id>/<id>.html` (cada componente em
-     pagina standalone com `<section class="ds__section">` + showcase wrappers).
-     Use `Glob ${DS_PATH}/components/*/<id>/` para descobrir a categoria.
-   - **LEGACY mode**: `${DS_PATH}/design-system.html` (monolito) — busque
-     `<section class="ds__section" id="<id>">`.
-
-   **TODOS os prototipos novos DEVEM usar essas fontes como referencia.** Copie os
-   snippets de `<pre><code>...</code></pre>` (decodificando entidades HTML).
-   Convencoes especificas do IPA (mapa de icones, identidade default, regras de
-   uso, padrao de dados ficticios) estao inline na secao "Convencoes do IPA"
-   deste SKILL.md.
+2. **`design-system.html`** — REFERENCIA PRIMARIA E CANONICA DE MARKUP. Pagina viva publicada em `https://infoprice.github.io/produto-ux/DSBridge/design-system.html` com preview + codigo de cada componente. Acessada via `${DS_PATH}/design-system.html` localmente. **TODOS os prototipos novos DEVEM usar esta pagina como referencia.** Copie diretamente os snippets de codigo de la — sao os patterns oficiais e atualizados de cada componente. Convencoes especificas do IPA (mapa de icones, identidade default, regras de uso, padrao de dados ficticios) estao inline na secao "Convencoes do IPA" deste SKILL.md.
 
 NUNCA consulte outras fontes (ex: codigo React, prototipos antigos, memoria) como verdade — sao secundarias e podem estar desatualizadas.
 
@@ -95,37 +75,40 @@ NUNCA consulte outras fontes (ex: codigo React, prototipos antigos, memoria) com
 
 ## Fluxo
 
-### 0. Localizar fontes do DS (`DS_PATH` + `MODE`)
+### 0. Localizar fontes do DS (`DS_PATH`)
 
-**Antes de qualquer Read/Grep**, determine onde os arquivos do DS estao
-acessiveis. O DS pode estar em **2 estruturas** possiveis:
+**Antes de qualquer Grep ou Read**, defina onde os 3 arquivos canonicos
+do DS (`styles.css`, `tokens.css`, `design-system.html`) estao acessiveis
+no disco. A skill segue esta ordem de prioridade:
 
-**NOVA (preferida — per-component)**: pasta `design-system/` com subpastas
-`components/basic/<id>/<id>.{html,css,md}` e `dist/styles.css` bundleado.
-**LEGACY**: arquivos monoliticos `styles.css` + `design-system.html` na raiz.
+1. Se `./styles.css` existe na raiz do projeto → `DS_PATH=./`
+2. Se `./DSBridge/styles.css` existe → `DS_PATH=./DSBridge/`
+3. Caso contrario → fetch automatico do CDN via `Bash`:
 
-Detecte com `Glob`/`Bash`:
+```bash
+mkdir -p .dsbridge-cache && \
+curl -fsSLo .dsbridge-cache/styles.css         https://infoprice.github.io/produto-ux/DSBridge/styles.css && \
+curl -fsSLo .dsbridge-cache/tokens.css         https://infoprice.github.io/produto-ux/DSBridge/tokens.css && \
+curl -fsSLo .dsbridge-cache/design-system.html https://infoprice.github.io/produto-ux/DSBridge/design-system.html
+```
 
-| Verificacao                               | Resultado                                  |
-| ----------------------------------------- | ------------------------------------------ |
-| `./design-system/components/` existe      | `MODE=new`, `DS_PATH=./design-system/`     |
-| `./DSBridge/design-system/components/`    | `MODE=new`, `DS_PATH=./DSBridge/design-system/` |
-| `./styles.css` existe na raiz             | `MODE=legacy`, `DS_PATH=./`                |
-| `./DSBridge/styles.css`                   | `MODE=legacy`, `DS_PATH=./DSBridge/`       |
-| Nenhum dos acima                          | Fetch via `curl` para `.dsbridge-cache/` (legacy mode) |
+Resultado: `DS_PATH=.dsbridge-cache/`.
 
-Tabela de paths que voce vai usar daqui pra frente:
+Daqui pra frente, todas as referencias a `styles.css`, `tokens.css` e
+`design-system.html` em `Grep`/`Read` devem usar caminho `${DS_PATH}/<arquivo>`.
 
-| Recurso              | NEW (`design-system/`)                                | LEGACY                          |
-| -------------------- | ----------------------------------------------------- | ------------------------------- |
-| Bundle CSS p/ grep   | `${DS_PATH}/dist/styles.css`                          | `${DS_PATH}/styles.css`         |
-| Tokens               | `${DS_PATH}/dist/tokens.css` ou `./tokens.css` raiz   | `${DS_PATH}/tokens.css`         |
-| Markup canonico      | `${DS_PATH}/components/<cat>/<id>/<id>.html`          | `${DS_PATH}/design-system.html` |
-| CSS por componente   | `${DS_PATH}/components/<cat>/<id>/<id>.css`           | (nao existe em legacy)          |
-| Showcase agregado    | `${DS_PATH}/dist/design-system.html`                  | `${DS_PATH}/design-system.html` |
+**Como executar:**
+- Detecte o caso 1 ou 2 com uma chamada `Glob` ou `Bash` simples
+  (ex: `test -f styles.css && echo local || (test -f DSBridge/styles.css && echo dsbridge || echo cache)`)
+- No caso 3, rode o `curl` acima uma unica vez por sessao. O cache
+  `.dsbridge-cache/` pode ser reutilizado em prototipagens futuras
+  do mesmo projeto. Adicione `.dsbridge-cache/` ao `.gitignore` se
+  o projeto tiver versionamento.
+- Se nenhum dos 3 caminhos funcionar (ex: sem internet e sem arquivos
+  locais), **PARE e avise o usuario** que a skill nao pode validar
+  contra o DS.
 
-`<cat>` é `basic` ou `compound`. Pra descobrir a categoria de um componente,
-use `Glob ${DS_PATH}/components/*/<id>/` — retorna o path completo.
+Confirme `DS_PATH` antes de prosseguir para o Passo 1.
 
 ### 1. Interpretar a entrada
 
@@ -144,38 +127,21 @@ Se a entrada e uma imagem (sketch), use `Read` para visualizar e identificar blo
 
 Para cada componente identificado:
 
-**NEW mode** (preferido): pra cada componente que vai usar (ex: `botoes`,
-`grid`, `filtro-chips`, `header`):
-
-1. Use `Glob ${DS_PATH}/components/*/<id>/` para descobrir a categoria
-2. `Read ${DS_PATH}/components/<cat>/<id>/<id>.html` — pega o markup canonico
-   direto entre os comentarios de variantes (cada variante esta em um bloco
-   separado dentro do `<section>`, ou em `<pre><code>` com entidades HTML)
-3. Anote as classes que vai usar
-
-**LEGACY mode**: `Read ${DS_PATH}/design-system.html` e localize a `<section
-class="ds__section" id="<id>">` correspondente. Markup canonico esta dentro
-dos blocos `<pre><code>...</code></pre>`.
-
-Em ambos modos: **PARE — execute o passo 3 antes de escrever qualquer codigo**.
+1. Consulte `${DS_PATH}/design-system.html` (ou a pagina viva no CDN) para
+   ver o markup de referencia (preview + snippet)
+2. Anote as classes que vai usar
+3. **PARE — execute o passo 3 antes de escrever qualquer codigo**
 
 ### 3. Confirmar classes (regra do grep)
 
-Antes de escrever QUALQUER classe no HTML, rode `Grep` no bundle de styles
-correspondente ao seu mode:
-
-- **NEW mode**: `Grep ${DS_PATH}/dist/styles.css` (ou se dist nao existe, faca
-  `Grep ${DS_PATH}/components/*/<id>/<id>.css` para o componente especifico)
-- **LEGACY mode**: `Grep ${DS_PATH}/styles.css`
-
-Tres resultados possiveis:
+Antes de escrever QUALQUER classe no HTML, rode `Grep` em
+`${DS_PATH}/styles.css` com o nome exato da classe. Tres resultados possiveis:
 
 - **Match `.classe {`** → existe, pode usar
 - **Sem match** → nao existe. Tres opcoes:
   - (a) usar uma classe que existe e atende
   - (b) criar a classe com estilo completo no `<style>` da pagina
-  - (c) promover ao DS (em NEW mode: editar o `<id>.css` do componente certo
-    + rodar `node build.js` para regenerar o bundle)
+  - (c) promover para `styles.css` global (se reutilizavel)
 - **Match em outro `.html`** → page-specific de outro prototipo, NAO global. Replique o estilo no seu `<style>` ou promova.
 
 NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lugar (design-system.html, outros prototipos). Documentacao envelhece, styles.css e a verdade.
@@ -194,7 +160,7 @@ NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lu
     <link
       rel="icon"
       type="image/x-icon"
-      href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico"
+      href="https://infoprice.github.io/produto-ux/DSBridge/assets/favicon.ico"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -208,11 +174,11 @@ NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lu
     />
     <link
       rel="stylesheet"
-      href="https://marcoskip.github.io/infoprice-prototipos/tokens.css"
+      href="https://infoprice.github.io/produto-ux/DSBridge/tokens.css"
     />
     <link
       rel="stylesheet"
-      href="https://marcoskip.github.io/infoprice-prototipos/styles.css"
+      href="https://infoprice.github.io/produto-ux/DSBridge/styles.css"
     />
   </head>
   <body>
@@ -229,7 +195,7 @@ NUNCA pular esse grep, mesmo para classes "obvias" ou que apareceram em outro lu
 1. **Arquivo unico**: HTML com `<style>` page-specific e `<script>` inline
 2. **Tokens**: Toda cor, fonte, espaco, sombra e radius via `var(--token)`. Nunca hardcode
 3. **Sem dependencias externas**: HTML, CSS e JS puro
-4. **Assets**: SVGs em `https://marcoskip.github.io/infoprice-prototipos/assets/`
+4. **Assets**: SVGs em `https://infoprice.github.io/produto-ux/DSBridge/assets/`
 5. **Dados ficticios**: ~20 linhas via JS quando houver tabela
 6. **Acessibilidade**: `role`, `aria-*`, `tabindex` em elementos interativos
 7. **BEM**: classes seguem `bloco__elemento--modificador`
@@ -458,7 +424,7 @@ do `design-system.html`. Aplicar sempre que pertinente.
 
 **Identidade default (header e usuario):**
 
-- Logo: `https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg`
+- Logo: `https://infoprice.github.io/produto-ux/DSBridge/assets/logo-principal.svg`
 - Nome do produto: `IPA | Software de Precificacao`
 - Nome do usuario logado: `Ola, Marcus` (display) / `Marcus Roggero` + `marcus@infoprice.co` (no dropdown)
 
@@ -470,7 +436,7 @@ do `design-system.html`. Aplicar sempre que pertinente.
 4. Extracao de precos (`extracao-symbol.svg`)
 5. Precifique com IA (`IA-symbol.svg`)
 
-Todos os assets em `https://marcoskip.github.io/infoprice-prototipos/assets/`.
+Todos os assets em `https://infoprice.github.io/produto-ux/DSBridge/assets/`.
 
 **Title Bar — mapa de icones por funcao semantica:**
 
@@ -592,7 +558,7 @@ montar uma celula, copiar o markup da seu tipo abaixo — nao reduzir a um simpl
   ```html
   <td>
     <div class="grid__estoque-line1">
-      <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+      <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/unidades.svg" alt="" />
       <span class="grid__val-main">${valor}</span>
     </div>
     <div class="grid__estoque-line2">
@@ -619,12 +585,12 @@ montar uma celula, copiar o markup da seu tipo abaixo — nao reduzir a um simpl
     <span class="grid__val-main">${valor}</span>
     <div class="grid__pv-line2">
       <div class="grid__pv-indicator">
-        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+        <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/Cifra-precovigente.svg" alt="" />
         <span>${cifra}%</span>
       </div>
       <div class="grid__pv-sep"></div>
       <div class="grid__pv-indicator">
-        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+        <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/trofeu-precovigente.svg" alt="" />
         <span>${trofeu}%</span>
       </div>
     </div>
@@ -650,7 +616,7 @@ montar uma celula, copiar o markup da seu tipo abaixo — nao reduzir a um simpl
   <td>
     <div class="grid__cell">
       <div class="grid__mo-line1">
-        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+        <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/icon-margem.svg" alt="" />
         <span class="grid__val-main">${valor}%</span>
       </div>
     </div>
@@ -663,7 +629,7 @@ montar uma celula, copiar o markup da seu tipo abaixo — nao reduzir a um simpl
     <div class="grid__produto-codes">
       <span class="grid__produto-code">${cod}</span>
       <div class="grid__produto-family">
-        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod-familia.svg" alt="" />
+        <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/cod-familia.svg" alt="" />
         <span>${familia}</span>
       </div>
     </div>
@@ -761,7 +727,7 @@ PRODUTOS.forEach((p) => {
     <td><input type="checkbox" class="grid__check" /></td>
     <td>
       <div class="grid__product">
-        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod-familia.svg" class="grid__product-fam" />
+        <img src="https://infoprice.github.io/produto-ux/DSBridge/assets/grid/cod-familia.svg" class="grid__product-fam" />
         <div>
           <span class="grid__product-code">${p.cod}</span>
           <span class="grid__product-name">${p.nome}</span>
@@ -807,7 +773,7 @@ Apos gerar, rode as 7 verificacoes:
 | 3   | **Espacamento**        | `padding/margin/gap` devem usar `var(--space-*)` ou multiplos de 4px                                                                                                                                                        |
 | 4   | **Sombras/bordas**     | `box-shadow` usa `var(--shadow-*)`. `border-radius` usa `var(--radius-*)`                                                                                                                                                   |
 | 5   | **Cores inline JS**    | Grep cores hardcoded em `style.X = ...` e `style="..."` em template strings                                                                                                                                                 |
-| 6   | **Componentes (grep)** | Para cada classe usada, grep no bundle correto: NEW=`${DS_PATH}/dist/styles.css`, LEGACY=`${DS_PATH}/styles.css`. Sem match = inventou ou copiou de page-specific = FAIL. Confie no styles, nao na documentacao |
+| 6   | **Componentes (grep)** | Para cada classe usada, grep em `${DS_PATH}/styles.css`. Sem match = inventou ou copiou de page-specific = FAIL. Vale tambem para classes mencionadas em design-system — confie no styles.css, nao na documentacao |
 | 7   | **Estrutura HTML**     | Validar hierarquia da tabela acima. Elementos interativos NUNCA como filhos diretos de `.filtros__inner` ou `.cabecalho` — sempre dentro do sub-container correto                                                           |
 
 Reporte em tabela:
@@ -866,18 +832,17 @@ Ao finalizar:
   git commit -m "feat: adiciona prototipo $0"
   git push origin main
   ```
-- URL publica apos publicar: `https://marcoskip.github.io/infoprice-prototipos/$0.html`
+- URL publica apos publicar: `https://infoprice.github.io/produto-ux/DSBridge/$0.html`
 
 ---
 
 ## Resumo do fluxo (TL;DR)
 
-0. **Detecta `MODE` (new|legacy) e `DS_PATH`** — checa `design-system/components/` ou fallback monolitico
+0. **Resolve `DS_PATH`**: detecta `./styles.css`, `./DSBridge/styles.css`, ou faz fetch para `.dsbridge-cache/`
 1. Le entrada (texto ou imagem)
 2. Identifica secoes e componentes
-3. Para cada componente: lê markup canonico em `${DS_PATH}/components/<cat>/<id>/<id>.html` (NEW) ou `${DS_PATH}/design-system.html` (LEGACY)
-4. Para cada classe → **grep em `${DS_PATH}/dist/styles.css` (NEW) ou `${DS_PATH}/styles.css` (LEGACY)** antes de escrever
-5. Escreve HTML seguindo hierarquia DOM correta
-6. Valida 7 pontos. Corrige FAILs. Reporta WARNs.
-7. **Abre o arquivo no navegador default** (start/open/xdg-open)
-8. Entrega resumo + caminho + comandos de publicacao
+3. Para cada classe → **grep em `${DS_PATH}/styles.css`** antes de escrever
+4. Escreve HTML seguindo hierarquia DOM correta
+5. Valida 7 pontos. Corrige FAILs. Reporta WARNs.
+6. **Abre o arquivo no navegador default** (start/open/xdg-open)
+7. Entrega resumo + caminho + comandos de publicacao

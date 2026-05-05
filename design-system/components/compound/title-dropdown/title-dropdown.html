@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Title dropdown — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="title-dropdown">
+<h2 class="ds__section-title">Title dropdown</h2>
+      <p class="ds__section-desc">
+        Dropdown que abre dos botões da title bar. Border 1px gray-300, shadow-elevation,
+        item ativo em azul.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="title-dropdown is-open" style="position:static">
+            <div class="title-dropdown__item">Loja</div>
+            <div class="title-dropdown__item">Cluster de lojas</div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="title-dropdown" id="lojaDropdown" role="menu"&gt;
+  &lt;div class="title-dropdown__item" role="menuitem"&gt;Loja&lt;/div&gt;
+  &lt;div class="title-dropdown__item" role="menuitem"&gt;Cluster de lojas&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

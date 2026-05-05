@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>SelectPicker — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="select-picker">
+<h2 class="ds__section-title">SelectPicker</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> combo standalone de input + dropdown para escolher um valor dentro de uma lista (formulário, campo de entrada, contexto editorial). Suporta search.
+        <br>
+        <strong>Quando NÃO usar:</strong> para filtrar listas ou grids no contexto de filtros do IPA, use Filtro dropdowns — eles seguem 5 padrões específicos de filtragem.
+      </div>
+      <p class="ds__section-desc">
+        Combo de input + dropdown com search opcional. Use para seleção única em listas
+        longas. Para seleção múltipla, combine com checkboxes nos itens.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Trigger fechado e aberto</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start;gap:var(--space-6)">
+          <div class="select-picker">
+            <button class="select-picker__trigger">
+              <span class="select-picker__placeholder">Selecione uma loja</span>
+              <span class="material-icons-outlined select-picker__chevron">keyboard_arrow_down</span>
+            </button>
+          </div>
+          <div class="select-picker">
+            <button class="select-picker__trigger is-open">
+              <span>Loja Centro</span>
+              <span class="material-icons-outlined select-picker__chevron">keyboard_arrow_down</span>
+            </button>
+            <div class="select-picker__dropdown is-open">
+              <div class="select-picker__search">
+                <input type="text" class="select-picker__search-input" placeholder="Buscar..." />
+              </div>
+              <div class="select-picker__list">
+                <div class="select-picker__item is-selected">Loja Centro</div>
+                <div class="select-picker__item">Loja Zona Sul</div>
+                <div class="select-picker__item">Loja Zona Norte</div>
+                <div class="select-picker__item">Loja Shopping</div>
+                <div class="select-picker__item is-disabled">Loja Bairro (inativa)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="select-picker"&gt;
+  &lt;button class="select-picker__trigger"&gt;
+    &lt;span class="select-picker__placeholder"&gt;Selecione uma loja&lt;/span&gt;
+    &lt;span class="material-icons-outlined select-picker__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="select-picker__dropdown"&gt;
+    &lt;div class="select-picker__search"&gt;
+      &lt;input type="text" class="select-picker__search-input" placeholder="Buscar..." /&gt;
+    &lt;/div&gt;
+    &lt;div class="select-picker__list"&gt;
+      &lt;div class="select-picker__item is-selected"&gt;Item 1&lt;/div&gt;
+      &lt;div class="select-picker__item"&gt;Item 2&lt;/div&gt;
+      &lt;div class="select-picker__item is-disabled"&gt;Item 3&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

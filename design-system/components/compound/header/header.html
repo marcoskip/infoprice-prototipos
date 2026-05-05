@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Header — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="header">
+<h2 class="ds__section-title">Header</h2>
+      <p class="ds__section-desc">
+        Barra superior fixa, 52px de altura. Contém botão de menu de produtos (azul),
+        logo, divisor e nome do produto. À direita: ajuda e dropdown de usuário.
+      </p>
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
+          <header class="header" style="position:static">
+            <div class="header__left">
+              <button class="header__menu-btn" aria-label="Menu"><span class="material-icons-outlined">apps</span></button>
+              <div class="header__brand">
+                <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+                <div class="header__divider"></div>
+                <span class="header__product-name">IPA | Software de Precificação</span>
+              </div>
+            </div>
+            <div class="header__right">
+              <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+              <div class="header__user" role="button" tabindex="0">
+                <span class="header__user-name">Ola, Marcos</span>
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </div>
+            </div>
+          </header>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;header class="header"&gt;
+  &lt;div class="header__left"&gt;
+    &lt;button class="header__menu-btn"&gt;
+      &lt;span class="material-icons-outlined"&gt;apps&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="header__brand"&gt;
+      &lt;img class="header__logo" src="..." alt="InfoPrice" /&gt;
+      &lt;div class="header__divider"&gt;&lt;/div&gt;
+      &lt;span class="header__product-name"&gt;IPA | Software de Precificação&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="header__right"&gt;
+    &lt;button class="header__help-btn"&gt;...&lt;/button&gt;
+    &lt;div class="header__user"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

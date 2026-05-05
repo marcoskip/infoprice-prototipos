@@ -1,0 +1,46 @@
+name: Build Design System
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'design-system/components/**'
+      - 'design-system/tokens/**'
+      - 'design-system/templates/**'
+      - 'design-system/base.css'
+      - 'design-system/showcase.css'
+      - 'design-system/showcase.js'
+      - 'tokens.css'
+      - 'build.js'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run build
+        run: node build.js
+
+      - name: Commit dist if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add design-system/dist/
+          if git diff --staged --quiet; then
+            echo "Nada mudou em design-system/dist/"
+          else
+            git commit -m "build: regenera design-system/dist/ [skip ci]"
+            git push
+          fi

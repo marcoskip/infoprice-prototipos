@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkbox — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="checkbox">
+<h2 class="ds__section-title">Checkbox</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para seleção múltipla independente (várias caixas marcáveis ao mesmo tempo) ou como sim/não opcional (uma única caixa, marcação não obrigatória).
+        <br>
+        <strong>Quando NÃO usar:</strong> para escolha única obrigatória entre opções, use Radio. Para liga/desliga binário em configurações, use Switch.
+      </div>
+      <p class="ds__section-desc">
+        Seleção múltipla ou opcional. 3 estados (off, on, half) e 3 variantes (caixa,
+        + label, + label + complementar).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3)">
+          <label class="checkbox">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Off (default)</span>
+            </div>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" class="checkbox__input" checked />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">On (checked)</span>
+            </div>
+          </label>
+          <label class="checkbox is-half">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Half (indeterminado)</span>
+              <span class="checkbox__helper">Use quando há seleção parcial em uma lista filha</span>
+            </div>
+          </label>
+          <label class="checkbox is-disabled">
+            <input type="checkbox" class="checkbox__input" />
+            <span class="checkbox__box"></span>
+            <div class="checkbox__content">
+              <span class="checkbox__label">Disabled</span>
+            </div>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="checkbox"&gt;
+  &lt;input type="checkbox" class="checkbox__input" /&gt;
+  &lt;span class="checkbox__box"&gt;&lt;/span&gt;
+  &lt;div class="checkbox__content"&gt;
+    &lt;span class="checkbox__label"&gt;Texto&lt;/span&gt;
+    &lt;span class="checkbox__helper"&gt;Texto complementar&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/label&gt;
+
+&lt;!-- Estados: padrão | checked (no input) | .is-half | .is-disabled --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background: var(--color-gray-50);
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}

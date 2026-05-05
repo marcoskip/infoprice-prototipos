@@ -1,0 +1,31 @@
+/* ── Indicador (5 estados) ──────────────────────────── */
+.indicador {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  width: 84px;
+  height: 64px;
+}
+
+.indicador__inner {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  min-width: 1px;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.indicador--muito-bom .indicador__inner  { background: var(--color-green-light-20); border-color: var(--color-green-light-45); color: var(--color-green-400); }
+.indicador--bom .indicador__inner        { background: var(--color-green-light-5);  border-color: var(--color-green-light-20); color: var(--color-green-400); }
+.indicador--regular .indicador__inner    { background: var(--color-orange-light-5); border-color: var(--color-orange-light-15); color: var(--color-orange-400); }
+.indicador--ruim .indicador__inner       { background: var(--color-red-light-5);    border-color: var(--color-red-light-20);   color: var(--color-red-600); }
+.indicador--muito-ruim .indicador__inner { background: var(--color-red-light-20);   border-color: var(--color-red-light-45);   color: var(--color-red-600); }

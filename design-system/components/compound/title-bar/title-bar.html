@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Title bar — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="title-bar">
+<h2 class="ds__section-title">Title bar</h2>
+      <p class="ds__section-desc">
+        Barra de título da página, com badge de "última atualização" e botões de ação.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="display:block;padding:0">
+          <section class="title-bar" style="position:static;left:0;right:0">
+            <div class="title-bar__left">
+              <span class="title-bar__heading">Gerenciador de preços</span>
+              <span class="title-bar__badge">Atualizado em 25/04/2026, 13:42</span>
+            </div>
+            <div class="title-bar__right">
+              <button class="title-btn">
+                <span class="material-icons-outlined" style="font-size:14px">store</span>
+                <span>Loja</span>
+                <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+              </button>
+            </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

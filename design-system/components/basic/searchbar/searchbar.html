@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Searchbar — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="searchbar">
+<h2 class="ds__section-title">Searchbar</h2>
+      <p class="ds__section-desc">
+        Campo de busca standalone com ícone, botão clear (aparece quando há texto), loading
+        e dropdown opcional de sugestões. Espelha o padrão do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.filtro-dropdown__search</code> mas
+        funciona fora de filtros. 3 sizes (small, medium, large).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-3);padding:var(--space-4)">
+          <div class="searchbar">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Buscar produtos..." />
+          </div>
+
+          <div class="searchbar has-value">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="Cerveja Brahma" />
+            <button class="searchbar__clear" aria-label="Limpar">
+              <span class="material-icons-outlined">close</span>
+            </button>
+          </div>
+
+          <div class="searchbar is-loading">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="Buscando..." />
+            <span class="searchbar__loading"></span>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Vazio --&gt;
+&lt;div class="searchbar"&gt;
+  &lt;span class="material-icons-outlined searchbar__icon"&gt;search&lt;/span&gt;
+  &lt;input type="text" class="searchbar__input" placeholder="Buscar..." /&gt;
+&lt;/div&gt;
+
+&lt;!-- Com valor (mostra clear) --&gt;
+&lt;div class="searchbar has-value"&gt;
+  ...
+  &lt;button class="searchbar__clear"&gt;&lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Loading (spinner) --&gt;
+&lt;div class="searchbar is-loading"&gt;
+  ...
+  &lt;span class="searchbar__loading"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com dropdown de sugestões</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4);align-items:flex-start">
+          <div class="searchbar has-value" style="position:static">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" value="cerveja" />
+            <button class="searchbar__clear" aria-label="Limpar">
+              <span class="material-icons-outlined">close</span>
+            </button>
+          </div>
+          <div class="searchbar__dropdown is-open" style="position:relative;top:auto;width:280px;margin-top:4px">
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Brahma 350ml</span>
+            </button>
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Heineken Long Neck</span>
+            </button>
+            <button class="searchbar__suggestion">
+              <span class="material-icons-outlined">history</span>
+              <span><span class="searchbar__suggestion-match">Cerveja</span> Skol Lata 350ml</span>
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="searchbar"&gt;
+  &lt;span class="material-icons-outlined searchbar__icon"&gt;search&lt;/span&gt;
+  &lt;input type="text" class="searchbar__input" placeholder="Buscar..." /&gt;
+  &lt;div class="searchbar__dropdown"&gt;
+    &lt;button class="searchbar__suggestion"&gt;
+      &lt;span class="material-icons-outlined"&gt;history&lt;/span&gt;
+      &lt;span&gt;
+        &lt;span class="searchbar__suggestion-match"&gt;cerveja&lt;/span&gt; Brahma
+      &lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Quando vazio: &lt;div class="searchbar__suggestion-empty"&gt;Nada encontrado&lt;/div&gt; --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:var(--space-2)">
+          <div class="searchbar searchbar--small">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Small (28px)" />
+          </div>
+          <div class="searchbar">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Medium (32px - default)" />
+          </div>
+          <div class="searchbar searchbar--large">
+            <span class="material-icons-outlined searchbar__icon">search</span>
+            <input type="text" class="searchbar__input" placeholder="Large (40px)" />
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="searchbar searchbar--small"&gt; ... &lt;/div&gt;
+&lt;div class="searchbar"&gt; ... &lt;/div&gt;          &lt;!-- medium = default --&gt;
+&lt;div class="searchbar searchbar--large"&gt; ... &lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

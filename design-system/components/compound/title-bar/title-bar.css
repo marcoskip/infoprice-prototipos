@@ -1,0 +1,103 @@
+/* ── Title Bar ───────────────────────────────────── */
+.title-bar {
+  position: fixed;
+  top: 60px;
+  left: 52px;
+  right: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+  z-index: 45;
+}
+
+.title-bar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.title-bar__heading {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-900);
+  white-space: nowrap;
+}
+
+.title-bar__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-green-400);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 12px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.title-bar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+
+/* ── Title bar — botões ──────────────────────────── */
+.title-btn-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.title-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 var(--space-2);
+  background: var(--color-gray-300);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+}
+
+.title-btn:hover {
+  background: var(--color-gray-400);
+}
+
+.title-btn__icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.title-btn__chevron {
+  font-size: var(--icon-size-sm);
+  color: var(--color-gray-700);
+  transition: transform 120ms ease;
+}
+
+.title-btn[aria-expanded="true"] .title-btn__chevron {
+  transform: rotate(180deg);
+}
+
+/* Fixar — estado ativo */
+.title-btn--fixar.is-active {
+  color: var(--color-blue-500);
+  background: var(--color-gray-300);
+}
+
+.title-btn--fixar.is-active .title-btn__icon path {
+  fill: var(--color-blue-500);
+}

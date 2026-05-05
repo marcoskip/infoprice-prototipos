@@ -1,0 +1,87 @@
+/* ── Toast (popup overlay) ────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-elevation);
+  min-width: 320px;
+  max-width: 480px;
+  pointer-events: auto;
+  border-left: 4px solid;
+}
+.toast--short { padding: var(--space-2) var(--space-3); min-width: 240px; }
+.toast__icon {
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.toast__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+.toast__title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-900);
+  line-height: var(--line-height-lg);
+}
+.toast__body {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-700);
+  line-height: var(--line-height-md);
+}
+.toast__action {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-blue-500);
+  cursor: pointer;
+  text-decoration: underline;
+  align-self: flex-start;
+  margin-top: var(--space-1);
+}
+.toast__close {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-gray-500);
+  font-size: 18px;
+  align-self: flex-start;
+}
+.toast__close:hover { color: var(--color-gray-700); }
+
+.toast--info    { border-left-color: var(--color-blue-400); }
+.toast--info    .toast__icon { color: var(--color-blue-500); }
+.toast--success { border-left-color: var(--color-green-400); }
+.toast--success .toast__icon { color: var(--color-green-500); }
+.toast--warning { border-left-color: var(--color-orange-400); }
+.toast--warning .toast__icon { color: var(--color-orange-500); }
+.toast--error   { border-left-color: var(--color-red-400); }
+.toast--error   .toast__icon { color: var(--color-red-500); }
+
+/* =============================================================
+   Botoes — sistema baseado no Figma DS InfoPrice
+   3 tipos: primary, secondary, link
+   4 tamanhos: large (default), medium, small, xsmall
+   4 estados: default, hover, active, disable
+   Tipografia: Open Sans Bold UPPERCASE
+   ============================================================= */

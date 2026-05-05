@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid — celulas especiais — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="grid-cells">
+<h2 class="ds__section-title">Grid — celulas especiais</h2>
+      <p class="ds__section-desc">
+        Variantes de célula com estrutura própria: produto (código + família + chips),
+        estoque (com ícone unidades), PMC, preço vigente (com indicadores), preço
+        concorrente, margem objetiva.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula Produto</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div>
+            <div class="grid__produto-codes">
+              <span class="grid__produto-code">1026313</span>
+              <div class="grid__produto-family">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/cod%20familia.svg" alt="" />
+                <span>2631</span>
+              </div>
+            </div>
+            <div class="grid__produto-name">LINGUICA SEARA 215G FININHA</div>
+            <div class="grid__produto-chips">
+              <span class="grid__chip grid__chip--red">super sensivel</span>
+              <span class="grid__chip grid__chip--gray">Local A</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__produto-codes"&gt;
+  &lt;span class="grid__produto-code"&gt;1026313&lt;/span&gt;
+  &lt;div class="grid__produto-family"&gt;
+    &lt;img src="assets/grid/cod familia.svg" alt="" /&gt;
+    &lt;span&gt;2631&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="grid__produto-name"&gt;LINGUICA SEARA 215G FININHA&lt;/div&gt;
+&lt;div class="grid__produto-chips"&gt;
+  &lt;span class="grid__chip grid__chip--red"&gt;super sensivel&lt;/span&gt;
+  &lt;span class="grid__chip grid__chip--gray"&gt;Local A&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="usage-guide">
+        <strong>Quando usar grid__chip:</strong> SOMENTE dentro de uma célula Produto do grid, para marcar atributos do produto (ex: "super sensível", nome de cluster).
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do grid. Em qualquer outro contexto (header, filtros, modais, toolbars), use Badge ou Tag — o <code style="font-family:'JetBrains Mono',monospace;font-size:13px">grid__chip</code> é um componente interno do grid, não tem garantia de funcionar fora dele.
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula Estoque (com ícone unidades)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div>
+            <div class="grid__estoque-line1">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/unidades.svg" alt="" />
+              <span class="grid__val-main">142</span>
+            </div>
+            <div class="grid__estoque-line2">
+              <span class="grid__estoque-days">12d</span>
+              <span class="grid__estoque-date">10/02/2025</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__estoque-line1"&gt;
+  &lt;img src="assets/grid/unidades.svg" alt="" /&gt;
+  &lt;span class="grid__val-main"&gt;142&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="grid__estoque-line2"&gt;
+  &lt;span class="grid__estoque-days"&gt;12d&lt;/span&gt;
+  &lt;span class="grid__estoque-date"&gt;10/02/2025&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula PMC</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div>
+            <span class="grid__val-main">R$ 8,90</span>
+            <div class="grid__pmc-line2">
+              <span class="grid__pmc-chip">28%</span>
+              <span class="grid__pmc-date">10/03/23</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="grid__val-main"&gt;R$ 8,90&lt;/span&gt;
+&lt;div class="grid__pmc-line2"&gt;
+  &lt;span class="grid__pmc-chip"&gt;28%&lt;/span&gt;
+  &lt;span class="grid__pmc-date"&gt;10/03/23&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula Preço vigente (com 2 indicadores)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div>
+            <span class="grid__val-main">R$ 12,49</span>
+            <div class="grid__pv-line2">
+              <div class="grid__pv-indicator">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/Cifra-precovigente.svg" alt="" />
+                <span>32%</span>
+              </div>
+              <div class="grid__pv-sep"></div>
+              <div class="grid__pv-indicator">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" />
+                <span>98%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="grid__val-main"&gt;R$ 12,49&lt;/span&gt;
+&lt;div class="grid__pv-line2"&gt;
+  &lt;div class="grid__pv-indicator"&gt;
+    &lt;img src="assets/grid/Cifra-precovigente.svg" alt="" /&gt;
+    &lt;span&gt;32%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="grid__pv-sep"&gt;&lt;/div&gt;
+  &lt;div class="grid__pv-indicator"&gt;
+    &lt;img src="assets/grid/trofeu-precovigente.svg" alt="" /&gt;
+    &lt;span&gt;98%&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula Preço concorrente</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div>
+            <div class="grid__pc-row">
+              <span class="grid__val-main">R$ 13,20</span>
+              <span class="grid__pc-avg">x&#x0304;</span>
+            </div>
+            <div class="grid__pc-link">
+              <span class="material-icons-outlined">expand_more</span>
+              <span>Abrir</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__pc-row"&gt;
+  &lt;span class="grid__val-main"&gt;R$ 13,20&lt;/span&gt;
+  &lt;span class="grid__pc-avg"&gt;x&amp;#x0304;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class="grid__pc-link"&gt;
+  &lt;span class="material-icons-outlined"&gt;expand_more&lt;/span&gt;
+  &lt;span&gt;Abrir&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Célula Margem objetiva</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4)">
+          <div class="grid__cell">
+            <div class="grid__mo-line1">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/icon-margem.svg" alt="" />
+              <span class="grid__val-main">25%</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__cell"&gt;
+  &lt;div class="grid__mo-line1"&gt;
+    &lt;img src="assets/grid/icon-margem.svg" alt="" /&gt;
+    &lt;span class="grid__val-main"&gt;25%&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Menu Preços (toggle atacado/oferta)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
+          <!-- So preco atacado (2) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+          </div>
+
+          <!-- So preco oferta (3) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Atacado + oferta (2 e 3) -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Com campanha + 2 + 3 -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn grid__price-menu__btn--campanha" aria-label="Campanha">
+              <span class="material-icons-outlined">local_offer</span>
+            </button>
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+          </div>
+
+          <!-- Maximo: 4 segmentos numericos -->
+          <div class="grid__price-menu">
+            <button class="grid__price-menu__btn">2</button>
+            <button class="grid__price-menu__btn">3</button>
+            <button class="grid__price-menu__btn">4</button>
+            <button class="grid__price-menu__btn">5</button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Atacado (2) + oferta (3) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;3&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- So um dos dois (apenas atacado, ou apenas oferta) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Com variante "campanha" (fundo azul + icone local_offer) --&gt;
+&lt;div class="grid__price-menu"&gt;
+  &lt;button class="grid__price-menu__btn grid__price-menu__btn--campanha" aria-label="Campanha"&gt;
+    &lt;span class="material-icons-outlined"&gt;local_offer&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;2&lt;/button&gt;
+  &lt;button class="grid__price-menu__btn"&gt;3&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Suporta ate 4 segmentos numericos (2, 3, 4, 5) --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Linha complementar (sub-row)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block;overflow-x:auto">
+          <table class="grid__table" style="min-width:1100px">
+            <colgroup>
+              <col style="width:40px">
+              <col>
+              <col style="width:60px">
+              <col style="width:130px">
+              <col style="width:108px">
+              <col style="width:120px">
+              <col style="width:108px">
+              <col style="width:108px">
+              <col style="width:120px">
+              <col style="width:50px">
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th><div class="grid__th-content"><span>Produto</span></div></th>
+                <th><div class="grid__th-content"><span>Emb..</span></div></th>
+                <th><div class="grid__th-content"><span>P. vigente</span></div></th>
+                <th><div class="grid__th-content"><span>P. concorr.</span></div></th>
+                <th><div class="grid__th-content"><span>P. sugerido</span></div></th>
+                <th><div class="grid__th-content"><span>CPI</span></div></th>
+                <th><div class="grid__th-content"><span>Margem</span></div></th>
+                <th><div class="grid__th-content"><span>Desconto</span></div></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Main row -->
+              <tr>
+                <td><input type="checkbox" class="grid__check" /></td>
+                <td>
+                  <div class="grid__produto-codes">
+                    <span class="grid__produto-code">111705</span>
+                  </div>
+                  <div class="grid__produto-name">CETOCON+DIP BETA+NEOMIC 20+0,64+2,5MG/G POM C/30G</div>
+                </td>
+                <td>—</td>
+                <td><span class="grid__val-main">R$ 27,75</span></td>
+                <td><span class="grid__val-main">R$ 29,51</span></td>
+                <td>
+                  <div class="grid__form-field grid__form-field--blue">
+                    <span class="grid__form-prefix">R$</span>
+                    <input type="text" class="grid__form-input" value="29,59" />
+                  </div>
+                  <div class="grid__input-sub">
+                    <span class="grid__var grid__var--up">+6,6%</span>
+                    <span class="grid__badge-pill grid__badge-pill--auto">auto</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="100,3" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+6,2</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="54,6" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--down">-13,3</span></div>
+                </td>
+                <td></td>
+                <td>
+                  <div class="grid__price-menu">
+                    <button class="grid__price-menu__btn" data-toggle-subrow="ds-subrow-demo">3</button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Sub-row mini-header -->
+              <tr class="grid__sub-row grid__sub-row--header" id="ds-subrow-demo-header">
+                <td></td>
+                <td><span class="grid__sub-row__heading">Outros preços</span></td>
+                <td><span class="grid__sub-row__col-label">Emb..</span></td>
+                <td><span class="grid__sub-row__col-label">Preço vigente</span></td>
+                <td><span class="grid__sub-row__col-label">Preço concorrente</span></td>
+                <td><span class="grid__sub-row__col-label">Preço sugerido</span></td>
+                <td><span class="grid__sub-row__col-label">CPI</span></td>
+                <td><span class="grid__sub-row__col-label">Margem</span></td>
+                <td><span class="grid__sub-row__col-label">Desconto</span></td>
+                <td></td>
+              </tr>
+
+              <!-- Sub-row: Oferta -->
+              <tr class="grid__sub-row grid__sub-row--oferta" id="ds-subrow-demo">
+                <td class="grid__sub-row__marker-cell"><span class="grid__sub-row__marker">3</span></td>
+                <td class="grid__sub-row__label-cell">
+                  <span class="grid__sub-row__label">Oferta</span>
+                </td>
+                <td>
+                  <span class="grid__val-main">1</span>
+                  <span class="grid__val-sub" style="color:var(--color-gray-600)">UN</span>
+                </td>
+                <td>
+                  <span class="grid__val-main">R$ 27,79</span>
+                  <div class="grid__pv-line2">
+                    <div class="grid__pv-indicator"><span style="color:var(--color-gray-500)">$</span> <span>--%</span></div>
+                    <div class="grid__pv-sep"></div>
+                    <div class="grid__pv-indicator"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/trofeu-precovigente.svg" alt="" /><span>100,0%</span></div>
+                  </div>
+                </td>
+                <td>
+                  <span class="grid__val-main">R$ 26,49</span>
+                  <div class="grid__pc-link"><span class="material-icons-outlined">expand_more</span><span>Abrir</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field grid__form-field--blue">
+                    <span class="grid__form-prefix">R$</span>
+                    <input type="text" class="grid__form-input" value="26,49" />
+                  </div>
+                  <div class="grid__input-sub">
+                    <span class="grid__var grid__var--down">-4,7%</span>
+                    <span class="grid__badge-pill grid__badge-pill--auto">auto</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="100,0" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+73,5</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="50,7" /><span class="grid__form-suffix grid__form-suffix--gray">%</span></div>
+                  <div class="grid__input-sub"><span class="grid__var grid__var--up">+50,7</span></div>
+                </td>
+                <td>
+                  <div class="grid__form-field"><input type="text" class="grid__form-input" value="10,5" /><span class="grid__form-suffix grid__form-suffix--gray">% off</span></div>
+                  <div class="grid__input-sub"><span class="grid__badge-pill grid__badge-pill--desconto">DESCONTO</span></div>
+                </td>
+                <td>
+                  <button class="grid__sub-row__close" aria-label="Fechar">
+                    <span class="material-icons-outlined">close</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Linha principal do produto --&gt;
+&lt;tr&gt;...&lt;/tr&gt;
+
+&lt;!-- Linha complementar (oferta), inserida logo apos a principal --&gt;
+&lt;tr class="grid__sub-row grid__sub-row--oferta"&gt;
+  &lt;td&gt;&lt;span class="grid__sub-row__marker"&gt;3&lt;/span&gt;&lt;/td&gt;
+  &lt;td&gt;
+    &lt;span class="grid__sub-row__heading"&gt;Outros preços&lt;/span&gt;
+    &lt;span class="grid__sub-row__label"&gt;Oferta&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;!-- demais td seguem mesma estrutura do main row --&gt;
+  &lt;td&gt; ... cell de Embalagem ... &lt;/td&gt;
+  &lt;td&gt; ... Preço vigente ... &lt;/td&gt;
+  &lt;td&gt; ... Preço concorrente ... &lt;/td&gt;
+  &lt;td&gt; ... Preço sugerido (form-field) ... &lt;/td&gt;
+  &lt;td&gt; ... CPI ... &lt;/td&gt;
+  &lt;td&gt; ... Margem ... &lt;/td&gt;
+  &lt;td&gt;
+    &lt;!-- Coluna Desconto (específica do sub-row) --&gt;
+    &lt;div class="grid__form-field"&gt;
+      &lt;input type="text" class="grid__form-input" value="10,5" /&gt;
+      &lt;span class="grid__form-suffix grid__form-suffix--gray"&gt;% off&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="grid__input-sub"&gt;
+      &lt;span class="grid__badge-pill grid__badge-pill--desconto"&gt;DESCONTO&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    &lt;button class="grid__sub-row__close" aria-label="Fechar"&gt;
+      &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;!-- Variantes do marker:
+  --oferta   (azul claro, "3")
+  --atacado  (cinza, "2") -- padrão
+  --campanha (azul mais claro, icone local_offer) --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

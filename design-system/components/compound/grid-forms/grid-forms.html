@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid — inputs, variação e badges — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="grid-forms">
+<h2 class="ds__section-title">Grid — inputs, variação e badges</h2>
+      <p class="ds__section-desc">
+        Inputs editaveis com prefix/suffix (R$, %), chips de variação up/down, badges de
+        status (auto/editado), botão "Calcular" (link), botões de sort e preferência.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Form fields (input numérico)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--align-left" data-preview style="padding:var(--space-4);gap:var(--space-3)">
+          <div class="grid__form-field grid__form-field--blue">
+            <span class="grid__form-prefix">R$</span>
+            <input type="text" class="grid__form-input" value="12,49" />
+          </div>
+          <div class="grid__form-field">
+            <input type="text" class="grid__form-input" value="25,3" />
+            <span class="grid__form-suffix grid__form-suffix--gray">%</span>
+          </div>
+          <div class="grid__form-field grid__form-field--red">
+            <input type="text" class="grid__form-input" value="-2,1" />
+            <span class="grid__form-suffix grid__form-suffix--red">%</span>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Prefix R$ (border azul = focado/editavel) --&gt;
+&lt;div class="grid__form-field grid__form-field--blue"&gt;
+  &lt;span class="grid__form-prefix"&gt;R$&lt;/span&gt;
+  &lt;input type="text" class="grid__form-input" value="12,49" /&gt;
+&lt;/div&gt;
+
+&lt;!-- Suffix % cinza --&gt;
+&lt;div class="grid__form-field"&gt;
+  &lt;input type="text" class="grid__form-input" value="25,3" /&gt;
+  &lt;span class="grid__form-suffix grid__form-suffix--gray"&gt;%&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes de field: --blue, --red --&gt;
+&lt;!-- Variantes de suffix: --gray, --red --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variação up/down</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="grid__var grid__var--up">+2,3%</span>
+          <span class="grid__var grid__var--down">-1,8%</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="grid__var grid__var--up"&gt;+2,3%&lt;/span&gt;
+&lt;span class="grid__var grid__var--down"&gt;-1,8%&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Badge pill (auto / editado)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="grid__badge-pill grid__badge-pill--auto">auto</span>
+          <span class="grid__badge-pill grid__badge-pill--editado">editado</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="grid__badge-pill grid__badge-pill--auto"&gt;auto&lt;/span&gt;
+&lt;span class="grid__badge-pill grid__badge-pill--editado"&gt;editado&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Botão Calcular (link)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview" data-preview>
+          <button class="grid__calcular-btn">Calcular</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="grid__calcular-btn"&gt;Calcular&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Sort + preferência (header da coluna)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);background:var(--color-gray-100)">
+          <div class="grid__th-content">
+            <span style="font-size:10px;font-weight:700;color:var(--color-gray-700);text-transform:uppercase">Produto</span>
+            <button class="grid__pref-btn"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/preferences.svg" alt="" /></button>
+            <button class="grid__sort-btn"><img src="https://marcoskip.github.io/infoprice-prototipos/assets/grid/double.svg" alt="" /></button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__th-content"&gt;
+  &lt;span&gt;Produto&lt;/span&gt;
+  &lt;!-- Botao de preferência (apenas em colunas que ofereçam) --&gt;
+  &lt;button class="grid__pref-btn" data-pref="produto"&gt;
+    &lt;img src="assets/grid/preferences.svg" alt="" /&gt;
+  &lt;/button&gt;
+  &lt;div class="grid__pref-dropdown" id="pref-produto"&gt;
+    &lt;div class="grid__pref-dropdown__title"&gt;Ordenar por&lt;/div&gt;
+    &lt;label class="grid__pref-dropdown__item"&gt;
+      &lt;input type="radio" name="pref-produto" /&gt; Codigo
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;!-- Botao sort (todas as colunas) --&gt;
+  &lt;button class="grid__sort-btn" data-sort="double"&gt;
+    &lt;img src="assets/grid/double.svg" alt="" /&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

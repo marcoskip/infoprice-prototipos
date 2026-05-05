@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tag (genérico) — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="tag-generic">
+<h2 class="ds__section-title">Tag (genérico)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> etiqueta descritiva com texto obrigatório (e ícone opcional) — para rotular categorias, atributos nominais ou status com nome.
+        <br>
+        <strong>Quando NÃO usar:</strong> se for só um marcador visual sem texto (ponto colorido ou ícone isolado), use Badge.
+      </div>
+      <p class="ds__section-desc">
+        Etiqueta com texto sempre presente (e ícone opcional). 2 temas, 5 cores, 4 tamanhos
+        (xsmall, small, medium, large). Para indicadores apenas de ícone, use Badge.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Filled — 5 cores</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="tag tag--filled tag--blue">Beta</span>
+          <span class="tag tag--filled tag--gray">Arquivado</span>
+          <span class="tag tag--filled tag--green">Ativo</span>
+          <span class="tag tag--filled tag--orange">Pendente</span>
+          <span class="tag tag--filled tag--red">Bloqueado</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;span class="tag tag--filled tag--blue"&gt;Beta&lt;/span&gt;
+
+&lt;!-- Cores: --blue | --gray | --green | --orange | --red --&gt;
+&lt;!-- Tema:  --filled | --ghost --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Ghost + ícones + tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <span class="tag tag--ghost tag--blue">
+            <span class="material-icons-outlined tag__icon">info</span>
+            Icon-left
+          </span>
+          <span class="tag tag--ghost tag--green">
+            Icon-right
+            <span class="material-icons-outlined tag__icon">check</span>
+          </span>
+          <span class="tag tag--xsmall tag--filled tag--gray">xsmall</span>
+          <span class="tag tag--filled tag--blue">small</span>
+          <span class="tag tag--medium tag--filled tag--green">medium</span>
+          <span class="tag tag--large tag--filled tag--orange">large</span>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Icon-left --&gt;
+&lt;span class="tag tag--ghost tag--blue"&gt;
+  &lt;span class="material-icons-outlined tag__icon"&gt;info&lt;/span&gt;
+  Texto
+&lt;/span&gt;
+
+&lt;!-- Icon-right --&gt;
+&lt;span class="tag tag--ghost tag--green"&gt;
+  Texto
+  &lt;span class="material-icons-outlined tag__icon"&gt;check&lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- Tamanhos: --xsmall | (default = small) | --medium | --large --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

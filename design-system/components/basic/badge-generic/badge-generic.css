@@ -1,0 +1,41 @@
+/* ── Badge generico ───────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 16px;
+  height: 16px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.badge--medium {
+  height: 20px;
+  padding: 0 8px;
+  font-size: var(--font-size-sm);
+  line-height: 20px;
+}
+.badge--basic {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+}
+
+/* Filled */
+.badge--filled.badge--blue   { background: var(--color-blue-400);   color: var(--color-white); }
+.badge--filled.badge--gray   { background: var(--color-gray-600);   color: var(--color-white); }
+.badge--filled.badge--green  { background: var(--color-green-400);  color: var(--color-white); }
+.badge--filled.badge--orange { background: var(--color-orange-400); color: var(--color-white); }
+.badge--filled.badge--red    { background: var(--color-red-400);    color: var(--color-white); }
+
+/* Ghost */
+.badge--ghost.badge--blue   { background: var(--color-blue-light-15);   color: var(--color-blue-600); }
+.badge--ghost.badge--gray   { background: var(--color-gray-200);        color: var(--color-gray-800); }
+.badge--ghost.badge--green  { background: var(--color-green-light-15);  color: var(--color-green-600); }
+.badge--ghost.badge--orange { background: var(--color-orange-light-15); color: var(--color-orange-600); }
+.badge--ghost.badge--red    { background: var(--color-red-light-15);   color: var(--color-red-600); }

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Botões compostos — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="composed-buttons">
+<h2 class="ds__section-title">Botões compostos</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE no Cabeçalho de resultados, como botão icon-only de toolbar com dropdown opcional (variante <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--solo</code> remove o drop). Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-selected</code> indica filtro ativo.
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do Cabeçalho de resultados. Para botão com texto e dropdown em outros contextos, use Twin button. Para ações principais da página, use Button.
+      </div>
+      <p class="ds__section-desc">
+        Botões do cabeçalho com base (ícone) + drop (chevron) que abre dropdown. Variante
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">--solo</code> remove o drop. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-selected</code> destaca em azul.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes (base+drop, solo, selected)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="background:var(--color-white);padding:var(--space-4)">
+          <div class="composed-btn">
+            <button class="composed-btn__base">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-custos.svg" alt="" />
+            </button>
+            <button class="composed-btn__drop">
+              <span class="material-icons-outlined">keyboard_arrow_down</span>
+            </button>
+          </div>
+          <div class="composed-btn composed-btn--solo">
+            <button class="composed-btn__base">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-derivados.svg" alt="" />
+            </button>
+          </div>
+          <div class="composed-btn composed-btn--solo is-selected">
+            <button class="composed-btn__base">
+              <img src="https://marcoskip.github.io/infoprice-prototipos/assets/cabecalho/icon-filtros.svg" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Base + drop --&gt;
+&lt;div class="composed-btn"&gt;
+  &lt;button class="composed-btn__base"&gt;&lt;img src="..." alt="" /&gt;&lt;/button&gt;
+  &lt;button class="composed-btn__drop" data-dropdown="dd-id"&gt;
+    &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;span class="composed-btn__tooltip"&gt;Texto do tooltip&lt;/span&gt;
+  &lt;div class="composed-dropdown" id="dd-id"&gt; ... &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Solo (sem drop) --&gt;
+&lt;div class="composed-btn composed-btn--solo"&gt;
+  &lt;button class="composed-btn__base"&gt;&lt;img src="..." alt="" /&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Selected (azul ativo) --&gt;
+&lt;div class="composed-btn composed-btn--solo is-selected"&gt; ... &lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Composed dropdown — input numérico</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="composed-dropdown" style="position:static;display:flex">
+            <span class="composed-dropdown__title">Filtrar custos<br>alterados nos últimos</span>
+            <div class="composed-dropdown__row">
+              <input type="number" class="composed-dropdown__input" value="7" min="1" />
+              <span class="composed-dropdown__unit">dias</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="composed-dropdown"&gt;
+  &lt;span class="composed-dropdown__title"&gt;Filtrar custos&lt;br&gt;alterados nos últimos&lt;/span&gt;
+  &lt;div class="composed-dropdown__row"&gt;
+    &lt;input type="number" class="composed-dropdown__input" value="7" min="1" /&gt;
+    &lt;span class="composed-dropdown__unit"&gt;dias&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Composed dropdown — radio + input</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="composed-dropdown" style="position:static;display:flex">
+            <span class="composed-dropdown__title">Filtrar preços com margem</span>
+            <div class="composed-dropdown__row">
+              <span class="composed-dropdown__label">Maior ou igual a</span>
+              <input type="text" class="composed-dropdown__input" value="0,0" />
+              <span class="composed-dropdown__unit">%</span>
+            </div>
+            <div class="composed-dropdown__divider"></div>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="ds-margem" checked />
+              <span>Preço sugerido</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="radio" name="ds-margem" />
+              <span>Preço vigente</span>
+            </label>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="composed-dropdown"&gt;
+  &lt;span class="composed-dropdown__title"&gt;Filtrar preços com margem&lt;/span&gt;
+  &lt;div class="composed-dropdown__row"&gt;
+    &lt;span class="composed-dropdown__label"&gt;Maior ou igual a&lt;/span&gt;
+    &lt;input type="text" class="composed-dropdown__input" value="0,0" /&gt;
+    &lt;span class="composed-dropdown__unit"&gt;%&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="composed-dropdown__divider"&gt;&lt;/div&gt;
+  &lt;label class="composed-dropdown__item"&gt;
+    &lt;input type="radio" name="margem" checked /&gt;
+    &lt;span&gt;Preço sugerido&lt;/span&gt;
+  &lt;/label&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Composed dropdown — checkbox + tag colorida</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="composed-dropdown" style="position:static;display:flex">
+            <span class="composed-dropdown__subtitle">Origem do preço concorrente:</span>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Monitoramento PDV</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--mpdv">MPDV</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Concorrentes diretos</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--infopanel">infopanel</span>
+            </label>
+            <label class="composed-dropdown__item">
+              <input type="checkbox" checked />
+              <span>Pesquisa própria</span>
+              <span class="composed-dropdown__tag composed-dropdown__tag--externo">externo</span>
+            </label>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="composed-dropdown__item"&gt;
+  &lt;input type="checkbox" checked /&gt;
+  &lt;span&gt;Monitoramento PDV&lt;/span&gt;
+  &lt;span class="composed-dropdown__tag composed-dropdown__tag--mpdv"&gt;MPDV&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Tags disponíveis --&gt;
+&lt;span class="composed-dropdown__tag composed-dropdown__tag--mpdv"&gt;MPDV&lt;/span&gt;
+&lt;span class="composed-dropdown__tag composed-dropdown__tag--infopanel"&gt;infopanel&lt;/span&gt;
+&lt;span class="composed-dropdown__tag composed-dropdown__tag--externo"&gt;externo&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

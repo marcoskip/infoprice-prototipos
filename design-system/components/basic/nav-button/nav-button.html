@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nav button — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="nav-button">
+<h2 class="ds__section-title">Nav button</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> em áreas de navegação ESTRUTURAL da página (cabeçalho de feature, sub-nav, breadcrumb, barra lateral). Suporta texto, ícone, icon-only e estado ativo.
+        <br>
+        <strong>Quando NÃO usar:</strong> para ações principais do conteúdo (Salvar, Cancelar), use Button. Para botões compactos com chevron na Title bar, use <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.title-btn</code>. Para toolbar do Cabeçalho de resultados, use Botões compostos.
+      </div>
+      <p class="ds__section-desc">
+        Botão de ação usado em áreas de navegação de página (cabeçalho de feature, barra
+        lateral, breadcrumb). Diferente do <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.title-btn</code> (compacto, com chevron de dropdown):
+        nav-button é mais flexível — suporta texto, ícone, icon-only e estado ativo. 3 sizes.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-left (variante padrão)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-left">
+            <span class="material-icons-outlined">home</span>
+            Inicio
+          </button>
+          <button class="nav-button nav-button--icon-left is-active">
+            <span class="material-icons-outlined">dashboard</span>
+            Dashboard
+          </button>
+          <button class="nav-button nav-button--icon-left" disabled>
+            <span class="material-icons-outlined">lock</span>
+            Bloqueado
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--icon-left"&gt;
+  &lt;span class="material-icons-outlined"&gt;home&lt;/span&gt;
+  Inicio
+&lt;/button&gt;
+
+&lt;!-- Estados:    padrão | .is-active | disabled --&gt;
+&lt;!-- Tamanhos:   .nav-button--small | (default) | .nav-button--large --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-right e sem ícone</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-right">
+            Proximo
+            <span class="material-icons-outlined">arrow_forward</span>
+          </button>
+          <button class="nav-button nav-button--icon-right is-active">
+            Detalhes
+            <span class="material-icons-outlined">open_in_new</span>
+          </button>
+          <button class="nav-button">
+            Sem ícone
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Icon-right: span depois do texto --&gt;
+&lt;button class="nav-button nav-button--icon-right"&gt;
+  Proximo
+  &lt;span class="material-icons-outlined"&gt;arrow_forward&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Sem ícone: omitir o span --&gt;
+&lt;button class="nav-button"&gt;Apenas texto&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Icon-only</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--icon-only" aria-label="Voltar">
+            <span class="material-icons-outlined">arrow_back</span>
+          </button>
+          <button class="nav-button nav-button--icon-only is-active" aria-label="Filtros">
+            <span class="material-icons-outlined">filter_list</span>
+          </button>
+          <button class="nav-button nav-button--icon-only" aria-label="Mais opções">
+            <span class="material-icons-outlined">more_vert</span>
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--icon-only" aria-label="Voltar"&gt;
+  &lt;span class="material-icons-outlined"&gt;arrow_back&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Sempre incluir aria-label para acessibilidade quando icon-only --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="nav-button nav-button--small">
+            <span class="material-icons-outlined">home</span>
+            Small
+          </button>
+          <button class="nav-button">
+            <span class="material-icons-outlined">home</span>
+            Medium
+          </button>
+          <button class="nav-button nav-button--large">
+            <span class="material-icons-outlined">home</span>
+            Large
+          </button>
+          <button class="nav-button nav-button--small nav-button--icon-only" aria-label="Small">
+            <span class="material-icons-outlined">home</span>
+          </button>
+          <button class="nav-button nav-button--icon-only" aria-label="Medium">
+            <span class="material-icons-outlined">home</span>
+          </button>
+          <button class="nav-button nav-button--large nav-button--icon-only" aria-label="Large">
+            <span class="material-icons-outlined">home</span>
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;button class="nav-button nav-button--small"&gt; ... &lt;/button&gt;
+&lt;button class="nav-button"&gt; ... &lt;/button&gt;          &lt;!-- medium = default --&gt;
+&lt;button class="nav-button nav-button--large"&gt; ... &lt;/button&gt;
+
+&lt;!-- Combinar com --icon-only para botao quadrado --&gt;
+&lt;button class="nav-button nav-button--small nav-button--icon-only"&gt; ... &lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

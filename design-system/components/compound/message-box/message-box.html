@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>MessageBox — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="message-box">
+<h2 class="ds__section-title">MessageBox</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para mensagens INLINE embutidas no conteúdo da página, que precisam ficar visíveis até o usuário ler ou agir (validação de formulário, aviso contextual numa área, instrução persistente).
+        <br>
+        <strong>Quando NÃO usar:</strong> para confirmações temporárias de ação (ex: "Salvo com sucesso"). Use Toast — ele aparece sobre o conteúdo, some sozinho e não compete com a leitura.
+      </div>
+      <p class="ds__section-desc">
+        Mensagem inline embutida em uma seção da página (não é popup). 4 cores semânticas:
+        info, success, warning, error. Pode ter ícone, título, corpo e botão de ação.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes semânticas</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
+          <div class="message-box message-box--info">
+            <span class="material-icons-outlined message-box__icon">info</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Informativo</span>
+              <span class="message-box__body">Os preços foram atualizados com base nos custos mais recentes.</span>
+            </div>
+          </div>
+          <div class="message-box message-box--success">
+            <span class="material-icons-outlined message-box__icon">check_circle</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Sucesso</span>
+              <span class="message-box__body">15 produtos foram salvos com sucesso.</span>
+            </div>
+          </div>
+          <div class="message-box message-box--warning">
+            <span class="material-icons-outlined message-box__icon">warning</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Atenção</span>
+              <span class="message-box__body">3 produtos estão com margem abaixo do limite definido.</span>
+              <button class="message-box__action">Ver produtos</button>
+            </div>
+          </div>
+          <div class="message-box message-box--error">
+            <span class="material-icons-outlined message-box__icon">error</span>
+            <div class="message-box__content">
+              <span class="message-box__title">Erro ao salvar</span>
+              <span class="message-box__body">Não foi possível salvar 2 produtos. Verifique a conexão e tente novamente.</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="message-box message-box--success"&gt;
+  &lt;span class="material-icons-outlined message-box__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="message-box__content"&gt;
+    &lt;span class="message-box__title"&gt;Sucesso&lt;/span&gt;
+    &lt;span class="message-box__body"&gt;15 produtos salvos.&lt;/span&gt;
+    &lt;button class="message-box__action"&gt;Ver detalhes&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes: --info | --success | --warning | --error --&gt;
+&lt;!-- Icones sugeridos: info | check_circle | warning | error --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

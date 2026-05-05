@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Botões — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="botoes">
+<h2 class="ds__section-title">Botões</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> ações principais e secundárias do conteúdo da página (Salvar, Cancelar, Excluir, Saiba mais). 3 tipos: primary (ação principal), secondary (alternativa ou destrutiva), link (textual sem moldura).
+        <br>
+        <strong>Quando NÃO usar:</strong> para botão com dropdown anexado, use Twin button. Para toolbar de ícones no Cabeçalho de resultados, use Botões compostos. Para áreas de navegação estrutural, use Nav button. Para chips em filtros, use Filtro chips.
+      </div>
+      <p class="ds__section-desc">
+        Sistema baseado na referência oficial do Figma. <strong>3 tipos</strong> (primary, secondary, link),
+        cada um com seus temas, em <strong>4 tamanhos</strong> (large default, medium, small, xsmall) e
+        <strong>4 estados</strong> (default, hover, active, disable). Tipografia Open Sans Bold UPPERCASE.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Primary — filled e ghost</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--primary">Filled</button>
+          <button class="btn btn--primary btn--ghost">Ghost</button>
+          <button class="btn btn--primary" disabled>Disabled</button>
+          <button class="btn btn--primary btn--ghost" disabled>Disabled ghost</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Primary filled (default) --&gt;
+&lt;button class="btn btn--primary"&gt;Confirmar&lt;/button&gt;
+
+&lt;!-- Primary ghost (transparente com border azul) --&gt;
+&lt;button class="btn btn--primary btn--ghost"&gt;Cancelar&lt;/button&gt;
+
+&lt;!-- Estados: default | :hover | :active (ou .is-active) | :disabled --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Secondary — 4 temas (blue, red, gray, white)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--secondary">Blue</button>
+          <button class="btn btn--secondary btn--red">Red (destrutivo)</button>
+          <button class="btn btn--secondary btn--gray">Gray</button>
+          <button class="btn btn--secondary btn--white">White</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Secondary blue (default) --&gt;
+&lt;button class="btn btn--secondary"&gt;Salvar&lt;/button&gt;
+
+&lt;!-- Secondary red (ações destrutivas: Excluir, Cancelar pedido) --&gt;
+&lt;button class="btn btn--secondary btn--red"&gt;Excluir&lt;/button&gt;
+
+&lt;!-- Secondary gray (ação neutra forte) --&gt;
+&lt;button class="btn btn--secondary btn--gray"&gt;Arquivar&lt;/button&gt;
+
+&lt;!-- Secondary white (fundo claro com border cinza) --&gt;
+&lt;button class="btn btn--secondary btn--white"&gt;Cancelar&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Link — blue e gray (com ícone, 4 tamanhos)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--medium">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--small">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--xsmall">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link btn--gray">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--medium">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--small">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+            <button class="btn btn--link btn--gray btn--xsmall">
+              <span class="material-icons-outlined">open_in_new</span>
+              Button title
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <button class="btn btn--link" disabled>
+              <span class="material-icons-outlined">open_in_new</span>
+              Disabled
+            </button>
+            <button class="btn btn--link btn--gray" disabled>
+              <span class="material-icons-outlined">open_in_new</span>
+              Disabled
+            </button>
+            <button class="btn btn--link">Sem ícone</button>
+            <button class="btn btn--link btn--gray">Sem ícone</button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Link blue (default), icone opcional a esquerda --&gt;
+&lt;button class="btn btn--link"&gt;
+  &lt;span class="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Saiba mais
+&lt;/button&gt;
+
+&lt;!-- Link gray (alternativo neutro) --&gt;
+&lt;button class="btn btn--link btn--gray"&gt;Cancelar&lt;/button&gt;
+
+&lt;!-- 4 tamanhos: large (default), medium, small, xsmall --&gt;
+&lt;button class="btn btn--link btn--medium"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--link btn--small"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--link btn--xsmall"&gt;...&lt;/button&gt;
+
+&lt;!-- Specs (Open Sans Regular, sem uppercase, sem padding/border) --&gt;
+&lt;!-- Large:  16/22, gap 8px,  icone 20px --&gt;
+&lt;!-- Medium: 14/20, gap 6px,  icone 16px --&gt;
+&lt;!-- Small:  12/18, gap 4px,  icone 12px --&gt;
+&lt;!-- Xsmall: 10/16, gap 2px,  icone 10px --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">4 Tamanhos (large default, medium, small, xsmall)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="align-items:center">
+          <button class="btn btn--primary btn--large">Large 16/22</button>
+          <button class="btn btn--primary btn--medium">Medium 14/20</button>
+          <button class="btn btn--primary btn--small">Small 12/18</button>
+          <button class="btn btn--primary btn--xsmall">Xsmall 10/16</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Large e o padrão se nenhum size for declarado --&gt;
+&lt;button class="btn btn--primary btn--large"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--medium"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--small"&gt;...&lt;/button&gt;
+&lt;button class="btn btn--primary btn--xsmall"&gt;...&lt;/button&gt;
+
+&lt;!-- Specs (Open Sans Bold UPPERCASE) --&gt;
+&lt;!-- Large:  16px / 22px line-height, padding 10/16 --&gt;
+&lt;!-- Medium: 14px / 20px line-height, padding 8/12   --&gt;
+&lt;!-- Small:  12px / 18px line-height, padding 6/10   --&gt;
+&lt;!-- Xsmall: 10px / 16px line-height, padding 4/8    --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Com ícone (left, right ou ambos)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="btn btn--primary">
+            <span class="material-icons-outlined">save</span>
+            Salvar
+          </button>
+          <button class="btn btn--secondary btn--white">
+            Exportar
+            <span class="material-icons-outlined">file_download</span>
+          </button>
+          <button class="btn btn--secondary btn--red">
+            <span class="material-icons-outlined">delete</span>
+            Excluir
+          </button>
+          <button class="btn btn--link">
+            <span class="material-icons-outlined">add</span>
+            Adicionar
+          </button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Icone a esquerda --&gt;
+&lt;button class="btn btn--primary"&gt;
+  &lt;span class="material-icons-outlined"&gt;save&lt;/span&gt;
+  Salvar
+&lt;/button&gt;
+
+&lt;!-- Icone a direita --&gt;
+&lt;button class="btn btn--secondary btn--white"&gt;
+  Exportar
+  &lt;span class="material-icons-outlined"&gt;file_download&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Twin — botão split (ação + drop)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:flex-start;gap:16px">
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div class="btn-twin">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opções">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--medium">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opções">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--small">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opções">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+            <div class="btn-twin btn-twin--xsmall">
+              <button class="btn-twin__main">Button title</button>
+              <button class="btn-twin__drop" aria-label="Mais opções">
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div class="btn-twin is-disabled">
+              <button class="btn-twin__main" disabled>Disabled</button>
+              <button class="btn-twin__drop" aria-label="Mais opções" disabled>
+                <span class="material-icons-outlined">keyboard_arrow_down</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Twin: ação primaria a esquerda + drop a direita --&gt;
+&lt;div class="btn-twin"&gt;
+  &lt;button class="btn-twin__main" onclick="salvar()"&gt;Salvar&lt;/button&gt;
+  &lt;button class="btn-twin__drop" aria-label="Mais opções" onclick="abrirMenu()"&gt;
+    &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 4 tamanhos: large (default), medium, small, xsmall --&gt;
+&lt;div class="btn-twin btn-twin--medium"&gt;...&lt;/div&gt;
+&lt;div class="btn-twin btn-twin--small"&gt;...&lt;/div&gt;
+&lt;div class="btn-twin btn-twin--xsmall"&gt;...&lt;/div&gt;
+
+&lt;!-- Disabled (twin inteiro ou metade individual) --&gt;
+&lt;div class="btn-twin is-disabled"&gt;...&lt;/div&gt;
+
+&lt;!-- Specs --&gt;
+&lt;!-- Cada metade clicavel separadamente — main dispara a ação,  --&gt;
+&lt;!-- drop abre menu/dropdown. Divisor: 1px white solid.         --&gt;
+&lt;!-- Hover/active afetam apenas a metade hovered.               --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="usage-guide">
+        <strong>Quando usar Twin button:</strong> para uma ação primary blue com dropdown anexado para variações da ação (ex: Salvar + escolher modo). Split em duas metades clicáveis: main (ação) + drop (abre menu).
+        <br>
+        <strong>Quando NÃO usar:</strong> para a ação "Aplicar preço" use o componente Aplicar preço (verde, especializado). Para botão simples sem dropdown, use Button. Para toolbar icon-only, use Botões compostos.
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

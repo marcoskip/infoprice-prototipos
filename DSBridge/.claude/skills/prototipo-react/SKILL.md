@@ -2,7 +2,7 @@
 name: prototipo-react
 description: Gera um componente React (.jsx) do IPA InfoPrice a partir de descricao textual ou sketch/wireframe (imagem), seguindo o Design System publicado e o guia de adocao React. Output e componente pronto para integrar em projeto React.
 argument-hint: [nome-do-componente] [descricao da tela]
-allowed-tools: Bash(npx *) Read Write Edit Glob Grep
+allowed-tools: Bash(npx *) Bash(curl *) Bash(mkdir *) Bash(test *) Bash(if *) Read Write Edit Glob Grep
 ---
 
 # Gerar Componente React — InfoPrice IPA
@@ -33,13 +33,40 @@ Se nome estiver faltando ou descricao vaga, pergunte antes de gerar.
 
 Quando houver conflito, a de maior prioridade SEMPRE vence:
 
-1. **`styles.css` + `tokens.css`** (VERDADE ABSOLUTA) — Classes CSS e tokens que o componente vai usar via `className`. Se uma classe existe aqui, use-a. Se nao existe, NAO invente.
-2. **`design-system.html`** (REFERENCIA DE MARKUP) — Pagina viva publicada em `https://marcoskip.github.io/infoprice-prototipos/design-system.html`. Use como referencia da estrutura HTML de cada componente. Converta o markup para JSX (`class` → `className`, atributos camelCase, `htmlFor` em vez de `for`, etc.).
-3. **`react-guide.html`** (REFERENCIA REACT) — Pagina viva publicada em `https://marcoskip.github.io/infoprice-prototipos/react-guide.html` com padroes React especificos para o DS: hooks (`useState`, `useEffect`, `createPortal`), patterns de componentes (Button, Modal, Toast, Switch, Form field, Dropdowns), uso de `clsx` para classNames condicionais. **TODO componente React gerado DEVE seguir os padroes desta pagina.**
+1. **`styles.css` + `tokens.css`** (VERDADE ABSOLUTA) — Classes CSS e tokens que o componente vai usar via `className`. Acessados via `${DS_PATH}` (Passo 0 do Fluxo). Se uma classe existe aqui, use-a. Se nao existe, NAO invente.
+2. **`design-system.html`** (REFERENCIA DE MARKUP) — Pagina viva publicada em `https://infoprice.github.io/produto-ux/DSBridge/design-system.html`. Acessada via `${DS_PATH}/design-system.html` localmente. Converta o markup para JSX (`class` → `className`, atributos camelCase, `htmlFor` em vez de `for`, etc.).
+3. **`react-guide.html`** (REFERENCIA REACT) — Pagina viva publicada em `https://infoprice.github.io/produto-ux/DSBridge/react-guide.html`. Acessada via `${DS_PATH}/react-guide.html` localmente. Padroes React especificos para o DS: hooks (`useState`, `useEffect`, `createPortal`), patterns de componentes (Button, Modal, Toast, Switch, Form field, Dropdowns), uso de `clsx` para classNames condicionais. **TODO componente React gerado DEVE seguir os padroes desta pagina.**
 
 ---
 
 ## Fluxo
+
+### 0. Localizar fontes do DS (`DS_PATH`)
+
+**Antes de qualquer Grep ou Read**, defina onde os 4 arquivos canonicos do DS
+(`styles.css`, `tokens.css`, `design-system.html`, `react-guide.html`) estao
+acessiveis no disco. A skill segue esta ordem:
+
+1. Se `./styles.css` existe na raiz do projeto → `DS_PATH=./`
+2. Se `./DSBridge/styles.css` existe → `DS_PATH=./DSBridge/`
+3. Caso contrario → fetch automatico do CDN via `Bash`:
+
+```bash
+mkdir -p .dsbridge-cache && \
+curl -fsSLo .dsbridge-cache/styles.css         https://infoprice.github.io/produto-ux/DSBridge/styles.css && \
+curl -fsSLo .dsbridge-cache/tokens.css         https://infoprice.github.io/produto-ux/DSBridge/tokens.css && \
+curl -fsSLo .dsbridge-cache/design-system.html https://infoprice.github.io/produto-ux/DSBridge/design-system.html && \
+curl -fsSLo .dsbridge-cache/react-guide.html   https://infoprice.github.io/produto-ux/DSBridge/react-guide.html
+```
+
+Resultado: `DS_PATH=.dsbridge-cache/`. Adicione `.dsbridge-cache/` ao `.gitignore`.
+
+Daqui pra frente, todas as referencias a `styles.css`, `tokens.css`,
+`design-system.html`, `react-guide.html` em `Grep`/`Read` devem usar
+`${DS_PATH}/<arquivo>`.
+
+Se nenhum dos 3 caminhos funcionar, **PARE** e avise o usuario que a skill
+nao pode validar contra o DS.
 
 ### 1. Interpretar entrada
 
@@ -54,13 +81,13 @@ Se a entrada e uma imagem (sketch), use `Read` para visualizar e identificar blo
 ### 2. Mapear componentes do DS
 
 Para cada componente identificado:
-1. Consulte `design-system.html` para ver o markup base
-2. Consulte `react-guide.html` para ver o padrao React equivalente (`useState`, hooks, etc.)
+1. Consulte `${DS_PATH}/design-system.html` para ver o markup base
+2. Consulte `${DS_PATH}/react-guide.html` para ver o padrao React equivalente (`useState`, hooks, etc.)
 3. Anote as classes CSS necessarias e os hooks de estado
 
 ### 3. Confirmar classes (regra do grep)
 
-Antes de escrever qualquer `className` no JSX, rode `Grep` no `styles.css` com o nome exato da classe. Tres resultados possiveis:
+Antes de escrever qualquer `className` no JSX, rode `Grep` em `${DS_PATH}/styles.css` com o nome exato da classe. Tres resultados possiveis:
 
 - **Match `.classe {`** → existe, pode usar
 - **Sem match** → nao existe. NAO invente. Use uma classe existente ou crie inline com `style={{ ... }}` usando tokens
@@ -83,8 +110,8 @@ import clsx from 'clsx';
  *
  * Pre-requisitos no projeto React:
  *   1. CSS do DS importado (ver react-guide.html — secao Setup):
- *      <link href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" rel="stylesheet" />
- *      <link href="https://marcoskip.github.io/infoprice-prototipos/styles.css" rel="stylesheet" />
+ *      <link href="https://infoprice.github.io/produto-ux/DSBridge/tokens.css" rel="stylesheet" />
+ *      <link href="https://infoprice.github.io/produto-ux/DSBridge/styles.css" rel="stylesheet" />
  *   2. Open Sans + Material Icons Outlined carregados (Google Fonts)
  *   3. Dependencia: npm install clsx
  */
@@ -141,7 +168,7 @@ Apos gerar, rode 7 verificacoes:
 | 1 | **JSX valido** | Grep por `class=` (deve ser `className=`), `for=` (deve ser `htmlFor=`), `tabindex=` (deve ser `tabIndex=`). Atributos data-*/aria-* mantem hifen |
 | 2 | **Cores via tokens** | Grep por `#[0-9a-fA-F]{3,6}` no JSX. Excecao: `#fff`, `#000`, `transparent`. Use classes do DS ou `var(--color-*)` |
 | 3 | **Imports corretos** | `react` (named imports de hooks), `clsx`. Nao adicionar libs extras. `react-dom` apenas se usar `createPortal` |
-| 4 | **Classes existem** | Para cada `className` literal, grep no `styles.css`. Sem match = FAIL — voce inventou ou usou classe page-specific de outro arquivo |
+| 4 | **Classes existem** | Para cada `className` literal, grep em `${DS_PATH}/styles.css`. Sem match = FAIL — voce inventou ou usou classe page-specific de outro arquivo |
 | 5 | **Hooks com regras** | `useState`/`useEffect`/`useRef`/`useContext` no top-level do componente, nao em condicionais ou loops. Custom hooks comecam com `use*` |
 | 6 | **Acessibilidade** | `aria-label` em botoes icon-only, `role` em elementos custom, `tabIndex` em divs/spans interativos, `htmlFor` em labels |
 | 7 | **Export e nome** | `export default function NomeComponente()` (PascalCase, casa com nome do arquivo) |
@@ -190,9 +217,10 @@ Ao finalizar:
 
 ## Resumo do fluxo (TL;DR)
 
+0. **Resolve `DS_PATH`**: detecta `./styles.css`, `./DSBridge/styles.css`, ou faz fetch para `.dsbridge-cache/`
 1. Le entrada (texto ou imagem)
 2. Identifica secoes, componentes, estado necessario
-3. Para cada classe → **grep no `styles.css`**
-4. Escreve componente React seguindo padroes do `react-guide.html` (clsx, hooks, createPortal, etc.)
+3. Para cada classe → **grep em `${DS_PATH}/styles.css`**
+4. Escreve componente React seguindo padroes do `${DS_PATH}/react-guide.html` (clsx, hooks, createPortal, etc.)
 5. Valida 7 pontos (JSX valido, tokens, imports, classes, hooks, a11y, export)
 6. Entrega arquivo + instrucoes de uso + tabela de validacao

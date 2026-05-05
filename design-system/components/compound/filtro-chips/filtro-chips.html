@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Filtro chips — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="filtro-chips">
+<h2 class="ds__section-title">Filtro chips</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE na seção de filtros do IPA, como pill button que abre um dropdown de filtro ou age como toggle (ex: "+ Filtros", "Limpar").
+        <br>
+        <strong>Quando NÃO usar:</strong> fora do contexto de filtros. Para ações da página, use Button. Para áreas de navegação, use Nav button.
+      </div>
+      <p class="ds__section-desc">
+        Pill buttons usados na seção de filtros. Variantes: simples, com chevron (dropdown),
+        numerado, e variant clear (limpar filtros).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Variantes</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <button class="filtro-chip">Simples</button>
+          <button class="filtro-chip">
+            <span>Com dropdown</span>
+            <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+          </button>
+          <button class="filtro-chip filtro-chip--numbered">
+            <span class="filtro-chip__prefix">01</span>
+            <span>Numerado</span>
+            <span class="material-icons-outlined filtro-chip__chevron">keyboard_arrow_down</span>
+          </button>
+          <button class="filtro-chip">+ Filtros</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Simples --&gt;
+&lt;button class="filtro-chip"&gt;Simples&lt;/button&gt;
+
+&lt;!-- Com dropdown --&gt;
+&lt;button class="filtro-chip"&gt;
+  &lt;span&gt;Com dropdown&lt;/span&gt;
+  &lt;span class="material-icons-outlined filtro-chip__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Numerado --&gt;
+&lt;button class="filtro-chip filtro-chip--numbered"&gt;
+  &lt;span class="filtro-chip__prefix"&gt;01&lt;/span&gt;
+  &lt;span&gt;Numerado&lt;/span&gt;
+  &lt;span class="material-icons-outlined filtro-chip__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+/* ── Filtros ──────────────────────────────────────── */
+.filtros {
+  position: fixed;
+  top: 212px;
+  left: 52px;
+  right: 0;
+  z-index: 42;
+  padding: 0 var(--space-4);
+  transition: left 300ms ease;
+}
+
+.filtros__inner {
+  background: var(--color-white);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.filtros__box {
+  display: flex;
+  gap: 12px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.filtros__left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtros__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.filtros__right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  width: 240px;
+}
+
+
+/* ── Chip (pill button) ──────────────────────────── */
+.filtro-chip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.filtro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 12px;
+  background: var(--color-gray-100);
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-800);
+  white-space: nowrap;
+  transition: background 100ms ease;
+}
+
+.filtro-chip:hover {
+  background: var(--color-gray-300);
+}
+
+.filtro-chip.is-open {
+  background: var(--color-gray-300);
+}
+
+.filtro-chip__prefix {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+}
+
+.filtro-chip__chevron {
+  font-size: 16px;
+  color: var(--color-gray-600);
+  transition: transform 120ms ease;
+}
+
+.filtro-chip.is-open .filtro-chip__chevron {
+  transform: rotate(180deg);
+}
+
+.filtro-chip--clear:hover {
+  background: var(--color-gray-300);
+}

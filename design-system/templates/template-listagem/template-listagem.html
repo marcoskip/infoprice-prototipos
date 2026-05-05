@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tela de Listagem — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../tokens.css" />
+  <link rel="stylesheet" href="../../../styles.css" />
+  <link rel="stylesheet" href="../../showcase.css" />
+  <style>
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="template-listagem">
+<h2 class="ds__section-title">Tela de Listagem</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para qualquer tela de listagem de itens com filtros, KPIs no topo, ações em massa e tabela de resultados (gerenciador de preços, listagem de negociações, lista de produtos, etc.).
+        <br>
+        <strong>Quando NÃO usar:</strong> para tela de detalhe/edição de um único item, use o template Detalhe. Para tela de KPIs sem listagem grande, use o template Dashboard.
+      </div>
+      <p class="ds__section-desc">
+        Exemplo: <strong>Gerenciador de Preços</strong>. Combina Header, Sidebar, Title bar, Big Numbers, Filtros, Cabeçalho de resultados, Grid (com células especiais) e Paginação.
+      </p>
+      <p class="template-meta">
+        <strong>Componentes do DS usados:</strong>
+        <a href="#header">Header</a> ·
+        <a href="#sidebar">Sidebar</a> ·
+        <a href="#title-bar">Title bar</a> ·
+        <a href="#big-numbers-card">Big number card</a> ·
+        <a href="#filtro-chips">Filtro chips</a> ·
+        <a href="#filtro-dropdowns">Filtro dropdowns</a> ·
+        <a href="#cabecalho">Cabeçalho de resultados</a> ·
+        <a href="#composed-buttons">Botões compostos</a> ·
+        <a href="#aplicar-btn">Aplicar preço</a> ·
+        <a href="#grid">Grid</a> ·
+        <a href="#grid-cells">Células especiais</a> ·
+        <a href="#grid-pagination">Paginação</a>
+      </p>
+
+      <div class="template-image-card">
+        <img src="assets/templates/listagem.png" alt="Tela de Listagem — Gerenciador de Preços" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <div class="template-image-placeholder" style="display:none">
+          <span class="material-icons-outlined">image</span>
+          <div><strong>Preview indisponível.</strong> Abra a tela em tamanho real pelo link abaixo.</div>
+        </div>
+      </div>
+      <a class="template-fullscreen-link" href="templates/listagem.html" target="_blank" rel="noopener">
+        <span class="material-icons-outlined">open_in_new</span>
+        Abrir em tamanho real
+      </a>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Código</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="display:none">
+          <!-- preview substituído por imagem acima -->
+          <div style="display:none">
+
+              <!-- Header -->
+              <header class="header">
+                <div class="header__left">
+                  <button class="header__menu-btn" aria-label="Menu de produtos"><span class="material-icons-outlined">apps</span></button>
+                  <div class="header__brand">
+                    <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+                    <div class="header__divider" aria-hidden="true"></div>
+                    <span class="header__product-name">IPA | Software de Precificação</span>
+                  </div>
+                </div>
+                <div class="header__right">
+                  <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+                  <div class="header__user">
+                    <span class="header__user-name">Olá, Marcus</span>
+                    <span class="material-icons-outlined">keyboard_arrow_down</span>
+                  </div>
+                </div>
+              </header>
+
+              <!-- Sidebar (expandida) -->
+              <aside class="sidebar is-expanded">
+                <div class="sidebar__top">
+                  <div class="sidebar__item sidebar__item--active">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Gerenciador</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Estratégia</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Negociações Fornecedor</span>
+                    <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Extração de preços</span>
+                  </div>
+                  <div class="sidebar__item">
+                    <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="" class="sidebar__icon" />
+                    <span class="sidebar__label">Precifique com IA</span>
+                  </div>
+                </div>
+                <div class="sidebar__bottom">
+                  <button class="sidebar__seta is-flipped" aria-label="Recolher menu"><span class="material-icons-outlined">keyboard_arrow_right</span></button>
+                </div>
+              </aside>
+
+              <!-- Title bar -->
+              <section class="title-bar">
+                <div class="title-bar__left">
+                  <span class="title-bar__heading">Gerenciador de preços</span>
+                  <span class="title-bar__badge">Atualizado em 25/04/2026, 13:42</span>
+                </div>
+                <div class="title-bar__right">
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">push_pin</span>
+                    <span>Fixar</span>
+                  </button>
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">store</span>
+                    <span>Loja</span>
+                    <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+                  </button>
+                  <button class="title-btn">
+                    <span class="material-icons-outlined" style="font-size:14px">account_tree</span>
+                    <span>Produto</span>
+                    <span class="material-icons-outlined title-btn__chevron">keyboard_arrow_down</span>
+                  </button>
+                </div>
+    </section>
+  </main>
+  <script src="../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+/* ── Dropdowns (base compartilhada) ─────────────── */
+.dropdown {
+  position: absolute;
+  top: 52px;
+  width: 280px;
+  background: var(--color-white);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.dropdown.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.dropdown__divider {
+  height: 1px;
+  background: var(--color-gray-300);
+}
+
+
+/* ── Dropdown de produtos ────────────────────────── */
+.product-dropdown {
+  left: 0;
+}
+
+.product-dropdown__header {
+  padding: var(--space-3);
+}
+
+.product-dropdown__title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-900);
+}
+
+.product-dropdown__list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-2);
+}
+
+.product-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+
+.product-dropdown__item:hover {
+  background: var(--color-gray-100);
+}
+
+.product-dropdown__item--disabled {
+  cursor: default;
+}
+
+.product-dropdown__item--disabled:hover {
+  background: none;
+}
+
+.product-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-lg);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.product-tag--isa-active {
+  background: var(--color-blue-light-15);
+  color: var(--color-blue-700);
+}
+
+.product-tag--ipa-active {
+  background: #ebdaff;
+  color: var(--color-purple-700);
+}
+
+.product-tag--disabled {
+  background: var(--color-gray-300);
+  color: var(--color-gray-700);
+}
+
+.product-dropdown__item-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-900);
+  white-space: nowrap;
+}
+
+.product-dropdown__item--disabled .product-dropdown__item-name {
+  color: var(--color-gray-700);
+}
+
+.product-dropdown__item-name .material-icons-outlined {
+  font-size: var(--icon-size-md);
+  color: var(--color-gray-600);
+}
+
+
+/* ── Dropdown de usuário ─────────────────────────── */
+.user-dropdown {
+  right: 0;
+}
+
+/* Cabeçalho: nome + email */
+.user-dropdown__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-2) var(--space-4) var(--space-3); /* 8px 16px 12px */
+}
+
+.user-dropdown__name {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-900);
+  white-space: nowrap;
+}
+
+.user-dropdown__email {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-500);
+  white-space: nowrap;
+}
+
+/* Grupos de links */
+.user-dropdown__group {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2) 0;
+}
+
+.user-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  transition: background 100ms ease;
+}
+
+.user-dropdown__item:hover {
+  background: var(--color-gray-100);
+}
+
+.user-dropdown__item .material-icons-outlined {
+  font-size: var(--icon-size-md);
+  color: var(--color-brand-primary);
+  flex-shrink: 0;
+}
+
+.user-dropdown__item-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-lg);
+  color: var(--color-gray-900);
+  white-space: nowrap;
+}
+
+/* Badge "CONVIDAR" */
+.user-dropdown__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-green-400);
+  font-size: var(--font-size-xs);       /* 10px */
+  font-weight: var(--font-weight-bold);
+  line-height: 12px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+/* Item sem ícone (Termos, Sair) */
+.user-dropdown__item--text-only {
+  padding-left: var(--space-3);
+}

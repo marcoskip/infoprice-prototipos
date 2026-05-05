@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfoPrice DS — Guia de adocao em React</title>
+  <link rel="icon" type="image/x-icon" href="https://infoprice.github.io/produto-ux/DSBridge/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://infoprice.github.io/produto-ux/DSBridge/tokens.css" />
+  <link rel="stylesheet" href="https://infoprice.github.io/produto-ux/DSBridge/styles.css" />
+  <style>
+    body {
+      display: block;
+      background: var(--color-gray-50);
+      color: var(--color-gray-900);
+      font-family: var(--font-family-base);
+    }
+
+    .rg__layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar de navegacao */
+    .rg__nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background: var(--color-white);
+      border-right: 1px solid var(--color-gray-300);
+      padding: var(--space-6) var(--space-4);
+      overflow-y: auto;
+      z-index: 10;
+    }
+    .rg__nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+    }
+    .rg__nav-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--color-blue-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+    }
+    .rg__nav-title {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-md);
+    }
+    .rg__nav-section {
+      margin-bottom: var(--space-4);
+    }
+    .rg__nav-section-title {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--space-2);
+      padding: 0 var(--space-2);
+    }
+    .rg__nav-link {
+      display: block;
+      padding: 6px var(--space-2);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-sm);
+      color: var(--color-gray-800);
+      text-decoration: none;
+      transition: background 150ms;
+    }
+    .rg__nav-link:hover {
+      background: var(--color-gray-100);
+    }
+    .rg__nav-link.is-active {
+      background: var(--color-blue-light-10);
+      color: var(--color-blue-600);
+      font-weight: var(--font-weight-semibold);
+    }
+    .rg__nav-link--external::after {
+      content: '↗';
+      margin-left: 4px;
+      color: var(--color-gray-500);
+    }
+
+    /* Main content */
+    .rg__main {
+      grid-column: 2;
+      padding: var(--space-6) 48px;
+      max-width: 920px;
+    }
+    .rg__hero {
+      padding: var(--space-6) 0 32px;
+      border-bottom: 1px solid var(--color-gray-300);
+      margin-bottom: 48px;
+    }
+    .rg__hero-eyebrow {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue-500);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: var(--space-2);
+    }
+    .rg__hero-title {
+      font-size: 36px;
+      line-height: 44px;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      margin-bottom: var(--space-3);
+    }
+    .rg__hero-subtitle {
+      font-size: var(--font-size-lg);
+      line-height: var(--line-height-xl);
+      color: var(--color-gray-700);
+      max-width: 720px;
+    }
+
+    /* Sections */
+    .rg__section {
+      margin-bottom: 56px;
+      scroll-margin-top: var(--space-4);
+    }
+    .rg__section-title {
+      font-size: var(--font-size-3xl);
+      line-height: var(--line-height-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      margin-bottom: var(--space-3);
+    }
+    .rg__section-desc {
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-700);
+      margin-bottom: var(--space-4);
+      max-width: 720px;
+    }
+    .rg__h3 {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      margin: var(--space-6) 0 var(--space-3);
+    }
+    .rg__h4 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      margin: var(--space-4) 0 var(--space-2);
+    }
+    .rg__p {
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-800);
+      margin-bottom: var(--space-3);
+    }
+    .rg__p code,
+    .rg__inline-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: var(--color-gray-100);
+      color: var(--color-blue-600);
+      padding: 1px 6px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Code block */
+    .rg__code {
+      position: relative;
+      margin: var(--space-3) 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-gray-900);
+    }
+    .rg__code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px var(--space-3);
+      background: var(--color-gray-800);
+      color: var(--color-gray-400);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--font-size-xs);
+    }
+    .rg__code-lang {
+      text-transform: uppercase;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.5px;
+    }
+    .rg__copy-btn {
+      background: var(--color-gray-700);
+      color: var(--color-white);
+      border: none;
+      padding: 2px 10px;
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .rg__copy-btn:hover { background: var(--color-gray-600); }
+    .rg__copy-btn.is-copied { background: var(--color-green-500); }
+    .rg__code pre {
+      margin: 0;
+      padding: var(--space-3) var(--space-4);
+      color: var(--color-gray-100);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+    .rg__code pre code {
+      color: inherit;
+      font-family: inherit;
+      background: transparent;
+      padding: 0;
+    }
+
+    /* Callout (info/warning/success) */
+    .rg__callout {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      border-left: 4px solid;
+      margin: var(--space-3) 0;
+    }
+    .rg__callout--info {
+      background: var(--color-blue-light-5);
+      border-left-color: var(--color-blue-400);
+    }
+    .rg__callout--warning {
+      background: var(--color-orange-light-5);
+      border-left-color: var(--color-orange-400);
+    }
+    .rg__callout--success {
+      background: var(--color-green-light-5);
+      border-left-color: var(--color-green-400);
+    }
+    .rg__callout__icon {
+      flex-shrink: 0;
+      font-size: 20px;
+      margin-top: 1px;
+    }
+    .rg__callout--info .rg__callout__icon { color: var(--color-blue-500); }
+    .rg__callout--warning .rg__callout__icon { color: var(--color-orange-500); }
+    .rg__callout--success .rg__callout__icon { color: var(--color-green-500); }
+    .rg__callout__body {
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-800);
+    }
+    .rg__callout__title {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-gray-900);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Lists */
+    .rg__ul {
+      margin: var(--space-3) 0;
+      padding-left: var(--space-4);
+      list-style: disc;
+    }
+    .rg__ul li {
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+      color: var(--color-gray-800);
+      margin-bottom: 4px;
+    }
+
+    /* FAQ */
+    .rg__faq {
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .rg__faq-item {
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    .rg__faq-item:last-child { border-bottom: none; }
+    .rg__faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-white);
+      border: none;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      cursor: pointer;
+      text-align: left;
+    }
+    .rg__faq-q:hover { background: var(--color-gray-50); }
+    .rg__faq-q .material-icons-outlined {
+      transition: transform 200ms ease;
+      color: var(--color-gray-600);
+    }
+    .rg__faq-item.is-open .rg__faq-q .material-icons-outlined {
+      transform: rotate(180deg);
+    }
+    .rg__faq-a {
+      display: none;
+      padding: 0 var(--space-4) var(--space-4);
+      color: var(--color-gray-800);
+      font-size: var(--font-size-md);
+      line-height: var(--line-height-lg);
+    }
+    .rg__faq-item.is-open .rg__faq-a { display: block; }
+
+    /* Hero CTA links */
+    .rg__hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: var(--space-4);
+      margin-right: var(--space-3);
+      padding: 8px var(--space-3);
+      background: var(--color-blue-400);
+      color: var(--color-white);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      text-decoration: none;
+    }
+    .rg__hero-cta:hover { background: var(--color-blue-500); }
+    .rg__hero-cta--secondary {
+      background: transparent;
+      color: var(--color-blue-500);
+      border: 1px solid var(--color-blue-400);
+    }
+    .rg__hero-cta--secondary:hover {
+      background: var(--color-blue-light-10);
+    }
+  </style>
+</head>
+<body>
+
+<div class="rg__layout">
+
+  <nav class="rg__nav" aria-label="Navegacao do guia">
+    <div class="rg__nav-brand">
+      <div class="rg__nav-logo">IP</div>
+      <span class="rg__nav-title">DS · React</span>
+    </div>
+
+    <div class="rg__nav-section">
+      <div class="rg__nav-section-title">Comecar</div>
+      <a class="rg__nav-link" href="#intro">O que e</a>
+      <a class="rg__nav-link" href="#setup">Setup</a>
+      <a class="rg__nav-link" href="#conceito">Conceito</a>
+    </div>
+
+    <div class="rg__nav-section">
+      <div class="rg__nav-section-title">Padroes basicos</div>
+      <a class="rg__nav-link" href="#botoes">Botoes</a>
+      <a class="rg__nav-link" href="#tags-badges">Tags & Badges</a>
+      <a class="rg__nav-link" href="#form-fields">Form fields</a>
+      <a class="rg__nav-link" href="#classnames-condicionais">classNames condicionais</a>
+    </div>
+
+    <div class="rg__nav-section">
+      <div class="rg__nav-section-title">Stateful</div>
+      <a class="rg__nav-link" href="#switch-radio-checkbox">Switch / Radio / Checkbox</a>
+      <a class="rg__nav-link" href="#modal">Modal</a>
+      <a class="rg__nav-link" href="#toast">Toast</a>
+      <a class="rg__nav-link" href="#dropdowns">Dropdowns</a>
+    </div>
+
+    <div class="rg__nav-section">
+      <div class="rg__nav-section-title">Outros</div>
+      <a class="rg__nav-link" href="#faq">FAQ</a>
+      <a class="rg__nav-link rg__nav-link--external" href="https://infoprice.github.io/produto-ux/DSBridge/design-system.html" target="_blank">Design System</a>
+    </div>
+  </nav>
+
+  <main class="rg__main">
+
+    <header class="rg__hero" id="intro">
+      <div class="rg__hero-eyebrow">InfoPrice Design System</div>
+      <h1 class="rg__hero-title">Adocao em React</h1>
+      <p class="rg__hero-subtitle">
+        O DS InfoPrice e uma <strong>biblioteca CSS framework-agnostic</strong>. Para usar
+        em React, basta aplicar as classes via <code class="rg__inline-code">className</code> no JSX. Nao requer
+        rewrite, nao introduz dependencias e convive com qualquer stack (RSuite, MUI,
+        componentes proprios). Este guia mostra os padroes mais comuns.
+      </p>
+      <a class="rg__hero-cta" href="#setup">
+        <span class="material-icons-outlined">arrow_forward</span>
+        Comecar
+      </a>
+      <a class="rg__hero-cta rg__hero-cta--secondary" href="https://infoprice.github.io/produto-ux/DSBridge/design-system.html" target="_blank">
+        <span class="material-icons-outlined">open_in_new</span>
+        Ver componentes
+      </a>
+    </header>
+
+    <!-- ============================================ -->
+    <!-- SETUP                                        -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="setup">
+      <h2 class="rg__section-title">Setup</h2>
+      <p class="rg__section-desc">
+        Importe os 3 recursos do DS no <code class="rg__inline-code">&lt;head&gt;</code> da sua aplicacao React (em
+        <code class="rg__inline-code">index.html</code>, <code class="rg__inline-code">_document.tsx</code> do Next, etc.).
+      </p>
+
+      <h3 class="rg__h3">1. CSS e fontes</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">html</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>&lt;!-- index.html ou _document.tsx --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&amp;display=swap" rel="stylesheet" /&gt;
+&lt;link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" /&gt;
+
+&lt;!-- Tokens (variaveis CSS) e classes do DS --&gt;
+&lt;link rel="stylesheet" href="https://infoprice.github.io/produto-ux/DSBridge/tokens.css" /&gt;
+&lt;link rel="stylesheet" href="https://infoprice.github.io/produto-ux/DSBridge/styles.css" /&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">2. Verificacao rapida</h3>
+      <p class="rg__p">Adicione um botao em qualquer componente React para validar que carregou:</p>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function App() {
+  return (
+    &lt;button className="btn btn--primary"&gt;
+      Salvar
+    &lt;/button&gt;
+  );
+}</code></pre>
+      </div>
+
+      <div class="rg__callout rg__callout--info">
+        <span class="material-icons-outlined rg__callout__icon">info</span>
+        <div class="rg__callout__body">
+          <span class="rg__callout__title">Dica</span>
+          Em ambiente local, use a versao publicada (URLs acima). Em producao, considere
+          servir os arquivos do proprio CDN da empresa para evitar dependencia externa.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CONCEITO                                     -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="conceito">
+      <h2 class="rg__section-title">Conceito</h2>
+      <p class="rg__section-desc">
+        O DS expoe duas coisas: <strong>tokens CSS</strong> (variaveis) e <strong>classes utilitarias</strong>
+        no padrao BEM. Ambos sao framework-agnostic.
+      </p>
+
+      <h3 class="rg__h3">Tokens — use no <code class="rg__inline-code">style</code> ou em CSS-in-JS</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Inline style
+&lt;div style={{ color: 'var(--color-blue-500)', padding: 'var(--space-4)' }}&gt;
+  Texto azul
+&lt;/div&gt;
+
+// styled-components / emotion
+const Card = styled.div`
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevation);
+`;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Classes — use via <code class="rg__inline-code">className</code></h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>&lt;button className="btn btn--primary btn--large"&gt;
+  Salvar
+&lt;/button&gt;
+
+&lt;span className="badge badge--filled badge--green"&gt;Ativo&lt;/span&gt;</code></pre>
+      </div>
+
+      <div class="rg__callout rg__callout--success">
+        <span class="material-icons-outlined rg__callout__icon">check_circle</span>
+        <div class="rg__callout__body">
+          <span class="rg__callout__title">Compativel com qualquer biblioteca</span>
+          Voce pode misturar com RSuite, MUI, Ant Design ou componentes proprios. As classes
+          do DS apenas adicionam estilos — nao quebram nada.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- BOTOES                                       -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="botoes">
+      <h2 class="rg__section-title">Botoes</h2>
+      <p class="rg__section-desc">
+        Sistema baseado no Figma DS InfoPrice. <strong>3 tipos</strong> (primary, secondary, link),
+        cada um com seus temas, em 4 tamanhos (large default, medium, small, xsmall) e 4 estados
+        (default, hover, active, disable).
+      </p>
+
+      <h3 class="rg__h3">Componente reutilizavel (compatible com todos os tipos/temas/sizes)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>import clsx from 'clsx';
+
+/**
+ * Button — sistema oficial do DS InfoPrice (baseado no Figma)
+ *
+ * @param type    'primary' | 'secondary' | 'link'   (default: 'primary')
+ * @param theme   tema dependente do type:
+ *                  primary:   undefined | 'ghost'
+ *                  secondary: undefined (=blue) | 'red' | 'gray' | 'white'
+ *                  link:      undefined (=blue) | 'gray'
+ * @param size    'large' (default) | 'medium' | 'small' | 'xsmall'
+ * @param active  forca estado active (alem do :active nativo)
+ */
+export function Button({
+  type = 'primary',
+  theme,
+  size,
+  active,
+  className,
+  children,
+  ...props
+}) {
+  return (
+    &lt;button
+      className={clsx(
+        'btn',
+        `btn--${type}`,
+        theme &amp;&amp; `btn--${theme}`,
+        size &amp;&amp; `btn--${size}`,
+        active &amp;&amp; 'is-active',
+        className
+      )}
+      {...props}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+}</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Primary</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Filled (default — CTA principal)
+&lt;Button type="primary"&gt;Confirmar&lt;/Button&gt;
+
+// Ghost (transparente com border azul)
+&lt;Button type="primary" theme="ghost"&gt;Cancelar&lt;/Button&gt;
+
+// Disabled
+&lt;Button type="primary" disabled&gt;Salvar&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Secondary (4 temas)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Blue (default)
+&lt;Button type="secondary"&gt;Salvar&lt;/Button&gt;
+
+// Red — acoes destrutivas (Excluir, Cancelar pedido, etc.)
+&lt;Button type="secondary" theme="red"&gt;Excluir&lt;/Button&gt;
+
+// Gray — neutro forte
+&lt;Button type="secondary" theme="gray"&gt;Arquivar&lt;/Button&gt;
+
+// White — sobre fundo claro (border cinza)
+&lt;Button type="secondary" theme="white"&gt;Cancelar&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Link</h3>
+      <p class="rg__section-desc" style="margin-top:0">
+        Tipo Link tem comportamento diferente dos outros: <strong>nao usa uppercase</strong>,
+        peso regular (400), sem padding/border, e geralmente acompanha um icone (Material
+        Outlined, ex: <code class="rg__inline-code">open_in_new</code>). Os 4 tamanhos
+        escalonam fonte, line-height, gap e icone juntos.
+      </p>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Blue (default) com icone a esquerda
+&lt;Button type="link"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Saiba mais
+&lt;/Button&gt;
+
+// Gray (alternativo neutro)
+&lt;Button type="link" theme="gray"&gt;Cancelar&lt;/Button&gt;
+
+// 4 tamanhos: large (default), medium, small, xsmall
+&lt;Button type="link" size="medium"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Abrir documento
+&lt;/Button&gt;
+
+&lt;Button type="link" size="small" theme="gray"&gt;
+  &lt;span className="material-icons-outlined"&gt;open_in_new&lt;/span&gt;
+  Detalhes
+&lt;/Button&gt;
+
+// Disabled
+&lt;Button type="link" disabled&gt;Indisponivel&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Tamanhos</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>&lt;Button size="large"&gt;Large 16/22&lt;/Button&gt;     {/* default */}
+&lt;Button size="medium"&gt;Medium 14/20&lt;/Button&gt;
+&lt;Button size="small"&gt;Small 12/18&lt;/Button&gt;
+&lt;Button size="xsmall"&gt;Xsmall 10/16&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Com icone (left, right, ou ambos)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Icone a esquerda
+&lt;Button type="primary"&gt;
+  &lt;span className="material-icons-outlined"&gt;save&lt;/span&gt;
+  Salvar
+&lt;/Button&gt;
+
+// Icone a direita
+&lt;Button type="secondary" theme="white"&gt;
+  Exportar
+  &lt;span className="material-icons-outlined"&gt;file_download&lt;/span&gt;
+&lt;/Button&gt;
+
+// Acao destrutiva com icone
+&lt;Button type="secondary" theme="red"&gt;
+  &lt;span className="material-icons-outlined"&gt;delete&lt;/span&gt;
+  Excluir
+&lt;/Button&gt;</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Twin button — split (acao + drop)</h3>
+      <p class="rg__section-desc" style="margin-top:0">
+        Twin e um botao "split": a metade esquerda dispara a acao primaria, a direita abre
+        um menu/dropdown. As duas metades sao <code class="rg__inline-code">&lt;button&gt;</code>
+        independentes, divididas por 1px branco. Hover/active afetam apenas a metade que
+        recebe o mouse. Componente <code class="rg__inline-code">&lt;ButtonTwin&gt;</code> abaixo
+        encapsula o markup.
+      </p>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>import clsx from 'clsx';
+
+export function ButtonTwin({
+  size,
+  disabled,
+  onMainClick,
+  onDropClick,
+  dropAriaLabel = 'Mais opcoes',
+  children,
+}) {
+  return (
+    &lt;div className={clsx('btn-twin', size &amp;&amp; `btn-twin--${size}`, disabled &amp;&amp; 'is-disabled')}&gt;
+      &lt;button
+        type="button"
+        className="btn-twin__main"
+        onClick={onMainClick}
+        disabled={disabled}
+      &gt;
+        {children}
+      &lt;/button&gt;
+      &lt;button
+        type="button"
+        className="btn-twin__drop"
+        aria-label={dropAriaLabel}
+        onClick={onDropClick}
+        disabled={disabled}
+      &gt;
+        &lt;span className="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Uso — Twin</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// Acao primaria + dropdown de variantes
+&lt;ButtonTwin
+  onMainClick={() =&gt; salvar()}
+  onDropClick={() =&gt; setMenuAberto(true)}
+&gt;
+  Salvar
+&lt;/ButtonTwin&gt;
+
+// 4 tamanhos: large (default), medium, small, xsmall
+&lt;ButtonTwin size="medium" onMainClick={...} onDropClick={...}&gt;
+  Exportar
+&lt;/ButtonTwin&gt;
+
+// Disabled (ambas as metades)
+&lt;ButtonTwin disabled&gt;Indisponivel&lt;/ButtonTwin&gt;</code></pre>
+      </div>
+
+      <div class="rg__callout rg__callout--info">
+        <span class="material-icons-outlined rg__callout__icon">info</span>
+        <div class="rg__callout__body">
+          <span class="rg__callout__title">Specs do Figma (auto-aplicados via CSS)</span>
+          <strong>Primary &amp; Secondary:</strong> Open Sans Bold UPPERCASE, border-radius 4px.
+          <strong>Link:</strong> Open Sans Regular, sem uppercase, sem padding/border, icone
+          opcional escalonando com o tamanho (20/16/12/10px).
+          <strong>Twin:</strong> usa estilo Primary blue, divisor de 1px branco entre as duas
+          metades; cada metade clicavel separadamente.
+          Transicao de cor: Blue 400 → 600 (hover) → 700 (active); Gray 500 → 600 → 700.
+          Disabled: opacity 0.4.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TAGS E BADGES                                -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="tags-badges">
+      <h2 class="rg__section-title">Tags & Badges</h2>
+      <p class="rg__section-desc">
+        Padronize ambos com componentes utilitarios. Os modificadores de cor
+        (<code class="rg__inline-code">--blue</code>, <code class="rg__inline-code">--green</code>, <code class="rg__inline-code">--orange</code>, <code class="rg__inline-code">--red</code>,
+        <code class="rg__inline-code">--gray</code>) e tema (<code class="rg__inline-code">--filled</code> / <code class="rg__inline-code">--ghost</code>) viram props.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function Tag({ color = 'gray', theme = 'filled', size, icon, children }) {
+  const classes = [
+    'tag',
+    `tag--${theme}`,
+    `tag--${color}`,
+    size &amp;&amp; `tag--${size}`,
+  ].filter(Boolean).join(' ');
+  return (
+    &lt;span className={classes}&gt;
+      {icon &amp;&amp; &lt;span className="material-icons-outlined tag__icon"&gt;{icon}&lt;/span&gt;}
+      {children}
+    &lt;/span&gt;
+  );
+}
+
+// Uso
+&lt;Tag color="green"&gt;Ativo&lt;/Tag&gt;
+&lt;Tag color="red" theme="ghost" icon="error"&gt;Bloqueado&lt;/Tag&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FORM FIELDS                                  -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="form-fields">
+      <h2 class="rg__section-title">Form fields</h2>
+      <p class="rg__section-desc">
+        Estrutura padrao: wrapper <code class="rg__inline-code">.form-field</code> com label, input-wrapper e helper.
+        Combine com state do React para erro e valor controlado.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function FormField({
+  label,
+  required,
+  error,
+  helper,
+  size,
+  prefix,
+  suffix,
+  ...inputProps
+}) {
+  const wrapperClasses = [
+    'form-field',
+    size &amp;&amp; `form-field--${size}`,
+    error &amp;&amp; 'is-error',
+    inputProps.disabled &amp;&amp; 'is-disabled',
+  ].filter(Boolean).join(' ');
+
+  return (
+    &lt;div className={wrapperClasses}&gt;
+      &lt;label className="form-field__label"&gt;
+        {label}
+        {required &amp;&amp; &lt;span className="form-field__required"&gt;*&lt;/span&gt;}
+      &lt;/label&gt;
+      &lt;div className="form-field__input-wrapper"&gt;
+        {prefix &amp;&amp; &lt;span className="form-field__prefix"&gt;{prefix}&lt;/span&gt;}
+        &lt;input className="form-field__input" {...inputProps} /&gt;
+        {suffix &amp;&amp; &lt;span className="form-field__suffix"&gt;{suffix}&lt;/span&gt;}
+      &lt;/div&gt;
+      {(error || helper) &amp;&amp; (
+        &lt;span className="form-field__helper"&gt;{error || helper}&lt;/span&gt;
+      )}
+    &lt;/div&gt;
+  );
+}
+
+// Uso
+const [email, setEmail] = useState('');
+const [error, setError] = useState('');
+
+&lt;FormField
+  label="Email"
+  required
+  type="email"
+  value={email}
+  onChange={(e) =&gt; setEmail(e.target.value)}
+  error={error}
+  helper="Usaremos para contato"
+/&gt;
+
+&lt;FormField
+  label="Preco"
+  prefix="R$"
+  type="text"
+  value="12,49"
+/&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- CLASSNAMES CONDICIONAIS                      -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="classnames-condicionais">
+      <h2 class="rg__section-title">classNames condicionais</h2>
+      <p class="rg__section-desc">
+        Use a biblioteca <code class="rg__inline-code">clsx</code> (ou <code class="rg__inline-code">classnames</code>) para compor classes
+        baseadas em estado. Mais limpo que template literals com falsy filtering.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>// npm install clsx
+import clsx from 'clsx';
+
+function Switch({ checked, disabled, label, onChange }) {
+  return (
+    &lt;label
+      className={clsx('switch', {
+        'is-checked': checked,
+        'is-disabled': disabled,
+      })}
+      onClick={() =&gt; !disabled &amp;&amp; onChange(!checked)}
+      role="switch"
+      aria-checked={checked}
+      tabIndex={disabled ? -1 : 0}
+    &gt;
+      &lt;span className="switch__track"&gt;
+        &lt;span className="switch__thumb"&gt;&lt;/span&gt;
+      &lt;/span&gt;
+      {label &amp;&amp; &lt;span className="switch__label"&gt;{label}&lt;/span&gt;}
+    &lt;/label&gt;
+  );
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SWITCH / RADIO / CHECKBOX                    -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="switch-radio-checkbox">
+      <h2 class="rg__section-title">Switch, Radio e Checkbox</h2>
+      <p class="rg__section-desc">
+        Os 3 controles usam BEM compativel com input nativo. Switch precisa de JS para
+        toggle (nao tem input por baixo). Radio e Checkbox usam input invisivel + estilizacao.
+      </p>
+
+      <h3 class="rg__h3">Switch (sem input — controlado por state)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function Switch({ checked, onChange, disabled, size, label }) {
+  const handleToggle = () =&gt; !disabled &amp;&amp; onChange(!checked);
+
+  return (
+    &lt;label
+      className={clsx('switch', {
+        [`switch--${size}`]: size,
+        'is-checked': checked,
+        'is-disabled': disabled,
+      })}
+      role="switch"
+      aria-checked={checked}
+      tabIndex={disabled ? -1 : 0}
+      onClick={handleToggle}
+      onKeyDown={(e) =&gt; {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          handleToggle();
+        }
+      }}
+    &gt;
+      &lt;span className="switch__track"&gt;
+        &lt;span className="switch__thumb"&gt;&lt;/span&gt;
+      &lt;/span&gt;
+      {label &amp;&amp; &lt;span className="switch__label"&gt;{label}&lt;/span&gt;}
+    &lt;/label&gt;
+  );
+}</code></pre>
+      </div>
+
+      <h3 class="rg__h3">Checkbox (com input nativo)</h3>
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function Checkbox({ checked, indeterminate, onChange, label, helper }) {
+  const ref = useRef();
+  useEffect(() =&gt; {
+    if (ref.current) ref.current.indeterminate = !!indeterminate;
+  }, [indeterminate]);
+
+  return (
+    &lt;label className={clsx('checkbox', { 'is-half': indeterminate })}&gt;
+      &lt;input
+        ref={ref}
+        type="checkbox"
+        className="checkbox__input"
+        checked={checked}
+        onChange={(e) =&gt; onChange(e.target.checked)}
+      /&gt;
+      &lt;span className="checkbox__box"&gt;&lt;/span&gt;
+      &lt;div className="checkbox__content"&gt;
+        &lt;span className="checkbox__label"&gt;{label}&lt;/span&gt;
+        {helper &amp;&amp; &lt;span className="checkbox__helper"&gt;{helper}&lt;/span&gt;}
+      &lt;/div&gt;
+    &lt;/label&gt;
+  );
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- MODAL                                        -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="modal">
+      <h2 class="rg__section-title">Modal</h2>
+      <p class="rg__section-desc">
+        Use <code class="rg__inline-code">useState</code> para controlar abertura, <code class="rg__inline-code">useEffect</code> para
+        ESC e backdrop, e <code class="rg__inline-code">createPortal</code> para renderizar fora da hierarquia.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>import { createPortal } from 'react-dom';
+
+function Modal({ open, onClose, title, size, children, footer }) {
+  // ESC fecha
+  useEffect(() =&gt; {
+    if (!open) return;
+    const handler = (e) =&gt; e.key === 'Escape' &amp;&amp; onClose();
+    document.addEventListener('keydown', handler);
+    return () =&gt; document.removeEventListener('keydown', handler);
+  }, [open, onClose]);
+
+  return createPortal(
+    &lt;div
+      className={clsx('modal-backdrop', { 'is-open': open })}
+      onClick={(e) =&gt; e.target === e.currentTarget &amp;&amp; onClose()}
+    &gt;
+      &lt;div className={clsx('modal', size &amp;&amp; `modal--${size}`)}&gt;
+        &lt;div className="modal__header"&gt;
+          &lt;span className="modal__title"&gt;{title}&lt;/span&gt;
+          &lt;button className="modal__close" onClick={onClose} aria-label="Fechar"&gt;
+            &lt;span className="material-icons-outlined"&gt;close&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div className="modal__body"&gt;{children}&lt;/div&gt;
+        {footer &amp;&amp; &lt;div className="modal__footer"&gt;{footer}&lt;/div&gt;}
+      &lt;/div&gt;
+    &lt;/div&gt;,
+    document.body
+  );
+}
+
+// Uso
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    &lt;&gt;
+      &lt;button className="btn btn--primary" onClick={() =&gt; setOpen(true)}&gt;
+        Abrir modal
+      &lt;/button&gt;
+      &lt;Modal
+        open={open}
+        onClose={() =&gt; setOpen(false)}
+        title="Confirmar acao"
+        footer={
+          &lt;&gt;
+            &lt;button className="btn btn--secondary-ghost" onClick={() =&gt; setOpen(false)}&gt;
+              Cancelar
+            &lt;/button&gt;
+            &lt;button className="btn btn--primary"&gt;Confirmar&lt;/button&gt;
+          &lt;/&gt;
+        }
+      &gt;
+        Voce esta prestes a aplicar 15 precos. Continuar?
+      &lt;/Modal&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- TOAST                                        -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="toast">
+      <h2 class="rg__section-title">Toast</h2>
+      <p class="rg__section-desc">
+        Padrao recomendado: <strong>provider + hook</strong>. Um <code class="rg__inline-code">ToastProvider</code> no topo
+        da app gerencia a fila, e <code class="rg__inline-code">useToast</code> dispara de qualquer lugar.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>const ToastContext = createContext();
+
+export function ToastProvider({ children }) {
+  const [toasts, setToasts] = useState([]);
+
+  const show = useCallback((message, options = {}) =&gt; {
+    const id = Date.now() + Math.random();
+    const toast = {
+      id,
+      variant: options.variant || 'info',
+      title: options.title,
+      duration: options.duration ?? 4000,
+      message,
+    };
+    setToasts((t) =&gt; [...t, toast]);
+    if (toast.duration) {
+      setTimeout(() =&gt; dismiss(id), toast.duration);
+    }
+  }, []);
+
+  const dismiss = useCallback((id) =&gt; {
+    setToasts((t) =&gt; t.filter((x) =&gt; x.id !== id));
+  }, []);
+
+  const iconFor = {
+    info: 'info', success: 'check_circle',
+    warning: 'warning', error: 'error',
+  };
+
+  return (
+    &lt;ToastContext.Provider value={{ show, dismiss }}&gt;
+      {children}
+      &lt;div className="toast-container"&gt;
+        {toasts.map((t) =&gt; (
+          &lt;div key={t.id} className={`toast toast--${t.variant}`}&gt;
+            &lt;span className="material-icons-outlined toast__icon"&gt;{iconFor[t.variant]}&lt;/span&gt;
+            &lt;div className="toast__content"&gt;
+              {t.title &amp;&amp; &lt;span className="toast__title"&gt;{t.title}&lt;/span&gt;}
+              &lt;span className="toast__body"&gt;{t.message}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;button className="toast__close" onClick={() =&gt; dismiss(t.id)} aria-label="Fechar"&gt;
+              &lt;span className="material-icons-outlined"&gt;close&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/ToastContext.Provider&gt;
+  );
+}
+
+export const useToast = () =&gt; useContext(ToastContext);
+
+// Uso
+const { show } = useToast();
+show('Precos aplicados', { variant: 'success', title: '15 produtos' });</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- DROPDOWNS                                    -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="dropdowns">
+      <h2 class="rg__section-title">Dropdowns (SelectPicker, Filtro chip, Context menu)</h2>
+      <p class="rg__section-desc">
+        Padrao: state controla <code class="rg__inline-code">isOpen</code>; <code class="rg__inline-code">useEffect</code> registra
+        listener de click-outside; ESC fecha.
+      </p>
+
+      <div class="rg__code">
+        <div class="rg__code-header">
+          <span class="rg__code-lang">jsx</span>
+          <button class="rg__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+        </div>
+        <pre><code>function useDropdown() {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() =&gt; {
+    if (!isOpen) return;
+    const onClick = (e) =&gt; {
+      if (ref.current &amp;&amp; !ref.current.contains(e.target)) setIsOpen(false);
+    };
+    const onKey = (e) =&gt; e.key === 'Escape' &amp;&amp; setIsOpen(false);
+    document.addEventListener('mousedown', onClick);
+    document.addEventListener('keydown', onKey);
+    return () =&gt; {
+      document.removeEventListener('mousedown', onClick);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [isOpen]);
+
+  return { isOpen, setIsOpen, ref };
+}
+
+function SelectPicker({ options, value, onChange, placeholder }) {
+  const { isOpen, setIsOpen, ref } = useDropdown();
+  const selected = options.find((o) =&gt; o.value === value);
+
+  return (
+    &lt;div className="select-picker" ref={ref}&gt;
+      &lt;button
+        className={clsx('select-picker__trigger', { 'is-open': isOpen })}
+        onClick={() =&gt; setIsOpen(!isOpen)}
+      &gt;
+        &lt;span className={selected ? '' : 'select-picker__placeholder'}&gt;
+          {selected ? selected.label : placeholder}
+        &lt;/span&gt;
+        &lt;span className="material-icons-outlined select-picker__chevron"&gt;keyboard_arrow_down&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div className={clsx('select-picker__dropdown', { 'is-open': isOpen })}&gt;
+        &lt;div className="select-picker__list"&gt;
+          {options.map((o) =&gt; (
+            &lt;div
+              key={o.value}
+              className={clsx('select-picker__item', { 'is-selected': o.value === value })}
+              onClick={() =&gt; { onChange(o.value); setIsOpen(false); }}
+            &gt;
+              {o.label}
+            &lt;/div&gt;
+          ))}
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- FAQ                                          -->
+    <!-- ============================================ -->
+    <section class="rg__section" id="faq">
+      <h2 class="rg__section-title">FAQ</h2>
+
+      <div class="rg__faq">
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>Posso usar junto com RSuite/MUI/Ant Design?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Sim. As classes do DS sao isoladas (BEM com prefixos especificos como
+            <code class="rg__inline-code">.btn</code>, <code class="rg__inline-code">.filtro-chip</code>, <code class="rg__inline-code">.modal</code>).
+            Nao colidem com classes geradas pelas outras libs. Os tokens CSS
+            (<code class="rg__inline-code">--color-blue-400</code> etc.) tambem ficam acessiveis em qualquer styled-components
+            ou inline style.
+          </div>
+        </div>
+
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>Os tokens funcionam em styled-components / emotion?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Sim. CSS variables sao globais ao escopo onde foram declaradas
+            (<code class="rg__inline-code">:root</code>), entao funcionam em qualquer CSS-in-JS:
+            <code class="rg__inline-code">background: var(--color-blue-400);</code>
+          </div>
+        </div>
+
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>E se eu precisar de um componente que nao existe no DS?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Crie usando os <strong>tokens</strong> para garantir consistencia visual. Se for
+            algo reutilizavel, abra um issue ou PR no repo
+            (<a href="https://github.com/marcoskip/infoprice-prototipos" target="_blank" style="color: var(--color-blue-500)">marcoskip/infoprice-prototipos</a>)
+            propondo a adicao.
+          </div>
+        </div>
+
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>O DS vai virar uma biblioteca npm de componentes React?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Nao no curto prazo. O foco atual e <strong>CSS-as-library</strong> — funciona em
+            qualquer framework e e barato de manter. Componentes React tipados sao um
+            possivel proximo passo, mas exigem mais investimento (Storybook, testes,
+            tipos, versionamento).
+          </div>
+        </div>
+
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>Como reportar um problema ou sugerir melhoria?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Abra issue no repo
+            <a href="https://github.com/marcoskip/infoprice-prototipos/issues" target="_blank" style="color: var(--color-blue-500)">marcoskip/infoprice-prototipos</a>
+            ou fale direto com o time de UX.
+          </div>
+        </div>
+
+        <div class="rg__faq-item">
+          <button class="rg__faq-q">
+            <span>Tem dark mode?</span>
+            <span class="material-icons-outlined">keyboard_arrow_down</span>
+          </button>
+          <div class="rg__faq-a">
+            Ainda nao. Os tokens estao prontos para receber variantes de tema (basta
+            redefinir as variaveis em <code class="rg__inline-code">[data-theme="dark"]</code>), mas a paleta dark
+            ainda nao foi definida no Figma.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* Copy button */
+document.querySelectorAll('.rg__copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const code = btn.closest('.rg__code').querySelector('code').textContent;
+    try {
+      await navigator.clipboard.writeText(code);
+      btn.classList.add('is-copied');
+      btn.innerHTML = '<span class="material-icons-outlined" style="font-size:14px">check</span>Copiado';
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        btn.innerHTML = '<span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar';
+      }, 2000);
+    } catch (e) {
+      console.error('Falha ao copiar:', e);
+    }
+  });
+});
+
+/* FAQ accordion */
+document.querySelectorAll('.rg__faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.rg__faq-item');
+    const wasOpen = item.classList.contains('is-open');
+    // Close others
+    document.querySelectorAll('.rg__faq-item.is-open').forEach(i => i.classList.remove('is-open'));
+    if (!wasOpen) item.classList.add('is-open');
+  });
+});
+
+/* Active nav link on scroll */
+const navLinks = document.querySelectorAll('.rg__nav-link[href^="#"]');
+const sections = document.querySelectorAll('.rg__section, #intro');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => l.classList.toggle('is-active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

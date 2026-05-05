@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sidebar — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="sidebar">
+<h2 class="ds__section-title">Sidebar</h2>
+      <p class="ds__section-desc">
+        Menu lateral colapsavel — 52px (colapsado) ↔ 220px (expandido). Sempre 5 módulos
+        do IPA. Tooltips no estado colapsado, labels no expandido.
+      </p>
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Sidebar completa (clique na seta para expandir)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:0;display:block;height:380px">
+          <aside class="sidebar" style="position:static;height:380px">
+
+            <div class="sidebar__top">
+
+              <div class="sidebar__item sidebar__item--active">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="Gerenciador" class="sidebar__icon" />
+                <span class="sidebar__label">Gerenciador</span>
+                <span class="sidebar__tooltip">Gerenciador</span>
+              </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="Estratégia" class="sidebar__icon" />
+                <span class="sidebar__label">Estratégia</span>
+                <span class="sidebar__tooltip">Estratégia</span>
+              </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="Negociações" class="sidebar__icon" />
+                <span class="sidebar__label">Negociações Fornecedor</span>
+                <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+                <span class="sidebar__tooltip">Negociações Fornecedor</span>
+              </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="Extração" class="sidebar__icon" />
+                <span class="sidebar__label">Extração de preços</span>
+                <span class="sidebar__tooltip">Extração de preços</span>
+              </div>
+
+              <div class="sidebar__item">
+                <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="IA" class="sidebar__icon" />
+                <span class="sidebar__label">Precifique com IA</span>
+                <span class="sidebar__tooltip">Precifique com IA</span>
+              </div>
+
+            </div>
+
+            <div class="sidebar__bottom">
+              <button class="sidebar__seta" aria-label="Expandir menu">
+                <span class="material-icons-outlined">keyboard_arrow_right</span>
+              </button>
+            </div>
+
+          </aside>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;aside class="sidebar"&gt;
+  &lt;div class="sidebar__top"&gt;
+    &lt;div class="sidebar__item sidebar__item--active"&gt;
+      &lt;img class="sidebar__icon" src="..." alt="" /&gt;
+      &lt;span class="sidebar__label"&gt;Gerenciador&lt;/span&gt;
+      &lt;span class="sidebar__tooltip"&gt;Gerenciador&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;!-- mais 4 itens --&gt;
+  &lt;/div&gt;
+  &lt;div class="sidebar__bottom"&gt;
+    &lt;button class="sidebar__seta" aria-label="Expandir"&gt;
+      &lt;span class="material-icons-outlined"&gt;keyboard_arrow_right&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

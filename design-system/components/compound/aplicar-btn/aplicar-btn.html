@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aplicar preço — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="aplicar-btn">
+<h2 class="ds__section-title">Aplicar preço</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> EXCLUSIVAMENTE para a ação "Aplicar preço" no Cabeçalho de resultados. Botão verde de destaque com chevron pra escolher a variante (sugerido vs vigente).
+        <br>
+        <strong>Quando NÃO usar:</strong> para qualquer outra ação — é um componente especializado dessa função única do IPA. Para botão genérico com dropdown, use Twin button.
+      </div>
+      <p class="ds__section-desc">
+        Botão verde de destaque. Estrutura: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">aplicar-btn__main</code> (ação) +
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">aplicar-btn__drop</code> (chevron com radio de variantes).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview" data-preview>
+          <div class="aplicar-btn is-active">
+            <button class="aplicar-btn__main">Aplicar preço</button>
+            <button class="aplicar-btn__drop">
+              <span class="material-icons-outlined">keyboard_arrow_down</span>
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="aplicar-btn is-active"&gt;
+  &lt;button class="aplicar-btn__main"&gt;Aplicar preço&lt;/button&gt;
+  &lt;button class="aplicar-btn__drop" data-dropdown="dd-aplicar"&gt;
+    &lt;span class="material-icons-outlined"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="composed-dropdown composed-dropdown--right" id="dd-aplicar"&gt;
+    &lt;label class="composed-dropdown__item"&gt;
+      &lt;input type="radio" name="aplicar" checked /&gt;
+      &lt;span&gt;Aplicar preço sugerido&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

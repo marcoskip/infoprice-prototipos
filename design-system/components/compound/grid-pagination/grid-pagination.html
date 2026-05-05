@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid — paginação — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="grid-pagination">
+<h2 class="ds__section-title">Grid — paginação</h2>
+      <p class="ds__section-desc">
+        Barra inferior do grid. Esquerda mostra itens por página + total, direita mostra
+        navegação + botões de página. Página ativa em azul.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
+          <div class="grid__pagination">
+            <div class="grid__pagination-left">
+              <span class="grid__pagination-val">20</span>
+              <span class="material-icons-outlined" style="font-size:16px;color:var(--color-blue-400)">expand_less</span>
+              <span class="grid__pagination-label">/ página</span>
+              <span class="grid__pagination-sep"></span>
+              <span class="grid__pagination-label">total: 9999</span>
+            </div>
+            <div class="grid__pagination-right">
+              <div class="grid__pagination-nav">
+                <span class="material-icons-outlined">first_page</span>
+                <span class="material-icons-outlined">chevron_left</span>
+              </div>
+              <button class="grid__pagination-btn is-active">1</button>
+              <button class="grid__pagination-btn">2</button>
+              <button class="grid__pagination-btn">3</button>
+              <button class="grid__pagination-btn">...</button>
+              <button class="grid__pagination-btn">9999</button>
+              <div class="grid__pagination-nav">
+                <span class="material-icons-outlined">chevron_right</span>
+                <span class="material-icons-outlined">last_page</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="grid__pagination"&gt;
+  &lt;div class="grid__pagination-left"&gt;
+    &lt;span class="grid__pagination-val"&gt;20&lt;/span&gt;
+    &lt;span class="material-icons-outlined"&gt;expand_less&lt;/span&gt;
+    &lt;span class="grid__pagination-label"&gt;/ pagina&lt;/span&gt;
+    &lt;span class="grid__pagination-sep"&gt;&lt;/span&gt;
+    &lt;span class="grid__pagination-label"&gt;total: 9999&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="grid__pagination-right"&gt;
+    &lt;div class="grid__pagination-nav"&gt;
+      &lt;span class="material-icons-outlined"&gt;first_page&lt;/span&gt;
+      &lt;span class="material-icons-outlined"&gt;chevron_left&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button class="grid__pagination-btn is-active"&gt;1&lt;/button&gt;
+    &lt;button class="grid__pagination-btn"&gt;2&lt;/button&gt;
+    &lt;div class="grid__pagination-nav"&gt;
+      &lt;span class="material-icons-outlined"&gt;chevron_right&lt;/span&gt;
+      &lt;span class="material-icons-outlined"&gt;last_page&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

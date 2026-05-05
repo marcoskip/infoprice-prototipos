@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Modal — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="modal">
+<h2 class="ds__section-title">Modal</h2>
+      <p class="ds__section-desc">
+        Janela modal sobre backdrop escurecido. 3 tamanhos (small 400px, medium 600px,
+        large 800px). Estrutura: header (título + close), body (conteúdo), footer (ações).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Demo interativa</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview" data-preview style="padding:var(--space-4)">
+          <button class="btn btn--primary" id="modalDemoOpen">Abrir modal</button>
+          <button class="btn btn--secondary-ghost" id="modalDemoOpenLarge">Abrir modal --large</button>
+          <button class="btn btn--secondary-ghost" id="modalDemoOpenSmall">Abrir modal --small</button>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Markup do modal (fica no body, fora do trigger) --&gt;
+&lt;div class="modal-backdrop" id="myModal"&gt;
+  &lt;div class="modal"&gt;
+    &lt;div class="modal__header"&gt;
+      &lt;span class="modal__title"&gt;Confirmar ação&lt;/span&gt;
+      &lt;button class="modal__close" data-modal-close&gt;
+        &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="modal__body"&gt;Conteudo...&lt;/div&gt;
+    &lt;div class="modal__footer"&gt;
+      &lt;button class="btn btn--secondary-ghost" data-modal-close&gt;Cancelar&lt;/button&gt;
+      &lt;button class="btn btn--primary"&gt;Confirmar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- JS para abrir/fechar --&gt;
+&lt;script&gt;
+const modal = document.getElementById('myModal');
+document.getElementById('triggerBtn').onclick = () =&gt; modal.classList.add('is-open');
+modal.querySelectorAll('[data-modal-close]').forEach(btn =&gt;
+  btn.onclick = () =&gt; modal.classList.remove('is-open')
+);
+modal.addEventListener('click', e =&gt; {
+  if (e.target === modal) modal.classList.remove('is-open');
+});
+&lt;/script&gt;
+
+&lt;!-- Tamanhos: .modal--small (400px) | (default 600px) | .modal--large (800px) --&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

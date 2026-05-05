@@ -1,0 +1,265 @@
+/* ── Nav button ───────────────────────────────────────────── */
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 var(--space-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  white-space: nowrap;
+}
+.nav-button:hover {
+  background: var(--color-gray-200);
+  color: var(--color-gray-900);
+}
+.nav-button.is-active {
+  background: var(--color-blue-light-10);
+  color: var(--color-blue-600);
+}
+.nav-button.is-active:hover {
+  background: var(--color-blue-light-15);
+}
+.nav-button:disabled,
+.nav-button.is-disabled {
+  color: var(--color-gray-500);
+  cursor: not-allowed;
+  background: transparent;
+}
+.nav-button .material-icons-outlined {
+  font-size: var(--icon-size-md);
+}
+.nav-button--icon-only {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+  gap: 0;
+}
+.nav-button--small { height: 28px; padding: 0 var(--space-2); font-size: var(--font-size-sm); }
+.nav-button--small.nav-button--icon-only { width: 28px; padding: 0; }
+.nav-button--large { height: 40px; padding: 0 var(--space-4); }
+.nav-button--large.nav-button--icon-only { width: 40px; padding: 0; }
+/* nav-button--icon-left e --icon-right sao apenas marcadores semanticos no
+   HTML (a posicao do icone vem da ordem do <span> dentro do botao). Nao
+   precisam de regra CSS. */
+
+/* =============================================================
+   Logo InfoPrice
+   SVG inline com 2 grupos coloraveis:
+     .ip-logo__main   = parte cinza (decoracao + "Inform")
+     .ip-logo__accent = parte azul brand ("price")
+   Variante --mono unifica os dois em currentColor.
+   ============================================================= */
+.ip-logo {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  color: var(--color-gray-800);
+}
+.ip-logo svg {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+.ip-logo .ip-logo__main   { fill: var(--color-gray-800); }
+.ip-logo .ip-logo__accent { fill: var(--color-brand-primary); }
+
+/* Mono — ambas as partes usam currentColor */
+.ip-logo--mono .ip-logo__main,
+.ip-logo--mono .ip-logo__accent { fill: currentColor; }
+
+/* Modificadores de cor (combinam com --mono) */
+.ip-logo--brand  { color: var(--color-brand-primary); }
+.ip-logo--gray   { color: var(--color-gray-700); }
+.ip-logo--dark   { color: var(--color-gray-900); }
+.ip-logo--white  { color: var(--color-white); }
+.ip-logo--blue   { color: var(--color-blue-400); }
+.ip-logo--green  { color: var(--color-green-500); }
+.ip-logo--orange { color: var(--color-orange-500); }
+.ip-logo--red    { color: var(--color-red-500); }
+.ip-logo--purple { color: var(--color-purple-500); }
+.ip-logo--pink   { color: var(--color-pink-500); }
+
+/* Sizes */
+.ip-logo--small { height: 20px; }
+.ip-logo--large { height: 48px; }
+
+/* =============================================================
+   Grid — Menu Precos (toggle atacado/oferta no fim da linha)
+   Spec: Figma DISCOVERY-IPA-Gerenciador / node 4210:76184
+   Suporta ate 4 segmentos numericos (2/3/4/5) + variante "campanha"
+   com fundo azul e icone local_offer.
+   ============================================================= */
+.grid__price-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px;
+  width: 26px;
+  height: 100%;
+  box-sizing: border-box;
+}
+.grid__price-menu__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 16px;
+  padding: 2px;
+  background: var(--color-gray-300);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-btn-xs);
+  color: var(--color-gray-900);
+  transition: background 150ms ease;
+}
+.grid__price-menu__btn:hover {
+  background: var(--color-gray-400);
+}
+.grid__price-menu__btn--campanha {
+  background: var(--color-blue-light-10);
+}
+.grid__price-menu__btn--campanha:hover {
+  background: var(--color-blue-light-15);
+}
+.grid__price-menu__btn--campanha .material-icons-outlined {
+  font-size: 14px;
+  color: var(--color-blue-500);
+}
+
+/* =============================================================
+   Grid — Linha complementar (sub-row)
+   Aparece abaixo da linha do produto quando o usuario clica no
+   Menu Precos (preco atacado=2, preco oferta=3 ou campanha).
+   Mostra dados alternativos de precificacao com a mesma estrutura
+   de colunas do main row, com marker colorido a esquerda e botao
+   de close a direita.
+   ============================================================= */
+/* Especificidade extra para vencer o zebra do .grid__table tbody tr:nth-child */
+/* Data row: fundo branco */
+.grid__table tbody tr.grid__sub-row td {
+  background: var(--color-white);
+  padding: 12px 6px;
+  vertical-align: top;
+}
+.grid__table tbody tr.grid__sub-row td:first-child {
+  padding-left: 16px;
+}
+
+/* Mini-header (linha propria de 16px em gray-50, separada do data row) */
+.grid__table tbody tr.grid__sub-row--header { height: 16px; }
+.grid__table tbody tr.grid__sub-row--header td {
+  padding: 0 6px;
+  height: 16px;
+  line-height: 16px;
+  font-size: var(--font-size-xs);
+  vertical-align: middle;
+  border-top: 1px solid var(--color-gray-300);
+  border-bottom: 1px solid var(--color-gray-300);
+  background: var(--color-gray-50);
+  white-space: nowrap;
+}
+
+/* Label "Oferta"/"Atacado" centralizado verticalmente */
+.grid__table tbody tr.grid__sub-row .grid__sub-row__label-cell {
+  vertical-align: middle;
+}
+
+/* Border inferior na linha de dados (ultima linha do bloco sub-row) */
+.grid__table tbody tr.grid__sub-row--oferta td,
+.grid__table tbody tr.grid__sub-row--atacado td,
+.grid__table tbody tr.grid__sub-row--campanha td {
+  border-bottom: 1px solid var(--color-gray-300);
+}
+.grid__sub-row__col-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+}
+
+/* Celula que abriga o marker — sem padding vertical para o marker fill */
+.grid__sub-row__marker-cell {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  height: 1px; /* trick para height:100% nos filhos funcionar */
+}
+
+/* Marker numerico (2 ou 3) — preenche altura da celula */
+.grid__sub-row__marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 100%;
+  min-height: 32px;
+  background: var(--color-gray-300);
+  color: var(--color-gray-900);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+.grid__sub-row--oferta .grid__sub-row__marker {
+  background: var(--color-blue-light-15);
+  color: var(--color-blue-600);
+}
+.grid__sub-row--campanha .grid__sub-row__marker {
+  background: var(--color-blue-light-10);
+  color: var(--color-blue-500);
+}
+
+/* Header "Outros precos" + label "Oferta" / "Atacado" */
+.grid__sub-row__heading {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: 2px;
+}
+.grid__sub-row__label {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  white-space: nowrap;
+}
+
+/* Close button na ultima celula (azul) */
+.grid__sub-row__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  color: var(--color-blue-500);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease, color 150ms ease;
+}
+.grid__sub-row__close:hover {
+  background: var(--color-blue-light-10);
+  color: var(--color-blue-600);
+}
+.grid__sub-row__close .material-icons-outlined {
+  font-size: 18px;
+}
+
+/* Badge DESCONTO (nova variante de badge-pill) */
+.grid__badge-pill--desconto {
+  background: var(--color-red-light-15);
+  color: var(--color-red-600);
+}

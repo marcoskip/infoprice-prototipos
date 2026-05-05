@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Filtro dropdowns — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="filtro-dropdowns">
+<h2 class="ds__section-title">Filtro dropdowns</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> como conteúdo dos chips de filtro do IPA, para filtrar listas/grids. Escolha um dos 5 padrões documentados (search+checkbox, colar lista, selecionar todos, grupos colapsáveis, empty state).
+        <br>
+        <strong>Quando NÃO usar:</strong> para selecionar um valor único num formulário ou campo de entrada fora do contexto de filtros, use SelectPicker.
+      </div>
+      <p class="ds__section-desc">
+        Conteúdos dos chips de filtro. Existem 5 padrões documentados: search+checkbox,
+        search com "Colar lista", search com "Selecionar todos", grupos colapsáveis e
+        empty state.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Padrão 1: search + checkbox</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="filtro-dropdown is-open" style="position:static">
+            <div class="filtro-dropdown__search">
+              <span class="material-icons-outlined">search</span>
+              <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar lojas..." />
+            </div>
+            <div class="filtro-dropdown__list">
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>1 - Supermercados Nova Uniao</span></label>
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>2 - Rede BomLar</span></label>
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>3 - Atacadao Central</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="filtro-dropdown" id="filtro-lojas"&gt;
+  &lt;div class="filtro-dropdown__search"&gt;
+    &lt;span class="material-icons-outlined"&gt;search&lt;/span&gt;
+    &lt;input type="text" class="filtro-dropdown__search-input" placeholder="Buscar..." /&gt;
+  &lt;/div&gt;
+  &lt;div class="filtro-dropdown__list"&gt;
+    &lt;label class="filtro-dropdown__item"&gt;
+      &lt;input type="checkbox" /&gt;&lt;span&gt;Item 1&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Padrão 2: search + "Colar lista de códigos"</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="filtro-dropdown is-open" style="position:static">
+            <div class="filtro-dropdown__search">
+              <span class="material-icons-outlined">search</span>
+              <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar produtos..." />
+              <span class="filtro-dropdown__paste-link">Colar lista de códigos</span>
+            </div>
+            <div class="filtro-dropdown__list">
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>1026313 - LINGUICA SEARA 215G</span></label>
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>1125 - ARROZ CAMIL TIPO 1 5KG</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="filtro-dropdown__search"&gt;
+  &lt;span class="material-icons-outlined"&gt;search&lt;/span&gt;
+  &lt;input type="text" class="filtro-dropdown__search-input" placeholder="Buscar..." /&gt;
+  &lt;span class="filtro-dropdown__paste-link"&gt;Colar lista de códigos&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Padrão 3: footer "Selecionar todos"</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="filtro-dropdown is-open" style="position:static">
+            <div class="filtro-dropdown__search">
+              <span class="material-icons-outlined">search</span>
+              <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar lojas..." />
+            </div>
+            <div class="filtro-dropdown__list">
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Centro</span></label>
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>Loja Zona Sul</span></label>
+            </div>
+            <div class="filtro-dropdown__footer">
+              <label class="filtro-dropdown__item"><input type="checkbox" /><span>Selecionar todos</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="filtro-dropdown"&gt;
+  &lt;div class="filtro-dropdown__search"&gt; ... &lt;/div&gt;
+  &lt;div class="filtro-dropdown__list"&gt; ... &lt;/div&gt;
+  &lt;div class="filtro-dropdown__footer"&gt;
+    &lt;label class="filtro-dropdown__item"&gt;
+      &lt;input type="checkbox" /&gt;&lt;span&gt;Selecionar todos&lt;/span&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Padrão 4: grupos colapsáveis</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern ds__component-preview--tall" data-preview style="padding:var(--space-4)">
+          <div class="filtro-dropdown is-open" style="position:static">
+            <div class="filtro-dropdown__list">
+              <div class="filtro-dropdown__group-header">
+                <span class="filtro-dropdown__group-title">Sensibilidade InfoPrice</span>
+                <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+              </div>
+              <div class="filtro-dropdown__group-items">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Super Sensivel</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Sensivel</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Não Sensível</span></label>
+              </div>
+              <div class="filtro-dropdown__group-header is-collapsed">
+                <span class="filtro-dropdown__group-title">Curva ABC Local</span>
+                <span class="material-icons-outlined filtro-dropdown__group-arrow">keyboard_arrow_down</span>
+              </div>
+              <div class="filtro-dropdown__group-items">
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local A</span></label>
+                <label class="filtro-dropdown__item"><input type="checkbox" /><span>Local B</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="filtro-dropdown__list"&gt;
+  &lt;div class="filtro-dropdown__group-header"&gt;
+    &lt;span class="filtro-dropdown__group-title"&gt;Sensibilidade InfoPrice&lt;/span&gt;
+    &lt;span class="material-icons-outlined filtro-dropdown__group-arrow"&gt;keyboard_arrow_down&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="filtro-dropdown__group-items"&gt;
+    &lt;label class="filtro-dropdown__item"&gt; ... &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Para colapsar: adicionar .is-collapsed no group-header --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Padrão 5: empty state</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="filtro-dropdown is-open" style="position:static">
+            <div class="filtro-dropdown__search">
+              <span class="material-icons-outlined">search</span>
+              <input type="text" class="filtro-dropdown__search-input" placeholder="Buscar marca..." />
+            </div>
+            <div class="filtro-dropdown__list">
+              <div class="filtro-dropdown__empty">Nenhum item encontrado</div>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="filtro-dropdown__list"&gt;
+  &lt;div class="filtro-dropdown__empty"&gt;Nenhum item encontrado&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

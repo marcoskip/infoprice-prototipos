@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Switch — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="switch">
+<h2 class="ds__section-title">Switch</h2>
+      <p class="ds__section-desc">
+        Toggle on/off com 3 estados (off, on, half) e 3 tamanhos (small, medium, large).
+        Use para configurações booleanas. Estado <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.is-half</code> indica seleção parcial em listas.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estados (medium)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <label class="switch">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Off</span>
+          </label>
+          <label class="switch is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">On</span>
+          </label>
+          <label class="switch is-half">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Half</span>
+          </label>
+          <label class="switch is-disabled">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Disabled</span>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="switch is-checked"&gt;
+  &lt;span class="switch__track"&gt;&lt;span class="switch__thumb"&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="switch__label"&gt;On&lt;/span&gt;
+&lt;/label&gt;
+
+&lt;!-- Estados: padrão | .is-checked | .is-half | .is-disabled --&gt;
+&lt;!-- Sizes:   .switch--small | (default = medium) | .switch--large --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tamanhos</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <label class="switch switch--small is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Small</span>
+          </label>
+          <label class="switch is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Medium</span>
+          </label>
+          <label class="switch switch--large is-checked">
+            <span class="switch__track"><span class="switch__thumb"></span></span>
+            <span class="switch__label">Large</span>
+          </label>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;label class="switch switch--small is-checked"&gt; ... &lt;/label&gt;
+&lt;label class="switch is-checked"&gt; ... &lt;/label&gt;
+&lt;label class="switch switch--large is-checked"&gt; ... &lt;/label&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>DatePicker — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="date-picker">
+<h2 class="ds__section-title">DatePicker</h2>
+      <p class="ds__section-desc">
+        Calendário popup com seleção de data única ou range. Header com nav de mês,
+        weekdays, e grid de dias. Estados: today, selected, range, disabled.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Single date + range</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4);gap:var(--space-4);align-items:flex-start">
+          <div class="date-picker">
+            <div class="date-picker__header">
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_left</span></button>
+              <span class="date-picker__title">Abril 2026</span>
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+            <div class="date-picker__weekdays">
+              <span class="date-picker__weekday">D</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">T</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">S</span>
+            </div>
+            <div class="date-picker__days">
+              <button class="date-picker__day date-picker__day--other-month">29</button>
+              <button class="date-picker__day date-picker__day--other-month">30</button>
+              <button class="date-picker__day date-picker__day--other-month">31</button>
+              <button class="date-picker__day">1</button>
+              <button class="date-picker__day">2</button>
+              <button class="date-picker__day">3</button>
+              <button class="date-picker__day">4</button>
+              <button class="date-picker__day">5</button>
+              <button class="date-picker__day">6</button>
+              <button class="date-picker__day">7</button>
+              <button class="date-picker__day">8</button>
+              <button class="date-picker__day">9</button>
+              <button class="date-picker__day">10</button>
+              <button class="date-picker__day">11</button>
+              <button class="date-picker__day">12</button>
+              <button class="date-picker__day">13</button>
+              <button class="date-picker__day">14</button>
+              <button class="date-picker__day">15</button>
+              <button class="date-picker__day">16</button>
+              <button class="date-picker__day">17</button>
+              <button class="date-picker__day">18</button>
+              <button class="date-picker__day">19</button>
+              <button class="date-picker__day">20</button>
+              <button class="date-picker__day">21</button>
+              <button class="date-picker__day">22</button>
+              <button class="date-picker__day">23</button>
+              <button class="date-picker__day">24</button>
+              <button class="date-picker__day">25</button>
+              <button class="date-picker__day">26</button>
+              <button class="date-picker__day date-picker__day--today">27</button>
+              <button class="date-picker__day date-picker__day--selected">28</button>
+              <button class="date-picker__day">29</button>
+              <button class="date-picker__day">30</button>
+              <button class="date-picker__day date-picker__day--other-month">1</button>
+              <button class="date-picker__day date-picker__day--other-month">2</button>
+            </div>
+          </div>
+
+          <div class="date-picker">
+            <div class="date-picker__header">
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_left</span></button>
+              <span class="date-picker__title">Abril 2026</span>
+              <button class="date-picker__nav"><span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+            <div class="date-picker__weekdays">
+              <span class="date-picker__weekday">D</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">T</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">Q</span>
+              <span class="date-picker__weekday">S</span>
+              <span class="date-picker__weekday">S</span>
+            </div>
+            <div class="date-picker__days">
+              <button class="date-picker__day date-picker__day--other-month">29</button>
+              <button class="date-picker__day date-picker__day--other-month">30</button>
+              <button class="date-picker__day date-picker__day--other-month">31</button>
+              <button class="date-picker__day">1</button>
+              <button class="date-picker__day">2</button>
+              <button class="date-picker__day">3</button>
+              <button class="date-picker__day">4</button>
+              <button class="date-picker__day">5</button>
+              <button class="date-picker__day">6</button>
+              <button class="date-picker__day">7</button>
+              <button class="date-picker__day">8</button>
+              <button class="date-picker__day">9</button>
+              <button class="date-picker__day">10</button>
+              <button class="date-picker__day">11</button>
+              <button class="date-picker__day">12</button>
+              <button class="date-picker__day">13</button>
+              <button class="date-picker__day">14</button>
+              <button class="date-picker__day date-picker__day--selected date-picker__day--range-start">15</button>
+              <button class="date-picker__day date-picker__day--in-range">16</button>
+              <button class="date-picker__day date-picker__day--in-range">17</button>
+              <button class="date-picker__day date-picker__day--in-range">18</button>
+              <button class="date-picker__day date-picker__day--in-range">19</button>
+              <button class="date-picker__day date-picker__day--in-range">20</button>
+              <button class="date-picker__day date-picker__day--in-range">21</button>
+              <button class="date-picker__day date-picker__day--selected date-picker__day--range-end">22</button>
+              <button class="date-picker__day">23</button>
+              <button class="date-picker__day">24</button>
+              <button class="date-picker__day">25</button>
+              <button class="date-picker__day">26</button>
+              <button class="date-picker__day date-picker__day--today">27</button>
+              <button class="date-picker__day">28</button>
+              <button class="date-picker__day">29</button>
+              <button class="date-picker__day">30</button>
+              <button class="date-picker__day date-picker__day--other-month">1</button>
+              <button class="date-picker__day date-picker__day--other-month">2</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="date-picker"&gt;
+  &lt;div class="date-picker__header"&gt;
+    &lt;button class="date-picker__nav"&gt;&lt;span class="material-icons-outlined"&gt;chevron_left&lt;/span&gt;&lt;/button&gt;
+    &lt;span class="date-picker__title"&gt;Abril 2026&lt;/span&gt;
+    &lt;button class="date-picker__nav"&gt;&lt;span class="material-icons-outlined"&gt;chevron_right&lt;/span&gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class="date-picker__weekdays"&gt;
+    &lt;span class="date-picker__weekday"&gt;D&lt;/span&gt; ... 7 weekdays
+  &lt;/div&gt;
+  &lt;div class="date-picker__days"&gt;
+    &lt;button class="date-picker__day date-picker__day--today"&gt;27&lt;/button&gt;
+    &lt;button class="date-picker__day date-picker__day--selected"&gt;28&lt;/button&gt;
+    &lt;!-- Range: --range-start, --in-range, --range-end --&gt;
+    &lt;!-- Estados: --other-month, --today, --selected, --in-range, --disabled --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

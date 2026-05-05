@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tooltips — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="tooltips">
+<h2 class="ds__section-title">Tooltips</h2>
+      <p class="ds__section-desc">
+        Balões de ajuda com 2 posições (acima/abaixo). Background gray-900, texto branco
+        12px, sem animação de entrada.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tooltip below e above</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--tall" data-preview style="padding:60px;gap:80px">
+          <div style="position:relative;display:inline-block">
+            <button class="filtro-chip">Hover-me (above)</button>
+            <span class="tooltip tooltip--above" style="display:block;opacity:1;visibility:visible">Tooltip acima do elemento</span>
+          </div>
+          <div style="position:relative;display:inline-block">
+            <button class="filtro-chip">Hover-me (below)</button>
+            <span class="tooltip tooltip--below" style="display:block;opacity:1;visibility:visible">Tooltip abaixo do elemento</span>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="title-btn-wrapper"&gt;
+  &lt;button class="title-btn"&gt;...&lt;/button&gt;
+  &lt;span class="tooltip tooltip--below"&gt;Texto do tooltip&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes --&gt;
+&lt;span class="tooltip tooltip--above"&gt;Aparece acima&lt;/span&gt;
+&lt;span class="tooltip tooltip--below"&gt;Aparece abaixo&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

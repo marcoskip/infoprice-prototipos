@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Context Menu — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="context-menu">
+<h2 class="ds__section-title">Context Menu</h2>
+      <p class="ds__section-desc">
+        Menu flutuante com lista de ações. Usado em right-click ou no kebab-menu. Suporta
+        ícones, atalhos de teclado, divisores e itens destrutivos (--danger).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="context-menu is-open" style="position:static">
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">edit</span>
+              <span>Editar</span>
+              <span class="context-menu__shortcut">Ctrl+E</span>
+            </button>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">content_copy</span>
+              <span>Duplicar</span>
+              <span class="context-menu__shortcut">Ctrl+D</span>
+            </button>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">file_download</span>
+              <span>Exportar</span>
+            </button>
+            <div class="context-menu__divider"></div>
+            <button class="context-menu__item">
+              <span class="material-icons-outlined">archive</span>
+              <span>Arquivar</span>
+            </button>
+            <button class="context-menu__item context-menu__item--danger">
+              <span class="material-icons-outlined">delete</span>
+              <span>Excluir</span>
+              <span class="context-menu__shortcut">Del</span>
+            </button>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="context-menu"&gt;
+  &lt;button class="context-menu__item"&gt;
+    &lt;span class="material-icons-outlined"&gt;edit&lt;/span&gt;
+    &lt;span&gt;Editar&lt;/span&gt;
+    &lt;span class="context-menu__shortcut"&gt;Ctrl+E&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="context-menu__divider"&gt;&lt;/div&gt;
+  &lt;button class="context-menu__item context-menu__item--danger"&gt;
+    &lt;span class="material-icons-outlined"&gt;delete&lt;/span&gt;
+    &lt;span&gt;Excluir&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Demo interativa</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-6) var(--space-4);position:relative;min-height:280px">
+          <div style="position:relative;display:inline-block">
+            <button class="nav-button nav-button--icon-only" id="ctxMenuTrigger" aria-label="Mais opções" aria-haspopup="true">
+              <span class="material-icons-outlined">more_vert</span>
+            </button>
+            <div class="context-menu" id="ctxMenuDemo" style="top:calc(100% + 4px);right:0">
+              <button class="context-menu__item">
+                <span class="material-icons-outlined">edit</span>
+                <span>Editar</span>
+                <span class="context-menu__shortcut">Ctrl+E</span>
+              </button>
+              <button class="context-menu__item">
+                <span class="material-icons-outlined">content_copy</span>
+                <span>Duplicar</span>
+                <span class="context-menu__shortcut">Ctrl+D</span>
+              </button>
+              <div class="context-menu__divider"></div>
+              <button class="context-menu__item context-menu__item--danger">
+                <span class="material-icons-outlined">delete</span>
+                <span>Excluir</span>
+                <span class="context-menu__shortcut">Del</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Trigger + menu (relative wrapper) --&gt;
+&lt;div style="position:relative"&gt;
+  &lt;button class="nav-button nav-button--icon-only" id="myTrigger"&gt;
+    &lt;span class="material-icons-outlined"&gt;more_vert&lt;/span&gt;
+  &lt;/button&gt;
+  &lt;div class="context-menu" id="myMenu"&gt; ... items ... &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const trigger = document.getElementById('myTrigger');
+const menu = document.getElementById('myMenu');
+trigger.onclick = (e) =&gt; { e.stopPropagation(); menu.classList.toggle('is-open'); };
+document.addEventListener('click', (e) =&gt; {
+  if (!e.target.closest('#myMenu, #myTrigger')) menu.classList.remove('is-open');
+});
+&lt;/script&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cabeçalho de resultados — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="cabecalho">
+<h2 class="ds__section-title">Cabeçalho de resultados</h2>
+      <p class="ds__section-desc">
+        Barra entre filtros e grid. Estrutura obrigatória: <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__inner</code>
+        com <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__info</code> (esquerda) +
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">.cabecalho__buttons</code> (direita).
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura básica</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
+          <section class="cabecalho" style="position:static">
+            <div class="cabecalho__inner">
+              <span class="cabecalho__info">Foram encontrados <b>20</b> resultados no total</span>
+              <div class="cabecalho__buttons">
+                <button class="filtro-chip">
+                  <span class="material-icons-outlined" style="font-size:16px">file_download</span>
+                  Exportar
+                </button>
+              </div>
+            </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* ── Form field generico ──────────────────────────────────── */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+.form-field__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+}
+.form-field__required {
+  color: var(--color-red-500);
+  margin-left: 2px;
+}
+.form-field__input-wrapper {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  overflow: hidden;
+}
+.form-field__input-wrapper:focus-within {
+  border-color: var(--color-blue-400);
+  box-shadow: var(--shadow-focus);
+}
+.form-field__prefix,
+.form-field__suffix {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  background: var(--color-gray-100);
+  height: 100%;
+  flex-shrink: 0;
+}
+.form-field__prefix { border-right: 1px solid var(--color-gray-300); }
+.form-field__suffix { border-left: 1px solid var(--color-gray-300); }
+.form-field__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-gray-900);
+  padding: 0 var(--space-3);
+  background: transparent;
+  height: 100%;
+  min-width: 0;
+}
+.form-field__input::placeholder { color: var(--color-gray-500); }
+.form-field__helper {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-600);
+  line-height: var(--line-height-sm);
+}
+
+/* Sizes */
+.form-field--small .form-field__input-wrapper { height: 28px; }
+.form-field--small .form-field__input { font-size: var(--font-size-sm); padding: 0 var(--space-2); }
+.form-field--large .form-field__input-wrapper { height: 40px; }
+.form-field--paragraph .form-field__input-wrapper {
+  height: auto;
+  align-items: stretch;
+}
+.form-field--paragraph .form-field__input {
+  padding: 8px var(--space-3);
+  min-height: 80px;
+  resize: vertical;
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-lg);
+}
+
+/* States */
+.form-field.is-error .form-field__input-wrapper {
+  border-color: var(--color-red-400);
+}
+.form-field.is-error .form-field__input-wrapper:focus-within {
+  border-color: var(--color-red-400);
+  box-shadow: 0 0 0 3px var(--color-red-light-15);
+}
+.form-field.is-error .form-field__helper { color: var(--color-red-600); }
+.form-field.is-success .form-field__input-wrapper {
+  border-color: var(--color-green-400);
+}
+.form-field.is-disabled .form-field__input-wrapper {
+  background: var(--color-gray-100);
+  cursor: not-allowed;
+}
+.form-field.is-disabled .form-field__input,
+.form-field.is-disabled .form-field__input::placeholder {
+  cursor: not-allowed;
+  color: var(--color-gray-500);
+}

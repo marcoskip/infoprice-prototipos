@@ -1,0 +1,47 @@
+/* ── APLICAR PREÇO (twin button) ─────────────────── */
+.aplicar-btn {
+  display: flex;
+  align-items: stretch;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  opacity: 0.4;
+  position: relative;
+}
+
+.aplicar-btn.is-active {
+  opacity: 1;
+}
+
+.aplicar-btn__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: var(--color-blue-400);
+  border: none;
+  border-right: 1px solid var(--color-white);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: 20px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.aplicar-btn__drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: var(--color-blue-400);
+  border: none;
+  cursor: pointer;
+}
+
+.aplicar-btn__drop .material-icons-outlined {
+  font-size: 20px;
+  color: var(--color-white);
+}

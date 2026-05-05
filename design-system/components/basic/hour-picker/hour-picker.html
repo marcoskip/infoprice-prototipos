@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>HourPicker — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="hour-picker">
+<h2 class="ds__section-title">HourPicker</h2>
+      <p class="ds__section-desc">
+        Seleção de horário com 3 colunas roláveis (hour/minute/second). Use para
+        agendamentos e cortes de horário. Footer com botão de confirmação.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Estrutura</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:var(--space-4)">
+          <div class="hour-picker">
+            <div class="hour-picker__columns">
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">07</button>
+                <button class="hour-picker__cell">08</button>
+                <button class="hour-picker__cell is-selected">09</button>
+                <button class="hour-picker__cell">10</button>
+                <button class="hour-picker__cell">11</button>
+              </div>
+              <span class="hour-picker__separator">:</span>
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">28</button>
+                <button class="hour-picker__cell">29</button>
+                <button class="hour-picker__cell is-selected">30</button>
+                <button class="hour-picker__cell">31</button>
+                <button class="hour-picker__cell">32</button>
+              </div>
+              <span class="hour-picker__separator">:</span>
+              <div class="hour-picker__column">
+                <button class="hour-picker__cell">13</button>
+                <button class="hour-picker__cell">14</button>
+                <button class="hour-picker__cell is-selected">15</button>
+                <button class="hour-picker__cell">16</button>
+                <button class="hour-picker__cell">17</button>
+              </div>
+            </div>
+            <div class="hour-picker__footer">
+              <button class="btn btn--primary btn--small">Confirmar</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="hour-picker"&gt;
+  &lt;div class="hour-picker__columns"&gt;
+    &lt;div class="hour-picker__column"&gt;
+      &lt;button class="hour-picker__cell"&gt;07&lt;/button&gt;
+      &lt;button class="hour-picker__cell is-selected"&gt;08&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;span class="hour-picker__separator"&gt;:&lt;/span&gt;
+    &lt;div class="hour-picker__column"&gt; ... &lt;/div&gt;
+    &lt;span class="hour-picker__separator"&gt;:&lt;/span&gt;
+    &lt;div class="hour-picker__column"&gt; ... &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="hour-picker__footer"&gt;
+    &lt;button class="btn btn--primary btn--small"&gt;Confirmar&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

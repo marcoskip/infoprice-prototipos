@@ -1,0 +1,656 @@
+/* ── Grid (tabela de dados) ──────────────────────── */
+.grid {
+  position: fixed;
+  top: 414px;
+  left: 52px;
+  right: 0;
+  bottom: 0;
+  z-index: 35;
+  padding: var(--space-1) var(--space-4) 0;
+  overflow: auto;
+}
+
+.grid__wrapper {
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+
+.grid__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Cabeçalho */
+.grid__table thead tr {
+  background: var(--color-white);
+}
+
+.grid__table thead tr:first-child th:first-child {
+  border-radius: var(--radius-sm) 0 0 0;
+}
+
+.grid__table thead tr:first-child th:last-child {
+  border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.grid__table th:first-child,
+.grid__table td:first-child {
+  padding-left: 16px;
+}
+
+.grid__table th:last-child,
+.grid__table td:last-child {
+  padding-right: 16px;
+}
+
+.grid__table th {
+  height: 46px;
+  padding: 0 4px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-gray-300);
+}
+
+.grid__th-content {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+/* Botão Ordenar */
+.grid__sort-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1px;
+  flex-shrink: 0;
+}
+
+.grid__sort-btn img {
+  width: 12px;
+  height: 12px;
+}
+
+/* Botão Preferences */
+.grid__pref-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.grid__pref-btn img {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.grid__pref-btn:hover img {
+  filter: brightness(0.85);
+}
+
+/* Preferences dropdown */
+.grid__pref-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevation);
+  z-index: 50;
+  padding: 8px 0;
+}
+
+.grid__pref-dropdown.is-open {
+  display: block;
+}
+
+.grid__pref-dropdown__title {
+  padding: 4px 12px 8px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  text-transform: uppercase;
+}
+
+.grid__pref-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-900);
+  cursor: pointer;
+}
+
+.grid__pref-dropdown__item:hover {
+  background: var(--color-gray-100);
+}
+
+.grid__pref-dropdown__item input[type="radio"] {
+  accent-color: var(--color-blue-400);
+}
+
+/* Linhas */
+.grid__table td {
+  padding: 0 6px;
+  height: 64px;
+  vertical-align: middle;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  line-height: var(--line-height-lg);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.grid__table tbody tr:nth-child(odd) td {
+  background: var(--color-gray-50);
+}
+
+.grid__table tbody tr:nth-child(even) td {
+  background: var(--color-white);
+}
+
+.grid__table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+.grid__table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+/* Checkbox */
+.grid__check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-blue-400);
+  cursor: pointer;
+}
+
+/* Célula com sub-linhas */
+.grid__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0;
+  overflow: hidden;
+}
+
+/* Produto */
+.grid__produto-codes {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.grid__produto-code {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: 16px;
+  color: var(--color-gray-900);
+}
+
+.grid__produto-family {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 2px;
+  border-radius: var(--radius-sm);
+  background: var(--color-blue-light-5);
+}
+
+.grid__produto-family img {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.grid__produto-family span {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 12px;
+  color: var(--color-blue-400);
+  text-transform: uppercase;
+}
+
+.grid__produto-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  line-height: var(--line-height-md);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grid__produto-chips {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.grid__chip {
+  display: inline-flex;
+  padding: 0 2px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-xs);
+  text-transform: uppercase;
+}
+
+.grid__chip--red {
+  background: var(--color-pink-light-10);
+  color: var(--color-pink-400);
+}
+
+.grid__chip--gray {
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
+}
+
+/* Estoque */
+.grid__estoque-line1 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.grid__estoque-line1 img {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+.grid__estoque-line2 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.grid__estoque-days {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+  border-radius: var(--radius-sm);
+  background: var(--color-green-light-5);
+  border: 1px solid var(--color-green-400);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-sm);
+  color: var(--color-green-400);
+}
+
+.grid__estoque-date {
+  font-size: 11px;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+}
+
+/* Margem Objetiva */
+.grid__mo-line1 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.grid__mo-line1 img {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+/* Valor principal / secundário */
+.grid__val-main {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-900);
+  line-height: var(--line-height-lg);
+}
+
+.grid__val-sub {
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-700);
+  line-height: var(--line-height-sm);
+}
+
+.grid__val-sub--light {
+  font-weight: var(--font-weight-regular);
+}
+
+/* PMC */
+.grid__pmc-line2 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.grid__pmc-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+  border-radius: var(--radius-sm);
+  background: var(--color-gray-100);
+  border: 0.5px solid var(--color-gray-600);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 12px;
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+}
+
+.grid__pmc-date {
+  font-size: 11px;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+}
+
+/* Preço vigente */
+.grid__pv-line2 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.grid__pv-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.grid__pv-indicator img {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+}
+
+.grid__pv-indicator span {
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-sm);
+  color: var(--color-gray-700);
+}
+
+.grid__pv-sep {
+  width: 0;
+  align-self: stretch;
+  border-left: 1px solid var(--color-gray-400);
+  margin: 0 2px;
+}
+
+/* Preço concorrente */
+.grid__pc-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.grid__pc-avg {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-blue-400);
+}
+
+.grid__pc-link {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-blue-400);
+}
+
+.grid__pc-link .material-icons-outlined {
+  font-size: 10px;
+}
+
+/* Form field (inputs) */
+.grid__form-field {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-500);
+  background: var(--color-white);
+  overflow: hidden;
+  width: 100%;
+}
+
+.grid__form-field--blue { border-color: var(--color-blue-400); }
+.grid__form-field--red  { border-color: var(--color-red-400); }
+
+.grid__form-prefix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  height: 100%;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  background: var(--color-blue-light-5);
+  color: var(--color-blue-400);
+  border-radius: 3px 0 0 3px;
+  flex-shrink: 0;
+}
+
+.grid__form-suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  height: 100%;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  border-radius: 0 3px 3px 0;
+  flex-shrink: 0;
+}
+
+.grid__form-suffix--gray {
+  background: var(--color-gray-200);
+  color: var(--color-gray-800);
+}
+
+.grid__form-suffix--red {
+  background: var(--color-red-light-5);
+  color: var(--color-red-400);
+}
+
+.grid__form-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-gray-900);
+  padding: 0 8px;
+  background: transparent;
+}
+
+/* Variação chip */
+.grid__var {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 2px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-xs);
+}
+
+.grid__var--up {
+  background: var(--color-green-light-5);
+  border: 1px solid var(--color-green-400);
+  color: var(--color-green-400);
+}
+
+.grid__var--down {
+  background: var(--color-red-light-5);
+  border: 1px solid var(--color-red-400);
+  color: var(--color-red-400);
+}
+
+/* Badge pill (auto / editado) */
+.grid__badge-pill {
+  display: inline-flex;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-xs);
+  text-transform: uppercase;
+}
+
+.grid__badge-pill--auto {
+  background: var(--color-blue-400);
+  color: var(--color-white);
+}
+
+.grid__badge-pill--editado {
+  background: var(--color-orange-400);
+  color: var(--color-white);
+}
+
+/* Sub-row (variação + status) */
+.grid__input-sub {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Previsão: link Calcular */
+.grid__calcular-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: 16px;
+  color: var(--color-blue-400);
+  cursor: pointer;
+}
+
+.grid__calcular-btn:hover {
+  text-decoration: underline;
+}
+
+/* Menu preços (2/3) */
+.grid__menu-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 4px 4px 16px;
+  height: 64px;
+}
+
+.grid__menu-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-gray-200);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-900);
+}
+
+.grid__menu-btn:hover {
+  background: var(--color-gray-300);
+}
+
+.grid__menu-btn.is-active {
+  background: var(--color-blue-light-10);
+  color: var(--color-blue-400);
+}
+
+/* Paginação */
+.grid__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px var(--space-4);
+  border-top: 1px solid var(--color-gray-300);
+}
+
+.grid__pagination-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid__pagination-val {
+  font-size: var(--font-size-sm);
+  color: var(--color-blue-400);
+}
+
+.grid__pagination-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+}
+
+.grid__pagination-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--color-gray-400);
+}
+
+.grid__pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.grid__pagination-nav .material-icons-outlined {
+  font-size: 16px;
+  color: var(--color-gray-600);
+  cursor: pointer;
+}
+
+.grid__pagination-btn {
+  padding: 4px 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  cursor: pointer;
+}
+
+.grid__pagination-btn.is-active {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-blue-400);
+}
+
+.grid__pagination-btn:hover:not(.is-active) {
+  background: var(--color-gray-100);
+}

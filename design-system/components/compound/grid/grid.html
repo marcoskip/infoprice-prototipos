@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid de dados — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="grid">
+<h2 class="ds__section-title">Grid de dados</h2>
+      <p class="ds__section-desc">
+        Tabela de dados com <code style="font-family:'JetBrains Mono',monospace;font-size:13px">table-layout: fixed</code> e
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px">&lt;colgroup&gt;</code> definindo larguras.
+      </p>
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Tabela básica</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="padding:0;display:block">
+          <section class="grid" style="position:static;height:240px;overflow:auto;padding:0">
+            <div class="grid__wrapper">
+              <table class="grid__table">
+                <colgroup>
+                  <col style="width:40px">
+                  <col>
+                  <col style="width:120px">
+                  <col style="width:120px">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th><input type="checkbox" class="grid__check" /></th>
+                    <th><div class="grid__th-content"><span>Produto</span></div></th>
+                    <th><div class="grid__th-content"><span>Custo</span></div></th>
+                    <th><div class="grid__th-content"><span>Preço</span></div></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><input type="checkbox" class="grid__check" /></td><td><span class="grid__produto-code">1026313</span> <span class="grid__produto-name">CERVEJA BRAHMA 350ML</span></td><td><span class="grid__val-main">R$ 2,18</span></td><td><span class="grid__val-main">R$ 3,49</span></td></tr>
+                  <tr><td><input type="checkbox" class="grid__check" /></td><td><span class="grid__produto-code">1038201</span> <span class="grid__produto-name">LEITE ITALAC 1L</span></td><td><span class="grid__val-main">R$ 3,85</span></td><td><span class="grid__val-main">R$ 5,79</span></td></tr>
+                  <tr><td><input type="checkbox" class="grid__check" /></td><td><span class="grid__produto-code">1042105</span> <span class="grid__produto-name">PICANHA BOVINA KG</span></td><td><span class="grid__val-main">R$ 52,30</span></td><td><span class="grid__val-main">R$ 79,90</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

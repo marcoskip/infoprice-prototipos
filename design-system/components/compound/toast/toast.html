@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Toast (notificação popup) — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="toast">
+<h2 class="ds__section-title">Toast (notificação popup)</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> para feedback temporário e flutuante de uma ação que acabou de acontecer (sucesso, erro, sincronização). Aparece no canto, some sozinho.
+        <br>
+        <strong>Quando NÃO usar:</strong> para mensagens que precisam permanecer visíveis ou que são parte do conteúdo da página (validação, aviso contextual, orientação). Use MessageBox — ele é inline e persiste.
+      </div>
+      <p class="ds__section-desc">
+        Notificação flutuante que aparece sobre o conteúdo. 4 cores semânticas e 2 temas
+        (long, short). Container fixo no canto.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Long (com título, body e ação)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-3);align-items:stretch;padding:var(--space-4)">
+          <div class="toast toast--info">
+            <span class="material-icons-outlined toast__icon">info</span>
+            <div class="toast__content">
+              <span class="toast__title">Atualização disponível</span>
+              <span class="toast__body">Uma nova versão do IPA está pronta para uso.</span>
+              <button class="toast__action">Recarregar</button>
+            </div>
+            <button class="toast__close" aria-label="Fechar">
+              <span class="material-icons-outlined" style="font-size:18px">close</span>
+            </button>
+          </div>
+          <div class="toast toast--success">
+            <span class="material-icons-outlined toast__icon">check_circle</span>
+            <div class="toast__content">
+              <span class="toast__title">Preços aplicados</span>
+              <span class="toast__body">15 produtos foram atualizados no PDV.</span>
+            </div>
+            <button class="toast__close" aria-label="Fechar">
+              <span class="material-icons-outlined" style="font-size:18px">close</span>
+            </button>
+          </div>
+          <div class="toast toast--warning">
+            <span class="material-icons-outlined toast__icon">warning</span>
+            <div class="toast__content">
+              <span class="toast__title">Limite proximo</span>
+              <span class="toast__body">Você está a 90% do limite mensal de processamento.</span>
+            </div>
+          </div>
+          <div class="toast toast--error">
+            <span class="material-icons-outlined toast__icon">error</span>
+            <div class="toast__content">
+              <span class="toast__title">Falha na sincronização</span>
+              <span class="toast__body">Não foi possível sincronizar 3 produtos.</span>
+              <button class="toast__action">Tentar novamente</button>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Container fixo (1 por pagina, no body) --&gt;
+&lt;div class="toast-container" id="toastContainer"&gt;&lt;/div&gt;
+
+&lt;!-- Toast individual --&gt;
+&lt;div class="toast toast--success"&gt;
+  &lt;span class="material-icons-outlined toast__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="toast__content"&gt;
+    &lt;span class="toast__title"&gt;Titulo&lt;/span&gt;
+    &lt;span class="toast__body"&gt;Mensagem.&lt;/span&gt;
+    &lt;button class="toast__action"&gt;Acao&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button class="toast__close"&gt;
+    &lt;span class="material-icons-outlined"&gt;close&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes: --info | --success | --warning | --error --&gt;
+&lt;!-- Tema:      --long (default) | --short --&gt;</code></pre>
+        </div>
+      </div>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Short (só body)</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--no-pattern" data-preview style="flex-direction:column;gap:var(--space-2);align-items:stretch;padding:var(--space-4)">
+          <div class="toast toast--short toast--success">
+            <span class="material-icons-outlined toast__icon">check_circle</span>
+            <div class="toast__content">
+              <span class="toast__body">Salvo com sucesso</span>
+            </div>
+          </div>
+          <div class="toast toast--short toast--info">
+            <div class="toast__content">
+              <span class="toast__body">Carregando dados...</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="toast toast--short toast--success"&gt;
+  &lt;span class="material-icons-outlined toast__icon"&gt;check_circle&lt;/span&gt;
+  &lt;div class="toast__content"&gt;
+    &lt;span class="toast__body"&gt;Salvo com sucesso&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

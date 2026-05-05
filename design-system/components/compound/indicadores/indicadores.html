@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Indicadores de competitividade — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    /* Override: layout sem sidebar (single-component preview) */
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="indicadores">
+<h2 class="ds__section-title">Indicadores de competitividade</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> SOMENTE para classificar qualidade/competitividade nos 5 níveis padrão do IPA (muito-bom, bom, regular, ruim, muito-ruim) com semântica e cores fixas.
+        <br>
+        <strong>Quando NÃO usar:</strong> para qualquer outro tipo de marcador semântico (status livre, contagem, categoria), use Badge ou Tag — o componente Indicadores tem semântica fechada e não deve ser reaproveitado.
+      </div>
+      <p class="ds__section-desc">
+        Badges semanticos com 5 níveis (muito-bom, bom, regular, ruim, muito-ruim).
+        Cores derivadas dos tokens light de verde, laranja e vermelho.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">5 níveis</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Código</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview>
+          <div class="indicador indicador--muito-bom"><div class="indicador__inner">Muito bom</div></div>
+          <div class="indicador indicador--bom"><div class="indicador__inner">Bom</div></div>
+          <div class="indicador indicador--regular"><div class="indicador__inner">Regular</div></div>
+          <div class="indicador indicador--ruim"><div class="indicador__inner">Ruim</div></div>
+          <div class="indicador indicador--muito-ruim"><div class="indicador__inner">Muito ruim</div></div>
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;div class="indicador indicador--muito-bom"&gt;
+  &lt;div class="indicador__inner"&gt;Muito bom&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Variantes --&gt;
+indicador--muito-bom  (verde escuro)
+indicador--bom        (verde claro)
+indicador--regular    (laranja claro)
+indicador--ruim       (vermelho claro)
+indicador--muito-ruim (vermelho escuro)</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

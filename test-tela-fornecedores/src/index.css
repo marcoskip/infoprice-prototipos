@@ -1,0 +1,13 @@
+/* Reset minimo + override do body do DS (que usa display:flex e quebra layouts fixed full-width) */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  display: block;        /* override do styles.css do DS */
+  min-height: 100vh;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
