@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IPA — Outliers</title>
+  <title>IPA — Lojas e concorrentes</title>
   <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -264,12 +264,8 @@
           <span class="config-menu__label">Níveis de categoria</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
-        <div class="config-menu__item">
-          <span class="config-menu__label">Lojas e concorrentes</span>
-          <span class="material-icons-outlined">chevron_right</span>
-        </div>
         <div class="config-menu__item is-active">
-          <span class="config-menu__label">Outliers</span>
+          <span class="config-menu__label">Lojas e concorrentes</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
@@ -312,16 +308,16 @@
         <!-- Header da seção -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Outliers</span>
-            <span class="config-card__desc">Defina os limites de variação aceitos entre os preços dos concorrentes e o seu preço vigente. Preços fora desses limites são marcados como outliers nas telas de monitoramento.</span>
+            <span class="config-card__title">Lojas e concorrentes</span>
+            <span class="config-card__desc">Configure os parâmetros usados para tratar os preços coletados dos concorrentes.</span>
           </div>
         </div>
 
-        <!-- Limites -->
+        <!-- Outliers -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Limites de variação</span>
-            <span class="config-card__desc">Calculamos a variação percentual entre o preço de cada concorrente e o seu preço vigente. Quando a variação ultrapassa os limites configurados, marcamos o preço como outlier.</span>
+            <span class="config-card__title">Outliers</span>
+            <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são marcados como outliers. <strong>Outliers não entram nos cálculos do IPA</strong>, mas continuam visíveis no Gerenciador com um indicador de alerta. Use os limites abaixo para definir o que conta como variação muito alta.</span>
           </div>
 
           <div class="outliers-inputs">
@@ -331,7 +327,7 @@
                 <input type="number" id="limiteSuperior" class="form-field__input" value="100" min="0" step="1" />
                 <span class="form-field__suffix">%</span>
               </div>
-              <span class="form-field__helper">Variação máxima acima do preço vigente.</span>
+              <span class="form-field__helper">Acima dessa variação, marcamos como outlier.</span>
             </div>
 
             <div class="form-field">
@@ -340,21 +336,12 @@
                 <input type="number" id="limiteInferior" class="form-field__input" value="100" min="0" step="1" />
                 <span class="form-field__suffix">%</span>
               </div>
-              <span class="form-field__helper">Variação máxima abaixo do preço vigente.</span>
+              <span class="form-field__helper">Abaixo dessa variação, marcamos como outlier.</span>
             </div>
           </div>
         </div>
 
-        <!-- Aviso de comportamento -->
-        <div class="message-box message-box--info">
-          <span class="material-icons-outlined message-box__icon">info</span>
-          <div class="message-box__content">
-            <span class="message-box__title">Como o outlier aparece no Gerenciador</span>
-            <span class="message-box__body">Preços marcados como outliers continuam visíveis no Gerenciador, com um indicador de alerta. Eles não são considerados no cálculo automático de preços enquanto estiverem sinalizados.</span>
-          </div>
-        </div>
-
-        <!-- Aviso de aplicação (consistente com Configurações básicas) -->
+        <!-- Aviso de aplicação -->
         <div class="message-box message-box--warning">
           <span class="material-icons-outlined message-box__icon">warning</span>
           <div class="message-box__content">
@@ -444,7 +431,7 @@
         showToast({
           variant: 'error',
           title: 'Preencha os dois limites',
-          body: 'Os limites superior e inferior são necessários para aplicar o tratamento de outliers.'
+          body: 'Os limites superior e inferior são necessários para identificar outliers.'
         });
         return;
       }
