@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPA — Outliers</title>
+  <link rel="icon" type="image/x-icon" href="https://marcoskip.github.io/infoprice-prototipos/assets/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
+  <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-gray-50);
+      min-height: 100vh;
+    }
+
+    .title-bar { top: 60px; }
+    .config-tabs { top: 104px; }
+    .config-content { top: 156px; }
+
+    .config-tabs {
+      position: fixed;
+      left: 52px;
+      right: 0;
+      z-index: 41;
+      padding: 0 var(--space-4);
+      transition: left 300ms ease;
+    }
+    .config-tabs__inner {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: 0 var(--space-2);
+    }
+
+    .config-content {
+      position: fixed;
+      left: 52px;
+      right: 0;
+      bottom: 0;
+      padding: var(--space-1) var(--space-4) var(--space-4);
+      overflow-y: auto;
+      transition: left 300ms ease;
+    }
+    .config-layout {
+      display: flex;
+      gap: var(--space-3);
+      align-items: flex-start;
+      padding-top: 8px;
+    }
+
+    /* Menu lateral de seções de configuração */
+    .config-menu {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+      width: 260px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .config-menu__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      background: var(--color-white);
+      cursor: pointer;
+      transition: background 150ms ease;
+    }
+    .config-menu__item:hover { background: var(--color-gray-100); }
+    .config-menu__item.is-active { background: var(--color-blue-light-5); }
+    .config-menu__item.is-active .config-menu__label { color: var(--color-blue-600); }
+    .config-menu__label {
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-800);
+    }
+    .config-menu__item .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-gray-600);
+    }
+
+    .config-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .config-card {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+    }
+    .config-card__header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: var(--space-3);
+    }
+    .config-card__title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-gray-900);
+      line-height: var(--line-height-lg);
+    }
+    .config-card__desc {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-700);
+      line-height: var(--line-height-md);
+    }
+
+    /* Layout dos 2 inputs lado a lado */
+    .outliers-inputs {
+      display: flex;
+      gap: var(--space-4);
+      align-items: flex-start;
+    }
+    .outliers-inputs .form-field {
+      flex: 1;
+      max-width: 280px;
+    }
+
+    /* Voltar nav */
+    .config-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      color: var(--color-gray-700);
+      font-size: var(--font-size-md);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font-family-base);
+    }
+    .config-back:hover { background: var(--color-gray-100); }
+
+    /* Sidebar item ativo */
+    .sidebar__item--active { background: var(--color-blue-light-5); }
+    .sidebar__item--active .sidebar__icon {
+      filter: brightness(0) saturate(100%) invert(38%) sepia(91%) saturate(1542%) hue-rotate(195deg) brightness(96%) contrast(91%);
+    }
+
+    .config-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+    }
+
+    /* Toast container override pra esse protótipo (canto inferior direito padrao DS) */
+    .toast-container { top: auto; bottom: 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__left">
+      <button class="header__menu-btn" aria-label="Menu de produtos"><span class="material-icons-outlined">apps</span></button>
+      <div class="header__brand">
+        <img class="header__logo" src="https://marcoskip.github.io/infoprice-prototipos/assets/logo-principal.svg" alt="InfoPrice" />
+        <div class="header__divider" aria-hidden="true"></div>
+        <span class="header__product-name">IPA | Software de Precificação</span>
+      </div>
+    </div>
+    <div class="header__right">
+      <button class="header__help-btn" aria-label="Ajuda"><span class="material-icons-outlined">help_outline</span></button>
+      <div class="header__user">
+        <span class="header__user-name">Olá, Marcus</span>
+        <span class="material-icons-outlined">keyboard_arrow_down</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__top">
+      <div class="sidebar__item sidebar__item--active">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/gerenciador-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Gerenciador</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/estrategia-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Estratégia</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/negociacoes-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Negociações Fornecedor</span>
+        <span class="material-icons-outlined sidebar__item-chevron">keyboard_arrow_right</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/extracao-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Extração de preços</span>
+      </div>
+      <div class="sidebar__item">
+        <img src="https://marcoskip.github.io/infoprice-prototipos/assets/IA-symbol.svg" alt="" class="sidebar__icon" />
+        <span class="sidebar__label">Precifique com IA</span>
+      </div>
+    </div>
+    <div class="sidebar__bottom">
+      <button class="sidebar__seta" id="sidebarSeta" aria-label="Expandir menu"><span class="material-icons-outlined">keyboard_arrow_right</span></button>
+    </div>
+  </aside>
+
+  <!-- Title bar -->
+  <section class="title-bar">
+    <div class="title-bar__left">
+      <button class="config-back">
+        <span class="material-icons-outlined" style="font-size:18px">arrow_back</span>
+        <span>Voltar para Revisão de preços</span>
+      </button>
+    </div>
+    <div class="title-bar__right"></div>
+  </section>
+
+  <!-- Sub-nav (tabs de produto) -->
+  <section class="config-tabs">
+    <div class="config-tabs__inner">
+      <div class="navbar">
+        <button class="navbar__item">ISA | InfoPanel</button>
+        <button class="navbar__item">ISA | Monitoramento em PDV</button>
+        <button class="navbar__item is-active">IPA | Software de Precificação</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conteúdo principal -->
+  <section class="config-content">
+    <div class="config-layout">
+
+      <!-- Menu lateral -->
+      <aside class="config-menu" aria-label="Categorias de configuração">
+        <div class="config-menu__item">
+          <span class="config-menu__label">Configurações básicas</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Segmentação de produtos</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Regras de preços</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Gerenciador de preços</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Níveis de categoria</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Lojas e concorrentes</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item is-active">
+          <span class="config-menu__label">Outliers</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Dados do InfoPanel</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Canais de venda</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Simulações e análises</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Negociação com fornecedores</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Farma</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Fluxo de aprovação</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Campanhas promocionais</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+        <div class="config-menu__item">
+          <span class="config-menu__label">Otimização de preços</span>
+          <span class="material-icons-outlined">chevron_right</span>
+        </div>
+      </aside>
+
+      <!-- Painel principal -->
+      <div class="config-main">
+
+        <!-- Header da seção -->
+        <div class="config-card">
+          <div class="config-card__header">
+            <span class="config-card__title">Outliers</span>
+            <span class="config-card__desc">Defina os limites de variação aceitos entre os preços dos concorrentes e o seu preço vigente. Preços fora desses limites são marcados como outliers nas telas de monitoramento.</span>
+          </div>
+        </div>
+
+        <!-- Limites -->
+        <div class="config-card">
+          <div class="config-card__header">
+            <span class="config-card__title">Limites de variação</span>
+            <span class="config-card__desc">Calculamos a variação percentual entre o preço de cada concorrente e o seu preço vigente. Quando a variação ultrapassa os limites configurados, marcamos o preço como outlier.</span>
+          </div>
+
+          <div class="outliers-inputs">
+            <div class="form-field">
+              <label class="form-field__label" for="limiteSuperior">Limite superior</label>
+              <div class="form-field__input-wrapper">
+                <input type="number" id="limiteSuperior" class="form-field__input" value="100" min="0" step="1" />
+                <span class="form-field__suffix">%</span>
+              </div>
+              <span class="form-field__helper">Variação máxima acima do preço vigente.</span>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="limiteInferior">Limite inferior</label>
+              <div class="form-field__input-wrapper">
+                <input type="number" id="limiteInferior" class="form-field__input" value="100" min="0" step="1" />
+                <span class="form-field__suffix">%</span>
+              </div>
+              <span class="form-field__helper">Variação máxima abaixo do preço vigente.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aviso de comportamento -->
+        <div class="message-box message-box--info">
+          <span class="material-icons-outlined message-box__icon">info</span>
+          <div class="message-box__content">
+            <span class="message-box__title">Como o outlier aparece no Gerenciador</span>
+            <span class="message-box__body">Preços marcados como outliers continuam visíveis no Gerenciador, com um indicador de alerta. Eles não são considerados no cálculo automático de preços enquanto estiverem sinalizados.</span>
+          </div>
+        </div>
+
+        <!-- Aviso de aplicação (consistente com Configurações básicas) -->
+        <div class="message-box message-box--warning">
+          <span class="material-icons-outlined message-box__icon">warning</span>
+          <div class="message-box__content">
+            <span class="message-box__body">As alterações serão aplicadas na próxima integração de dados.</span>
+          </div>
+        </div>
+
+        <!-- Footer com ações -->
+        <div class="config-footer">
+          <button class="btn btn--small btn--primary btn--ghost" id="btnCancelar">Cancelar</button>
+          <button class="btn btn--small btn--primary" id="btnSalvar">Salvar</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const seta = document.getElementById('sidebarSeta');
+    let expanded = false;
+    seta.addEventListener('click', () => {
+      expanded = !expanded;
+      sidebar.classList.toggle('is-expanded', expanded);
+      seta.classList.toggle('is-flipped', expanded);
+      const newLeft = expanded ? '220px' : '52px';
+      document.querySelectorAll('.title-bar, .config-tabs, .config-content')
+        .forEach(el => el.style.left = newLeft);
+    });
+
+    // Config menu navigation
+    document.querySelectorAll('.config-menu__item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.config-menu__item').forEach(i => i.classList.remove('is-active'));
+        item.classList.add('is-active');
+      });
+    });
+
+    // Tab navigation
+    document.querySelectorAll('.navbar__item').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.navbar__item').forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+      });
+    });
+
+    // Validação dos inputs: aceitar apenas inteiros positivos
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('input', (e) => {
+        let v = e.target.value;
+        // Remove caracteres não numéricos e valores negativos
+        v = v.replace(/[^0-9]/g, '');
+        e.target.value = v;
+      });
+    });
+
+    // Toast de confirmação
+    function showToast({ title, body, variant = 'success' }) {
+      const icons = { success: 'check_circle', error: 'error', info: 'info' };
+      const el = document.createElement('div');
+      el.className = `toast toast--${variant}`;
+      el.setAttribute('role', 'status');
+      el.innerHTML = `
+        <span class="material-icons-outlined toast__icon">${icons[variant]}</span>
+        <div class="toast__content">
+          <span class="toast__title">${title}</span>
+          <span class="toast__body">${body}</span>
+        </div>
+        <button class="toast__close" aria-label="Fechar">
+          <span class="material-icons-outlined" style="font-size:18px">close</span>
+        </button>
+      `;
+      el.querySelector('.toast__close').addEventListener('click', () => el.remove());
+      document.getElementById('toastContainer').appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
+
+    // Salvar
+    document.getElementById('btnSalvar').addEventListener('click', () => {
+      const superior = document.getElementById('limiteSuperior').value;
+      const inferior = document.getElementById('limiteInferior').value;
+      if (!superior || !inferior) {
+        showToast({
+          variant: 'error',
+          title: 'Preencha os dois limites',
+          body: 'Os limites superior e inferior são necessários para aplicar o tratamento de outliers.'
+        });
+        return;
+      }
+      showToast({
+        variant: 'success',
+        title: 'Configuração salva',
+        body: `Marcaremos como outlier qualquer preço de concorrente acima de +${superior}% ou abaixo de -${inferior}% do seu preço vigente.`
+      });
+    });
+
+    // Cancelar
+    document.getElementById('btnCancelar').addEventListener('click', () => {
+      document.getElementById('limiteSuperior').value = '100';
+      document.getElementById('limiteInferior').value = '100';
+    });
+  </script>
+</body>
+</html>
