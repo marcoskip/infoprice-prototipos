@@ -2201,12 +2201,15 @@ body {
   transition: border-color 150ms ease;
 }
 .radio:hover .radio__circle { border-color: var(--color-blue-400); }
-.radio__input:checked + .radio__circle { border-color: var(--color-blue-400); }
+.radio__input:checked + .radio__circle {
+  background: var(--color-blue-400);
+  border-color: var(--color-blue-400);
+}
 .radio__input:checked + .radio__circle::after {
   content: '';
-  width: 8px;
-  height: 8px;
-  background: var(--color-blue-400);
+  width: 6px;
+  height: 6px;
+  background: var(--color-white);
   border-radius: var(--radius-pill);
 }
 .radio__content {
