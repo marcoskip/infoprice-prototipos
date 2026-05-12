@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/tokens.css" />
   <link rel="stylesheet" href="https://marcoskip.github.io/infoprice-prototipos/styles.css" />
   <style>
@@ -38,10 +39,11 @@
     }
 
     /* Customização: tab ativa com ícone, tabs com lock */
-    .navbar__item .material-icons-outlined { font-size: 16px; }
-    .navbar__item.is-active .material-icons-outlined { color: var(--color-blue-400); }
+    .navbar__item .material-icons-outlined,
+    .navbar__item .material-icons { font-size: 16px; }
+    .navbar__item.is-active .material-icons { color: var(--color-blue-400); }
     .navbar__item.is-locked { color: var(--color-gray-500); cursor: not-allowed; }
-    .navbar__item.is-locked .material-icons-outlined { color: var(--color-gray-500); }
+    .navbar__item.is-locked .material-icons { color: var(--color-gray-500); }
 
     .config-content {
       position: fixed;
@@ -286,15 +288,15 @@
         <button class="navbar__item">ISA | Infopanel</button>
         <button class="navbar__item">ISA | Monitoramento em PDV</button>
         <button class="navbar__item is-locked">
-          <span class="material-icons-outlined">lock</span>
+          <span class="material-icons">lock</span>
           <span>IRA | Analytics</span>
         </button>
         <button class="navbar__item is-active">
-          <span class="material-icons-outlined">settings</span>
+          <span class="material-icons">settings</span>
           <span>IPA | Software de Precificação</span>
         </button>
         <button class="navbar__item is-locked">
-          <span class="material-icons-outlined">lock</span>
+          <span class="material-icons">lock</span>
           <span>Painéis Customizados</span>
         </button>
       </div>
