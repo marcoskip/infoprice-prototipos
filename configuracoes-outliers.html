@@ -129,6 +129,52 @@
       max-width: 280px;
     }
 
+    /* Container interno do card (borda fina como no Figma) */
+    .config-card__inner {
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+    }
+
+    /* Linha de chips com botão "Adicionar novo" à direita */
+    .config-chips-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    /* Lista de chips (page-specific — Configurações usa estilo próprio) */
+    .config-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .config-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px var(--space-3);
+      background: var(--color-blue-light-5);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-regular);
+      color: var(--color-blue-600);
+      cursor: default;
+    }
+    .config-chip--editable { cursor: pointer; }
+    .config-chip--editable:hover { background: var(--color-blue-light-10); }
+    .config-chip .material-icons-outlined { font-size: 16px; }
+
+    /* Grupo vertical de radios */
+    .config-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
     /* Voltar nav */
     .config-back {
       display: inline-flex;
@@ -305,15 +351,80 @@
       <!-- Painel principal -->
       <div class="config-main">
 
-        <!-- Header da seção -->
+        <!-- Cluster de lojas (existente) -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Lojas e concorrentes</span>
-            <span class="config-card__desc">Configure os parâmetros usados para tratar os preços coletados dos concorrentes.</span>
+            <span class="config-card__title">Cluster de lojas</span>
+            <span class="config-card__desc">Configure, edite e adicione novos clusters de suas lojas.</span>
+          </div>
+          <div class="config-card__inner">
+            <div class="config-chips-row">
+              <div class="config-chips">
+                <button class="config-chip config-chip--editable" type="button">
+                  <span class="material-icons-outlined">edit</span>
+                  <span>Região Criciúma</span>
+                </button>
+                <button class="config-chip config-chip--editable" type="button">
+                  <span class="material-icons-outlined">edit</span>
+                  <span>Região 02</span>
+                </button>
+                <button class="config-chip config-chip--editable" type="button">
+                  <span class="material-icons-outlined">edit</span>
+                  <span>Estratégico</span>
+                </button>
+              </div>
+              <button class="btn btn--small btn--secondary btn--white" type="button">Adicionar novo</button>
+            </div>
           </div>
         </div>
 
-        <!-- Outliers -->
+        <!-- Canais de vendas das lojas (existente) -->
+        <div class="config-card">
+          <div class="config-card__header">
+            <span class="config-card__title">Canais de vendas das lojas</span>
+            <span class="config-card__desc">Identificamos os seguintes canais na integração dos dados do seu ERP. Na configuração das lojas, escolha qual canal usar.</span>
+          </div>
+          <div class="config-card__inner">
+            <div class="config-chips">
+              <span class="config-chip">Varejo</span>
+              <span class="config-chip">Online</span>
+              <span class="config-chip">Marketplace</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preferências na precificação (existente) -->
+        <div class="config-card">
+          <div class="config-card__header">
+            <span class="config-card__title">Preferências na precificação</span>
+            <span class="config-card__desc">Defina como você prefere que seja feita a precificação dos produtos no IPA.</span>
+          </div>
+          <div class="config-radio-group">
+            <label class="radio">
+              <input type="radio" name="precificacao" class="radio__input" checked />
+              <span class="radio__circle"></span>
+              <div class="radio__content">
+                <span class="radio__label">Loja a loja: preços diferentes loja a loja</span>
+              </div>
+            </label>
+            <label class="radio">
+              <input type="radio" name="precificacao" class="radio__input" />
+              <span class="radio__circle"></span>
+              <div class="radio__content">
+                <span class="radio__label">Por cluster: mesmo preço para as lojas de um mesmo cluster</span>
+              </div>
+            </label>
+            <label class="radio">
+              <input type="radio" name="precificacao" class="radio__input" />
+              <span class="radio__circle"></span>
+              <div class="radio__content">
+                <span class="radio__label">Por rede: mesmo preço para todas as lojas da rede</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Outliers (NOVO — IPA-9164) -->
         <div class="config-card">
           <div class="config-card__header">
             <span class="config-card__title">Outliers</span>
