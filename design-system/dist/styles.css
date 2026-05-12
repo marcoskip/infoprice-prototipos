@@ -988,7 +988,7 @@ body {
 .radio__circle {
   width: 16px;
   height: 16px;
-  border: 2px solid var(--color-gray-500);
+  border: 1px solid var(--color-gray-400);
   border-radius: var(--radius-pill);
   background: var(--color-white);
   flex-shrink: 0;
@@ -996,15 +996,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 150ms ease;
+  transition: border-color 150ms ease, background 150ms ease;
 }
 .radio:hover .radio__circle { border-color: var(--color-blue-400); }
-.radio__input:checked + .radio__circle { border-color: var(--color-blue-400); }
+.radio__input:checked + .radio__circle {
+  background: var(--color-blue-400);
+  border-color: var(--color-blue-400);
+}
 .radio__input:checked + .radio__circle::after {
   content: '';
-  width: 8px;
-  height: 8px;
-  background: var(--color-blue-400);
+  width: 6px;
+  height: 6px;
+  background: var(--color-white);
   border-radius: var(--radius-pill);
 }
 .radio__content {
@@ -1018,6 +1021,7 @@ body {
   color: var(--color-gray-900);
   line-height: var(--line-height-lg);
 }
+.radio__input:checked ~ .radio__content .radio__label { font-weight: var(--font-weight-semibold); }
 .radio__helper {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
@@ -1357,6 +1361,141 @@ body {
 
 .dropdown-overlay.is-open {
   display: block;
+}
+
+/* ── Tipografia — utility classes ─────────────────────────────
+   Fonte: Figma › Design System › Text styles (node 2950-18673)
+   Nomenclatura: .text-{tamanho-figma}-{peso}[-upper]
+   Tamanhos seguem o nome interno do Figma (25/50/75/100/200/400/600).
+   Uso: aplicar diretamente na tag (h1, h2, p, span, label) ou em
+   conjunto com classes BEM dos componentes.
+   ─────────────────────────────────────────────────────────── */
+
+/* font-size-600 — 24px */
+.text-600-light {
+  font-size: var(--font-size-3xl);
+  line-height: var(--line-height-3xl);
+  font-weight: var(--font-weight-light);
+}
+
+/* font-size-400 — 20px */
+.text-400-semibold {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+.text-400-light {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+  font-weight: var(--font-weight-light);
+}
+
+/* font-size-200 — 16px */
+.text-200-semibold {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* font-size-100 — 14px (corpo de texto base) */
+.text-100-bold {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-bold);
+}
+.text-100-bold-upper {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+.text-100-semibold {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-semibold);
+}
+.text-100-regular {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-regular);
+}
+
+/* font-size-75 — 12px */
+.text-75-bold-upper {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+.text-75-semibold-upper {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+.text-75-regular-upper {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight-regular);
+  text-transform: uppercase;
+}
+.text-75-bold {
+  font-size: var(--font-size-sm);
+  line-height: 16px;
+  font-weight: var(--font-weight-bold);
+}
+.text-75-semibold {
+  font-size: var(--font-size-sm);
+  line-height: 16px;
+  font-weight: var(--font-weight-semibold);
+}
+.text-75-regular {
+  font-size: var(--font-size-sm);
+  line-height: 16px;
+  font-weight: var(--font-weight-regular);
+}
+
+/* font-size-50 — 10px */
+.text-50-bold-upper {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+.text-50-semibold-upper {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+.text-50-regular-upper {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  font-weight: var(--font-weight-regular);
+  text-transform: uppercase;
+}
+.text-50-semibold {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-semibold);
+}
+.text-50-regular {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+/* font-size-25 — 8px */
+.text-25-semibold-upper {
+  font-size: var(--font-size-2xs);
+  line-height: var(--line-height-2xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+.text-25-regular {
+  font-size: var(--font-size-2xs);
+  line-height: var(--line-height-2xs);
+  font-weight: var(--font-weight-regular);
 }
 
 /* ════════════ COMPOUND ════════════ */
