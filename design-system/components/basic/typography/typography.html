@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tipografia — DS preview</title>
+  <link rel="icon" type="image/x-icon" href="../../../../assets/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../../tokens.css" />
+  <link rel="stylesheet" href="../../../../styles.css" />
+  <link rel="stylesheet" href="../../../showcase.css" />
+  <style>
+    body { background: var(--color-gray-50); }
+    .ds__layout, .ds__main { margin-left: 0 !important; max-width: 1200px; }
+    .ds__main { padding: 32px; }
+    .ds__nav, .ds__nav-resize, .ds__hero { display: none !important; }
+    .type-row {
+      display: grid;
+      grid-template-columns: 240px 90px 100px 1fr;
+      align-items: baseline;
+      gap: 24px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+    .type-row__name { font-family: 'Courier New', monospace; font-size: 12px; color: var(--color-gray-700); }
+    .type-row__size { font-size: 12px; color: var(--color-gray-600); }
+    .type-row__weight { font-size: 12px; color: var(--color-gray-600); }
+    .type-row__sample { color: var(--color-gray-900); }
+  </style>
+</head>
+<body>
+  <main class="ds__main">
+    <section class="ds__section" id="typography">
+      <h2 class="ds__section-title">Tipografia</h2>
+      <div class="usage-guide">
+        <strong>Quando usar:</strong> aplique as utility classes <code>.text-{N}-{peso}</code> em qualquer elemento de texto (h1, h2, p, span, label) para garantir aderencia a escala do Figma.
+        <br>
+        <strong>Quando NAO usar:</strong> componentes que ja tem tipografia propria (botoes, inputs, tags) — eles aplicam tokens internamente.
+      </div>
+      <p class="ds__section-desc">
+        Escala de 21 estilos espelhada do Figma (node 2950-18673). Nomenclatura
+        <code>.text-{tamanho}-{peso}[-upper]</code>.
+      </p>
+
+      <div class="ds__component" data-component>
+        <div class="ds__component-header">
+          <span class="ds__component-name">Escala completa</span>
+          <div class="ds__tab-group">
+            <button class="ds__tab is-active" data-tab="preview">Preview</button>
+            <button class="ds__tab" data-tab="code">Codigo</button>
+          </div>
+        </div>
+        <div class="ds__component-preview ds__component-preview--align-left" data-preview style="flex-direction:column;align-items:stretch;gap:0">
+
+          <div class="type-row">
+            <span class="type-row__name">.text-600-light</span>
+            <span class="type-row__size">24 / 32</span>
+            <span class="type-row__weight">Light 300</span>
+            <span class="type-row__sample text-600-light">Titulo principal</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-400-semibold</span>
+            <span class="type-row__size">20 / 26</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-400-semibold">Titulo de secao</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-400-light</span>
+            <span class="type-row__size">20 / 26</span>
+            <span class="type-row__weight">Light 300</span>
+            <span class="type-row__sample text-400-light">Numero KPI 12.483</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-200-semibold</span>
+            <span class="type-row__size">16 / 20</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-200-semibold">Subtitulo de card</span>
+          </div>
+
+          <div class="type-row">
+            <span class="type-row__name">.text-100-bold</span>
+            <span class="type-row__size">14 / 20</span>
+            <span class="type-row__weight">Bold 700</span>
+            <span class="type-row__sample text-100-bold">Destaque em corpo de texto</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-100-bold-upper</span>
+            <span class="type-row__size">14 / 20</span>
+            <span class="type-row__weight">Bold 700</span>
+            <span class="type-row__sample text-100-bold-upper">Eyebrow grande</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-100-semibold</span>
+            <span class="type-row__size">14 / 20</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-100-semibold">Label selecionada / titulo de campo</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-100-regular</span>
+            <span class="type-row__size">14 / 20</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-100-regular">Corpo de texto padrao</span>
+          </div>
+
+          <div class="type-row">
+            <span class="type-row__name">.text-75-bold-upper</span>
+            <span class="type-row__size">12 / 18</span>
+            <span class="type-row__weight">Bold 700</span>
+            <span class="type-row__sample text-75-bold-upper">Eyebrow forte</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-75-semibold-upper</span>
+            <span class="type-row__size">12 / 18</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-75-semibold-upper">Eyebrow padrao</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-75-regular-upper</span>
+            <span class="type-row__size">12 / 18</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-75-regular-upper">Eyebrow leve</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-75-bold</span>
+            <span class="type-row__size">12 / 16</span>
+            <span class="type-row__weight">Bold 700</span>
+            <span class="type-row__sample text-75-bold">Destaque em texto auxiliar</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-75-semibold</span>
+            <span class="type-row__size">12 / 16</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-75-semibold">Label menor</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-75-regular</span>
+            <span class="type-row__size">12 / 16</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-75-regular">Helper text / texto auxiliar</span>
+          </div>
+
+          <div class="type-row">
+            <span class="type-row__name">.text-50-bold-upper</span>
+            <span class="type-row__size">10 / 12</span>
+            <span class="type-row__weight">Bold 700</span>
+            <span class="type-row__sample text-50-bold-upper">Tag forte</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-50-semibold-upper</span>
+            <span class="type-row__size">10 / 12</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-50-semibold-upper">Tag padrao</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-50-regular-upper</span>
+            <span class="type-row__size">10 / 12</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-50-regular-upper">Tag leve</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-50-semibold</span>
+            <span class="type-row__size">10 / 14</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-50-semibold">Microtexto destacado</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-50-regular</span>
+            <span class="type-row__size">10 / 14</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-50-regular">Microtexto (caption)</span>
+          </div>
+
+          <div class="type-row">
+            <span class="type-row__name">.text-25-semibold-upper</span>
+            <span class="type-row__size">8 / 10</span>
+            <span class="type-row__weight">SemiBold 600</span>
+            <span class="type-row__sample text-25-semibold-upper">Microtag</span>
+          </div>
+          <div class="type-row">
+            <span class="type-row__name">.text-25-regular</span>
+            <span class="type-row__size">8 / 10</span>
+            <span class="type-row__weight">Regular 400</span>
+            <span class="type-row__sample text-25-regular">Microtexto extremo</span>
+          </div>
+
+        </div>
+        <div class="ds__component-code" data-code>
+          <button class="ds__copy-btn"><span class="material-icons-outlined" style="font-size:14px">content_copy</span>Copiar</button>
+          <pre><code>&lt;!-- Titulo principal de cartao --&gt;
+&lt;h1 class="text-600-light"&gt;Configuracoes globais&lt;/h1&gt;
+
+&lt;!-- Eyebrow + titulo de secao --&gt;
+&lt;span class="text-75-semibold-upper" style="color: var(--color-gray-600)"&gt;Outliers&lt;/span&gt;
+&lt;h2 class="text-200-semibold"&gt;Tratamento de outliers&lt;/h2&gt;
+
+&lt;!-- Corpo de texto --&gt;
+&lt;p class="text-100-regular"&gt;Texto corrente em 14px regular.&lt;/p&gt;
+
+&lt;!-- Helper de campo --&gt;
+&lt;span class="text-75-regular" style="color: var(--color-gray-600)"&gt;
+  Valor expresso em percentual sobre o preco de custo.
+&lt;/span&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="../../../showcase.js"></script>
+</body>
+</html>

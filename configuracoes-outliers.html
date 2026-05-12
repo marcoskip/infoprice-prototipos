@@ -85,9 +85,7 @@
     .config-menu__item.is-active { background: var(--color-blue-light-5); }
     .config-menu__item.is-active .config-menu__label { color: var(--color-gray-800); }
     .config-menu__label {
-      font-size: 14px;
-      font-weight: var(--font-weight-semibold);
-      line-height: 20px;
+      /* Tipografia: .text-100-semibold (14/20/semibold) */
       color: var(--color-gray-900);
     }
     .config-menu__item .material-icons-outlined {
@@ -113,16 +111,12 @@
       gap: 4px;
     }
     .config-card__title {
-      font-size: var(--font-size-lg);
-      font-weight: var(--font-weight-semibold);
+      /* Tipografia: .text-200-semibold (16/20/semibold) */
       color: var(--color-gray-900);
-      line-height: var(--line-height-lg);
     }
     .config-card__desc {
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-regular);
+      /* Tipografia: .text-75-regular (12/16/regular) */
       color: var(--color-gray-700);
-      line-height: var(--line-height-md);
     }
     .config-card__body {
       display: flex;
@@ -131,14 +125,11 @@
       margin-top: var(--space-4);
     }
 
-    /* Eyebrow uppercase usado em sub-seções dentro de cards */
+    /* Eyebrow uppercase usado em sub-secoes dentro de cards
+       Tipografia: .text-50-bold-upper (10/12/bold UPPER) */
     .config-eyebrow {
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-bold);
       color: var(--color-gray-900);
-      text-transform: uppercase;
       letter-spacing: 0.3px;
-      line-height: var(--line-height-md);
     }
     .config-sub-section {
       display: flex;
@@ -146,10 +137,8 @@
       gap: 6px;
     }
     .config-sub-section__desc {
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-regular);
+      /* Tipografia: .text-75-regular (12/16/regular) */
       color: var(--color-gray-700);
-      line-height: var(--line-height-md);
     }
 
     /* Linha com input pequeno + helper texto à direita */
@@ -164,8 +153,7 @@
       flex-shrink: 0;
     }
     .config-input-row__helper {
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-regular);
+      /* Tipografia: .text-75-regular (12/16/regular) */
       color: var(--color-gray-600);
     }
 
@@ -204,10 +192,8 @@
       flex-shrink: 0;
     }
     .config-aviso__body {
-      font-size: 14px;
-      font-weight: var(--font-weight-regular);
+      /* Tipografia: .text-100-regular (14/20/regular) */
       color: var(--color-gray-900);
-      line-height: 20px;
       flex: 1;
     }
 
@@ -335,31 +321,31 @@
       <!-- Menu lateral -->
       <aside class="config-menu" aria-label="Categorias de configuração">
         <div class="config-menu__item">
-          <span class="config-menu__label">Configurações Básicas</span>
+          <span class="config-menu__label text-100-semibold">Configurações Básicas</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item is-active">
-          <span class="config-menu__label">Dados de concorrência</span>
+          <span class="config-menu__label text-100-semibold">Dados de concorrência</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
-          <span class="config-menu__label">Segmentação de Produtos</span>
+          <span class="config-menu__label text-100-semibold">Segmentação de Produtos</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
-          <span class="config-menu__label">Níveis de Categoria</span>
+          <span class="config-menu__label text-100-semibold">Níveis de Categoria</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
-          <span class="config-menu__label">Lojas e Clusters</span>
+          <span class="config-menu__label text-100-semibold">Lojas e Clusters</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
-          <span class="config-menu__label">Canais de Venda</span>
+          <span class="config-menu__label text-100-semibold">Canais de Venda</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
         <div class="config-menu__item">
-          <span class="config-menu__label">Farma</span>
+          <span class="config-menu__label text-100-semibold">Farma</span>
           <span class="material-icons-outlined">chevron_right</span>
         </div>
       </aside>
@@ -370,41 +356,41 @@
         <!-- Header da seção -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Dados de concorrência</span>
-            <span class="config-card__desc">Defina as configurações sobre o uso dos dados de concorrência.</span>
+            <span class="config-card__title text-200-semibold">Dados de concorrência</span>
+            <span class="config-card__desc text-75-regular">Defina as configurações sobre o uso dos dados de concorrência.</span>
           </div>
         </div>
 
         <!-- Preferências do preço concorrente (existente) -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Preferências do preço concorrente</span>
-            <span class="config-card__desc">Defina o período de tempo que deve ser considerado no uso do preço concorrente.</span>
+            <span class="config-card__title text-200-semibold">Preferências do preço concorrente</span>
+            <span class="config-card__desc text-75-regular">Defina o período de tempo que deve ser considerado no uso do preço concorrente.</span>
           </div>
           <div class="config-card__body">
             <div class="config-sub-section">
-              <span class="config-eyebrow">Total de dias do preço concorrente para precificação</span>
-              <span class="config-sub-section__desc">Somente preços concorrentes que estiverem dentro do total de dias definido serão considerados no processo de precificação.</span>
+              <span class="config-eyebrow text-50-bold-upper">Total de dias do preço concorrente para precificação</span>
+              <span class="config-sub-section__desc text-75-regular">Somente preços concorrentes que estiverem dentro do total de dias definido serão considerados no processo de precificação.</span>
               <div class="config-input-row">
                 <div class="form-field">
                   <div class="form-field__input-wrapper">
                     <input type="number" class="form-field__input" value="60" min="1" max="180" step="1" />
                   </div>
                 </div>
-                <span class="config-input-row__helper">Máximo de 180 dias</span>
+                <span class="config-input-row__helper text-75-regular">Máximo de 180 dias</span>
               </div>
             </div>
 
             <div class="config-sub-section">
-              <span class="config-eyebrow">Total de dias do preço concorrente para negociação com fornecedores</span>
-              <span class="config-sub-section__desc">Somente preços concorrentes que estiverem dentro do total de dias definido serão considerados no módulo de Negociação com fornecedores.</span>
+              <span class="config-eyebrow text-50-bold-upper">Total de dias do preço concorrente para negociação com fornecedores</span>
+              <span class="config-sub-section__desc text-75-regular">Somente preços concorrentes que estiverem dentro do total de dias definido serão considerados no módulo de Negociação com fornecedores.</span>
               <div class="config-input-row">
                 <div class="form-field">
                   <div class="form-field__input-wrapper">
                     <input type="number" class="form-field__input" value="14" min="1" max="180" step="1" />
                   </div>
                 </div>
-                <span class="config-input-row__helper">Máximo de 180 dias</span>
+                <span class="config-input-row__helper text-75-regular">Máximo de 180 dias</span>
               </div>
             </div>
           </div>
@@ -413,8 +399,8 @@
         <!-- Dados de concorrência no IPA (existente) -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Dados de concorrência no IPA</span>
-            <span class="config-card__desc">Configure quais dados de concorrência usamos no IPA para a precificação regular.</span>
+            <span class="config-card__title text-200-semibold">Dados de concorrência no IPA</span>
+            <span class="config-card__desc text-75-regular">Configure quais dados de concorrência usamos no IPA para a precificação regular.</span>
           </div>
           <div class="config-card__body">
             <div class="config-radio-group">
@@ -437,8 +423,8 @@
             </div>
 
             <div class="config-sub-section">
-              <span class="config-eyebrow">Preço concorrente igual ao PMC</span>
-              <span class="config-sub-section__desc">O preço concorrente pode vir igual ao PMC (preço máximo ao consumidor) porque corresponde ao valor coletado no ponto de venda.</span>
+              <span class="config-eyebrow text-50-bold-upper">Preço concorrente igual ao PMC</span>
+              <span class="config-sub-section__desc text-75-regular">O preço concorrente pode vir igual ao PMC (preço máximo ao consumidor) porque corresponde ao valor coletado no ponto de venda.</span>
               <label class="switch switch--small" style="margin-top:8px">
                 <input type="checkbox" hidden />
                 <span class="switch__track"><span class="switch__thumb"></span></span>
@@ -451,8 +437,8 @@
         <!-- Outliers (NOVO — IPA-9164) -->
         <div class="config-card">
           <div class="config-card__header">
-            <span class="config-card__title">Outliers</span>
-            <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são marcados como outliers. <strong>Outliers não entram nos cálculos do IPA</strong>, mas continuam visíveis no Gerenciador com um indicador de alerta. Use os limites abaixo para definir o que conta como variação muito alta.</span>
+            <span class="config-card__title text-200-semibold">Outliers</span>
+            <span class="config-card__desc text-75-regular">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são marcados como outliers. <strong>Outliers não entram nos cálculos do IPA</strong>, mas continuam visíveis no Gerenciador com um indicador de alerta. Use os limites abaixo para definir o que conta como variação muito alta.</span>
           </div>
           <div class="config-card__body">
             <div class="outliers-inputs">
@@ -481,7 +467,7 @@
         <div class="config-card config-aviso">
           <div class="config-aviso__inner">
             <span class="material-icons config-aviso__icon">warning</span>
-            <span class="config-aviso__body">As alterações serão aplicadas na próxima integração de dados.</span>
+            <span class="config-aviso__body text-100-regular">As alterações serão aplicadas na próxima integração de dados.</span>
           </div>
         </div>
 
