@@ -536,7 +536,7 @@
         <div class="config-card">
           <div class="config-card__header">
             <span class="config-card__title">Outliers</span>
-            <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são marcados como outliers. <strong>Outliers não entram nos cálculos do IPA</strong>, mas continuam visíveis no Gerenciador com um indicador de alerta. Use os limites abaixo para definir o que conta como variação muito alta.</span>
+            <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são descartados pelo IPA. <strong>Preços classificados como outliers não entram no produto</strong> — não aparecem no Gerenciador e não influenciam nenhum cálculo. Use os limites abaixo para definir o que conta como variação muito alta.</span>
           </div>
           <div class="config-card__body">
             <div class="outliers-inputs">
@@ -546,7 +546,7 @@
                   <input type="number" id="limiteSuperior" class="form-field__input" value="100" min="0" step="1" />
                   <span class="form-field__suffix">%</span>
                 </div>
-                <span class="form-field__helper">Acima dessa variação, marcamos como outlier.</span>
+                <span class="form-field__helper">Acima dessa variação, o preço do concorrente é descartado.</span>
               </div>
 
               <div class="form-field">
@@ -555,7 +555,7 @@
                   <input type="number" id="limiteInferior" class="form-field__input" value="100" min="0" step="1" />
                   <span class="form-field__suffix">%</span>
                 </div>
-                <span class="form-field__helper">Abaixo dessa variação, marcamos como outlier.</span>
+                <span class="form-field__helper">Abaixo dessa variação, o preço do concorrente é descartado.</span>
               </div>
             </div>
           </div>
