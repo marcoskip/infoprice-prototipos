@@ -227,6 +227,11 @@
       transition: background 100ms ease;
     }
     .form-field__spinner-btn:hover { background: var(--color-gray-100); }
+    .form-field__spinner-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+    .form-field__spinner-btn:disabled:hover { background: transparent; }
     .form-field__spinner-btn .material-icons-outlined {
       font-size: 12px;
       line-height: 1;
@@ -539,6 +544,12 @@
             <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são descartados pelo IPA. <strong>Preços classificados como outliers não entram no produto</strong> — não aparecem no Gerenciador e não influenciam nenhum cálculo. Use os limites abaixo para definir o que conta como variação muito alta.</span>
           </div>
           <div class="config-card__body">
+            <label class="switch switch--small outliers-toggle">
+              <input type="checkbox" id="outliersToggle" hidden />
+              <span class="switch__track"><span class="switch__thumb"></span></span>
+              <span class="switch__label">Aplicar limites de outliers</span>
+            </label>
+
             <div class="outliers-inputs">
               <div class="form-field">
                 <label class="form-field__label" for="limiteSuperior">Limite superior</label>
@@ -623,6 +634,30 @@
         sw.classList.toggle('is-checked', checkbox && checkbox.checked);
       });
     });
+
+    // Outliers toggle: habilita/desabilita os forms quando o switch alterna
+    (function() {
+      const toggle = document.getElementById('outliersToggle');
+      if (!toggle) return;
+      const switchEl = toggle.closest('.switch');
+      const inputs = document.querySelectorAll('.outliers-inputs .form-field__input');
+      const spinnerBtns = document.querySelectorAll('.outliers-inputs .form-field__spinner-btn');
+      const formFields = document.querySelectorAll('.outliers-inputs .form-field');
+
+      function sync() {
+        const enabled = toggle.checked;
+        formFields.forEach(ff => ff.classList.toggle('is-disabled', !enabled));
+        inputs.forEach(el => { el.disabled = !enabled; });
+        spinnerBtns.forEach(el => { el.disabled = !enabled; });
+      }
+
+      // O click handler generico de .switch ja roda antes deste e atualiza
+      // toggle.checked + .is-checked. Aqui so sincronizamos os forms.
+      switchEl.addEventListener('click', () => sync());
+
+      // Estado inicial (switch comeca ON, forms habilitados)
+      sync();
+    })();
 
     // Validação dos inputs numéricos
     document.querySelectorAll('input[type="number"]').forEach(input => {
