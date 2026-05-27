@@ -131,14 +131,38 @@ use `Glob ${DS_PATH}/components/*/<id>/` — retorna o path completo.
 
 Identifique:
 
-- **Titulo da pagina** (para o title bar)
-- **Secoes necessarias**: header, sidebar, title bar, big numbers, filtros, cabecalho, grid. Header e sidebar SEMPRE incluir.
+- **Titulo da pagina** (para o title bar, se houver)
+- **Secoes solicitadas** — ver a regra de composicao opt-in abaixo. NAO assuma nenhuma secao de chrome (header, sidebar, title bar, big numbers, filtros, cabecalho, grid) por conta propria.
 - **KPIs** (big numbers): nome, valor, tipo (azul fixo, azul auto, verde), variacao
 - **Filtros**: chips e tipos de dropdown
 - **Colunas da grid**: nome, largura, tipo de conteudo
 - **Dados ficticios**: ~20 linhas realistas para o contexto (varejo/supermercado por padrao)
 
-Se a entrada e uma imagem (sketch), use `Read` para visualizar e identificar blocos.
+Se a entrada e uma imagem (sketch), use `Read` para visualizar e identificar blocos. Numa imagem, um elemento "solicitado nominalmente" equivale a ele estar **desenhado no sketch** (ex: se o wireframe mostra uma sidebar, inclua a sidebar).
+
+#### Composicao opt-in (REGRA)
+
+Nenhuma secao de chrome do app entra no prototipo por padrao. Por padrao,
+gere **apenas** o que o usuario descreveu — composto exclusivamente de
+componentes do DS, com aderencia total aos tokens.
+
+Inclua `header`, `sidebar`, `title bar`, `big numbers`, `filtros`, `cabecalho`
+ou `grid` **somente** quando:
+
+1. O usuario **citar o elemento nominalmente** (ex: "com header e sidebar",
+   "tela com filtros e grid", "inclua a barra de titulo"); **ou**
+2. O usuario pedir a tela no **"padrao IPA"** ou **"padrao do Gerenciador de
+   precos"** — nesse caso aplique o conjunto completo de chrome do Gerenciador
+   (header + sidebar + title bar + big numbers + filtros + cabecalho + grid)
+   com os defaults da secao "Convencoes do IPA"; **ou**
+3. (entrada por imagem) o elemento estiver **desenhado no sketch**.
+
+Se nada disso ocorrer, **nao gere** header nem sidebar nem as demais secoes —
+entregue so o conteudo pedido (ex: um modal, um card, um formulario, uma
+tabela isolada), centralizado/posicionado de forma neutra na viewport.
+
+Em caso de duvida sobre o usuario querer ou nao o chrome, **pergunte** antes de
+gerar — nao inclua "por seguranca".
 
 ### 2. Mapear componentes do DS
 
@@ -250,8 +274,16 @@ CLASSES QUE NAO EXISTEM (nunca usar): `.cabecalho__left`, `.cabecalho__right`, `
 
 #### Arquitetura de layout
 
-Todas as secoes usam `position: fixed` com coordenadas absolutas calculadas a
-partir do header (52px) e sidebar (52px colapsado / 220px expandido).
+> **Aplica-se apenas quando o chrome foi solicitado** (ver "Composicao opt-in").
+> Se o usuario nao pediu header/sidebar, ignore as coordenadas fixas abaixo e
+> posicione o conteudo solicitado de forma neutra (ex: centralizado na viewport,
+> ou ocupando 100% da area util). Quando apenas ALGUMAS secoes forem pedidas
+> (ex: so grid, sem header), recalcule os `top`/`left` removendo as ausentes:
+> sem header, a primeira secao comeca em `top: 8px`; sem sidebar, `left: 0`.
+
+Quando o chrome completo e solicitado, todas as secoes usam `position: fixed`
+com coordenadas absolutas calculadas a partir do header (52px) e sidebar (52px
+colapsado / 220px expandido).
 
 **REGRA OBRIGATORIA: Gap de 8px entre secoes**
 Todas as secoes adjacentes devem ter exatamente **8px de espaco** entre si
@@ -455,6 +487,10 @@ body {
 
 Este e o "como o IPA usa o DS" — orientacoes que vao alem do markup canonico
 do `design-system.html`. Aplicar sempre que pertinente.
+
+> Os defaults de header e sidebar abaixo so se aplicam quando esses elementos
+> foram solicitados (nominalmente ou via "padrao IPA / Gerenciador de precos").
+> Se a tela nao inclui header/sidebar, ignore esta subsecao.
 
 **Identidade default (header e usuario):**
 
@@ -874,7 +910,7 @@ Ao finalizar:
 
 0. **Detecta `MODE` (new|legacy) e `DS_PATH`** — checa `design-system/components/` ou fallback monolitico
 1. Le entrada (texto ou imagem)
-2. Identifica secoes e componentes
+2. Identifica secoes e componentes — **chrome (header/sidebar/title bar/etc) e opt-in**: so inclui se citado nominalmente, pedido como "padrao IPA/Gerenciador", ou desenhado no sketch
 3. Para cada componente: lê markup canonico em `${DS_PATH}/components/<cat>/<id>/<id>.html` (NEW) ou `${DS_PATH}/design-system.html` (LEGACY)
 4. Para cada classe → **grep em `${DS_PATH}/dist/styles.css` (NEW) ou `${DS_PATH}/styles.css` (LEGACY)** antes de escrever
 5. Escreve HTML seguindo hierarquia DOM correta
