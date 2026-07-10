@@ -541,32 +541,32 @@
         <div class="config-card">
           <div class="config-card__header">
             <span class="config-card__title">Tratamento de outliers</span>
-            <span class="config-card__desc">Escolha se quer descartar preços de concorrentes com variação muito alta em relação ao seu preço vigente. Quando ativado, <strong>preços classificados como outliers não entram no produto</strong>, não aparecem no Gerenciador e não influenciam nenhum cálculo. Use os limites abaixo para definir o que conta como variação muito alta.</span>
+            <span class="config-card__desc">Preços de concorrentes com variação muito alta em relação ao seu preço vigente são descartados pelo IPA. Um preço classificado como outlier não entra na precificação do produto, não aparece no Gerenciador e não influencia nenhum cálculo. Use os limites abaixo para definir o que conta como variação muito alta.</span>
           </div>
           <div class="config-card__body">
             <label class="switch switch--small outliers-toggle">
               <input type="checkbox" id="outliersToggle" hidden />
               <span class="switch__track"><span class="switch__thumb"></span></span>
-              <span class="switch__label">Aplicar limites de outliers</span>
+              <span class="switch__label">Usar filtro de outliers</span>
             </label>
 
             <div class="outliers-inputs">
               <div class="form-field">
                 <label class="form-field__label" for="limiteSuperior">Limite superior</label>
                 <div class="form-field__input-wrapper">
-                  <input type="number" id="limiteSuperior" class="form-field__input" value="100" min="0" step="1" />
+                  <input type="text" inputmode="decimal" id="limiteSuperior" class="form-field__input" value="100,0" data-min="0" data-step="1" />
                   <span class="form-field__suffix">%</span>
                 </div>
-                <span class="form-field__helper">Acima dessa variação, o preço do concorrente é descartado.</span>
+                <span class="form-field__helper">Acima dessa % em relação ao seu preço vigente, o preço do concorrente é descartado.</span>
               </div>
 
               <div class="form-field">
                 <label class="form-field__label" for="limiteInferior">Limite inferior</label>
                 <div class="form-field__input-wrapper">
-                  <input type="number" id="limiteInferior" class="form-field__input" value="100" min="0" step="1" />
+                  <input type="text" inputmode="decimal" id="limiteInferior" class="form-field__input" value="70,0" data-min="0" data-step="1" />
                   <span class="form-field__suffix">%</span>
                 </div>
-                <span class="form-field__helper">Abaixo dessa variação, o preço do concorrente é descartado.</span>
+                <span class="form-field__helper">Abaixo dessa % em relação ao seu preço vigente, o preço do concorrente é descartado.</span>
               </div>
             </div>
           </div>
@@ -576,7 +576,7 @@
         <div class="config-card config-aviso">
           <div class="config-aviso__inner">
             <span class="material-icons config-aviso__icon">warning</span>
-            <span class="config-aviso__body">As alterações serão aplicadas na próxima integração de dados.</span>
+            <span class="config-aviso__body">As modificações realizadas até as 22h serão aplicadas na próxima integração de dados. Após esse horário, elas refletem na integração do dia seguinte.</span>
           </div>
         </div>
 
@@ -664,6 +664,25 @@
       input.addEventListener('input', (e) => {
         let v = e.target.value.replace(/[^0-9]/g, '');
         e.target.value = v;
+      });
+    });
+
+    // Máscara dos limites de outliers: percentual com sempre 1 casa decimal (ex.: 90,0)
+    document.querySelectorAll('.outliers-inputs .form-field__input').forEach(input => {
+      // enquanto digita: só dígitos e uma vírgula, com no máximo 1 casa decimal
+      input.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/[^0-9,]/g, '');
+        const parts = v.split(',');
+        v = parts[0];
+        if (parts.length > 1) v += ',' + parts.slice(1).join('').slice(0, 1);
+        e.target.value = v;
+      });
+      // ao sair do campo: normaliza para sempre 1 casa decimal (90 -> 90,0)
+      input.addEventListener('blur', (e) => {
+        const raw = e.target.value.replace(',', '.');
+        if (raw === '') return;
+        const num = parseFloat(raw);
+        e.target.value = isNaN(num) ? '' : num.toFixed(1).replace('.', ',');
       });
     });
 
